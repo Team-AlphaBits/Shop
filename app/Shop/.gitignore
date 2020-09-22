@@ -57,3 +57,18 @@ buck-out/
 
 # CocoaPods
 /ios/Pods/
+
+#myignore files
+ios/
+android/
+package.json
+package-lock.json
+metro.config.js
+babel.config.js
+app.json
+.watchmanconfig
+.prettierrc.js
+.flowconfig
+.eslintrc.js
+.buckconfig
+__tests__/
