@@ -1,10 +1,15 @@
 import React from 'react';
 import './App.css';
+import Head from './components/Icons/headers';
+import Navbar from './components/Navbar/Navbar';
+// import './App.scss';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
     <div className="App">
-     <h1>Hello</h1>
+      <Head />
+     <Navbar />
     </div>
   );
 }
