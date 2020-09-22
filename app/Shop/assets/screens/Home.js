@@ -8,11 +8,14 @@ import {
   StatusBar,
 } from 'react-native';
 
+
 class Homescreen extends Component {
   render() {
     return (
       <SafeAreaView>
+        <View>
         <Text>Hello</Text>
+        </View>
       </SafeAreaView>
     );
   }
