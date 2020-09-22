@@ -1,6 +1,6 @@
 #ignore all kind of files
 /*
-#except php files
+#working folders and files
 !index.js
 !app.js
 !.gitignore
