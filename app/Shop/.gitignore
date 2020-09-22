@@ -1,0 +1,8 @@
+#ignore all kind of files
+/*
+#except php files
+!index.js
+!app.js
+!.gitignore
+!.gitattributes
+!assets/
