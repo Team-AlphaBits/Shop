@@ -1,3 +1,36 @@
 .Navbar{
     color: black;
+    display: flex;
+    flex-flow: row;
+    margin-left: 4%;
+    margin-top: 2.5%;
+    
+}
+.Navbar a{
+    color: black;
+    padding-right: 30px;
+}
+.Navbar a:hover,
+.Navbar a:active{
+    text-decoration: none;
+    color: orange;
+}
+.Navbar input{
+    width: 30%;
+    height: 40px;
+    margin-top: -.8%;
+    border: 2px solid rgb(255, 91, 91);
+    border-radius: 4px;
+}
+.Navbar input:focus{
+    border: 3px solid rgb(18, 240, 18);
+}
+.Navbar button{
+    background-color: rgb(238, 255, 0);
+    border-color: hotpink;
+    border-radius: 4px;
+    height: 40px;
+    width: 9%;
+    margin-top: -.8%;
+    margin-left: .3%;
 }

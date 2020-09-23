@@ -1,23 +1,20 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import classes from './Navbar.module.css';
 // import './App.scss';
-import { Button,Navbar,Nav,FormControl,Form } from 'react-bootstrap';
+// import { Button,Navbar,Nav,FormControl,Form } from 'react-bootstrap';
 
   
 const navbar = () =>{
-    return <Navbar bg="#FFFFFF" variant="white">
-          <Navbar.Brand href="#home" className={classes.Navbar}>Alphas</Navbar.Brand>
-          <Nav className="mr-auto">
-            <Nav.Link href="#home" className={classes.Navbar}>Home</Nav.Link>
-            <Nav.Link href="#features" className={classes.Navbar}>Features</Nav.Link>
-            <Nav.Link href="#pricing" className={classes.Navbar}>Pricing</Nav.Link>
-          </Nav>
-          <Form inline>
-            <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-            <Button variant="outline-info">Search</Button>
-          </Form>
-         </Navbar>
+    return <div className={classes.Navbar}>
+         <a href="/alpha" style={{fontWeight:"bold",fontSize:"25px",marginTop: "-.6%"}}>Alpha</a>
+         <a href="/home">Home</a>
+         <a href="/deals">Today's Deals</a>
+         <a href="#gifts">Gifts</a>
+         <a href="#ideas">New Ideas</a>
+         <input type="text" placeholder="Search"/>
+         <button>Search</button>
+    </div>
 }
 export default navbar;
  
