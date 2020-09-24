@@ -1,10 +1,15 @@
 import React from 'react';
 import Icon from './Icons';
+import { HiMail } from "react-icons/hi";
+import classes from './headers.module.css';
 
 const Head = () =>{
-    return <div style={{height: '70px',backgroundColor: '#F8F9FA'}}>
+    return <div className={classes.headers}>
        <Icon />
-       <p style={{marginLeft:"60%",marginTop:"-2.4%"}}>mail@mail.com</p>
+       <span  className={classes.mail}>
+       <HiMail size="1.7rem" color="#ff8800"/>
+       <p>shopwithus@alphabits.com</p>
+       </span>
     </div>
 }
 export default Head;

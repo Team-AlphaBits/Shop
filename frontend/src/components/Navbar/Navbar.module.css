@@ -9,6 +9,7 @@
 .Navbar a{
     color: black;
     padding-right: 30px;
+    font-family: "Muli", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 .Navbar a:hover,
 .Navbar a:active{
@@ -19,7 +20,7 @@
     width: 30%;
     height: 40px;
     margin-top: -.8%;
-    border: 2px solid rgb(255, 91, 91);
+    border: 2px solid rgb(255, 142, 142);
     border-radius: 4px;
 }
 .Navbar input:focus{
@@ -27,10 +28,21 @@
 }
 .Navbar button{
     background-color: rgb(238, 255, 0);
-    border-color: hotpink;
+    border-color: rgb(110, 131, 253);
     border-radius: 4px;
     height: 40px;
     width: 9%;
     margin-top: -.8%;
     margin-left: .3%;
+}
+@media(max-width: 700px){
+    .Navbar a{
+        display: none;
+    }
+    .Navbar input{
+        width: 50%;
+    }
+    .Navbar button{
+        width: 20%;
+    }
 }

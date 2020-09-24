@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaInstagramSquare,FaFacebookSquare,FaTwitterSquare,FaLinkedin } from 'react-icons/fa';
+import { FaInstagramSquare,FaFacebookSquare,FaTwitterSquare,FaLinkedin} from 'react-icons/fa';
 import classes from './Icons.module.css';
 
 const Icon =() =>{
