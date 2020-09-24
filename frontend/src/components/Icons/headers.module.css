@@ -1,0 +1,22 @@
+.headers{
+height: 70px;
+background-color: #F8F9FA;
+}
+.mail{
+    display: flex;
+    flex-flow: row;
+    margin-top: -26px;
+    margin-left: 70%;
+   font-family: "Muli", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; 
+}
+.mail p{
+    margin-left:3px;
+}
+@media(max-width: 700px){
+    .mail p{
+        display: none;
+    }
+    .mail{
+        margin-left: 80%;
+    }
+}

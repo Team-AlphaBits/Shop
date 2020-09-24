@@ -1,0 +1,14 @@
+.ul{
+list-style: none;
+}
+.ul li div{
+  margin-top: 5px;
+  width: 35px;
+  height: 4px;
+  background-color: rgb(44, 128, 255);
+}
+@media (min-width: 700px){
+    .ul{
+        display: none;
+    }
+}
