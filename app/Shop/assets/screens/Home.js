@@ -6,8 +6,9 @@ import {
   View,
   Text,
   StatusBar,
-  Button,
 } from 'react-native';
+
+import {Button} from 'react-native-paper';
 
 class Homescreen extends Component {
   render() {
@@ -16,12 +17,9 @@ class Homescreen extends Component {
         <View>
           <Text>Hello</Text>
           <View style={{width: 100, height: 50}}>
-            <Button
-              title="press me"
-              onPress={() => {
-                console.log('pressed');
-              }}
-            />
+            <Button mode="contained" onPress={() => console.log('Pressed')}>
+              Press me
+            </Button>
           </View>
         </View>
       </SafeAreaView>

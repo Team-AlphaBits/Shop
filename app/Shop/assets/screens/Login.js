@@ -6,8 +6,9 @@ import {
   Image,
   TextInput,
   SafeAreaView,
-  Button,
 } from 'react-native';
+
+import {Button} from 'react-native-paper';
 
 import color from '../colors/colors';
 
@@ -34,10 +35,11 @@ export default class Login extends Component {
             secureTextEntry={true}
             placeholder="Password"></TextInput>
           <Button
-            title="Login"
             color={color.lightgreen}
-            onPress={() => console.log('Pressed')}
-          />
+            mode="contained"
+            onPress={() => console.log('Pressed')}>
+            Login
+          </Button>
         </View>
       </SafeAreaView>
     );
@@ -66,6 +68,6 @@ const styles = StyleSheet.create({
   logo: {
     width: '100%',
     height: '30%',
-    marginVertical:'2%',
+    marginVertical: '2%',
   },
 });
