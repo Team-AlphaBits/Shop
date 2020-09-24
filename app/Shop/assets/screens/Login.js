@@ -26,20 +26,31 @@ export default class Login extends Component {
             />
           </View>
           <TextInput
-            placeholderTextColor="#E0FBFC"
+            placeholderTextColor={color.white}
             style={styles.text}
             placeholder="Email"></TextInput>
           <TextInput
-            placeholderTextColor="#E0FBFC"
+            placeholderTextColor={color.white}
             style={styles.text}
             secureTextEntry={true}
             placeholder="Password"></TextInput>
           <Button
-            color={color.lightgreen}
+            color={color.lightblue}
             mode="contained"
             onPress={() => console.log('Pressed')}>
             Login
           </Button>
+          <Text
+            style={{
+              color: color.darkyellow,
+              marginTop: '4%',
+              marginStart: '25%',
+            }}
+            onPress={() => {
+              console.log('Goes to register');
+            }}>
+            Not Registered? Register
+          </Text>
         </View>
       </SafeAreaView>
     );
@@ -49,11 +60,11 @@ const styles = StyleSheet.create({
   container: {
     paddingVertical: '5%',
     paddingHorizontal: 30,
-    backgroundColor: color.darkgreen,
+    backgroundColor: color.darkblue,
     flex: 1,
   },
   text: {
-    borderColor: color.lightgreen,
+    borderColor: color.lightblue,
     borderWidth: 2,
     marginBottom: '3%',
     fontSize: 18,
