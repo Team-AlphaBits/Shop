@@ -1,3 +1,48 @@
 .Navbar{
     color: black;
+    display: flex;
+    flex-flow: row;
+    margin-left: 4%;
+    margin-top: 2.5%;
+    
+}
+.Navbar a{
+    color: black;
+    padding-right: 30px;
+    font-family: "Muli", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+.Navbar a:hover,
+.Navbar a:active{
+    text-decoration: none;
+    color: orange;
+}
+.Navbar input{
+    width: 30%;
+    height: 40px;
+    margin-top: -.8%;
+    border: 2px solid rgb(255, 142, 142);
+    border-radius: 4px;
+}
+.Navbar input:focus{
+    border: 3px solid rgb(18, 240, 18);
+}
+.Navbar button{
+    background-color: rgb(238, 255, 0);
+    border-color: rgb(110, 131, 253);
+    border-radius: 4px;
+    height: 40px;
+    width: 9%;
+    margin-top: -.8%;
+    margin-left: .3%;
+}
+@media(max-width: 700px){
+    .Navbar a{
+        display: none;
+    }
+    .Navbar input{
+        width: 50%;
+    }
+    .Navbar button{
+        width: 20%;
+    }
 }
