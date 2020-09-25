@@ -63,6 +63,15 @@ export default class DrawerContent extends Component {
                   this.props.navigation.navigate('Products');
                 }}
               />
+              <DrawerItem
+                icon={() => (
+                  <Icon name="shopping-cart" color={color.darkblue} size={50} />
+                )}
+                label="Details"
+                onPress={() => {
+                  this.props.navigation.navigate('Details');
+                }}
+              />
             </Drawer.Section>
           </View>
         </DrawerContentScrollView>
