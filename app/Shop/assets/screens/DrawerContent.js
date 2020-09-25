@@ -19,11 +19,11 @@ export default class DrawerContent extends Component {
       <Icon name="account-circle" size={100} color={color.darkblue} />
     );
     var gotologin = (
-      <Title
-        onPress={() => this.props.navigation.navigate('Login')}
-        style={{fontWeight: 'bold', color: color.darkblue}}>
-        Login/Signup
-      </Title>
+      <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')}>
+        <Title style={{fontWeight: 'bold', color: color.darkblue}}>
+          Login/Signup
+        </Title>
+      </TouchableOpacity>
     );
     var showlogout = <View></View>;
     if (this.state.signIn) {
