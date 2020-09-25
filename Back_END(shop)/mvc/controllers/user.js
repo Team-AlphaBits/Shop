@@ -42,7 +42,7 @@ const registerUser = function ({ body }, res) {
     }
   });
 };
-
+                                                    //working on jwt
 const loginUser = function (req, res) {
   //authentication req
   if (!req.body.email || !req.body.password) {
