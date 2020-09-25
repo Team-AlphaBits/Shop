@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
   },
   logo: {
     width: '100%',
-    height: '30%',
+    height: '20%',
     marginVertical: '2%',
   },
 });
