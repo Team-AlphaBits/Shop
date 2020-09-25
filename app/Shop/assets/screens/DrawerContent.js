@@ -1,6 +1,6 @@
 import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
 import React, {Component} from 'react';
-import {View, SafeAreaView, StyleSheet} from 'react-native';
+import {View, SafeAreaView, StyleSheet, TouchableOpacity} from 'react-native';
 
 import {Avatar, Text, Title, Drawer} from 'react-native-paper';
 import color from '../colors/colors';
@@ -32,7 +32,19 @@ export default class DrawerContent extends Component {
           }}
         />
       );
-      gotologin = <Title>Username</Title>;
+      gotologin = (
+        <View>
+          <Title style={{color: color.darkblue}}>Username</Title>
+          <TouchableOpacity
+            style={{flexDirection: 'row'}}
+            onPress={() => {
+              console.log('Going to profile');
+            }}>
+            <Text style={{color: color.darkblue}}>Open Profile</Text>
+            <Icon name="open-in-new" size={20} color={color.darkblue} />
+          </TouchableOpacity>
+        </View>
+      );
     }
 
     return (
