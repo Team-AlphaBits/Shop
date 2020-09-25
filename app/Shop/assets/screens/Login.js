@@ -28,32 +28,35 @@ export default class Login extends Component {
                 style={{flex: 1, width: null, height: null}}
               />
             </View>
-            <TextInput
-              placeholderTextColor={color.white}
-              style={styles.text}
-              placeholder="Email"></TextInput>
-            <TextInput
-              placeholderTextColor={color.white}
-              style={styles.text}
-              secureTextEntry={true}
-              placeholder="Password"></TextInput>
-            <Button
-              color={color.lightblue}
-              mode="contained"
-              onPress={() => console.log('Pressed')}>
-              Login
-            </Button>
-            <Text
-              style={{
-                color: color.darkyellow,
-                marginTop: '4%',
-                marginStart: '30%',
-              }}
-              onPress={() => {
-                console.log('Goes to register');
-              }}>
-              Not Registered? Register
-            </Text>
+            <View style={styles.log}>
+              <TextInput
+                placeholderTextColor={color.white}
+                style={styles.text}
+                placeholder="Email"></TextInput>
+              <TextInput
+                placeholderTextColor={color.white}
+                style={styles.text}
+                secureTextEntry={true}
+                placeholder="Password"></TextInput>
+              <Button
+                color={color.lightblue}
+                mode="contained"
+                onPress={() => console.log('Pressed')}>
+                Login
+              </Button>
+              <Text
+                style={{
+                  color: color.darkyellow,
+                  marginTop: '4%',
+                  textAlign: 'center',
+                  fontSize: 20,
+                }}
+                onPress={() => {
+                  console.log('Goes to register');
+                }}>
+                Not Registered? Register
+              </Text>
+            </View>
           </ScrollView>
         </View>
       </SafeAreaView>
@@ -83,6 +86,8 @@ const styles = StyleSheet.create({
   logo: {
     width: '100%',
     height: '20%',
-    marginVertical: '5%',
+  },
+  log: {
+    marginTop: '10%',
   },
 });
