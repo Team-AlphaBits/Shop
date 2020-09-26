@@ -5,6 +5,7 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import products from './assets/screens/products.js';
 import Login from './assets/screens/Login.js';
 import Homescreen from './assets/screens/Home.js';
+import Itemlist from './assets/screens/Itemlist.js';
 import Details from './assets/screens/Details.js';
 import Drawercontent from './assets/screens/DrawerContent';
 
@@ -19,6 +20,7 @@ function App() {
         <Drawer.Screen name="Home" component={Homescreen} />
         <Drawer.Screen name="Login" component={Login} />
         <Drawer.Screen name="Products" component={products} />
+        <Drawer.Screen name="Itemlist" component={Itemlist} />
         <Drawer.Screen name="Details" component={Details} />
       </Drawer.Navigator>
     </NavigationContainer>

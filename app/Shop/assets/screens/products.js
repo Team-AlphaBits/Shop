@@ -11,6 +11,13 @@ export default class products extends Component {
             this.props.navigation.navigate('Details');
           }}
         />
+
+        <Button
+          title="Go to Itemlist"
+          onPress={() => {
+            this.props.navigation.navigate('Itemlist');
+          }}
+        />
       </View>
     );
   }
