@@ -102,6 +102,18 @@ export default class DrawerContent extends Component {
                   console.log('Going to my cart');
                 }}
               />
+              <DrawerItem
+                label="Details"
+                onPress={() => {
+                  this.props.navigation.navigate('Details');
+                }}
+              />
+              <DrawerItem
+                label="Itemlist"
+                onPress={() => {
+                  this.props.navigation.navigate('Itemlist');
+                }}
+              />
             </Drawer.Section>
           </View>
         </DrawerContentScrollView>
