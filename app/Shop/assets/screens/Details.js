@@ -43,7 +43,7 @@ export default class Details extends React.Component {
                 }}>
                 {imageUri.map((image, index) => (
                   <Image
-                  key={index}
+                    key={index}
                     source={image}
                     style={styles.img}
                     resizeMode="contain"
@@ -67,6 +67,29 @@ export default class Details extends React.Component {
             <View style={styles.btnView}>
               <Text style={styles.price}>₹ 24,999.00</Text>
               <Text style={styles.avl}>In stock</Text>
+              <View
+                style={{
+                  margin: '3%',
+                  borderColor: 'black',
+                  borderWidth: 1,
+                  padding: '3%',
+                  borderRadius: 8,
+                }}>
+                <Title>Description</Title>
+                <Paragraph>
+                  ⬤ Sensor: APS-C CMOS Sensor with 24.2 MP (high resolution for
+                  large prints and image cropping)
+                </Paragraph>
+                <Paragraph>
+                  ⬤ ISO: 100-12800 sensitivity range (critical for obtaining
+                  grain-free pictures, especially in low light)
+                </Paragraph>
+                <Paragraph>
+                  ⬤ Video Resolution: Full HD video with fully manual control
+                  and selectable frame rates (great for precision and
+                  high-quality video work)
+                </Paragraph>
+              </View>
             </View>
           </ScrollView>
           <View>
