@@ -14,32 +14,55 @@ import {
 
 import color from '../colors/colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {Appbar, Searchbar} from 'react-native-paper';
 
 class Homescreen extends Component {
+  constructor() {
+    super();
+    this.state = {
+      searchpress: false,
+    };
+  }
   render() {
+    var search = (
+      <>
+        <Appbar.Content
+          titleStyle={{marginStart: '25%', fontWeight: 'bold', fontSize: 30}}
+          title="SHOP"
+        />
+        <Appbar.Action
+          icon="search"
+          size={40}
+          onPress={() => {
+            this.setState({searchpress: true});
+          }}
+        />
+      </>
+    );
+    if (this.state.searchpress) {
+      search = (
+        <Searchbar
+          placeholder="Search"
+          style={{height: 40, width: '100%'}}
+          onChangeText={(e) => {
+            console.log(e);
+          }}
+        />
+      );
+    }
     return (
       <SafeAreaView style={style.container}>
+        <Appbar.Header>
+          <Appbar.Action
+            icon="menu"
+            size={40}
+            onPress={() => {
+              this.props.navigation.openDrawer();
+            }}
+          />
+          {search}
+        </Appbar.Header>
         <View>
-          <View style={style.headerBar}>
-            <Icon
-              name="menu"
-              size={40}
-              color={color.red}
-              onPress={() => {
-                this.props.navigation.openDrawer();
-              }}
-            />
-
-            <Text
-              style={{
-                color: color.red,
-                fontSize: 40,
-                fontWeight: 'bold',
-                marginStart: '30%',
-              }}>
-              SHOP
-            </Text>
-          </View>
           <Text>Hello</Text>
           <View style={{width: 100, height: 50}}>
             <Button mode="contained" onPress={() => console.log('Pressed')}>

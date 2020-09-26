@@ -4,12 +4,11 @@ import {
   View,
   StyleSheet,
   Image,
-  TextInput,
   SafeAreaView,
   ScrollView,
 } from 'react-native';
 
-import {Button} from 'react-native-paper';
+import {Button, TextInput} from 'react-native-paper';
 
 import color from '../colors/colors';
 
@@ -30,14 +29,16 @@ export default class Login extends Component {
             </View>
             <View style={styles.log}>
               <TextInput
-                placeholderTextColor={color.white}
-                style={styles.text}
-                placeholder="Email"></TextInput>
+                label="Email"
+                mode="outlined"
+                theme={{colors: {text: color.white, primary: color.white}}}
+                style={styles.text}></TextInput>
               <TextInput
-                placeholderTextColor={color.white}
+                mode="outlined"
+                label="Password"
                 style={styles.text}
-                secureTextEntry={true}
-                placeholder="Password"></TextInput>
+                theme={{colors: {text: color.white, primary: color.white}}}
+                secureTextEntry={true}></TextInput>
               <Button
                 color={color.lightblue}
                 mode="contained"
@@ -70,11 +71,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   text: {
-    borderColor: color.lightblue,
-    borderWidth: 2,
     marginBottom: '5%',
     fontSize: 18,
-    color: color.white,
+    backgroundColor: color.darkblue,
   },
   heading: {
     textAlign: 'center',
