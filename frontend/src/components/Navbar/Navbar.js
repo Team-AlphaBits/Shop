@@ -7,7 +7,7 @@ import Aux from '../../Hoc/Auxiliary/Auxiliary';
 // import { Button,Navbar,Nav,FormControl,Form } from 'react-bootstrap';
 
   
-const navbar = () =>{
+const navbar = (props) =>{
     return <div className={classes.Navbar}>
         <Aux>
         <a href="/alpha" style={{fontWeight:"bold",fontSize:"25px",marginTop: "-.6%"}}>Alpha</a>
@@ -18,7 +18,7 @@ const navbar = () =>{
         </Aux>
          <input type="text" placeholder="Search"/>
          <button>Search</button>
-         <DrawerIcon />
+         <DrawerIcon toggleDrawer = {props.Toggle}/>
     </div>
 }
 export default navbar;

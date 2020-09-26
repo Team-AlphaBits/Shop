@@ -8,7 +8,7 @@ const Head = () =>{
        <Icon />
        <span  className={classes.mail}>
        <HiMail size="1.7rem" color="#ff8800"/>
-       <p>shopwithus@alphabits.com</p>
+       <p>shopwithus@Alphabits.com</p>
        </span>
     </div>
 }

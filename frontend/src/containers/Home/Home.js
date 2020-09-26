@@ -1,11 +1,12 @@
 import React,{Component} from 'react';
-import Aux from '../../Hoc/Auxiliary/Auxiliary';
+import Carousel from '../../components/carousel/carousel';
 
 class Home extends Component{
 
     render(){
-        return<Aux>
-        </Aux>
+        return <div>
+            <Carousel />
+        </div>
     }
 }
 export default Home;
