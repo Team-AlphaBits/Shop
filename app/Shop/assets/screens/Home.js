@@ -20,7 +20,7 @@ class Homescreen extends Component {
   constructor() {
     super();
     this.state = {
-      searchpress: false,
+      searchpress: true,
     };
   }
   render() {
