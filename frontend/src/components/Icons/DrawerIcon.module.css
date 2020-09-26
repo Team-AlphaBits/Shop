@@ -1,11 +1,16 @@
 .ul{
 list-style: none;
+margin-right: 10px;
+}
+.ul:hover{
+  cursor: pointer;
 }
 .ul li div{
   margin-top: 5px;
   width: 35px;
   height: 4px;
-  background-color: rgb(44, 128, 255);
+  border-radius: 20px;
+  background-color: rgb(5, 18, 37);
 }
 @media (min-width: 700px){
     .ul{
