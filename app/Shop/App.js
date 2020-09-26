@@ -2,7 +2,7 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 
-import products from './assets/screens/products.js';
+import products from './assets/screens/category';
 import Login from './assets/screens/Login.js';
 import Homescreen from './assets/screens/Home.js';
 import Itemlist from './assets/screens/Itemlist.js';

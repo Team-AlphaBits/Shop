@@ -43,6 +43,7 @@ export default class Details extends React.Component {
                 }}>
                 {imageUri.map((image, index) => (
                   <Image
+                  key={index}
                     source={image}
                     style={styles.img}
                     resizeMode="contain"
