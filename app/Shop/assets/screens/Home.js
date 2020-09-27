@@ -43,7 +43,7 @@ class Homescreen extends Component {
       search = (
         <Searchbar
           placeholder="Search"
-          style={{height: 40, width: '100%'}}
+          style={{height: 40, width: '80%'}}
           onChangeText={(e) => {
             console.log(e);
           }}
