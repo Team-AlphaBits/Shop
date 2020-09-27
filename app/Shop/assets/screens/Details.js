@@ -11,7 +11,7 @@ import {
   Dimensions,
 } from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
-import {Button, Title, Paragraph} from 'react-native-paper';
+import {Button, Title, Paragraph, Appbar} from 'react-native-paper';
 export default class Details extends React.Component {
   state = {
     active: 0,
@@ -27,6 +27,14 @@ export default class Details extends React.Component {
   render() {
     return (
       <SafeAreaView style={{flex: 1}}>
+        <Appbar.Header>
+          <Appbar.BackAction
+            onPress={() => {
+              this.props.navigation.navigate('Itemlist');
+            }}
+          />
+          <Appbar.Content title="ItemName" />
+        </Appbar.Header>
         <View style={styles.MainContainer}>
           <ScrollView showsVerticalScrollIndicator={false}>
             <Title style={styles.headText}>Brand : Nikon</Title>

@@ -11,6 +11,8 @@ import {
   Dimensions,
 } from 'react-native';
 
+import {Appbar} from 'react-native-paper';
+
 export default class Itemlist extends Component {
   constructor() {
     super();
@@ -46,9 +48,15 @@ export default class Itemlist extends Component {
   render() {
     return (
       <SafeAreaView style={{flex: 1, backgroundColor: 'lightblue'}}>
+        <Appbar.Header>
+          <Appbar.BackAction
+            onPress={() => {
+              this.props.navigation.navigate('Products');
+            }}
+          />
+          <Appbar.Content title="Header" />
+        </Appbar.Header>
         <View style={styles.MainContainer}>
-          <Text style={styles.header}>Header</Text>
-
           <FlatList
             key={this.state.cols}
             horizontal={false}
@@ -82,7 +90,7 @@ const styles = StyleSheet.create({
   MainContainer: {
     justifyContent: 'center',
     flex: 1,
-    paddingTop: 30,
+    paddingTop: 20,
   },
   imageThumbnail: {
     justifyContent: 'center',
@@ -102,11 +110,5 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 10,
-  },
-  header: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    backgroundColor: 'yellow',
-    padding: '2%',
   },
 });
