@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {Button, Title, Paragraph, Appbar} from 'react-native-paper';
+import color from '../colors/colors';
 export default class Details extends React.Component {
   state = {
     active: 0,
@@ -49,7 +50,7 @@ export default class Details extends React.Component {
                 onScroll={this.change}
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={{
-                  paddingVertical: '3%',
+                  paddingVertical: '1%',
                   width: imageUri.length * 100 + '%',
                   height: 300,
                   flexGrow: 1,
@@ -105,7 +106,7 @@ export default class Details extends React.Component {
               </View>
             </View>
           </ScrollView>
-          <View>
+          <View style={{flexDirection: 'row', width: '100%'}}>
             <Button
               mode="contained"
               onPress={() => console.log('Pressed')}
@@ -158,15 +159,18 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   btn1: {
-    marginHorizontal: '5%',
-    marginVertical: '2%',
+    marginHorizontal: '1%',
+    marginVertical: '1%',
+    backgroundColor: 'green',
     borderRadius: 8,
+    width: '48%',
   },
   btn2: {
-    marginHorizontal: '5%',
-    marginBottom: '2%',
-    backgroundColor: 'blue',
+    marginHorizontal: '1%',
+    marginVertical: '1%',
+    backgroundColor: color.lightblue,
     borderRadius: 8,
+    width: '48%',
   },
   price: {
     margin: '5%',
@@ -188,6 +192,6 @@ const styles = StyleSheet.create({
   DescText: {
     marginHorizontal: '5%',
     fontSize: 15,
-    marginBottom: '10%',
+    marginBottom: '2%',
   },
 });
