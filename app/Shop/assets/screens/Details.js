@@ -28,7 +28,12 @@ export default class Details extends React.Component {
     return (
       <SafeAreaView style={{flex: 1}}>
         <View style={styles.MainContainer}>
-          <ScrollView>
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <Title style={styles.headText}>Brnad : Nikon</Title>
+            <Text style={styles.DescText}>
+              Nikon D5600 Digital SLR 18-55 mm f/3.5-5.6 G VR and AF-P DX NIKKOR
+              70-300 mm f/4.5-6.3 G ED (Black){' '}
+            </Text>
             <View style={{marginHorizontal: '3%'}}>
               <ScrollView
                 pagingEnabled
@@ -167,5 +172,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginStart: '5%',
     marginBottom: '5%',
+  },
+  headText: {
+    marginHorizontal: '5%',
+    color: 'blue',
+  },
+  DescText: {
+    marginHorizontal: '5%',
+    fontSize: 15,
+    marginBottom: '10%',
   },
 });

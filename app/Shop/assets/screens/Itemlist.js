@@ -5,9 +5,7 @@ import {
   StyleSheet,
   View,
   FlatList,
-  ActivityIndicator,
   Image,
-  TouchableOpacity,
   Text,
   SafeAreaView,
   Dimensions,
@@ -19,17 +17,28 @@ export default class Itemlist extends Component {
     super();
     this.state = {
       dataSource: {},
+      cols: 2,
     };
   }
+
   componentDidMount() {
     var that = this;
-    let items = Array.apply(null, Array(10)).map((i) => {
+    let items = Array.apply(null, Array(12)).map((i) => {
       return {id: i, name: 'DSLR Camera', price: '₹ 24,999.00'};
     });
     that.setState({
       dataSource: items,
     });
+    // Event Listener for orientation changes
+    Dimensions.addEventListener('change', ({window: {width, height}}) => {
+      if (width < height) {
+        this.setState({cols: 2});
+      } else {
+        this.setState({cols: 3});
+      }
+    });
   }
+
   render() {
     return (
       <SafeAreaView style={{flex: 1, backgroundColor: 'lightblue'}}>
@@ -56,12 +65,24 @@ export default class Itemlist extends Component {
               </View>
             )}
             //Setting the number of column
-            numColumns={2}
+
+            numColumns={this.state.cols}
             keyExtractor={(item, index) => index.toString()}
           />
         </View>
       </SafeAreaView>
     );
+    if (this.state.orientation === 'portrait') {
+      return (
+        //Render View to be displayed in portrait mode
+        this.setState({cols: 3})
+      );
+    } else {
+      return (
+        //Render View to be displayed in landscape mode
+        this.setState({cols: 3})
+      );
+    }
   }
 }
 const width = Dimensions.get('screen');
