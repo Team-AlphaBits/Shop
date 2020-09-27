@@ -28,7 +28,9 @@ const registerUser = function ({ body }, res) {
 
   user.save((err, newUser) => {
     if (err) {
-      if (err.errmsg && err.errmsg.include("duplicate key error")) {
+      console.log(err.errmsg);
+      if (err.errmsg && err.errmsg.includes("duplicate key error")) {
+      //  console.log("__________________ERROR___________________");
         return res.json({ message: "Email already exists.!" });
       }
 
@@ -44,7 +46,7 @@ const registerUser = function ({ body }, res) {
 };
                                                     //working on jwt
 const loginUser = function (req, res) {
-  //authentication req
+                                                   //authentication req
   if (!req.body.email || !req.body.password) {
     return res.status(400).json({ message: "All fields are required." });
   }
@@ -57,12 +59,18 @@ const loginUser = function (req, res) {
       const token = user.getJwt();
       res.status(201).json(token);
     } else {
-      res.status(401).json(info);
+      res.status(401).json(info);               //error mssg send back
     }
   })(req, res);
 };
 
+
+const generateFeed = function(req, res) {                   //need to be done later..
+                                                  // INCOMPLETE
+    res.status(200).json({message: "Genrating posts for user feeds.."});
+}
 module.exports = {
   registerUser,
   loginUser,
+  generateFeed
 };
