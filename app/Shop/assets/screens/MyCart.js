@@ -8,7 +8,7 @@ export default class MyCart extends Component {
       <SafeAreaView>
         <View style={styles.uperContainer}>
           <Text>Subtotal ( 1 item): ₹ 24,999.00</Text>
-          <Text style={{color: 'green', fontweight: 'bold'}}>
+          <Text style={{color: 'green', fontWeight: 'bold'}}>
             ✓ Your order is eligible for FREE Delivery.
           </Text>
           <Text> Select this option at checkout. Details</Text>
