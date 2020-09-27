@@ -57,7 +57,7 @@ export default class Itemlist extends Component {
               <View
                 style={{
                   flex: 1,
-                  margin: 10,
+                  margin: '2%',
                 }}>
                 <Image
                   style={styles.imageThumbnail}
