@@ -99,7 +99,7 @@ export default class DrawerContent extends Component {
                 )}
                 label="MyCart"
                 onPress={() => {
-                  console.log('Going to my cart');
+                  this.props.navigation.navigate('MyCart');
                 }}
               />
               <DrawerItem

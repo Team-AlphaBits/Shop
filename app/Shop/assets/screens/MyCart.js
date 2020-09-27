@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {SafeAreaView, View,StyleSheet} from 'react-native';
+import {SafeAreaView, View,StyleSheet,Text} from 'react-native';
 import {Button} from 'react-native-paper';
 
 export default class MyCart extends Component {
