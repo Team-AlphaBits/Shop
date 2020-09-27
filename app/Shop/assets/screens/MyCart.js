@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import {SafeAreaView, View} from 'react-native';
+import {SafeAreaView, View,StyleSheet} from 'react-native';
 import {Button} from 'react-native-paper';
 
-export default class MyCart extends Component() {
+export default class MyCart extends Component {
   render() {
     return (
       <SafeAreaView>
@@ -14,7 +14,7 @@ export default class MyCart extends Component() {
           <Text> Select this option at checkout. Details</Text>
 
           <Button
-            style={styles.btn}
+            mode="contained"
             onPress={() => console.log('Proceed to buy')}>
             Proceed to Buy
           </Button>
@@ -25,7 +25,7 @@ export default class MyCart extends Component() {
 }
 const styles = StyleSheet.create({
   uperContainer: {
-    margintop: '5%',
+    marginTop: '5%',
   },
   btn: {
     color: 'yellow',

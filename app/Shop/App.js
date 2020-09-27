@@ -7,7 +7,7 @@ import Login from './assets/screens/Login.js';
 import Homescreen from './assets/screens/Home.js';
 import Itemlist from './assets/screens/Itemlist.js';
 import Details from './assets/screens/Details.js';
-import MyCart from './assets/screens/MyCart.js';
+import MyCart from './assets/screens/MyCart';
 import Drawercontent from './assets/screens/DrawerContent';
 
 const Drawer = createDrawerNavigator();
@@ -23,7 +23,7 @@ function App() {
         <Drawer.Screen name="Products" component={products} />
         <Drawer.Screen name="Itemlist" component={Itemlist} />
         <Drawer.Screen name="Details" component={Details} />
-        <Drawer.Screen name="MyCart}/>" component={MyCart} />
+        <Drawer.Screen name="MyCart" component={MyCart} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
