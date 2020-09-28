@@ -80,8 +80,8 @@ export default class products extends Component {
               <Pressable>
                 <Surface style={style.card}>
                   <Image source={item.path} style={style.image} />
-                  <View>
-                    <Text>{item.name}</Text>
+                  <View style={{alignItems: 'center'}}>
+                    <Text style={{fontWeight: 'bold'}}>{item.name}</Text>
                   </View>
                 </Surface>
               </Pressable>
