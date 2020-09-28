@@ -1,5 +1,13 @@
 import React, {Component} from 'react';
-import {Text, View, Button, SafeAreaView, StyleSheet} from 'react-native';
+import {
+  Text,
+  View,
+  Button,
+  SafeAreaView,
+  StyleSheet,
+  ScrollView,
+  Pressable
+} from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {Title, Appbar} from 'react-native-paper';
@@ -20,6 +28,9 @@ export default class products extends Component {
           />
           <Appbar.Content titleStyle={{fontSize: 25}} title="Products" />
         </Appbar.Header>
+        <View>
+          <ScrollView></ScrollView>
+        </View>
       </SafeAreaView>
     );
   }

@@ -2,13 +2,8 @@ import React, {Component} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
-  ScrollView,
   View,
   Text,
-  StatusBar,
-  TouchableHighlight,
-  TouchableOpacity,
-  TouchableNativeFeedback,
 } from 'react-native';
 
 import color from '../colors/colors';

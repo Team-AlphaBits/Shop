@@ -1,6 +1,6 @@
 import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
 import React, {Component} from 'react';
-import {View, SafeAreaView, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, SafeAreaView, StyleSheet, Pressable} from 'react-native';
 
 import {Avatar, Text, Title, Drawer} from 'react-native-paper';
 import color from '../colors/colors';
@@ -19,11 +19,11 @@ export default class DrawerContent extends Component {
       <Icon name="account-circle" size={100} color={color.darkblue} />
     );
     var gotologin = (
-      <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')}>
+      <Pressable onPress={() => this.props.navigation.navigate('Login')}>
         <Title style={{fontWeight: 'bold', color: color.darkblue}}>
           Login/Signup
         </Title>
-      </TouchableOpacity>
+      </Pressable>
     );
     var showlogout = <View></View>;
     if (this.state.signIn) {
@@ -38,19 +38,19 @@ export default class DrawerContent extends Component {
       gotologin = (
         <View>
           <Title style={{color: color.darkblue}}>Username</Title>
-          <TouchableOpacity
+          <Pressable
             style={{flexDirection: 'row'}}
             onPress={() => {
               console.log('Going to profile');
             }}>
             <Text style={{color: color.darkblue}}>Open Profile</Text>
             <Icon name="open-in-new" size={20} color={color.darkblue} />
-          </TouchableOpacity>
+          </Pressable>
         </View>
       );
 
       showlogout = (
-        <TouchableOpacity
+        <Pressable
           style={{
             flexDirection: 'row',
             paddingStart: '7%',
@@ -61,7 +61,7 @@ export default class DrawerContent extends Component {
           }}>
           <Icon name="logout" size={30} color={color.darkblue} />
           <Title style={{color: color.darkblue, fontSize: 25}}>Logout</Title>
-        </TouchableOpacity>
+        </Pressable>
       );
     }
 

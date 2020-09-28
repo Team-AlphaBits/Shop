@@ -1,7 +1,13 @@
 import React, {Component} from 'react';
-import {SafeAreaView, View, StyleSheet, Text, Image} from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
-import {Button, IconButton, Appbar, Title} from 'react-native-paper';
+import {
+  SafeAreaView,
+  View,
+  StyleSheet,
+  Text,
+  Image,
+  ScrollView,
+} from 'react-native';
+import {Button, Appbar, Title} from 'react-native-paper';
 
 import color from '../colors/colors';
 
