@@ -184,6 +184,7 @@ const styles = StyleSheet.create({
   },
   details: {
     marginHorizontal: '5%',
+    width: '68%',
   },
   price: {
     marginBottom: 10,
