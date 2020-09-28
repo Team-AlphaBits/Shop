@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Button} from 'react-native-paper';
 import {
   SafeAreaView,
   StyleSheet,
@@ -14,44 +13,51 @@ import {
 
 import color from '../colors/colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {Appbar, Searchbar} from 'react-native-paper';
+import {Appbar, Searchbar, Button} from 'react-native-paper';
 
-class Homescreen extends Component {
+export default class Homescreen extends Component {
   constructor() {
     super();
     this.state = {
-      searchpress: true,
+      searchpressed: false,
+      searchquery: '',
     };
   }
+
   render() {
     var search = (
-      <>
+      <View style={{flexDirection: 'row', width: '80%'}}>
         <Appbar.Content
-          titleStyle={{marginStart: '25%', fontWeight: 'bold', fontSize: 30}}
           title="SHOP"
+          titleStyle={{fontWeight: 'bold', fontSize: 30, marginStart: '35%'}}
         />
-        <Appbar.Action
-          icon="search"
+        <Icon
+          name="search"
+          color={color.white}
           size={40}
           onPress={() => {
-            this.setState({searchpress: true});
+            this.setState({searchpressed: true});
           }}
         />
-      </>
+      </View>
     );
-    if (this.state.searchpress) {
+    if (this.state.searchpressed) {
       search = (
         <Searchbar
-          placeholder="Search"
-          style={{height: 40, width: '80%'}}
-          onChangeText={(e) => {
-            console.log(e);
+          onIconPress={() => {
+            this.setState({searchpressed: false});
           }}
+          placeholder="Search"
+          style={{width: '80%',height:40}}
+          onChangeText={(e) => {
+            this.setState({searchquery: e});
+          }}
+          value={this.state.searchquery}
         />
       );
     }
     return (
-      <SafeAreaView style={style.container}>
+      <SafeAreaView style={{flex: 1}}>
         <Appbar.Header>
           <Appbar.Action
             icon="menu"
@@ -64,27 +70,13 @@ class Homescreen extends Component {
         </Appbar.Header>
         <View>
           <Text>Hello</Text>
-          <View style={{width: 100, height: 50}}>
-            <Button mode="contained" onPress={() => console.log('Pressed')}>
-              Press me
-            </Button>
-          </View>
         </View>
       </SafeAreaView>
     );
   }
 }
-export default Homescreen;
-
 const style = StyleSheet.create({
-  headerBar: {
-    height: 60,
-    width: '100%',
-    alignItems: 'flex-start',
-    flexDirection: 'row',
-  },
   container: {
-    backgroundColor: color.white,
     flex: 1,
   },
 });

@@ -18,10 +18,7 @@ export default class products extends Component {
               this.props.navigation.openDrawer();
             }}
           />
-          <Appbar.Content
-            titleStyle={{marginStart: '25%', fontSize: 30}}
-            title="Products"
-          />
+          <Appbar.Content titleStyle={{fontSize: 25}} title="Products" />
         </Appbar.Header>
       </SafeAreaView>
     );

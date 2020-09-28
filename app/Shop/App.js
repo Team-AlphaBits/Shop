@@ -11,7 +11,6 @@ import MyCart from './assets/screens/MyCart';
 import Drawercontent from './assets/screens/DrawerContent';
 
 const Drawer = createDrawerNavigator();
-
 function App() {
   return (
     <NavigationContainer>
