@@ -6,6 +6,7 @@ import {
   Text,
   Image,
   ScrollView,
+  FlatList,
 } from 'react-native';
 import {Button, Appbar, Title} from 'react-native-paper';
 
@@ -16,7 +17,16 @@ export default class MyCart extends Component {
     super();
     this.state = {
       count: 1,
+      data: [],
     };
+  }
+  componentDidMount() {
+    let items = Array.apply(null, Array(2)).map((i) => {
+      return {id: i, src: require('../images/img_1.jpg'), price: '₹ 24,999.00'};
+    });
+    this.setState({
+      data: items,
+    });
   }
   increament = (count) => {
     this.setState({count: this.state.count + 1});
@@ -37,130 +47,81 @@ export default class MyCart extends Component {
           />
           <Appbar.Content title="MyCart" />
         </Appbar.Header>
-        <ScrollView>
-          <View style={styles.uperContainer}>
-            <Text style={styles.subtotal}>Subtotal ( 1 item): ₹ 24,999.00</Text>
-            <Text style={styles.shipping}>
-              ✓ Your order is eligible for FREE Delivery.
-            </Text>
-            <Text style={styles.checkout}>
-              {' '}
-              Select this option at checkout. Details
-            </Text>
+        <View style={styles.uperContainer}>
+          <Text style={styles.subtotal}>Subtotal ( 1 item): ₹ 24,999.00</Text>
+          <Text style={styles.shipping}>
+            ✓ Your order is eligible for FREE Delivery.
+          </Text>
+          <Text style={styles.checkout}>
+            {' '}
+            Select this option at checkout. Details
+          </Text>
 
-            <Button
-              mode="contained"
-              onPress={() => console.log('Proceed to buy')}
-              style={styles.buyButton}>
-              Proceed to Buy
-            </Button>
-          </View>
-          <View
-            style={{
-              borderBottomColor: 'black',
-              borderBottomWidth: 1,
-            }}>
-            <View style={styles.itemDesc}>
-              <Image
-                style={styles.item}
-                source={require('../images/img_1.jpg')}
-              />
-              <View style={styles.details}>
-                <Text
-                  style={{
-                    marginBottom: 10,
-                    fontSize: 18,
-                    fontWeight: 'bold',
-                  }}>
-                  Nikon D5600 Digital SLR 18-55 mm f/3.5-5.6 G VR and AF-P DX
-                  NIKKOR 70-300 mm f/4.5-6.3 G ED (Black){' '}
-                </Text>
-                <Text style={styles.price}>₹ 24,999.00</Text>
-                <Text style={styles.avl}>In stock</Text>
-                <Text style={styles.eligibility}>
-                  Eligible for FREE Shipping.
-                </Text>
+          <Button
+            mode="contained"
+            onPress={() => console.log('Proceed to buy')}
+            style={styles.buyButton}>
+            Proceed to Buy
+          </Button>
+        </View>
+        <FlatList
+          data={this.state.data}
+          renderItem={({item, index}) => (
+            <View
+              style={{
+                borderBottomColor: 'black',
+                borderBottomWidth: 1,
+              }}>
+              <View style={styles.itemDesc}>
+                <Image style={styles.item} source={item.src} />
+                <View style={styles.details}>
+                  <Text
+                    style={{
+                      marginBottom: 10,
+                      fontSize: 18,
+                      fontWeight: 'bold',
+                    }}>
+                    Nikon D5600 Digital SLR 18-55 mm f/3.5-5.6 G VR and AF-P DX
+                    NIKKOR 70-300 mm f/4.5-6.3 G ED (Black){' '}
+                  </Text>
+                  <Text style={styles.price}>{item.price}</Text>
+                  <Text style={styles.avl}>In stock</Text>
+                  <Text style={styles.eligibility}>
+                    Eligible for FREE Shipping.
+                  </Text>
+                </View>
+              </View>
+              <View style={styles.btns}>
+                <Button
+                  icon={'minus'}
+                  color="blue"
+                  style={styles.quantitybtn}
+                  onPress={this.decreament}></Button>
+                <Title style={{color: color.darkblue}}>
+                  {this.state.count}
+                </Title>
+                <Button
+                  icon={'plus'}
+                  color="blue"
+                  style={styles.quantitybtn}
+                  onPress={this.increament}></Button>
+                <Button
+                  icon="delete"
+                  style={styles.delete}
+                  onPress={() =>
+                    console.log('Remove this item from Cart')
+                  }></Button>
+
+                <Button
+                  style={styles.save}
+                  onPress={() => console.log('Save this item for later')}>
+                  Save
+                </Button>
               </View>
             </View>
-            <View style={styles.btns}>
-              <Button
-                icon={'minus'}
-                color="blue"
-                style={styles.quantitybtn}
-                onPress={this.decreament}></Button>
-              <Title style={{color: color.darkblue}}>{this.state.count}</Title>
-              <Button
-                icon={'plus'}
-                color="blue"
-                style={styles.quantitybtn}
-                onPress={this.increament}></Button>
-              <Button
-                icon="delete"
-                style={styles.delete}
-                onPress={() =>
-                  console.log('Remove this item from Cart')
-                }></Button>
-
-              <Button
-                style={styles.save}
-                onPress={() => console.log('Save this item for later')}>
-                Save
-              </Button>
-            </View>
-          </View>
-          <View
-            style={{
-              borderBottomColor: 'black',
-              borderBottomWidth: 1,
-            }}>
-            <View style={styles.itemDesc}>
-              <Image
-                style={styles.item}
-                source={require('../images/watch.jpg')}
-              />
-              <View style={styles.details}>
-                <Text
-                  style={{
-                    marginBottom: 10,
-                    fontSize: 18,
-                    fontWeight: 'bold',
-                  }}>
-                  CITIZEN Quartz Analog Blue Dial Men's Watch-BI5096-53L
-                </Text>
-                <Text style={styles.price}>₹ 999.00</Text>
-                <Text style={styles.avl}>In stock</Text>
-                <Text style={styles.eligibility}>
-                  Eligible for FREE Shipping.
-                </Text>
-              </View>
-            </View>
-            <View style={styles.btns}>
-              <Button
-                icon={'minus'}
-                color="blue"
-                style={styles.quantitybtn}
-                onPress={this.decreament}></Button>
-              <Title style={{color: color.darkblue}}>{this.state.count}</Title>
-              <Button
-                icon={'plus'}
-                color="blue"
-                style={styles.quantitybtn}
-                onPress={this.increament}></Button>
-              <Button
-                icon="delete"
-                style={styles.delete}
-                onPress={() =>
-                  console.log('Remove this item from Cart')
-                }></Button>
-
-              <Button
-                style={styles.save}
-                onPress={() => console.log('Save this item for later')}>
-                Save
-              </Button>
-            </View>
-          </View>
-        </ScrollView>
+          )}
+          keyExtractor={(item, index) => index.toString()}
+        />
       </SafeAreaView>
     );
   }
