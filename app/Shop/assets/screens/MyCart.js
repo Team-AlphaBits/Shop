@@ -5,7 +5,6 @@ import {
   StyleSheet,
   Text,
   Image,
-  ScrollView,
   FlatList,
 } from 'react-native';
 import {Button, Appbar, Title} from 'react-native-paper';
@@ -35,6 +34,25 @@ export default class MyCart extends Component {
     this.setState({count: this.state.count - 1});
   };
   render() {
+    var header = (
+      <View style={styles.uperContainer}>
+        <Text style={styles.subtotal}>Subtotal ( 1 item): ₹ 24,999.00</Text>
+        <Text style={styles.shipping}>
+          ✓ Your order is eligible for FREE Delivery.
+        </Text>
+        <Text style={styles.checkout}>
+          {' '}
+          Select this option at checkout. Details
+        </Text>
+
+        <Button
+          mode="contained"
+          onPress={() => console.log('Proceed to buy')}
+          style={styles.buyButton}>
+          Proceed to Buy
+        </Button>
+      </View>
+    );
     return (
       <SafeAreaView style={{flex: 1}}>
         <Appbar.Header>
@@ -47,83 +65,66 @@ export default class MyCart extends Component {
           />
           <Appbar.Content title="MyCart" />
         </Appbar.Header>
-        <ScrollView>
-          <View style={styles.uperContainer}>
-            <Text style={styles.subtotal}>Subtotal ( 1 item): ₹ 24,999.00</Text>
-            <Text style={styles.shipping}>
-              ✓ Your order is eligible for FREE Delivery.
-            </Text>
-            <Text style={styles.checkout}>
-              {' '}
-              Select this option at checkout. Details
-            </Text>
 
-            <Button
-              mode="contained"
-              onPress={() => console.log('Proceed to buy')}
-              style={styles.buyButton}>
-              Proceed to Buy
-            </Button>
-          </View>
-          <FlatList
-            data={this.state.data}
-            renderItem={({item, index}) => (
-              <View
-                style={{
-                  borderBottomColor: 'black',
-                  borderBottomWidth: 1,
-                }}>
-                <View style={styles.itemDesc}>
-                  <Image style={styles.item} source={item.src} />
-                  <View style={styles.details}>
-                    <Text
-                      style={{
-                        marginBottom: 10,
-                        fontSize: 18,
-                        fontWeight: 'bold',
-                      }}>
-                      Nikon D5600 Digital SLR 18-55 mm f/3.5-5.6 G VR and AF-P
-                      DX NIKKOR 70-300 mm f/4.5-6.3 G ED (Black){' '}
-                    </Text>
-                    <Text style={styles.price}>{item.price}</Text>
-                    <Text style={styles.avl}>In stock</Text>
-                    <Text style={styles.eligibility}>
-                      Eligible for FREE Shipping.
-                    </Text>
-                  </View>
-                </View>
-                <View style={styles.btns}>
-                  <Button
-                    icon={'minus'}
-                    color="blue"
-                    style={styles.quantitybtn}
-                    onPress={this.decreament}></Button>
-                  <Title style={{color: color.darkblue}}>
-                    {this.state.count}
-                  </Title>
-                  <Button
-                    icon={'plus'}
-                    color="blue"
-                    style={styles.quantitybtn}
-                    onPress={this.increament}></Button>
-                  <Button
-                    icon="delete"
-                    style={styles.delete}
-                    onPress={() =>
-                      console.log('Remove this item from Cart')
-                    }></Button>
-
-                  <Button
-                    style={styles.save}
-                    onPress={() => console.log('Save this item for later')}>
-                    Save
-                  </Button>
+        <FlatList
+          ListHeaderComponent={header}
+          data={this.state.data}
+          renderItem={({item, index}) => (
+            <View
+              style={{
+                borderBottomColor: 'black',
+                borderBottomWidth: 1,
+              }}>
+              <View style={styles.itemDesc}>
+                <Image style={styles.item} source={item.src} />
+                <View style={styles.details}>
+                  <Text
+                    style={{
+                      marginBottom: 10,
+                      fontSize: 18,
+                      fontWeight: 'bold',
+                    }}>
+                    Nikon D5600 Digital SLR 18-55 mm f/3.5-5.6 G VR and AF-P DX
+                    NIKKOR 70-300 mm f/4.5-6.3 G ED (Black){' '}
+                  </Text>
+                  <Text style={styles.price}>{item.price}</Text>
+                  <Text style={styles.avl}>In stock</Text>
+                  <Text style={styles.eligibility}>
+                    Eligible for FREE Shipping.
+                  </Text>
                 </View>
               </View>
-            )}
-            keyExtractor={(item, index) => index.toString()}
-          />
-        </ScrollView>
+              <View style={styles.btns}>
+                <Button
+                  icon={'minus'}
+                  color="blue"
+                  style={styles.quantitybtn}
+                  onPress={this.decreament}></Button>
+                <Title style={{color: color.darkblue}}>
+                  {this.state.count}
+                </Title>
+                <Button
+                  icon={'plus'}
+                  color="blue"
+                  style={styles.quantitybtn}
+                  onPress={this.increament}></Button>
+                <Button
+                  icon="delete"
+                  style={styles.delete}
+                  onPress={() =>
+                    console.log('Remove this item from Cart')
+                  }></Button>
+
+                <Button
+                  style={styles.save}
+                  onPress={() => console.log('Save this item for later')}>
+                  Save
+                </Button>
+              </View>
+            </View>
+          )}
+          keyExtractor={(item, index) => index.toString()}
+        />
       </SafeAreaView>
     );
   }
