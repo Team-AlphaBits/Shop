@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import {SafeAreaView, View, StyleSheet, Text, Image} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
-import {Button, IconButton} from 'react-native-paper';
+import {Button, IconButton, Appbar, Title} from 'react-native-paper';
+
+import color from '../colors/colors';
 
 export default class MyCart extends Component {
   constructor() {
@@ -18,7 +20,17 @@ export default class MyCart extends Component {
   };
   render() {
     return (
-      <SafeAreaView>
+      <SafeAreaView style={{flex: 1}}>
+        <Appbar.Header>
+          <Appbar.Action
+            icon="menu"
+            size={40}
+            onPress={() => {
+              this.props.navigation.openDrawer();
+            }}
+          />
+          <Appbar.Content title="MyCart" />
+        </Appbar.Header>
         <ScrollView>
           <View style={styles.uperContainer}>
             <Text style={styles.subtotal}>Subtotal ( 1 item): ₹ 24,999.00</Text>
@@ -70,7 +82,7 @@ export default class MyCart extends Component {
                 color="blue"
                 style={styles.quantitybtn}
                 onPress={this.decreament}></Button>
-              <Button>{this.state.count}</Button>
+              <Title style={{color: color.darkblue}}>{this.state.count}</Title>
               <Button
                 icon={'plus'}
                 color="blue"
@@ -122,7 +134,7 @@ export default class MyCart extends Component {
                 color="blue"
                 style={styles.quantitybtn}
                 onPress={this.decreament}></Button>
-              <Button>{this.state.count}</Button>
+              <Title style={{color: color.darkblue}}>{this.state.count}</Title>
               <Button
                 icon={'plus'}
                 color="blue"
@@ -202,15 +214,15 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   btns: {
-    flex: 1,
     flexDirection: 'row',
     marginVertical: '5%',
-    marginLeft: '5%',
-    marginBottom: '15%',
+    width: '100%',
+    justifyContent: 'center',
   },
   quantitybtn: {
     backgroundColor: 'lightblue',
     width: '10%',
+    marginHorizontal: '3%',
   },
   delete: {
     backgroundColor: 'lightblue',
@@ -220,6 +232,6 @@ const styles = StyleSheet.create({
   save: {
     backgroundColor: 'lightblue',
     width: '20%',
-    marginRight: '5%',
+    marginHorizontal: '5%',
   },
 });
