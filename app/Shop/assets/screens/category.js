@@ -77,7 +77,10 @@ export default class products extends Component {
             key={this.state.columnno}
             data={this.state.data}
             renderItem={({item, index}) => (
-              <Pressable>
+              <Pressable
+                onPress={() => {
+                  console.log(index);
+                }}>
                 <Surface style={style.card}>
                   <Image source={item.path} style={style.image} />
                   <View style={{alignItems: 'center'}}>
