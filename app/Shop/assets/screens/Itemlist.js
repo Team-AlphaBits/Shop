@@ -18,7 +18,10 @@ export default class Itemlist extends Component {
     super();
     this.state = {
       dataSource: [],
-      cols: 2,
+      cols:
+        Dimensions.get('window').height >= Dimensions.get('window').width
+          ? 2
+          : 3,
     };
   }
 
@@ -59,7 +62,6 @@ export default class Itemlist extends Component {
         <View style={styles.MainContainer}>
           <FlatList
             key={this.state.cols}
-            horizontal={false}
             data={this.state.dataSource}
             renderItem={({item, index}) => (
               <View
