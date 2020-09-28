@@ -13,6 +13,7 @@ import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
+import color from '../colors/colors';
 
 import {useTheme} from 'react-native-paper';
 
@@ -29,7 +30,10 @@ const Login = ({navigation}) => {
   const {colors} = useTheme();
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor="#009387" barStyle="light-content" />
+      <StatusBar
+        backgroundColor={color.MintyGreenDark}
+        barStyle="light-content"
+      />
       <View style={styles.header}>
         <Text style={styles.text_header}>Welcome!</Text>
       </View>
@@ -91,7 +95,7 @@ const Login = ({navigation}) => {
         </View>
         <TouchableOpacity>
           <Text
-            style={{color: '#009387', marginTop: 15}}
+            style={{color: color.MintyGreenDark, marginTop: 15}}
             onPress={() => console.log('forgot password')}>
             Forgot password?
           </Text>
@@ -122,7 +126,7 @@ const Login = ({navigation}) => {
             style={[
               styles.signIn,
               {
-                borderColor: '#009387',
+                borderColor: color.MintyGreenDark,
                 borderWidth: 1,
                 marginTop: 15,
               },
@@ -131,7 +135,7 @@ const Login = ({navigation}) => {
               style={[
                 styles.textSign,
                 {
-                  color: '#009387',
+                  color: color.MintyGreenDark,
                 },
               ]}>
               Sign Up
@@ -148,7 +152,7 @@ export default Login;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#009387',
+    backgroundColor: color.MintyGreenDark,
   },
   header: {
     flex: 1,

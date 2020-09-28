@@ -55,7 +55,7 @@ export default class MyCart extends Component {
     );
     return (
       <SafeAreaView style={{flex: 1}}>
-        <Appbar.Header>
+        <Appbar.Header style={{backgroundColor: color.MintyGreenMedium}}>
           <Appbar.Action
             icon="menu"
             size={40}

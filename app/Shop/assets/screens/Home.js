@@ -1,13 +1,8 @@
 import React, {Component} from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  View,
-  Text,
-} from 'react-native';
+import {SafeAreaView, StyleSheet, View, Text} from 'react-native';
 
 import color from '../colors/colors';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Appbar, Searchbar, Button} from 'react-native-paper';
 
 export default class Homescreen extends Component {
@@ -24,14 +19,22 @@ export default class Homescreen extends Component {
       <View style={{flexDirection: 'row', width: '80%'}}>
         <Appbar.Content
           title="SHOP"
-          titleStyle={{fontWeight: 'bold', fontSize: 30, marginStart: '35%'}}
+          titleStyle={{fontWeight: 'bold', fontSize: 35, marginStart: '35%'}}
         />
-        <Icon
-          name="search"
+        <Appbar.Action
+          icon="magnify"
+          size={30}
           color={color.white}
-          size={40}
           onPress={() => {
             this.setState({searchpressed: true});
+          }}
+        />
+        <Appbar.Action
+          icon="cart"
+          color={color.white}
+          size={30}
+          onPress={() => {
+            this.props.navigation.navigate('MyCart');
           }}
         />
       </View>
@@ -43,7 +46,7 @@ export default class Homescreen extends Component {
             this.setState({searchpressed: false});
           }}
           placeholder="Search"
-          style={{width: '80%',height:40}}
+          style={{width: '80%', height: 40}}
           onChangeText={(e) => {
             this.setState({searchquery: e});
           }}
@@ -53,7 +56,7 @@ export default class Homescreen extends Component {
     }
     return (
       <SafeAreaView style={{flex: 1}}>
-        <Appbar.Header>
+        <Appbar.Header style={{backgroundColor: color.MintyGreenMedium}}>
           <Appbar.Action
             icon="menu"
             size={40}

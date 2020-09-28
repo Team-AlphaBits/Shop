@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 
 import {Appbar} from 'react-native-paper';
+import color from '../colors/colors';
 
 export default class Itemlist extends Component {
   constructor() {
@@ -51,7 +52,7 @@ export default class Itemlist extends Component {
   render() {
     return (
       <SafeAreaView style={{flex: 1, backgroundColor: 'lightblue'}}>
-        <Appbar.Header>
+        <Appbar.Header style={{backgroundColor: color.MintyGreenMedium}}>
           <Appbar.BackAction
             onPress={() => {
               this.props.navigation.navigate('Products');

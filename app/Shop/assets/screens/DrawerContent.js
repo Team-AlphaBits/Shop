@@ -4,7 +4,7 @@ import {View, SafeAreaView, StyleSheet, Pressable} from 'react-native';
 
 import {Avatar, Text, Title, Drawer} from 'react-native-paper';
 import color from '../colors/colors';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default class DrawerContent extends Component {
   constructor() {
@@ -86,7 +86,7 @@ export default class DrawerContent extends Component {
               />
               <DrawerItem
                 icon={() => (
-                  <Icon name="grid-view" color={color.darkblue} size={30} />
+                  <Icon name="view-grid" color={color.darkblue} size={30} />
                 )}
                 label="Products"
                 onPress={() => {
@@ -95,7 +95,7 @@ export default class DrawerContent extends Component {
               />
               <DrawerItem
                 icon={() => (
-                  <Icon name="shopping-cart" color={color.darkblue} size={30} />
+                  <Icon name="cart" color={color.darkblue} size={30} />
                 )}
                 label="MyCart"
                 onPress={() => {

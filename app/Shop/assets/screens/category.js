@@ -10,7 +10,7 @@ import {
   Dimensions,
 } from 'react-native';
 
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Title, Appbar, Button, Text, Surface} from 'react-native-paper';
 
 import color from '../colors/colors';
@@ -55,7 +55,7 @@ export default class products extends Component {
   render() {
     return (
       <SafeAreaView style={{flex: 1}}>
-        <Appbar.Header>
+        <Appbar.Header style={{backgroundColor: color.MintyGreenMedium}}>
           <Appbar.Action
             icon="menu"
             size={40}
@@ -64,6 +64,13 @@ export default class products extends Component {
             }}
           />
           <Appbar.Content titleStyle={{fontSize: 25}} title="Products" />
+          <Appbar.Action
+            icon="cart"
+            size={30}
+            onPress={() => {
+              this.props.navigation.navigate('MyCart');
+            }}
+          />
         </Appbar.Header>
         <View style={{marginStart: 5, marginBottom: 60}}>
           <FlatList

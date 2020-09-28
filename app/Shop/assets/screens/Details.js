@@ -24,7 +24,7 @@ export default class Details extends React.Component {
   render() {
     return (
       <SafeAreaView style={{flex: 1}}>
-        <Appbar.Header>
+        <Appbar.Header style={{backgroundColor: color.MintyGreenMedium}}>
           <Appbar.BackAction
             onPress={() => {
               this.props.navigation.navigate('Itemlist');
