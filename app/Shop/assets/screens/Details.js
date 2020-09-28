@@ -2,15 +2,11 @@ import React from 'react';
 import {
   StyleSheet,
   View,
-  FlatList,
-  ActivityIndicator,
   Image,
-  TouchableOpacity,
   Text,
   SafeAreaView,
-  Dimensions,
+  ScrollView,
 } from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
 import {Button, Title, Paragraph, Appbar} from 'react-native-paper';
 import color from '../colors/colors';
 export default class Details extends React.Component {
