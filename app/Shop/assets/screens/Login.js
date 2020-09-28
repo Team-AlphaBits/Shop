@@ -1,92 +1,205 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {
-  Text,
   View,
+  Text,
+  TouchableOpacity,
+  TextInput,
+  Platform,
   StyleSheet,
-  Image,
-  SafeAreaView,
-  ScrollView,
+  StatusBar,
+  Alert,
 } from 'react-native';
+import * as Animatable from 'react-native-animatable';
+import LinearGradient from 'react-native-linear-gradient';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Feather from 'react-native-vector-icons/Feather';
 
-import {Button, TextInput} from 'react-native-paper';
+import {useTheme} from 'react-native-paper';
 
-import color from '../colors/colors';
+const Login = ({navigation}) => {
+  const [data, setData] = React.useState({
+    username: '',
+    password: '',
+    check_textInputChange: false,
+    secureTextEntry: true,
+    isValidUser: true,
+    isValidPassword: true,
+  });
 
-export default class Login extends Component {
-  render() {
-    return (
-      <SafeAreaView style={{flex: 1}}>
-        <View style={styles.container}>
-          <ScrollView
-            contentContainerStyle={{flexGrow: 1, paddingBottom: '15%'}}>
-            <Text style={styles.heading}>WELCOME TO</Text>
-            <View style={styles.logo}>
-              <Image
-                source={require('../images/Untitled.png')}
-                resizeMode={'contain'}
-                style={{flex: 1, width: null, height: null}}
-              />
-            </View>
-            <View style={styles.log}>
-              <TextInput
-                label="Email"
-                mode="outlined"
-                theme={{colors: {text: color.white, primary: color.white}}}
-                style={styles.text}></TextInput>
-              <TextInput
-                mode="outlined"
-                label="Password"
-                style={styles.text}
-                theme={{colors: {text: color.white, primary: color.white}}}
-                secureTextEntry={true}></TextInput>
-              <Button
-                color={color.lightblue}
-                mode="contained"
-                onPress={() => console.log('Pressed')}>
-                Login
-              </Button>
-              <Text
-                style={{
-                  color: color.darkyellow,
-                  marginTop: '4%',
-                  textAlign: 'center',
-                  fontSize: 20,
-                }}
-                onPress={() => {
-                  console.log('Goes to register');
-                }}>
-                Not Registered? Register
-              </Text>
-            </View>
-          </ScrollView>
+  const {colors} = useTheme();
+  return (
+    <View style={styles.container}>
+      <StatusBar backgroundColor="#009387" barStyle="light-content" />
+      <View style={styles.header}>
+        <Text style={styles.text_header}>Welcome!</Text>
+      </View>
+      <Animatable.View
+        animation="fadeInUpBig"
+        style={[
+          styles.footer,
+          {
+            backgroundColor: colors.background,
+          },
+        ]}>
+        <Text
+          style={[
+            styles.text_footer,
+            {
+              color: colors.text,
+            },
+          ]}>
+          Username
+        </Text>
+        <View style={styles.action}>
+          <FontAwesome name="user-o" color={colors.text} size={20} />
+          <TextInput
+            placeholder="Your Username"
+            placeholderTextColor="#666666"
+            style={[
+              styles.textInput,
+              {
+                color: colors.text,
+              },
+            ]}
+            autoCapitalize="none"
+          />
         </View>
-      </SafeAreaView>
-    );
-  }
-}
+        <Text
+          style={[
+            styles.text_footer,
+            {
+              color: colors.text,
+              marginTop: 35,
+            },
+          ]}>
+          Password
+        </Text>
+        <View style={styles.action}>
+          <Feather name="lock" color={colors.text} size={20} />
+          <TextInput
+            placeholder="Your Password"
+            placeholderTextColor="#666666"
+            secureTextEntry={data.secureTextEntry ? true : false}
+            style={[
+              styles.textInput,
+              {
+                color: colors.text,
+              },
+            ]}
+            autoCapitalize="none"
+          />
+        </View>
+        <TouchableOpacity>
+          <Text
+            style={{color: '#009387', marginTop: 15}}
+            onPress={() => console.log('forgot password')}>
+            Forgot password?
+          </Text>
+        </TouchableOpacity>
+        <View style={styles.button}>
+          <TouchableOpacity
+            style={styles.signIn}
+            onPress={() => {
+              console.log('pressed');
+            }}>
+            <LinearGradient
+              colors={['#08d4c4', '#01ab9d']}
+              style={styles.signIn}>
+              <Text
+                style={[
+                  styles.textSign,
+                  {
+                    color: '#fff',
+                  },
+                ]}>
+                Sign In
+              </Text>
+            </LinearGradient>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => console.log('pressed')}
+            style={[
+              styles.signIn,
+              {
+                borderColor: '#009387',
+                borderWidth: 1,
+                marginTop: 15,
+              },
+            ]}>
+            <Text
+              style={[
+                styles.textSign,
+                {
+                  color: '#009387',
+                },
+              ]}>
+              Sign Up
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </Animatable.View>
+    </View>
+  );
+};
+
+export default Login;
+
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 30,
-    backgroundColor: color.darkblue,
     flex: 1,
+    backgroundColor: '#009387',
   },
-  text: {
-    marginBottom: '5%',
-    fontSize: 18,
-    backgroundColor: color.darkblue,
+  header: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    paddingHorizontal: 20,
+    paddingBottom: 50,
   },
-  heading: {
-    textAlign: 'center',
-    fontSize: 20,
+  footer: {
+    flex: 3,
+    backgroundColor: '#fff',
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    paddingHorizontal: 20,
+    paddingVertical: 30,
+  },
+  text_header: {
+    color: '#fff',
     fontWeight: 'bold',
-    color: color.white,
-    marginTop: '9%',
+    fontSize: 30,
   },
-  logo: {
+  text_footer: {
+    color: '#05375a',
+    fontSize: 18,
+  },
+  action: {
+    flexDirection: 'row',
+    marginTop: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#f2f2f2',
+    paddingBottom: 5,
+  },
+
+  textInput: {
+    flex: 1,
+    marginTop: Platform.OS === 'ios' ? 0 : -12,
+    paddingLeft: 10,
+    color: '#05375a',
+  },
+  button: {
+    alignItems: 'center',
+    marginTop: 50,
+  },
+  signIn: {
     width: '100%',
-    height: '20%',
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
   },
-  log: {
-    marginTop: '10%',
+  textSign: {
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });

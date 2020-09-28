@@ -3,3 +3,5 @@ npm install react-native-reanimated react-native-gesture-handler react-native-sc
 npm install @react-navigation/drawer
 npm i react-native-paper
 npm install --save react-native-vector-icons
+npm install react-native-linear-gradient --save
+npm install react-native-animatable --save
