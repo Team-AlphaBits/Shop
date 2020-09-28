@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
+//const { stringify } = require("querystring");
 
 // console.log("=================");
 // console.log("=================");
@@ -25,7 +26,41 @@ const userSchema = new mongoose.Schema({
   },
   password: String,
   salt: String,
+ // cart: [productDataSchema],
+
 });
+
+
+const productDataSchema = new mongoose.Schema({  
+  
+  name: {
+    type: String,
+    required: true,
+  },
+  price: {
+    type: Number,
+    required: true,
+  },
+  quantity: {
+    type: Number,
+    default: 10,
+  },
+  detail: {
+    type: String,
+    required: true,
+  },
+  product_image: {
+    type: String,
+    required: true,
+  },
+  catergory: {
+    type: String,
+    required: true,
+  },
+
+});
+
+
 
 userSchema.methods.setPassword = function (password) {
   this.salt = crypto.randomBytes(64).toString("hex");
@@ -52,3 +87,4 @@ userSchema.methods.getJwt = function () {
 };
 
 mongoose.model("User", userSchema);
+mongoose.model("Product", productDataSchema);

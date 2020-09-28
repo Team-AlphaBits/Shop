@@ -64,13 +64,39 @@ const loginUser = function (req, res) {
   })(req, res);
 };
 
-
-const generateFeed = function(req, res) {                   //need to be done later..
-                                                  // INCOMPLETE
+const generateFeed = function(req, res) {         //need to be done later..
+                                                
     res.status(200).json({message: "Genrating posts for user feeds.."});
 }
+
+const getSearchResults = function({query}, res) {
+  if(!query.query) {
+    return res.json({ err: "Missing a query.!" });
+  }
+  Product.find({name: { $regex: query.query, $options : "i"} }, "name", (err, results) => {
+    if(err){
+      return res.json({err: err});
+    }
+    return res.status(200).json({ message: "Getting SEARCH results.", result: results});
+  });
+}
+
+
+ // development purpose ONLY 
+const deleteAllUsers = function(req, res){
+  User.deleteMany({} , (err, info) => {
+      if(err) {
+        return res.sen({error: err});
+      }
+      return res.json({ message: "Deleted ALL USERs", info: info}); 
+  });
+}
+
+
 module.exports = {
+  deleteAllUsers,       //development purpose only
   registerUser,
   loginUser,
-  generateFeed
+  generateFeed,
+  getSearchResults
 };
