@@ -13,14 +13,19 @@ export default class Order extends Component {
     this.state = {
       first: 'unchecked',
       second: 'unchecked',
+      third: 'unchecked',
     };
   }
   one = () => {
-    this.setState({first: 'checked', second: 'unchecked'});
+    this.setState({first: 'checked', second: 'unchecked', third: 'unchecked'});
   };
   two = () => {
-    this.setState({second: 'checked', first: 'unchecked'});
+    this.setState({second: 'checked', first: 'unchecked', third: 'unchecked'});
   };
+  three = () => {
+    this.setState({third: 'checked', second: 'unchecked', first: 'unchecked'});
+  };
+
   render() {
     return (
       <SafeAreaView>
@@ -107,6 +112,14 @@ export default class Order extends Component {
                 />
                 <Text style={styles.rdText}>Debit/Credit Cards</Text>
               </View>
+              <View style={styles.radiobtn}>
+                <RadioButton
+                  value="third"
+                  status={this.state.third}
+                  onPress={() => this.three()}
+                />
+                <Text style={styles.rdText}>Payments using UPI/Wallet</Text>
+              </View>
             </View>
             <Button
               style={styles.placeOrder}
@@ -125,7 +138,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   addressBtn: {
-    backgroundColor: '#00CCCC',
+    backgroundColor: color.fadedblue,
   },
   radiobtn: {
     flex: 1,
@@ -149,8 +162,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   placeOrder: {
-    backgroundColor: '#E6BF7B',
+    backgroundColor: color.burntyellow,
     borderBottomColor: 5,
+    marginVertical: '5%',
   },
   upContainer: {
     flex: 1,
