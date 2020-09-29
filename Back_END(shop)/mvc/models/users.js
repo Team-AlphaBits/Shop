@@ -10,6 +10,47 @@ const jwt = require("jsonwebtoken");
 // console.log("=================");
 // console.log("=================");
 
+const productDataSchema = new mongoose.Schema({  
+  
+  id: {
+    type: Number,
+    required: true,
+  },
+  title:{
+    type: String,
+    required: true,
+  },
+  image: {
+    type: String,
+    required: true,
+  },
+  images: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  price: {
+    type: Number,
+    required: true,
+  },
+  quantity: {
+    type: Number,
+    required: true,
+  },
+  short_desc: {
+    type: Number,
+    required: true,
+  },
+  cat_id: {
+    type: Number,
+    required: true,
+  },
+
+});
+
 const userSchema = new mongoose.Schema({
   firstname: {
     type: String,
@@ -26,39 +67,11 @@ const userSchema = new mongoose.Schema({
   },
   password: String,
   salt: String,
- // cart: [productDataSchema],
+  cart: [productDataSchema],
 
 });
 
 
-const productDataSchema = new mongoose.Schema({  
-  
-  name: {
-    type: String,
-    required: true,
-  },
-  price: {
-    type: Number,
-    required: true,
-  },
-  quantity: {
-    type: Number,
-    default: 10,
-  },
-  detail: {
-    type: String,
-    required: true,
-  },
-  product_image: {
-    type: String,
-    required: true,
-  },
-  catergory: {
-    type: String,
-    required: true,
-  },
-
-});
 
 
 

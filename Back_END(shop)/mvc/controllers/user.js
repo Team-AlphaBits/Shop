@@ -1,6 +1,8 @@
 const passport = require("passport");
 const mongoose = require("mongoose");
 const User = mongoose.model("User");
+const Product = mongoose.model("Product");
+const product_data = require("../models/Product_data");
 
 const registerUser = function ({ body }, res) {
   //registration form req
@@ -93,10 +95,21 @@ const deleteAllUsers = function(req, res){
 }
 
 
+const insertProducts = function(req, res){
+  User.insertMany( product_data.products , (err, info) => {
+      if(err) {
+        return res.sen({error: err});
+      }
+      return res.json({ message: "INSERTED ALL PRODUCTS", info: info}); 
+  });
+}
+
+
 module.exports = {
   deleteAllUsers,       //development purpose only
   registerUser,
   loginUser,
   generateFeed,
-  getSearchResults
+  getSearchResults,
+  insertProducts
 };

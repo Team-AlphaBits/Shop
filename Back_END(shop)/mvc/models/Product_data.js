@@ -1,15 +1,5 @@
-[
-    {
-      "type": "header",
-      "version": "5.0.2",
-      "comment": "Export to JSON plugin for PHPMyAdmin"
-    },
-    { "type": "database", "name": "test" },
-    {
-      "type": "table",
-      "name": "products",
-      "database": "test",
-      "data": [
+
+const products = [
         {
           "id": "1",
           "title": "PlayStation 4",
@@ -593,7 +583,10 @@
           "short_desc": "Gaming console",
           "cat_id": "2"
         }
-      ]
-    }
-  ]
+      ];
+
+module.exports = {
+  'products': products
+}
+  
   
