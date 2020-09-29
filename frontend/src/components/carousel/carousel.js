@@ -4,11 +4,12 @@ import { MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBView, MDBContainer }
 import flower from '../../Assets/images/Tulips.jpg'
 import Penguins from '../../Assets/images/Penguins.jpg'
 import Jellyfish from '../../Assets/images/Jellyfish.jpg'
+import classes from './carousel.module.css'
 
 
 const CarouselPage = () => {
   return (
-    <MDBContainer>
+    <MDBContainer className={classes.Carousel}>
       <MDBCarousel
         activeItem={1}
         length={3}
