@@ -8,6 +8,7 @@ import Homescreen from './assets/screens/Home.js';
 import Itemlist from './assets/screens/Itemlist.js';
 import Details from './assets/screens/Details.js';
 import MyCart from './assets/screens/MyCart';
+import Order from './assets/screens/Order';
 import Drawercontent from './assets/screens/DrawerContent';
 
 const Drawer = createDrawerNavigator();
@@ -23,6 +24,7 @@ function App() {
         <Drawer.Screen name="Itemlist" component={Itemlist} />
         <Drawer.Screen name="Details" component={Details} />
         <Drawer.Screen name="MyCart" component={MyCart} />
+        <Drawer.Screen name="Order" component={Order} />
       </Drawer.Navigator>
     </NavigationContainer>
   );

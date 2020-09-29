@@ -114,6 +114,12 @@ export default class DrawerContent extends Component {
                   this.props.navigation.navigate('Itemlist');
                 }}
               />
+              <DrawerItem
+                label="Order"
+                onPress={() => {
+                  this.props.navigation.navigate('Order');
+                }}
+              />
             </Drawer.Section>
           </View>
         </DrawerContentScrollView>

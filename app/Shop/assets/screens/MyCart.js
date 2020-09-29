@@ -52,7 +52,9 @@ export default class MyCart extends Component {
 
         <Button
           mode="contained"
-          onPress={() => console.log('Proceed to buy')}
+          onPress={() => {
+            this.props.navigation.navigate('Order');
+          }}
           style={styles.buyButton}>
           Proceed to Buy
         </Button>
