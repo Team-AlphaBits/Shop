@@ -1,6 +1,7 @@
 .headers{
 height: 70px;
 background-color: #F8F9FA;
+margin-top: 65px;
 }
 .mail{
     display: flex;
@@ -11,6 +12,8 @@ background-color: #F8F9FA;
 }
 .mail p{
     margin-left:3px;
+    color: rgb(0, 0, 0);
+    font-weight: 500;
 }
 @media(max-width: 700px){
     .mail p{

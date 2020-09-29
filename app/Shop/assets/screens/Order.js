@@ -2,9 +2,14 @@ import React, {Component} from 'react';
 import {StyleSheet, Text} from 'react-native';
 import {View} from 'react-native-animatable';
 import {ScrollView} from 'react-native-gesture-handler';
-import {Title, TextInput, Button, RadioButton} from 'react-native-paper';
+import {
+  Title,
+  TextInput,
+  Button,
+  RadioButton,
+  Appbar,
+} from 'react-native-paper';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {Header} from 'react-native/Libraries/NewAppScreen';
 import color from '../colors/colors';
 
 export default class Order extends Component {
@@ -28,7 +33,15 @@ export default class Order extends Component {
 
   render() {
     return (
-      <SafeAreaView>
+      <SafeAreaView style={{flex: 1}}>
+        <Appbar.Header style={{backgroundColor: color.MintyGreenMedium}}>
+          <Appbar.BackAction
+            onPress={() => {
+              this.props.navigation.navigate('MyCart');
+            }}
+          />
+          <Appbar.Content title="Address" />
+        </Appbar.Header>
         <ScrollView>
           <View style={styles.upContainer}>
             <Title style={styles.title}>Fill your address</Title>
