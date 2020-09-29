@@ -7,7 +7,7 @@ import {
   Platform,
   StyleSheet,
   StatusBar,
-  Alert,
+  ScrollView,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
@@ -17,19 +17,10 @@ import color from '../colors/colors';
 
 import {useTheme} from 'react-native-paper';
 
-const Login = ({navigation}) => {
-  const [data, setData] = React.useState({
-    username: '',
-    password: '',
-    check_textInputChange: false,
-    secureTextEntry: true,
-    isValidUser: true,
-    isValidPassword: true,
-  });
-
+const Login = () => {
   const {colors} = useTheme();
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <StatusBar
         backgroundColor={color.MintyGreenDark}
         barStyle="light-content"
@@ -83,7 +74,6 @@ const Login = ({navigation}) => {
           <TextInput
             placeholder="Your Password"
             placeholderTextColor="#666666"
-            secureTextEntry={data.secureTextEntry ? true : false}
             style={[
               styles.textInput,
               {
@@ -143,7 +133,7 @@ const Login = ({navigation}) => {
           </TouchableOpacity>
         </View>
       </Animatable.View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -159,6 +149,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     paddingHorizontal: 20,
     paddingBottom: 50,
+    marginTop: 120,
   },
   footer: {
     flex: 3,
@@ -167,6 +158,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 30,
     paddingHorizontal: 20,
     paddingVertical: 30,
+    marginTop: 10,
   },
   text_header: {
     color: '#fff',

@@ -16,17 +16,22 @@ export default class MyCart extends Component {
     super();
     this.state = {
       count: 1,
-      data: [],
+      data: [
+        {
+          src: require('../images/img_1.jpg'),
+          price: '₹ 24,999.00',
+          desc: 'Nikon D5600 Digital SLR 18-55 mm f/3.5-5.6 G VR',
+        },
+        {
+          src: require('../images/watch.jpg'),
+          price: '₹ 999.00',
+          desc:
+            'Polex Analog Multicolor Dial Date Calendar & Time Watch for Mens Boys Watches - Meh 4',
+        },
+      ],
     };
   }
-  componentDidMount() {
-    let items = Array.apply(null, Array(2)).map((i) => {
-      return {id: i, src: require('../images/img_1.jpg'), price: '₹ 24,999.00'};
-    });
-    this.setState({
-      data: items,
-    });
-  }
+
   increament = (count) => {
     this.setState({count: this.state.count + 1});
   };
@@ -84,8 +89,7 @@ export default class MyCart extends Component {
                       fontSize: 18,
                       fontWeight: 'bold',
                     }}>
-                    Nikon D5600 Digital SLR 18-55 mm f/3.5-5.6 G VR and AF-P DX
-                    NIKKOR 70-300 mm f/4.5-6.3 G ED (Black){' '}
+                    {item.desc}
                   </Text>
                   <Text style={styles.price}>{item.price}</Text>
                   <Text style={styles.avl}>In stock</Text>
