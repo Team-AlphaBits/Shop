@@ -1,0 +1,21 @@
+.login {
+  margin-top: 140px;
+  border-width: 1px;
+  border-color: cyan;
+}
+.uperContainer {
+  padding-left: 30%;
+}
+.modal {
+  background-color: aqua;
+}
+@media (max-width: 500px) {
+  .uperContainer {
+    padding-left: 0%;
+  }
+}
+.up {
+  width: 100%;
+  height: 100%;
+  background-color: blueviolet;
+}
