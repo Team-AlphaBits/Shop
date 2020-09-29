@@ -3,3 +3,10 @@
   position: absolute;
   background-color: blueviolet;
 }
+.Layout {
+  width: 100%;
+  position: absolute;
+  background-color: rgb(192, 37, 37);
+  background-image: url("https://mdbootstrap.com/img/Photos/Others/img%20(50).jpg");
+  background-attachment: fixed;
+}
