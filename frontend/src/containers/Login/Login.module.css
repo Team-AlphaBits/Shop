@@ -2,6 +2,7 @@
   margin-top: 140px;
   border-width: 1px;
   border-color: cyan;
+  margin-bottom: 205px;
 }
 .uperContainer {
   padding-left: 30%;
@@ -17,5 +18,4 @@
 .up {
   width: 100%;
   height: 100%;
-  background-color: blueviolet;
 }
