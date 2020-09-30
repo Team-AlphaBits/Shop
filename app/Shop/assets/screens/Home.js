@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {SafeAreaView, StyleSheet, View, Text} from 'react-native';
+import {SafeAreaView, StyleSheet, View, Text, StatusBar} from 'react-native';
 
 import color from '../colors/colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -56,6 +56,10 @@ export default class Homescreen extends Component {
     }
     return (
       <SafeAreaView style={{flex: 1}}>
+        <StatusBar
+          backgroundColor={color.MintyGreenDark}
+          barStyle="light-content"
+        />
         <Appbar.Header style={{backgroundColor: color.MintyGreenMedium}}>
           <Appbar.Action
             icon="menu"
