@@ -3,26 +3,22 @@ import {
   MDBContainer,
   MDBRow,
   MDBCol,
-  MDBInput,
   MDBBtn,
-  MDBAlert,
-  MDBModalHeader,
-  MDBModalBody,
-  MDBModal,
   MDBCard,
-  MDBCardBody,
+  MDBInput,
+  MDBModal,
+  MDBModalBody,
 } from "mdbreact";
 import classes from "./Signup.module.css";
-class Login extends Component {
+
+class Signup extends Component {
   state = {
     modal: false,
   };
 
   toggle = () => {
-    this.setState((prev) => {
-      return {
-        modal: !prev.modal,
-      };
+    this.setState({
+      modal: !this.state.modal,
     });
   };
   render() {
@@ -43,52 +39,80 @@ class Login extends Component {
         <MDBContainer className={classes.login}>
           <MDBRow>
             <MDBCol md="6">
-              <MDBCard>
-                <MDBCardBody>
-                  <form>
-                    <p className="h4 text-center py-4">Sign up</p>
-                    <div className="grey-text">
-                      <MDBInput
-                        label="Username"
-                        icon="user"
-                        group
-                        type="text"
-                        validate
-                        error="wrong"
-                        success="right"
-                      />
-                      <MDBInput
-                        label="Your email"
-                        icon="envelope"
-                        group
-                        type="email"
-                        validate
-                        error="wrong"
-                        success="right"
-                      />
-
-                      <MDBInput
-                        label="Your password"
-                        icon="lock"
-                        group
-                        type="password"
-                        validate
-                      />
-                      <MDBInput
-                        label="Confirm password"
-                        icon="lock"
-                        group
-                        type="password"
-                        validate
-                      />
-                    </div>
-                    <div className="text-center py-4 mt-3">
-                      <MDBBtn color="cyan" type="submit" onClick={this.toggle}>
+              <MDBCard
+                className="card-image"
+                style={{
+                  backgroundImage:
+                    "url(https://mdbootstrap.com/img/Photos/Others/pricing-table7.jpg)",
+                  width: "28rem",
+                }}
+              >
+                <div className="text-white rgba-stylish-strong py-5 px-5 z-depth-4">
+                  <div className="text-center">
+                    <h3 className="white-text mb-5 mt-4 font-weight-bold">
+                      <strong>SIGN</strong>
+                      <a href="#!" className="green-text font-weight-bold">
+                        <strong> UP</strong>
+                      </a>
+                    </h3>
+                  </div>
+                  <MDBInput
+                    label="Username"
+                    group
+                    type="text"
+                    validate
+                    labelClass="white-text"
+                  />
+                  <MDBInput
+                    label="Your email"
+                    group
+                    type="text"
+                    validate
+                    labelClass="white-text"
+                  />
+                  <MDBInput
+                    label="Your password"
+                    group
+                    type="password"
+                    validate
+                    labelClass="white-text"
+                  />
+                  <MDBInput
+                    label="Confirm password"
+                    group
+                    type="password"
+                    validate
+                    labelClass="white-text"
+                  />
+                  <div className="md-form pb-3">
+                    <MDBInput
+                      label={
+                        <>
+                          Accept the&nbsp;
+                          <a href="#!" className="green-text font-weight-bold">
+                            Terms and Conditions
+                          </a>
+                        </>
+                      }
+                      type="checkbox"
+                      id="checkbox1"
+                      labelClass="white-text"
+                    />
+                  </div>
+                  <MDBRow className="d-flex align-items-center mb-4">
+                    <div className="text-center mb-3 col-md-12">
+                      <MDBBtn
+                        color="success"
+                        rounded
+                        type="button"
+                        className="btn-block z-depth-1"
+                        onClick={this.toggle}
+                      >
                         Register
                       </MDBBtn>
                     </div>
-                  </form>
-                </MDBCardBody>
+                  </MDBRow>
+                </div>
               </MDBCard>
             </MDBCol>
           </MDBRow>
@@ -97,4 +121,5 @@ class Login extends Component {
     );
   }
 }
-export default Login;
+
+export default Signup;
