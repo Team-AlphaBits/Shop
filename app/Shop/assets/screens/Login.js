@@ -25,8 +25,8 @@ class Login extends Component {
   render() {
     const {colors} = this.props.theme;
     return (
-      <SafeAreaView style={{flex: 1}}>
-        <ScrollView style={styles.container}>
+      <SafeAreaView style={{flex: 1, backgroundColor: color.MintyGreenDark}}>
+        <ScrollView contentContainerStyle={styles.container}>
           <View style={styles.header}>
             <Text style={styles.text_header}>Welcome!</Text>
           </View>
@@ -144,10 +144,7 @@ class Login extends Component {
 export default withTheme(Login);
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: color.MintyGreenDark,
-  },
+  container: {marginHorizontal: 10},
   header: {
     flex: 1,
     justifyContent: 'flex-end',
