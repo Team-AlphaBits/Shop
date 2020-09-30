@@ -53,7 +53,7 @@ class Login extends Component {
             <FontAwesome name="user-o" color={colors.text} size={20} />
             <TextInput
               placeholder="Your Username"
-              placeholderTextColor="#666666"
+              placeholderTextColor={color.darkgrey}
               style={[
                 styles.textInput,
                 {
@@ -77,7 +77,7 @@ class Login extends Component {
             <Feather name="lock" color={colors.text} size={20} />
             <TextInput
               placeholder="Your Password"
-              placeholderTextColor="#666666"
+              placeholderTextColor={color.darkgrey}
               style={[
                 styles.textInput,
                 {
@@ -101,13 +101,13 @@ class Login extends Component {
                 console.log('pressed');
               }}>
               <LinearGradient
-                colors={['#08d4c4', '#01ab9d']}
+                colors={[color.MintyGreenLight, color.MintyGreenMedium]}
                 style={styles.signIn}>
                 <Text
                   style={[
                     styles.textSign,
                     {
-                      color: '#fff',
+                      color: color.white,
                     },
                   ]}>
                   Sign In
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
   },
   footer: {
     flex: 3,
-    backgroundColor: '#fff',
+    backgroundColor: color.white,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     paddingHorizontal: 20,
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   text_header: {
-    color: '#fff',
+    color: color.white,
     fontWeight: 'bold',
     fontSize: 30,
   },
