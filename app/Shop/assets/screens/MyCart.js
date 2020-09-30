@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
   price: {
     marginBottom: 10,
     fontSize: 20,
-    color: '#800000',
+    color: color.darkRed,
   },
   avl: {
     color: 'green',
