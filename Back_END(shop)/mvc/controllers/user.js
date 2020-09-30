@@ -2,7 +2,8 @@ const passport = require("passport");
 const mongoose = require("mongoose");
 const User = mongoose.model("User");
 const Product = mongoose.model("Product");
-const product_data = require("../models/Product_data");
+let default_prod_data = require("../models/Product_data");
+let productData = default_prod_data.Products;   
 
 const registerUser = function ({ body }, res) {
   //registration form req
@@ -83,27 +84,56 @@ const getSearchResults = function({query}, res) {
   });
 }
 
-
  // development purpose ONLY 
 const deleteAllUsers = function(req, res){
-  User.deleteMany({} , (err, info) => {
+  Product.deleteMany({} , (err, info) => {
       if(err) {
         return res.sen({error: err});
       }
-      return res.json({ message: "Deleted ALL USERs", info: info}); 
+      return res.json({ message: "Deleted ALL Products", info: info}); 
   });
 }
 
-
 const insertProducts = function(req, res){
-  User.insertMany( product_data.products , (err, info) => {
+  Product.deleteMany({}, (err, info) =>{
+    if(err) {
+      return res.send({error: err});
+    }
+   // res.json({message: "deleted"});
+  Product.insertMany( productData , (err, info) => {
+    console.log("________________________");
+    console.log("PRODUCTS UPLOADING!");
+    console.log("________________________");
       if(err) {
-        return res.sen({error: err});
+        return res.send({error: err});
       }
       return res.json({ message: "INSERTED ALL PRODUCTS", info: info}); 
   });
+});
 }
 
+const uploadProductsForm = function({body}, res){
+  const product_details = {
+    id: body.id,
+    title: body.title,
+    image: body.image,
+    description: body.description,
+    price: body.price,
+    quantity: body.quantity,
+    short_desc: body.short_desc,
+    cat_id: body.cat_id,
+    seller_name: body.seller_name
+  }
+
+  body.origin && ( product_details.origin = body.origin)
+
+  Product.create(product_details, (err , new_product) => {
+      if(err) {
+        return res.send({ error : err});
+      }
+      res.send(new_product);
+  });
+}
 
 module.exports = {
   deleteAllUsers,       //development purpose only
@@ -111,5 +141,6 @@ module.exports = {
   loginUser,
   generateFeed,
   getSearchResults,
-  insertProducts
+  insertProducts,
+  uploadProductsForm
 };
