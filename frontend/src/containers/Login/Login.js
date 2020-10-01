@@ -1,171 +1,81 @@
-import React, { Component } from "react";
-import {
-  MDBContainer,
-  MDBRow,
-  MDBCol,
-  MDBBtn,
-  MDBCard,
-  MDBInput,
-  MDBModal,
-  MDBModalBody,
-} from "mdbreact";
-import classes from "./Login.module.css";
+import React,{Component} from 'react';
+import Lform from '../../components/Form/Loginform';
+import Form from '../../components/Form/Signupform';
+import {connect} from 'react-redux';
+import * as actions from '../../Store/Action/index';
 
-class Login extends Component {
-  state = {
-    modal: false,
-  };
 
-  toggle = () => {
+class Login extends Component{
+  state={
+     login: true,
+     usernameValue: '',
+     emailValue: '',
+     passwordValue: '',
+     confirmpasswordValue: ''
+  }
+  toggle = () =>{
+    this.setState(prev =>{
+      return { login: !prev.login}
+    })
+  }
+  onChangeHandler = (event,field) =>{
+    if(field==='usernameValue'){
+        this.setState({
+          usernameValue: event.target.value
+        })
+  }
+  else if(field==='emailValue'){
     this.setState({
-      modal: !this.state.modal,
-    });
-  };
-  render() {
-    console.log(this.state.modal);
-    let ShowAlert = null;
-    if (this.state.modal) {
-      ShowAlert = (
-        <MDBContainer className={classes.modal}>
-          <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
-            <MDBModalBody>Logged in successfully !...</MDBModalBody>
-          </MDBModal>
-        </MDBContainer>
-      );
-    }
-    return (
-<<<<<<< HEAD
-      <div className={classes.up}>
-        <div className={classes.uperContainer}>
-          {ShowAlert}
-          <MDBContainer className={classes.login}>
-            <MDBRow>
-              <MDBCol md="6">
-                <MDBCard>
-                  <MDBCardBody>
-                    <form>
-                      <p className="h4 text-center py-4">Sign in</p>
-                      <div className="grey-text">
-                        <MDBInput
-                          label="Your email"
-                          icon="envelope"
-                          value="test@test.com"
-                          group
-                          type="email"
-                          validate
-                          error="wrong"
-                          success="right"
-                        />
-
-                        <MDBInput
-                          label="Your password"
-                          icon="lock"
-                          group
-                          type="password"
-                          validate
-                        />
-                      </div>
-                      <div className="text-center py-4 mt-3">
-                        <MDBBtn
-                          color="cyan"
-                          type="submit"
-                          onClick={this.toggle}
-                        >
-                          Sign in
-                        </MDBBtn>
-                        <MDBBtn color="red" type="submit">
-                          Sign-up
-                        </MDBBtn>
-                      </div>
-                    </form>
-                  </MDBCardBody>
-                </MDBCard>
-              </MDBCol>
-            </MDBRow>
-          </MDBContainer>
-        </div>
-=======
-      <div className={classes.uperContainer}>
-        {ShowAlert}
-        <MDBContainer className={classes.login}>
-          <MDBRow>
-            <MDBCol md="6">
-              <MDBCard
-                className="card-image"
-                style={{
-                  backgroundImage:
-                    "url(https://mdbootstrap.com/img/Photos/Others/pricing-table7.jpg)",
-                  width: "28rem",
-                }}
-              >
-                <div className="text-white rgba-stylish-strong py-5 px-5 z-depth-4">
-                  <div className="text-center">
-                    <h3 className="white-text mb-5 mt-4 font-weight-bold">
-                      <strong>SIGN</strong>
-                      <a href="#!" className="green-text font-weight-bold">
-                        <strong> IN</strong>
-                      </a>
-                    </h3>
-                  </div>
-                  <MDBInput
-                    label="Your email"
-                    group
-                    type="text"
-                    validate
-                    labelClass="white-text"
-                  />
-                  <MDBInput
-                    label="Your password"
-                    group
-                    type="password"
-                    validate
-                    labelClass="white-text"
-                  />
-                  <div className="md-form pb-3">
-                    <MDBInput
-                      label={
-                        <>
-                          Accept the&nbsp;
-                          <a href="#!" className="green-text font-weight-bold">
-                            Terms and Conditions
-                          </a>
-                        </>
-                      }
-                      type="checkbox"
-                      id="checkbox1"
-                      labelClass="white-text"
-                    />
-                  </div>
-                  <MDBRow className="d-flex align-items-center mb-4">
-                    <div className="text-center mb-3 col-md-12">
-                      <MDBBtn
-                        color="success"
-                        rounded
-                        type="button"
-                        className="btn-block z-depth-1"
-                        onClick={this.toggle}
-                      >
-                        Log in
-                      </MDBBtn>
-                    </div>
-                  </MDBRow>
-                  <MDBCol md="12">
-                    <p className="font-small white-text d-flex justify-content-end">
-                      Not regitered?
-                      <a href="#!" className="green-text ml-1 font-weight-bold">
-                        Register
-                      </a>
-                    </p>
-                  </MDBCol>
-                </div>
-              </MDBCard>
-            </MDBCol>
-          </MDBRow>
-        </MDBContainer>
->>>>>>> origin/master
-      </div>
-    );
+      emailValue: event.target.value
+    })
+  }
+  else if(field==='passwordValue'){
+    this.setState({
+      passwordValue: event.target.value
+    })
+  }
+  else if(field==='confirmpasswordValue'){
+    this.setState({
+      confirmpasswordValue: event.target.value
+    })
   }
 }
 
-export default Login;
+  render(){
+    if(this.props.signedUp){
+      return this.toggle
+    }
+    let form = <Lform login={this.toggle}
+    valueEmail = {this.state.emailValue}
+    changeEmail = {(event) =>this.onChangeHandler(event,'emailValue')}
+    valuePassword = {this.state.passwordValue}
+    changePassword = {(event) => this.onChangeHandler(event,'passwordValue')}
+    />
+    if(!this.state.login){
+      form = <Form login = {this.toggle}
+      valueUser = {this.state.usernameValue}
+      changeUser = {(event) => this.onChangeHandler(event,'usernameValue')}
+      valueEmail = {this.state.emailValue}
+      changeEmail = {(event) =>this.onChangeHandler(event,'emailValue')}
+      valuePassword = {this.state.passwordValue}
+      changePassword = {(event) => this.onChangeHandler(event,'passwordValue')}
+      valueCnfrmPassword = {this.state.confirmpasswordValue}
+      changeCnfrmPassword = {(event) => this.onChangeHandler(event,'confirmpasswordValue')}
+      />
+    }
+    return <div>
+      {form}
+  </div>
+  }
+}
+const mapStateToProps = (state) =>{
+  return{
+    signedUp: state.signuped
+  }
+}
+const mapDispatchToProps = (dispatch) =>{
+ return{
+    onSignedUp: () => dispatch(actions.signupSuccess())
+ }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Login);

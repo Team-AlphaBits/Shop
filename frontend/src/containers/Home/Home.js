@@ -1,20 +1,3 @@
-<<<<<<< HEAD
-import React,{Component} from 'react';
-import Carousel from '../../components/carousel/carousel';
-import Header from '../../components/Icons/headers';
-import FrontImage from '../../Assets/images/hero_2.jpg'
-import {MDBView,MDBMask,MDBRow,MDBContainer,MDBCol} from "mdbreact";
-import classes from './Home.module.css';
-import Card from '../../components/card/card';
-
-class Home extends Component{
-
-    render(){
-        console.log('Home')
-        return <div>
-            <Header />
-            {/* <MDBView src={FrontImage} >
-=======
 import React, { Component } from "react";
 import Carousel from "../../components/carousel/carousel";
 import Header from "../../components/Icons/headers";
@@ -29,7 +12,6 @@ class Home extends Component {
       <div>
         <Header />
         {/* <MDBView src={FrontImage} >
->>>>>>> origin/master
             <MDBMask overlay="black-light" className="flex-center flex-column text-white text-center">
             </MDBMask>
           </MDBView> */}
