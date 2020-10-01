@@ -16,7 +16,8 @@ router.get("/getSearchResults", usersCtrl.getSearchResults);
 
 router.delete("/all", usersCtrl.deleteAllUsers);
 
-router.post("/insert-products", usersCtrl.insertProducts);
+router.get("/insert-products", usersCtrl.insertProducts);
 
+router.get("/upload-products", usersCtrl.uploadProductsForm);
 
 module.exports = router;

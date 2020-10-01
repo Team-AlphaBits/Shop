@@ -9,9 +9,11 @@ export default {
   powderblue: '#A8DADC',
   milkcolor: '#F1FAEE',
   red: '#E63946',
+  darkRed: '#800000',
   MintyGreenDark: '#009387',
   MintyGreenLight: '#08d4c4',
   MintyGreenMedium: '#01ab9d',
   burntyellow: '#E6BF7B',
   fadedblue: '#00CCCC',
+  darkgrey: '#666666',
 };
