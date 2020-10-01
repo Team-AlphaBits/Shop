@@ -14,10 +14,10 @@ function App() {
     <div className="App">
       <Layout>
         <Switch>
-          <Route path="/login" component={Login} />
-          <Route path="/signup" component={Signup} />
-          <Route path="/deal" component={Deal} />
-          <Route path="/" component={Home} />
+          <Route path="/login" exact component={Login} />
+          <Route path="/signup" exact component={Signup} />
+          <Route path="/deal" exact component={Deal} />
+          <Route path="/" exact component={Home} />
         </Switch>
       </Layout>
     </div>

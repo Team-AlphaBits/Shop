@@ -9,6 +9,7 @@ import Card from '../../components/card/card';
 class Home extends Component{
 
     render(){
+        console.log('Home')
         return <div>
             <Header />
             {/* <MDBView src={FrontImage} >

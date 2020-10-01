@@ -50,6 +50,7 @@ class Login extends Component {
                         <MDBInput
                           label="Your email"
                           icon="envelope"
+                          value="test@test.com"
                           group
                           type="email"
                           validate
