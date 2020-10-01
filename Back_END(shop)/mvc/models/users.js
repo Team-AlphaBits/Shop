@@ -53,11 +53,7 @@ const productDataSchema = new mongoose.Schema(
 
 const userSchema = new mongoose.Schema(
   {
-  firstname: {
-    type: String,
-    required: true,
-  },
-  lastname: {
+  user_name: {
     type: String,
     required: true,
   },

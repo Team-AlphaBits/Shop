@@ -3,14 +3,15 @@ const mongoose = require("mongoose");
 const User = mongoose.model("User");
 const Product = mongoose.model("Product");
 let default_prod_data = require("../models/Product_data");
-let productData = default_prod_data.Products;   
+let productDatas = default_prod_data.Products;   
 
+
+//REGISTER USER
 const registerUser = function ({ body }, res) {
   //registration form req
 
   if (
-    !body.first_name ||
-    !body.last_name ||
+    !body.user_name ||
     !body.email ||
     !body.password ||
     !body.password_confirm
@@ -23,8 +24,7 @@ const registerUser = function ({ body }, res) {
   }
 
   const user = new User();
-  user.firstname = body.first_name.trim();
-  user.lastname = body.last_name.trim();
+  user.user_name = body.user_name.trim();
 
   user.email = body.email;
   user.setPassword(body.password);
@@ -41,13 +41,13 @@ const registerUser = function ({ body }, res) {
 
       // res.status(400).json(err);
     } else {
-      // console.log(user);
+       console.log(user);
       const token = newUser.getJwt();
       res.status(200).json(token);
     }
   });
 };
-                                                    //working on jwt
+//JWT IMPLEMENTED
 const loginUser = function (req, res) {
                                                    //authentication req
   if (!req.body.email || !req.body.password) {
@@ -66,12 +66,11 @@ const loginUser = function (req, res) {
     }
   })(req, res);
 };
-
-const generateFeed = function(req, res) {         //need to be done later..
-                                                
+//MIDDLEWARE
+const generateFeed = function(req, res) {
     res.status(200).json({message: "Genrating posts for user feeds.."});
 }
-
+//SEARCHING FOR RESult
 const getSearchResults = function({query}, res) {
   if(!query.query) {
     return res.json({ err: "Missing a query.!" });
@@ -83,24 +82,32 @@ const getSearchResults = function({query}, res) {
     return res.status(200).json({ message: "Getting SEARCH results.", result: results});
   });
 }
-
  // development purpose ONLY 
-const deleteAllUsers = function(req, res){
+const deleteAllProduct = function(req, res){
   Product.deleteMany({} , (err, info) => {
       if(err) {
         return res.sen({error: err});
       }
-      return res.json({ message: "Deleted ALL Products", info: info}); 
+      return res.json({ message: "Deleted ALL Products.!", info: info}); 
   });
 }
 
+const deleteAllUser = function(req, res){
+  User.deleteMany({} , (err, info) => {
+      if(err) {
+        return res.sen({error: err});
+      }
+      return res.json({ message: "Deleted ALL USERs.!", info: info}); 
+  });
+}
+//INSERTING ALL PRODUCTS IN DB
 const insertProducts = function(req, res){
   Product.deleteMany({}, (err, info) =>{
     if(err) {
       return res.send({error: err});
     }
    // res.json({message: "deleted"});
-  Product.insertMany( productData , (err, info) => {
+  Product.insertMany( productDatas , (err, info) => {
     console.log("________________________");
     console.log("PRODUCTS UPLOADING!");
     console.log("________________________");
@@ -111,7 +118,7 @@ const insertProducts = function(req, res){
   });
 });
 }
-
+//FOR SELLER PURPOSE TO ADD PRODUCT
 const uploadProductsForm = function({body}, res){
   const product_details = {
     id: body.id,
@@ -136,7 +143,8 @@ const uploadProductsForm = function({body}, res){
 }
 
 module.exports = {
-  deleteAllUsers,       //development purpose only
+  deleteAllProduct,       //development purpose only
+  deleteAllUser,
   registerUser,
   loginUser,
   generateFeed,
