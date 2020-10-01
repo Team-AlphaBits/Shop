@@ -14,7 +14,9 @@ router.get("/generate-feed", middleware.authorize, usersCtrl.generateFeed);
 
 router.get("/getSearchResults", usersCtrl.getSearchResults);
 
-router.delete("/all", usersCtrl.deleteAllUsers);
+router.delete("/delete-all-products", usersCtrl.deleteAllProduct);
+
+router.delete("/delete-all-users", usersCtrl.deleteAllUser);
 
 router.get("/insert-products", usersCtrl.insertProducts);
 
