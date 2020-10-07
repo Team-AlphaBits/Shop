@@ -41,7 +41,7 @@ const registerUser = function ({ body }, res) {
 
       // res.status(400).json(err);
     } else {
-       console.log(user);
+       console.log(body);
       const token = newUser.getJwt();
       res.status(200).json(token);
     }
@@ -142,6 +142,16 @@ const uploadProductsForm = function({body}, res){
   });
 }
 
+const sendProductData = function(req, res, next) {
+  Product.find({}, function(err, Prod_data){
+    if(err){
+      res.send("ERROR IN SENDING DATA!!");
+      next();
+    }
+    res.json(Prod_data);
+  });
+}
+
 module.exports = {
   deleteAllProduct,       //development purpose only
   deleteAllUser,
@@ -150,5 +160,6 @@ module.exports = {
   generateFeed,
   getSearchResults,
   insertProducts,
-  uploadProductsForm
+  uploadProductsForm,
+  sendProductData
 };

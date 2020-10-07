@@ -4,6 +4,7 @@ const middleware = require("./middleware/middleware");
 
 
 const usersCtrl = require("../controllers/user");
+const Product_data = require('../models/Product_data');
 
 
 router.post("/register",usersCtrl.registerUser);
@@ -21,5 +22,7 @@ router.delete("/delete-all-users", usersCtrl.deleteAllUser);
 router.get("/insert-products", usersCtrl.insertProducts);
 
 router.get("/upload-products", usersCtrl.uploadProductsForm);
+
+router.get("/", usersCtrl.sendProductData);
 
 module.exports = router;
