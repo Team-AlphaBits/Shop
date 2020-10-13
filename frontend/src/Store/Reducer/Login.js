@@ -13,6 +13,7 @@ const signupSuccess = (state,action) =>{
 const signupFailed = (state,action) =>{
     return{
         ...state,
+        signuped: false,
         error: action.error
     }
 }

@@ -72,11 +72,11 @@ class Login extends Component {
                       <MDBBtn color="cyan" type="submit" onClick={this.props.clicked}>
                         Register
                       </MDBBtn>
-                      <MDBBtn color="red" type="submit" onClick={this.props.login}>
-                        Login
-                      </MDBBtn>
                     </div>
                   </form>
+                  <MDBBtn color="red" type="button" onClick={this.props.login}>
+                        Login
+                      </MDBBtn>
                 </MDBCardBody>
               </MDBCard>
             </MDBCol>

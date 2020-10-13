@@ -20,6 +20,7 @@ export const Signup = (username, email, password) =>{
             email: email,
             password: password
         }
+        console.log(userData)
         Axios.post('url',userData)
              .then(res =>{
                  dispatch(signupSuccess())
