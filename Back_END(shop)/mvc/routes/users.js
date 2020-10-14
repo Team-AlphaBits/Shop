@@ -4,6 +4,7 @@ const middleware = require("./middleware/middleware");
 
 
 const usersCtrl = require("../controllers/user");
+const productsCtrl = require("../controllers/product");
 const Product_data = require('../models/Product_data');
 
 
@@ -11,18 +12,13 @@ router.post("/register",usersCtrl.registerUser);
 
 router.post("/login",usersCtrl.loginUser);
 
-router.get("/generate-feed", middleware.authorize, usersCtrl.generateFeed);
 
-router.get("/getSearchResults", usersCtrl.getSearchResults);
+router.get("/getSearchResults", productsCtrl.getSearchResults);
 
-router.delete("/delete-all-products", usersCtrl.deleteAllProduct);
+router.get("/reset", productsCtrl.reset);
 
-router.delete("/delete-all-users", usersCtrl.deleteAllUser);
+router.get("/upload-products", productsCtrl.uploadProductsForm);
 
-router.get("/insert-products", usersCtrl.insertProducts);
-
-router.get("/upload-products", usersCtrl.uploadProductsForm);
-
-router.get("/", usersCtrl.sendProductData);
+router.get("/home", productsCtrl.sendProductData);
 
 module.exports = router;
