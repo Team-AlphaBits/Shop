@@ -1,15 +1,15 @@
 import React from "react";
-import { MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBView, MDBContainer } from
-"mdbreact";
-import flower from '../../Assets/images/Tulips.jpg'
-import Penguins from '../../Assets/images/Penguins.jpg'
-import Jellyfish from '../../Assets/images/Jellyfish.jpg'
-import classes from './carousel.module.css'
+import {
+  MDBCarousel,
+  MDBCarouselInner,
+  MDBCarouselItem,
+  MDBView,
+  MDBContainer,
+} from "mdbreact";
 
-
-const CarouselPage = () => {
+const carousel = () => {
   return (
-    <MDBContainer className={classes.Carousel}>
+    <MDBContainer>
       <MDBCarousel
         activeItem={1}
         length={3}
@@ -23,7 +23,7 @@ const CarouselPage = () => {
             <MDBView>
               <img
                 className="d-block w-100"
-                src={flower}
+                src="https://mdbootstrap.com/img/Photos/Slides/img%20(45).jpg"
                 alt="First slide"
               />
             </MDBView>
@@ -32,7 +32,7 @@ const CarouselPage = () => {
             <MDBView>
               <img
                 className="d-block w-100"
-                src={Penguins}
+                src="https://mdbootstrap.com/img/Photos/Slides/img%20(46).jpg"
                 alt="Second slide"
               />
             </MDBView>
@@ -41,7 +41,7 @@ const CarouselPage = () => {
             <MDBView>
               <img
                 className="d-block w-100"
-                src={Jellyfish}
+                src="https://mdbootstrap.com/img/Photos/Slides/img%20(47).jpg"
                 alt="Third slide"
               />
             </MDBView>
@@ -50,6 +50,6 @@ const CarouselPage = () => {
       </MDBCarousel>
     </MDBContainer>
   );
-}
+};
 
-export default CarouselPage;
+export default carousel;

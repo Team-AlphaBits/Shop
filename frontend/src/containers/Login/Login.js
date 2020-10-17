@@ -3,14 +3,16 @@ import {
   MDBContainer,
   MDBRow,
   MDBCol,
-  MDBBtn,
-  MDBCard,
   MDBInput,
-  MDBModal,
+  MDBBtn,
+  MDBAlert,
+  MDBModalHeader,
   MDBModalBody,
+  MDBModal,
+  MDBCard,
+  MDBCardBody,
 } from "mdbreact";
 import classes from "./Login.module.css";
-
 class Login extends Component {
   state = {
     modal: false,
@@ -34,86 +36,56 @@ class Login extends Component {
       );
     }
     return (
-      <div className={classes.uperContainer}>
-        {ShowAlert}
-        <MDBContainer className={classes.login}>
-          <MDBRow>
-            <MDBCol md="6">
-              <MDBCard
-                className="card-image"
-                style={{
-                  backgroundImage:
-                    "url(https://mdbootstrap.com/img/Photos/Others/pricing-table7.jpg)",
-                  width: "28rem",
-                }}
-              >
-                <div className="text-white rgba-stylish-strong py-5 px-5 z-depth-4">
-                  <div className="text-center">
-                    <h3 className="white-text mb-5 mt-4 font-weight-bold">
-                      <strong>SIGN</strong>
-                      <a href="#!" className="green-text font-weight-bold">
-                        <strong> IN</strong>
-                      </a>
-                    </h3>
-                  </div>
-                  <MDBInput
-                    label="Your email"
-                    group
-                    type="text"
-                    validate
-                    labelClass="white-text"
-                  />
-                  <MDBInput
-                    label="Your password"
-                    group
-                    type="password"
-                    validate
-                    labelClass="white-text"
-                  />
-                  <div className="md-form pb-3">
-                    <MDBInput
-                      label={
-                        <>
-                          Accept the&nbsp;
-                          <a href="#!" className="green-text font-weight-bold">
-                            Terms and Conditions
-                          </a>
-                        </>
-                      }
-                      type="checkbox"
-                      id="checkbox1"
-                      labelClass="white-text"
-                    />
-                  </div>
-                  <MDBRow className="d-flex align-items-center mb-4">
-                    <div className="text-center mb-3 col-md-12">
-                      <MDBBtn
-                        color="success"
-                        rounded
-                        type="button"
-                        className="btn-block z-depth-1"
-                        onClick={this.toggle}
-                      >
-                        Log in
-                      </MDBBtn>
-                    </div>
-                  </MDBRow>
-                  <MDBCol md="12">
-                    <p className="font-small white-text d-flex justify-content-end">
-                      Not regitered?
-                      <a href="#!" className="green-text ml-1 font-weight-bold">
-                        Register
-                      </a>
-                    </p>
-                  </MDBCol>
-                </div>
-              </MDBCard>
-            </MDBCol>
-          </MDBRow>
-        </MDBContainer>
+      <div className={classes.up}>
+        <div className={classes.uperContainer}>
+          {ShowAlert}
+          <MDBContainer className={classes.login}>
+            <MDBRow>
+              <MDBCol md="6">
+                <MDBCard>
+                  <MDBCardBody>
+                    <form>
+                      <p className="h4 text-center py-4">Sign in</p>
+                      <div className="grey-text">
+                        <MDBInput
+                          label="Your email"
+                          icon="envelope"
+                          group
+                          type="email"
+                          validate
+                          error="wrong"
+                          success="right"
+                        />
+
+                        <MDBInput
+                          label="Your password"
+                          icon="lock"
+                          group
+                          type="password"
+                          validate
+                        />
+                      </div>
+                      <div className="text-center py-4 mt-3">
+                        <MDBBtn
+                          color="cyan"
+                          type="submit"
+                          onClick={this.toggle}
+                        >
+                          Sign in
+                        </MDBBtn>
+                        <MDBBtn color="red" type="submit">
+                          Sign-up
+                        </MDBBtn>
+                      </div>
+                    </form>
+                  </MDBCardBody>
+                </MDBCard>
+              </MDBCol>
+            </MDBRow>
+          </MDBContainer>
+        </div>
       </div>
     );
   }
 }
-
 export default Login;

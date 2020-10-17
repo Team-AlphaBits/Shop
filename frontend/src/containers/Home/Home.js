@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import Carousel from "../../components/carousel/carousel";
 import Header from "../../components/Icons/headers";
 import FrontImage from "../../Assets/images/hero_2.jpg";
 import { MDBView, MDBMask, MDBRow, MDBContainer, MDBCol } from "mdbreact";
 import classes from "./Home.module.css";
 import Clothes from "../../Cards/Clothes/Clothes";
 import BabyProducts from "../../Cards/BabyProducts/BabyProducts";
+import StaticCards from "../../Cards/StaticCards/StaticCards";
+import Carousel from "../../components/carousel/carousel";
 class Home extends Component {
   render() {
     return (
@@ -18,16 +19,13 @@ class Home extends Component {
         <MDBContainer className="mt-5">
           <MDBRow>
             <MDBCol lg="19" md="14" className="mb-4">
-              <img
-                src="https://mdbootstrap.com/img/Photos/Others/img%20(50).jpg"
-                className="img-fluid z-depth-5"
-                alt=""
-              />
+              <Carousel />
             </MDBCol>
           </MDBRow>
         </MDBContainer>
         <Clothes />
         <BabyProducts />
+        <StaticCards />
       </div>
     );
   }
