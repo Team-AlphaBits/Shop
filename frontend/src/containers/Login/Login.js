@@ -18,8 +18,12 @@ class Login extends Component{
       return { login: !prev.login}
     })
   }
-  callFunction = () =>{
-    return this.props.forSignup(this.state.usernameValue,this.state.emailValue,this.state.passwordValue)
+  callFunction = (event) =>{
+    event.preventDefault();
+    this.props.forSignup(this.state.usernameValue,this.state.emailValue,this.state.passwordValue)
+    this.setState(prev =>{
+      return { login: !prev.login}
+    })
   }
   onChangeHandler = (event,field) =>{
     if(field==='usernameValue'){

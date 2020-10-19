@@ -3,10 +3,14 @@ import Carousel from "../../components/carousel/carousel";
 import Header from "../../components/Icons/headers";
 import FrontImage from "../../Assets/images/hero_2.jpg";
 import { MDBView, MDBMask, MDBRow, MDBContainer, MDBCol } from "mdbreact";
-import classes from "./Home.module.css";
+import classes from "./Home.module.css";import {connect} from 'react-redux';
+import * as actions from '../../Store/Action/index';
 import Clothes from "../../Cards/Clothes/Clothes";
 import BabyProducts from "../../Cards/BabyProducts/BabyProducts";
 class Home extends Component {
+  componentDidMount(){
+       this.props.onFetchData()
+  }
   render() {
     return (
       <div>
@@ -32,4 +36,14 @@ class Home extends Component {
     );
   }
 }
-export default Home;
+const mapStateToProps = (state) =>{
+  return{
+    signedUp: state.signuped
+  }
+}
+const mapDispatchToProps = (dispatch) =>{
+ return{
+    onFetchData: ()  => dispatch(actions.getData())
+ }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Home);
