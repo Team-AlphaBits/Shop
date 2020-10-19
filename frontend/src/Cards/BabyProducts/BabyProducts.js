@@ -13,35 +13,18 @@ const breakPoints = [
 ];
 
 function Clothes() {
+  let cards = [];
+  for (let i = 0; i < 8; i++) {
+    cards.push(
+      <Item>
+        <img src={Penguin} height="250px" width="100%" />
+      </Item>
+    );
+  }
   return (
     <div>
       <div className={classes.App}>
-        <Carousel breakPoints={breakPoints}>
-          <Item>
-            <img src={Penguin} height="250px" width="100%" />
-          </Item>
-          <Item>
-            <img src={Penguin} height="250px" width="100%" />
-          </Item>
-          <Item>
-            <img src={Penguin} height="250px" width="100%" />
-          </Item>
-          <Item>
-            <img src={Penguin} height="250px" width="100%" />
-          </Item>
-          <Item>
-            <img src={Penguin} height="250px" width="100%" />
-          </Item>
-          <Item>
-            <img src={Penguin} height="250px" width="100%" />
-          </Item>
-          <Item>
-            <img src={Penguin} height="250px" width="100%" />
-          </Item>
-          <Item>
-            <img src={Penguin} height="250px" width="100%" />
-          </Item>
-        </Carousel>
+        <Carousel breakPoints={breakPoints}>{cards}</Carousel>
       </div>
     </div>
   );
