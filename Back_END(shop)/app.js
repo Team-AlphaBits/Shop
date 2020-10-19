@@ -26,15 +26,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(passport.initialize());     
 
-app.use('/', (req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:4200');
-  res.header('Access-Control-Allow-Header', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+app.use("/", (req, res, next) =>{
+  res.header('Access-Control-Allow-Origin','*');
+ 
   next();
 });
 
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/api', usersRouter);
 
 // catch 404 and forward to error handler 
 app.use(function(req, res, next) {

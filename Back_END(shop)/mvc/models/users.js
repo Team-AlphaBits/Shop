@@ -10,10 +10,10 @@ const jwt = require("jsonwebtoken");
 // console.log("=================");
 // console.log("=================");
 
-const productDataSchema = new mongoose.Schema({  
-  
+const productDataSchema = new mongoose.Schema(
+{  
   id: {
-    type: Number,
+    type: String,
     required: true,
   },
   title:{
@@ -24,39 +24,36 @@ const productDataSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  images: {
-    type: String,
-    required: true,
-  },
   description: {
     type: String,
     required: true,
   },
   price: {
-    type: Number,
+    type: String,
     required: true,
   },
   quantity: {
-    type: Number,
+    type: String,
     required: true,
   },
   short_desc: {
-    type: Number,
+    type: String,
     required: true,
   },
   cat_id: {
-    type: Number,
+    type: String,
     required: true,
+  },
+  seller_name: {
+    type: String,
+    required:true,
   },
 
 });
 
-const userSchema = new mongoose.Schema({
-  firstname: {
-    type: String,
-    required: true,
-  },
-  lastname: {
+const userSchema = new mongoose.Schema(
+  {
+  user_name: {
     type: String,
     required: true,
   },

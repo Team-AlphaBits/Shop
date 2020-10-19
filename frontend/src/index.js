@@ -7,17 +7,26 @@ import {BrowserRouter} from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css'; 
+import LoginReducer from './Store/Reducer/Login';
+import {Provider} from 'react-redux';
+import {createStore,applyMiddleware,compose, combineReducers} from 'redux';
+import thunk from 'redux-thunk';
 import 'bootstrap-css-only/css/bootstrap.min.css'; 
 import 'mdbreact/dist/css/mdb.css';
 
-const app = (
-  <BrowserRouter>
-     <App />
-  </BrowserRouter>
-)
+const composeEnhancers = process.env.NODE_ENV==='development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null|| compose;
+const rootReducer = combineReducers({
+  Login: LoginReducer
+})
+const Store= createStore(rootReducer,composeEnhancers(applyMiddleware(thunk)));
+
 ReactDOM.render(
   <React.StrictMode>
-      {app}
+      <Provider store={Store}>
+      <BrowserRouter>
+     <App />
+     </BrowserRouter>
+      </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
