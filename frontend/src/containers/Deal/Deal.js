@@ -27,7 +27,7 @@ function Deals() {
   for (let i = 0; i < 8; i++) {
     cards.push(
       <MDBCol>
-        <MDBCard style={{ width: "22rem" }}>
+        <MDBCard style={{ width: "16rem" }}>
           <MDBCardImage
             className="img-fluid"
             src="https://mdbootstrap.com/img/Photos/Others/images/43.jpg"

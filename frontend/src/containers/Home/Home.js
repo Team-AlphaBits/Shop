@@ -29,7 +29,8 @@ class Home extends Component {
         </MDBContainer>
         <Clothes />
         <BabyProducts />
-        <StaticCards />
+        {/* <StaticCards />
+        <StaticCards /> */}
       </div>
     );
   }
