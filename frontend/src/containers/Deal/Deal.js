@@ -27,7 +27,7 @@ function Deals() {
   for (let i = 0; i < 8; i++) {
     cards.push(
       <MDBCol>
-        <MDBCard style={{ width: "22rem" }}>
+        <MDBCard className={classes.card}>
           <MDBCardImage
             className="img-fluid"
             src="https://mdbootstrap.com/img/Photos/Others/images/43.jpg"
@@ -38,7 +38,7 @@ function Deals() {
             <p>
               <strike>₹27,990</strike> (29% off)
             </p>
-            <MDBBtn href="#">ADD TO CART</MDBBtn>
+            <MDBBtn href="/Cart">ADD TO CART</MDBBtn>
           </MDBCardBody>
         </MDBCard>
       </MDBCol>
@@ -60,6 +60,12 @@ function Deals() {
       </div>
       <div className={classes.container}>
         <h1 className={classes.title2}>Smartphones</h1>
+        <div className={classes.App}>
+          <Carousel breakPoints={breakPoints}>{cards}</Carousel>
+        </div>
+      </div>
+      <div className={classes.container}>
+        <h1 className={classes.title2}>Furnitures</h1>
         <div className={classes.App}>
           <Carousel breakPoints={breakPoints}>{cards}</Carousel>
         </div>

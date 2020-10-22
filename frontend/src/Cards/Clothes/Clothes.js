@@ -26,7 +26,7 @@ function Clothes() {
   for (let i = 0; i < 8; i++) {
     cards.push(
       <MDBCol>
-        <MDBCard style={{ width: "22rem" }}>
+        <MDBCard className={classes.card}>
           <MDBCardImage className="img-fluid" src={Penguin} waves />
           <MDBCardBody>
             <p className={classes.price}>₹19,990.00</p>

@@ -7,10 +7,19 @@
 .flexbox {
   display: flex;
   flex-flow: row;
-  margin: 100px 0px 100px 0px;
+  margin-top: 50px;
+  /* margin: 50px 0px 50px 0px; */
 }
 .disc {
   font-weight: bolder;
   font-size: 20px;
   font: outline;
 }
+.card {
+  width: 20rem;
+}
+@media (max-width: 600px) {
+  .card {
+    width: 15rem;
+  }
+} ;

@@ -9,14 +9,21 @@ import {
   MDBCol,
 } from "mdbreact";
 import classes from "./StaticCards.module.css";
+import Carousel from "react-elastic-carousel";
 import HorizontalScroll from "react-scroll-horizontal";
+const breakPoints = [
+  { width: 1, itemsToShow: 1 },
+  { width: 550, itemsToShow: 2 },
+  { width: 768, itemsToShow: 3 },
+  { width: 1200, itemsToShow: 4 },
+];
 class StaticCards extends Component {
   render() {
     let cards = [];
     for (let i = 0; i < 8; i++) {
       cards.push(
         <MDBCol>
-          <MDBCard style={{ width: "22rem" }}>
+          <MDBCard className={classes.card}>
             <MDBCardImage
               className="img-fluid"
               src="https://mdbootstrap.com/img/Photos/Others/images/43.jpg"
@@ -30,8 +37,8 @@ class StaticCards extends Component {
       );
     }
     return (
-      <div>
-        <div className={classes.flexbox}>{cards}</div>
+      <div className={classes.flexbox}>
+        <Carousel breakPoints={breakPoints}>{cards}</Carousel>
       </div>
     );
   }

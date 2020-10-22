@@ -46,27 +46,27 @@ class Login extends Component {
                     <form>
                       <p className="h4 text-center py-4">Sign in</p>
                       <div className="grey-text">
-                      <MDBInput
-                        label="Your email"
-                        icon="envelope"
-                        group
-                        type="email"
-                        value={this.props.valueEmail}
-                        onChange={this.props.changeEmail}
-                        validate
-                        error="wrong"
-                        success="right"
-                      />
+                        <MDBInput
+                          label="Your email"
+                          icon="envelope"
+                          group
+                          type="email"
+                          value={this.props.valueEmail}
+                          onChange={this.props.changeEmail}
+                          validate
+                          error="wrong"
+                          success="right"
+                        />
 
-                      <MDBInput
-                        label="Your password"
-                        icon="lock"
-                        group
-                        type="password"
-                        value={this.props.valuePassword}
-                        onChange={this.props.changePassword}
-                        validate
-                      />
+                        <MDBInput
+                          label="Your password"
+                          icon="lock"
+                          group
+                          type="password"
+                          value={this.props.valuePassword}
+                          onChange={this.props.changePassword}
+                          validate
+                        />
                       </div>
                       <div className="text-center py-4 mt-3">
                         <MDBBtn
@@ -78,12 +78,9 @@ class Login extends Component {
                         </MDBBtn>
                       </div>
                     </form>
-                    <MDBBtn 
-                        color="red" 
-                        type="reset"
-                        onClick={this.props.login}>
-                          Sign-up
-                        </MDBBtn>
+                    <MDBBtn color="red" type="reset" onClick={this.props.login}>
+                      Sign-up
+                    </MDBBtn>
                   </MDBCardBody>
                 </MDBCard>
               </MDBCol>

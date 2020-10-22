@@ -20,3 +20,11 @@
   font-weight: bold;
   color: green;
 }
+.card {
+  width: 22rem;
+}
+@media (max-width: 500px) {
+  .card {
+    width: 15rem;
+  }
+}

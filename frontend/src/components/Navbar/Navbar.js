@@ -10,7 +10,7 @@ import {
   MDBFormInline,
 } from "mdbreact";
 import { withRouter } from "react-router-dom";
-import {connect} from 'react-redux';
+import { connect } from "react-redux";
 
 class NavbarPage extends Component {
   state = {
@@ -84,9 +84,9 @@ class NavbarPage extends Component {
     );
   }
 }
-const mapStateToProps = (state) =>{
-  return{
-    isAuth: state.signuped
-  }
-}
+const mapStateToProps = (state) => {
+  return {
+    isAuth: state.signuped,
+  };
+};
 export default connect(mapStateToProps)(withRouter(NavbarPage));
