@@ -20,10 +20,14 @@ const breakPoints = [
 class StaticCards extends Component {
   render() {
     let cards = [];
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < 4; i++) {
       cards.push(
         <MDBCol>
+<<<<<<< HEAD
           <MDBCard className={classes.card}>
+=======
+          <MDBCard style={{ width: "19rem" }}>
+>>>>>>> 01c2a02c0527287dfb88820bbfd9fcfebf6614f2
             <MDBCardImage
               className="img-fluid"
               src="https://mdbootstrap.com/img/Photos/Others/images/43.jpg"
