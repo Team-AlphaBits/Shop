@@ -13,11 +13,17 @@ export const signupFailed = (error) =>{
         error: error
     }
 }
+export const dataFetched = (data) =>{
+    return{
+        type: actionTypes.DATASUCCESS,
+        data: data
+    }
+}
 export const getData = () =>{
-    return dipatch =>{
-        Axios.get('url')
+    return dispatch =>{
+        Axios.get("https://cors-anywhere.herokuapp.com/https://calm-garden-34154.herokuapp.com/api/home")
              .then(data =>{
-                 console.log(data)
+                 dispatch(dataFetched(data.data))
              })
              .catch(err => console.log(err));
     }
@@ -30,7 +36,7 @@ export const Signup = (username, email, password) =>{
             password: password
         }
         console.log(userData)
-        Axios.post("https://calm-garden-34154.herokuapp.com/api/register",userData)
+        Axios.post("https://cors-anywhere.herokuapp.com/https://calm-garden-34154.herokuapp.com/api/register",userData)
              .then(res =>{
                  console.log(res);
                  dispatch(signupSuccess())
