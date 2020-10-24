@@ -9,6 +9,7 @@ import {
   StatusBar,
   ScrollView,
   SafeAreaView,
+  Image
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
@@ -27,17 +28,22 @@ class Login extends Component {
     return (
       <SafeAreaView style={{flex: 1, backgroundColor: color.MintyGreenDark}}>
         <ScrollView contentContainerStyle={styles.container}>
+          <View style={styles.logostyle}>
+              <Image
+                    source={require('../images/redicon.png')}
+                    style={styles.img}
+                    resizeMode="contain"
+                  />
+                  </View>
           <View style={styles.header}>
             <Text style={styles.text_header}>Welcome!</Text>
           </View>
+          <View>
           <Animatable.View
             animation="fadeInUpBig"
-            style={[
-              styles.footer,
-              {
-                backgroundColor: colors.background,
-              },
-            ]}>
+            style={
+              styles.footer
+            }>
             <Text
               style={[
                 styles.text_footer,
@@ -66,7 +72,7 @@ class Login extends Component {
                 styles.text_footer,
                 {
                   color: colors.text,
-                  marginTop: 35,
+                  marginTop: '1%',
                 },
               ]}>
               Password
@@ -120,7 +126,7 @@ class Login extends Component {
                   {
                     borderColor: color.MintyGreenDark,
                     borderWidth: 1,
-                    marginTop: 15,
+                    marginTop:'5%',
                   },
                 ]}>
                 <Text
@@ -135,6 +141,7 @@ class Login extends Component {
               </TouchableOpacity>
             </View>
           </Animatable.View>
+          </View>
         </ScrollView>
       </SafeAreaView>
     );
@@ -147,19 +154,18 @@ const styles = StyleSheet.create({
   container: {marginHorizontal: 10},
   header: {
     flex: 1,
-    justifyContent: 'flex-end',
     paddingHorizontal: 20,
-    paddingBottom: 50,
-    marginTop: 120,
+    paddingBottom: '5%',
+    marginTop: '5%',
   },
   footer: {
-    flex: 3,
+    flex:1,
     backgroundColor: color.white,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     paddingHorizontal: 20,
-    paddingVertical: 30,
-    marginTop: 10,
+    paddingTop:'10%',
+    paddingBottom:'56%'
   },
   text_header: {
     color: color.white,
@@ -172,7 +178,7 @@ const styles = StyleSheet.create({
   },
   action: {
     flexDirection: 'row',
-    marginTop: 10,
+    marginTop: 5,
     borderBottomWidth: 1,
     borderBottomColor: '#f2f2f2',
     paddingBottom: 5,
@@ -186,7 +192,7 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: 'center',
-    marginTop: 50,
+    marginTop: 20,
   },
   signIn: {
     width: '100%',
@@ -199,4 +205,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
   },
+  img: {
+    width: null,
+    height: null,
+    flex: 1,
+  },
+  logostyle:{
+    width:'100%',
+    height:'30%'
+  }
 });

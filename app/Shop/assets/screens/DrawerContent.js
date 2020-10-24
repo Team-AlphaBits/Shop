@@ -120,6 +120,12 @@ export default class DrawerContent extends Component {
                   this.props.navigation.navigate('Order');
                 }}
               />
+              <DrawerItem
+                label="Search"
+                onPress={() => {
+                  this.props.navigation.navigate('Search');
+                }}
+              />
             </Drawer.Section>
           </View>
         </DrawerContentScrollView>
