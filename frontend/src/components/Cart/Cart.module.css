@@ -1,16 +1,21 @@
+.maincontainer {
+  background-color: #fff;
+  padding: 1% 4% 2% 1%;
+}
 .container {
   margin-top: 100px;
   display: flex;
   flex-flow: row;
   border: 2px solid blue;
   padding: 50px 0px 50px 0px;
+  border-radius: 5px;
 }
 .carousel_ctrl {
   width: 30%;
   margin-left: 2%;
 }
 .img {
-  width: 100%;
+  width: 230px;
   height: 400px;
 }
 .disc {
@@ -20,10 +25,15 @@
 }
 .price {
   font-size: larger;
+  font-weight: bold;
+}
+.color {
   color: rgb(175, 13, 13);
+  font-size: 20px;
 }
 .amount {
-  font-size: 15px;
+  font-size: 18px;
+  font-weight: 400;
 }
 .avl {
   font-size: large;
@@ -41,7 +51,7 @@
   font-size: 25px;
   font-weight: bold;
   margin-top: 20px;
-  margin-left: 60%;
+  /* margin-left: 60%; */
   text-align: justify; /* For Edge */
 }
 .car {
@@ -56,11 +66,16 @@
 }
 .oldprc {
   font-weight: bold;
-  font-size: 20px;
+  font-size: 23px;
+  color: blue;
 }
 @media (max-width: 800px) {
-  .total {
-    margin-left: 50%;
+  .img {
+    margin-top: 100px;
+    margin-left: 20px;
+  }
+  .maincontainer {
+    padding: 5px 30px 5px 8px;
   }
 }
 @media (max-width: 600px) {
@@ -68,23 +83,22 @@
     flex-flow: column;
     padding: 0px 0px 10px 0px;
   }
+  .maincontainer {
+    padding: 5px 8px 5px 5px;
+  }
   .carousel_ctrl {
     width: 100%;
     margin-left: 0%;
-    margin-top: 40px;
+    margin-top: 00px;
     margin-bottom: 40px;
     margin-right: 0px;
   }
   .disc {
     width: 100%;
-    margin-right: 5%;
     margin-left: 5%;
   }
   .car {
     height: 400px;
-  }
-  .total {
-    margin-left: 10%;
   }
 }
 .quantity {
@@ -93,8 +107,8 @@
 }
 .quaBtn {
   color: blue;
-  background-color: transparent;
-  border: 0px;
+  background-color: #fff;
+  border: 5px;
 }
 .addBtn {
   margin-right: 20%;
@@ -103,8 +117,14 @@
 }
 .proceed {
   width: 30%;
-  background-color: rgb(255, 115, 0);
+  background-color: rgb(236, 177, 14);
   margin-left: 20%;
   margin-top: 10px;
   border-radius: 8px;
+}
+.free {
+  font-size: 18px;
+  font-weight: 500;
+  color: green;
+  margin-top: 15px;
 }

@@ -2,7 +2,11 @@ import React, { Component } from "react";
 import { Button } from "react-bootstrap";
 // import Carousel from "../../components/carousel/carousel";
 import classes from "./Cart.module.css";
+import { Redirect } from "react-router-dom";
 class Details extends Component {
+  check = () => {
+    return <Redirect to="/Checkout" />;
+  };
   render() {
     let cls = ["z-depth-1", classes.car];
     let img = ["d-block w-100", classes.car];
@@ -23,8 +27,8 @@ class Details extends Component {
                 Wi-Fi-only), Gold{" "}
               </p>
               <p className={classes.oldprc}>₹ 20,999.00</p>
-              <p>
-                You Save: <b className={classes.price}> ₹ 4,000.00 (19%) </b>
+              <p className={classes.price}>
+                You Save: <b className={classes.color}> ₹ 4,000.00 (19%) </b>
               </p>
               <p className={classes.avl}>In stock.</p>
               <p className={classes.amount}>Eligible for FREE Shipping </p>
@@ -36,16 +40,21 @@ class Details extends Component {
                   <button className={classes.quaBtn}>See more like this</button>
                 </div>
               </div>
-              <button className={classes.proceed}>Proceed to Checkout</button>
+              <p className={classes.free}>
+                ✔ Your order is eligible for FREE Delivery.{" "}
+              </p>
+              <p className={classes.total}>
+                Subtotal (1 item): <b>15,999.00</b>
+              </p>
+              <button className={classes.proceed} onClick={this.check}>
+                Proceed to Checkout
+              </button>
             </div>
           </div>
-          <p className={classes.total}>
-            Subtotal (1 item): <b>15,999.00</b>
-          </p>
         </div>
       );
     }
-    return <div>{cards}</div>;
+    return <div className={classes.maincontainer}>{cards}</div>;
   }
 }
 export default Details;

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { Component } from "react";
 import Lform from "../../components/Form/Loginform";
 import Form from "../../components/Form/Signupform";
@@ -18,12 +17,16 @@ class Login extends Component {
       return { login: !prev.login };
     });
   };
-  callFunction = () => {
-    return this.props.forSignup(
+  callFunction = (event) => {
+    event.preventDefault();
+    this.props.forSignup(
       this.state.usernameValue,
       this.state.emailValue,
       this.state.passwordValue
     );
+    this.setState((prev) => {
+      return { login: !prev.login };
+    });
   };
   onChangeHandler = (event, field) => {
     if (field === "usernameValue") {
@@ -44,57 +47,6 @@ class Login extends Component {
       });
     }
   };
-=======
-import React,{Component} from 'react';
-import Lform from '../../components/Form/Loginform';
-import Form from '../../components/Form/Signupform';
-import {connect} from 'react-redux';
-import * as actions from '../../Store/Action/index';
-
-
-class Login extends Component{
-  state={
-     login: true,
-     usernameValue: '',
-     emailValue: '',
-     passwordValue: '',
-     confirmpasswordValue: ''
-  }
-  toggle = () =>{
-    this.setState(prev =>{
-      return { login: !prev.login}
-    })
-  }
-  callFunction = (event) =>{
-    event.preventDefault();
-    this.props.forSignup(this.state.usernameValue,this.state.emailValue,this.state.passwordValue)
-    this.setState(prev =>{
-      return { login: !prev.login}
-    })
-  }
-  onChangeHandler = (event,field) =>{
-    if(field==='usernameValue'){
-        this.setState({
-          usernameValue: event.target.value
-        })
-  }
-  else if(field==='emailValue'){
-    this.setState({
-      emailValue: event.target.value
-    })
-  }
-  else if(field==='passwordValue'){
-    this.setState({
-      passwordValue: event.target.value
-    })
-  }
-  else if(field==='confirmpasswordValue'){
-    this.setState({
-      confirmpasswordValue: event.target.value
-    })
-  }
-}
->>>>>>> 01c2a02c0527287dfb88820bbfd9fcfebf6614f2
 
   render() {
     // if(this.props.signedUp){
@@ -132,24 +84,10 @@ class Login extends Component{
     return <div>{form}</div>;
   }
 }
-<<<<<<< HEAD
-const mapStateToProps = (state) => {
-  return {
-    signedUp: state.signuped,
-  };
-};
 const mapDispatchToProps = (dispatch) => {
   return {
     forSignup: (username, email, password) =>
       dispatch(actions.Signup(username, email, password)),
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
-=======
-const mapDispatchToProps = (dispatch) =>{
- return{
-    forSignup: (username,email,password) => dispatch(actions.Signup(username,email,password))
- }
-}
-export default connect(mapStateToProps,mapDispatchToProps)(Login);
->>>>>>> 01c2a02c0527287dfb88820bbfd9fcfebf6614f2
+export default connect(null, mapDispatchToProps)(Login);

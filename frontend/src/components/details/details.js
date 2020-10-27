@@ -67,7 +67,7 @@ class Details extends Component {
           <p className={classes.amount}>
             Deal of the Day: <b className={classes.price}>₹ 16,999.00</b>
           </p>
-          <p>
+          <p className={classes.price2}>
             You Save: <b className={classes.price}> ₹ 4,000.00 (19%) </b>
           </p>
           <b>Inclusive of all taxes</b>
