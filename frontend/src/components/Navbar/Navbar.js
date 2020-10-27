@@ -8,9 +8,11 @@ import {
   MDBNavbarToggler,
   MDBCollapse,
   MDBFormInline,
+  MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem
 } from "mdbreact";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import classes from "./Navbar.module.css";
 
 class NavbarPage extends Component {
   state = {
@@ -38,14 +40,14 @@ class NavbarPage extends Component {
     }
     return (
       <MDBNavbar
-        color="blue"
         dark
         expand="md"
         fixed="top"
         scrollingNavbarOffset
+        className={classes.navcolor}
       >
         <MDBNavbarBrand>
-          <strong className="white-text" style={{ fontFamily: "italic" }}>
+          <strong className="white-text" style={{ fontFamily: "italic",color: "red" }}>
             $-"AlphaBits"
           </strong>
         </MDBNavbarBrand>
@@ -59,7 +61,33 @@ class NavbarPage extends Component {
               <MDBNavLink to="/deal">Today's Deals</MDBNavLink>
             </MDBNavItem>
             <MDBNavItem active={activeGift}>
-              <MDBNavLink to="/gifts">Gifts Ideas</MDBNavLink>
+            <MDBDropdown>
+                <MDBDropdownToggle nav caret>
+                  <span className="mr-2">Dropdown</span>
+                </MDBDropdownToggle>
+                <MDBDropdownMenu>
+                  <MDBDropdownItem href="#!">Electronics</MDBDropdownItem>
+                  <MDBDropdownItem href="#!">Clothing</MDBDropdownItem>
+                  <MDBDropdownItem href="#!">Games</MDBDropdownItem>
+                  <MDBDropdownItem href="#!">Books</MDBDropdownItem>
+                  <MDBDropdownItem href="#!">Sports</MDBDropdownItem>
+                  <MDBDropdownItem href="#!">Computers & Accessories</MDBDropdownItem>
+                  <MDBDropdownItem href="#!">Mobiles</MDBDropdownItem>
+                  <MDBDropdownItem href="#!">Decoration</MDBDropdownItem>
+                </MDBDropdownMenu>
+              </MDBDropdown>
+            </MDBNavItem>
+            <MDBNavItem active={activeGift}>
+              <MDBNavLink to="/ProductList">Products</MDBNavLink>
+            </MDBNavItem>
+            <MDBNavItem active={activeGift}>
+              <MDBNavLink to="/Checkout">Checkout</MDBNavLink>
+            </MDBNavItem>
+            <MDBNavItem active={activeGift}>
+              <MDBNavLink to="/details">Details</MDBNavLink>
+            </MDBNavItem>
+            <MDBNavItem active={activeGift}>
+              <MDBNavLink to="/About">About</MDBNavLink>
             </MDBNavItem>
             <MDBNavItem active={activeLogin}>
               <MDBNavLink to="/login">Login/Signup</MDBNavLink>

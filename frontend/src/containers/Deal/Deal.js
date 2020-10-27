@@ -27,17 +27,13 @@ function Deals() {
   for (let i = 0; i < 8; i++) {
     cards.push(
       <MDBCol>
-<<<<<<< HEAD
         <MDBCard className={classes.card}>
-=======
-        <MDBCard style={{ width: "16rem" }}>
->>>>>>> 01c2a02c0527287dfb88820bbfd9fcfebf6614f2
           <MDBCardImage
             className="img-fluid"
             src="https://mdbootstrap.com/img/Photos/Others/images/43.jpg"
             waves
           />
-          <MDBCardBody>
+          <MDBCardBody className={classes.cardbody}>
             <p className={classes.price}>₹19,990.00</p>
             <p>
               <strike>₹27,990</strike> (29% off)
@@ -52,24 +48,28 @@ function Deals() {
     <>
       <div className={classes.container}>
         <h1 className={classes.title}>Deals on Sports Kits</h1>
+        <hr/>
         <div className={classes.App}>
           <Carousel breakPoints={breakPoints}>{cards}</Carousel>
         </div>
       </div>
       <div className={classes.container}>
         <h1 className={classes.title2}>Groceries</h1>
+        <hr/>
         <div className={classes.App}>
           <Carousel breakPoints={breakPoints}>{cards}</Carousel>
         </div>
       </div>
       <div className={classes.container}>
         <h1 className={classes.title2}>Smartphones</h1>
+        <hr/>
         <div className={classes.App}>
           <Carousel breakPoints={breakPoints}>{cards}</Carousel>
         </div>
       </div>
       <div className={classes.container}>
         <h1 className={classes.title2}>Furnitures</h1>
+        <hr/>
         <div className={classes.App}>
           <Carousel breakPoints={breakPoints}>{cards}</Carousel>
         </div>

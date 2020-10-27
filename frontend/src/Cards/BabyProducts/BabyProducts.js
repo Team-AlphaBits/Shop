@@ -12,14 +12,16 @@ const breakPoints = [
   { width: 1200, itemsToShow: 4 },
 ];
 
-function Clothes() {
+function Clothes(props) {
   let cards = [];
-  for (let i = 0; i < 8; i++) {
-    cards.push(
-      <Item>
-        <img src={Penguin} height="250px" width="100%" />
-      </Item>
-    );
+  if(props.data){
+    for (let i = 0; i < 8; i++) {
+      cards.push(
+        <Item>
+          <img src={props.data[i].image} height="250px" width="100%" />
+        </Item>
+      );
+    }
   }
   return (
     <div>

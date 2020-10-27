@@ -1,6 +1,5 @@
 .Layout {
   width: 100%;
   position: absolute;
-  background-image: url("https://mdbootstrap.com/img/Photos/Others/img%20(50).jpg");
-  background-attachment: fixed;
+  background-color: white;
 }

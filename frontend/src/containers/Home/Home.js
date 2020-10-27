@@ -2,15 +2,16 @@ import React, { Component } from "react";
 import Header from "../../components/Icons/headers";
 import FrontImage from "../../Assets/images/hero_2.jpg";
 import { MDBView, MDBMask, MDBRow, MDBContainer, MDBCol } from "mdbreact";
-import classes from "./Home.module.css";import {connect} from 'react-redux';
+import classes from "./Home.module.css";
+import {connect} from 'react-redux';
 import * as actions from '../../Store/Action/index';
 import Clothes from "../../Cards/Clothes/Clothes";
 import BabyProducts from "../../Cards/BabyProducts/BabyProducts";
 import StaticCards from "../../Cards/StaticCards/StaticCards";
 import Carousel from "../../components/carousel/carousel";
 class Home extends Component {
-  componentDidMount(){
-       this.props.onFetchData()
+  componentDidMount() {
+    this.props.onFetchData();
   }
   render() {
     return (
@@ -27,17 +28,18 @@ class Home extends Component {
             </MDBCol>
           </MDBRow>
         </MDBContainer>
-        <Clothes />
-        <BabyProducts />
-        {/* <StaticCards />
-        <StaticCards /> */}
+        <Clothes data={this.props.Data}/>
+        <BabyProducts data={this.props.Data}/>
+         <StaticCards data={this.props.Data}/>
       </div>
     );
   }
 }
 const mapStateToProps = (state) =>{
   return{
-    signedUp: state.signuped
+    signedUp: state.Login.signuped,
+    Data: state.Login.Data,
+    success: state.Login.FetchSuccess
   }
 }
 const mapDispatchToProps = (dispatch) =>{
