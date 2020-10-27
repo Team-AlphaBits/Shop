@@ -1,0 +1,110 @@
+.container {
+  margin-top: 100px;
+  display: flex;
+  flex-flow: row;
+  border: 2px solid blue;
+  padding: 50px 0px 50px 0px;
+}
+.carousel_ctrl {
+  width: 30%;
+  margin-left: 2%;
+}
+.img {
+  width: 100%;
+  height: 400px;
+}
+.disc {
+  width: 50%;
+  text-align: justify; /* For Edge */
+  margin-left: 10%;
+}
+.price {
+  font-size: larger;
+  color: rgb(175, 13, 13);
+}
+.amount {
+  font-size: 15px;
+}
+.avl {
+  font-size: large;
+  font-weight: bold;
+  color: green;
+  margin-right: 30%;
+}
+.sold {
+  color: rgb(10, 10, 163);
+}
+.discription {
+  text-align: justify; /* For Edge */
+}
+.total {
+  font-size: 25px;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-left: 60%;
+  text-align: justify; /* For Edge */
+}
+.car {
+  width: 100%;
+  height: 500px;
+}
+.heading {
+  font-weight: bold;
+  font-size: 30px;
+  color: rgb(6, 6, 105);
+  margin-right: 10%;
+}
+.oldprc {
+  font-weight: bold;
+  font-size: 20px;
+}
+@media (max-width: 800px) {
+  .total {
+    margin-left: 50%;
+  }
+}
+@media (max-width: 600px) {
+  .container {
+    flex-flow: column;
+    padding: 0px 0px 10px 0px;
+  }
+  .carousel_ctrl {
+    width: 100%;
+    margin-left: 0%;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    margin-right: 0px;
+  }
+  .disc {
+    width: 100%;
+    margin-right: 5%;
+    margin-left: 5%;
+  }
+  .car {
+    height: 400px;
+  }
+  .total {
+    margin-left: 10%;
+  }
+}
+.quantity {
+  display: flex;
+  flex-flow: row;
+}
+.quaBtn {
+  color: blue;
+  background-color: transparent;
+  border: 0px;
+}
+.addBtn {
+  margin-right: 20%;
+  width: 100px;
+  border-radius: 5px;
+}
+.proceed {
+  width: 30%;
+  background-color: rgb(255, 115, 0);
+  margin-left: 20%;
+  margin-top: 10px;
+  border-radius: 8px;
+}

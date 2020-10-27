@@ -10,3 +10,20 @@
   font-weight: bold;
   color: green;
 }
+.cardbody{
+  margin-right: 15%;
+}
+.img{
+  width: 18.7rem;
+}
+.card {
+  width: 22rem;
+}
+@media (max-width: 600px) {
+  .card {
+    width: 15rem;
+  }
+  .cardbody{
+    margin-right: 2%;
+  }
+} ;

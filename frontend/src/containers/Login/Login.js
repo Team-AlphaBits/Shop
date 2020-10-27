@@ -48,44 +48,51 @@ class Login extends Component{
   }
 }
 
-  render(){
+  render() {
     // if(this.props.signedUp){
     //   return this.toggle
     // }
-    let form = <Lform 
-    login={this.toggle}
-    valueEmail = {this.state.emailValue}
-    changeEmail = {(event) =>this.onChangeHandler(event,'emailValue')}
-    valuePassword = {this.state.passwordValue}
-    changePassword = {(event) => this.onChangeHandler(event,'passwordValue')}
-    />
-    if(!this.state.login){
-      form = <Form 
-      login = {this.toggle}
-      valueUser = {this.state.usernameValue}
-      changeUser = {(event) => this.onChangeHandler(event,'usernameValue')}
-      valueEmail = {this.state.emailValue}
-      changeEmail = {(event) =>this.onChangeHandler(event,'emailValue')}
-      valuePassword = {this.state.passwordValue}
-      changePassword = {(event) => this.onChangeHandler(event,'passwordValue')}
-      valueCnfrmPassword = {this.state.confirmpasswordValue}
-      changeCnfrmPassword = {(event) => this.onChangeHandler(event,'confirmpasswordValue')}
-      clicked = {this.callFunction}
+    let form = (
+      <Lform
+        login={this.toggle}
+        valueEmail={this.state.emailValue}
+        changeEmail={(event) => this.onChangeHandler(event, "emailValue")}
+        valuePassword={this.state.passwordValue}
+        changePassword={(event) => this.onChangeHandler(event, "passwordValue")}
       />
+    );
+    if (!this.state.login) {
+      form = (
+        <Form
+          login={this.toggle}
+          valueUser={this.state.usernameValue}
+          changeUser={(event) => this.onChangeHandler(event, "usernameValue")}
+          valueEmail={this.state.emailValue}
+          changeEmail={(event) => this.onChangeHandler(event, "emailValue")}
+          valuePassword={this.state.passwordValue}
+          changePassword={(event) =>
+            this.onChangeHandler(event, "passwordValue")
+          }
+          valueCnfrmPassword={this.state.confirmpasswordValue}
+          changeCnfrmPassword={(event) =>
+            this.onChangeHandler(event, "confirmpasswordValue")
+          }
+          clicked={this.callFunction}
+        />
+      );
     }
-    return <div>
-      {form}
-  </div>
+    return <div>{form}</div>;
   }
 }
-const mapStateToProps = (state) =>{
-  return{
-    signedUp: state.signuped
-  }
-}
-const mapDispatchToProps = (dispatch) =>{
- return{
-    forSignup: (username,email,password) => dispatch(actions.Signup(username,email,password))
- }
-}
-export default connect(mapStateToProps,mapDispatchToProps)(Login);
+const mapStateToProps = (state) => {
+  return {
+    signedUp: state.signuped,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    forSignup: (username, email, password) =>
+      dispatch(actions.Signup(username, email, password)),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

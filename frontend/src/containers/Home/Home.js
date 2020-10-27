@@ -29,9 +29,8 @@ class Home extends Component {
           </MDBRow>
         </MDBContainer>
         <Clothes data={this.props.Data}/>
-        <BabyProducts />
-        {/* <StaticCards />
-        <StaticCards /> */}
+        <BabyProducts data={this.props.Data}/>
+         <StaticCards data={this.props.Data}/>
       </div>
     );
   }
