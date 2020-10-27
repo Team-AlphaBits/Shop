@@ -17,9 +17,16 @@
 .price {
   font-size: larger;
   color: rgb(175, 13, 13);
+  font-weight: 400;
+}
+.price2 {
+  font-size: larger;
+  /* color: rgb(175, 13, 13); */
+  font-weight: 400;
 }
 .amount {
   font-size: 20px;
+  font-weight: 400;
 }
 .avl {
   font-size: large;
@@ -44,6 +51,7 @@
 }
 .discription {
   text-align: justify; /* For Edge */
+  font-weight: 400;
 }
 .car {
   width: 100%;
@@ -51,7 +59,9 @@
 }
 .heading {
   font-weight: bold;
-  font-size: 20px;
+  font-size: 30px;
+  color: rgb(6, 6, 105);
+  /* margin-right: 10%; */
 }
 .oldprc {
   font-weight: bold;

@@ -8,6 +8,9 @@ import Login from "./containers/Login/Login";
 import Deal from "./containers/Deal/Deal";
 import Details from "./components/details/details";
 import Cart from "./components/Cart/Cart";
+import ProductList from "./components/ProductList/ProductList";
+import Checkout from "./components/Checkout/Checkout";
+import About from "./components/About/About";
 import { Route, Switch } from "react-router-dom";
 
 function App() {
@@ -19,6 +22,9 @@ function App() {
           <Route path="/deal" exact component={Deal} />
           <Route path="/details" exact component={Details} />
           <Route path="/Cart" exact component={Cart} />
+          <Route path="/ProductList" exact component={ProductList} />
+          <Route path="/Checkout" exact component={Checkout} />
+          <Route path="/About" exact component={About} />
           <Route path="/" exact component={Home} />
         </Switch>
       </Layout>

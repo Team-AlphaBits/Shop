@@ -10,6 +10,7 @@ import Details from './assets/screens/Details.js';
 import MyCart from './assets/screens/MyCart';
 import Order from './assets/screens/Order';
 import Drawercontent from './assets/screens/DrawerContent';
+import Search from './assets/screens/Search';
 
 const Drawer = createDrawerNavigator();
 function App() {
@@ -25,6 +26,7 @@ function App() {
         <Drawer.Screen name="Details" component={Details} />
         <Drawer.Screen name="MyCart" component={MyCart} />
         <Drawer.Screen name="Order" component={Order} />
+        <Drawer.Screen name="Search" component={Search} />
       </Drawer.Navigator>
     </NavigationContainer>
   );

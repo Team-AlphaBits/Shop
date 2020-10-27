@@ -6,54 +6,9 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Appbar, Searchbar, Button} from 'react-native-paper';
 
 export default class Homescreen extends Component {
-  constructor() {
-    super();
-    this.state = {
-      searchpressed: false,
-      searchquery: '',
-    };
-  }
+  
 
   render() {
-    var search = (
-      <View style={{flexDirection: 'row', width: '80%'}}>
-        <Appbar.Content
-          title="SHOP"
-          titleStyle={{fontWeight: 'bold', fontSize: 35, marginStart: '35%'}}
-        />
-        <Appbar.Action
-          icon="magnify"
-          size={30}
-          color={color.white}
-          onPress={() => {
-            this.setState({searchpressed: true});
-          }}
-        />
-        <Appbar.Action
-          icon="cart"
-          color={color.white}
-          size={30}
-          onPress={() => {
-            this.props.navigation.navigate('MyCart');
-          }}
-        />
-      </View>
-    );
-    if (this.state.searchpressed) {
-      search = (
-        <Searchbar
-          onIconPress={() => {
-            this.setState({searchpressed: false});
-          }}
-          placeholder="Search"
-          style={{width: '80%', height: 40}}
-          onChangeText={(e) => {
-            this.setState({searchquery: e});
-          }}
-          value={this.state.searchquery}
-        />
-      );
-    }
     return (
       <SafeAreaView style={{flex: 1}}>
         <StatusBar
@@ -68,7 +23,26 @@ export default class Homescreen extends Component {
               this.props.navigation.openDrawer();
             }}
           />
-          {search}
+          <Appbar.Content
+          title="SHOP"
+          titleStyle={{fontWeight: 'bold', fontSize: 35, marginStart: '35%'}}
+        />
+        <Appbar.Action
+          icon="magnify"
+          size={30}
+          color={color.white}
+          onPress={() => {
+            this.props.navigation.navigate('Search');
+          }}
+        />
+        <Appbar.Action
+          icon="cart"
+          color={color.white}
+          size={30}
+          onPress={() => {
+            this.props.navigation.navigate('MyCart');
+          }}
+        />
         </Appbar.Header>
         <View>
           <Text>Hello</Text>
