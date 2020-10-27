@@ -1,0 +1,69 @@
+.maincontainer {
+  margin-top: 100px;
+}
+.container {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+.radio {
+  margin-top: 10px;
+  margin-left: 100px;
+}
+.rdBtn {
+  display: flex;
+  flex-flow: column;
+  border: 2px solid blue;
+  margin-top: 100px;
+  border-radius: 5px;
+  margin-bottom: 100px;
+}
+.heading {
+  font-weight: bold;
+  font-size: 30px;
+  color: rgb(6, 6, 105);
+  /* margin-right: 10%;
+  margin-top: 20px; */
+}
+.btn {
+  width: 20px;
+  height: 20px;
+}
+.text {
+  font-size: 20px;
+  padding-top: 8px;
+  padding-left: 15px;
+  font-weight: bold;
+}
+.payment {
+  font-weight: bold;
+  font-size: 30px;
+  color: rgb(6, 6, 105);
+  margin-right: 10%;
+  margin-top: 20px;
+}
+.order {
+  width: 300px;
+  margin-left: 35%;
+  margin-top: 30px;
+  margin-bottom: 50px;
+  background-color: aqua;
+  border-radius: 8px;
+}
+@media (max-width: 600px) {
+  .order {
+    margin-left: 20%;
+    width: 200px;
+  }
+  .container {
+    margin-right: 5%;
+  }
+  .radio {
+    margin-left: 20px;
+  }
+}
+@media (max-width: 350px) {
+  .order {
+    margin-left: 10%;
+    width: 200px;
+  }
+}

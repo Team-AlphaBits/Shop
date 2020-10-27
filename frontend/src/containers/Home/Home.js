@@ -10,8 +10,8 @@ import BabyProducts from "../../Cards/BabyProducts/BabyProducts";
 import StaticCards from "../../Cards/StaticCards/StaticCards";
 import Carousel from "../../components/carousel/carousel";
 class Home extends Component {
-  componentDidMount(){
-       this.props.onFetchData()
+  componentDidMount() {
+    this.props.onFetchData();
   }
   render() {
     return (

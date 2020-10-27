@@ -1,0 +1,141 @@
+.maincontainer {
+  margin-top: 200px;
+  margin-bottom: 100px;
+  padding: 5px 20px 5px 5px;
+  width: 100%;
+}
+.cardcontainer {
+  margin-left: 100px;
+}
+.card {
+  margin-left: 5%;
+  margin-bottom: 40px;
+  width: 230px;
+  margin-bottom: 50px;
+}
+.img {
+  width: 100px;
+  /* height: 150px; */
+}
+.cardbody {
+  width: 100%;
+}
+.name {
+  font-size: 25px;
+  font-weight: bold;
+}
+.container {
+  display: flex;
+  flex-flow: row;
+}
+.mainImg {
+  margin-bottom: 100px;
+  width: 60%;
+  height: 40%;
+  margin-left: 5%;
+}
+.disc {
+  margin-left: 150px;
+  width: 20%;
+}
+.header {
+  font-size: 30px;
+  font-weight: bold;
+}
+@media (max-width: 1050px) {
+  .disc {
+    width: 25%;
+    margin-left: 75px;
+  }
+  .card {
+    width: 225px;
+  }
+  .container {
+    margin-top: -50px;
+  }
+  .mainImg {
+    margin-top: 50px;
+  }
+  .cardcontainer {
+    margin-left: 5px;
+    margin-right: 2px;
+  }
+}
+@media (max-width: 800px) {
+  .disc {
+    width: 30%;
+    margin-left: 50px;
+  }
+  .mainImg {
+    margin-left: 2%;
+  }
+  .card {
+    width: 250px;
+  }
+  .cardcontainer {
+    margin-left: 50px;
+    margin-right: 2px;
+  }
+}
+@media (max-width: 500px) {
+  .container {
+    display: flex;
+    flex-flow: column;
+  }
+  .cardcontainer {
+    margin-left: 10px;
+    padding-right: 10px;
+  }
+  .card {
+    margin-left: 10%;
+    margin-bottom: 10px;
+    margin-right: 20%;
+    width: 300px;
+  }
+  .maincontainer {
+    margin-top: 80px;
+  }
+
+  .disc {
+    width: 250px;
+    margin-left: 20%;
+  }
+  .mainImg {
+    margin-left: 12%;
+    margin-top: 50px;
+    width: 80%;
+    height: 60%;
+  }
+  .container {
+    margin-top: 50px;
+  }
+}
+@media (max-width: 350px) {
+  .cardcontainer {
+    padding-right: 100px;
+  }
+  .maincontainer {
+    padding-right: 30px;
+  }
+}
+.prj {
+  text-align: justify; /* For Edge */
+  font-size: 20px;
+  font-weight: 400;
+}
+.project {
+  font-weight: 400;
+}
+.project2 {
+  font-weight: 400;
+  margin-top: -10px;
+}
+.article {
+  font-weight: 400;
+}
+.heading {
+  font-size: 30px;
+  font-weight: bold;
+  color: rgb(6, 6, 105);
+  margin-bottom: 50px;
+}

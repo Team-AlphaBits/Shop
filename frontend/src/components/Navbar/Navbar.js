@@ -77,6 +77,18 @@ class NavbarPage extends Component {
                 </MDBDropdownMenu>
               </MDBDropdown>
             </MDBNavItem>
+            <MDBNavItem active={activeGift}>
+              <MDBNavLink to="/ProductList">Products</MDBNavLink>
+            </MDBNavItem>
+            <MDBNavItem active={activeGift}>
+              <MDBNavLink to="/Checkout">Checkout</MDBNavLink>
+            </MDBNavItem>
+            <MDBNavItem active={activeGift}>
+              <MDBNavLink to="/details">Details</MDBNavLink>
+            </MDBNavItem>
+            <MDBNavItem active={activeGift}>
+              <MDBNavLink to="/About">About</MDBNavLink>
+            </MDBNavItem>
             <MDBNavItem active={activeLogin}>
               <MDBNavLink to="/login">Login/Signup</MDBNavLink>
             </MDBNavItem>
