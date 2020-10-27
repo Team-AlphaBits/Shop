@@ -9,6 +9,7 @@ import {
   Text,
   SafeAreaView,
   Dimensions,
+  Pressable,
 } from 'react-native';
 
 import {Appbar} from 'react-native-paper';
@@ -26,6 +27,38 @@ export default class Itemlist extends Component {
     };
   }
 
+  setCategorytpe = () => {
+    switch (this.props.route.params.categoryid) {
+      case 0:
+        return 'Mobiles';
+        break;
+      case 1:
+        return 'Electronics';
+        break;
+      case 2:
+        return 'Clothings';
+        break;
+      case 3:
+        return 'Sports';
+        break;
+      case 4:
+        return 'Books';
+        break;
+      case 5:
+        return 'Decoration';
+        break;
+      case 6:
+        return 'Video_Games';
+        break;
+      case 7:
+        return 'Computer&peripheral';
+        break;
+      default:
+        return 'Mobiles';
+        break;
+    }
+  };
+
   onChange = ({window, screen}) => {
     if (window.height >= window.width) {
       this.setState({cols: 2});
@@ -35,12 +68,12 @@ export default class Itemlist extends Component {
   };
 
   componentDidMount() {
-    let items = Array.apply(null, Array(12)).map((i) => {
-      return {id: i, name: 'DSLR Camera', price: '₹ 24,999.00'};
-    });
-    this.setState({
-      dataSource: items,
-    });
+    fetch('https://calm-garden-34154.herokuapp.com/api/home?')
+      .then((response) => response.json())
+      .then((response) => this.setState({dataSource: response}))
+      .catch((error) => {
+        console.log(error);
+      });
 
     Dimensions.addEventListener('change', this.onChange);
   }
@@ -50,6 +83,15 @@ export default class Itemlist extends Component {
   }
 
   render() {
+    var categorytype = this.setCategorytpe();
+    var i;
+    var data = this.state.dataSource;
+    var itemdata = [];
+    for (i = 0; i < data.length; i++) {
+      if (data[i].cat_id == categorytype) {
+        itemdata.push(data[i]);
+      }
+    }
     return (
       <SafeAreaView style={{flex: 1, backgroundColor: 'lightblue'}}>
         <Appbar.Header style={{backgroundColor: color.MintyGreenMedium}}>
@@ -58,27 +100,35 @@ export default class Itemlist extends Component {
               this.props.navigation.navigate('Products');
             }}
           />
-          <Appbar.Content title="Header" />
+          <Appbar.Content title={categorytype} />
         </Appbar.Header>
         <View style={styles.MainContainer}>
           <FlatList
             key={this.state.cols}
-            data={this.state.dataSource}
+            data={itemdata}
             renderItem={({item, index}) => (
-              <View
-                style={{
-                  flex: 1,
-                  margin: '2%',
+              <Pressable
+                onPress={() => {
+                  this.props.navigation.navigate('Details',{data:item});
                 }}>
-                <Image
-                  style={styles.imageThumbnail}
-                  source={require('../images/img_1.jpg')}
-                />
-                <View style={{backgroundColor: 'white', width: 190}}>
-                  <Text style={styles.name}>{item.name}</Text>
-                  <Text style={styles.price}>{item.price}</Text>
+                <View style={styles.itemcontainer}>
+                  <Image
+                    style={styles.imageThumbnail}
+                    source={{uri: item.home_image}}
+                    resizeMode="contain"
+                  />
+                  <View style={{backgroundColor: 'white', width: 190}}>
+                    <Text style={styles.name}>
+                      {item.title.length > 20
+                        ? item.title.substring(0, 20 - 3) + '...'
+                        : item.title}
+                    </Text>
+                    <Text style={styles.price}>
+                      {item.price[0] == '₹' ? item.price : '₹' + item.price}
+                    </Text>
+                  </View>
                 </View>
-              </View>
+              </Pressable>
             )}
             //Setting the number of column
             numColumns={this.state.cols}
@@ -98,9 +148,10 @@ const styles = StyleSheet.create({
   imageThumbnail: {
     justifyContent: 'center',
     alignItems: 'center',
-    height: 150,
-    width: 190,
-    padding: '2%',
+    height: null,
+    width: null,
+    marginTop: 10,
+    flex: 1,
   },
   name: {
     marginTop: 20,
@@ -113,5 +164,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 10,
+  },
+  itemcontainer: {
+    flex: 1,
+    margin: '2%',
+    width: 190,
+    height: 290,
+    backgroundColor: color.white,
   },
 });

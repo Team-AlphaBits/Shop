@@ -33,6 +33,7 @@ export default class products extends Component {
         Dimensions.get('window').height >= Dimensions.get('window').width
           ? 2
           : 3,
+
     };
   }
 
@@ -43,6 +44,8 @@ export default class products extends Component {
       this.setState({columnno: 3});
     }
   };
+
+  
 
   componentDidMount() {
     Dimensions.addEventListener('change', this.onchange);
@@ -77,8 +80,7 @@ export default class products extends Component {
             data={this.state.data}
             renderItem={({item, index}) => (
               <Pressable
-                onPress={() => {
-                  console.log(index);
+                onPress={() => {this.props.navigation.navigate('Itemlist',{categoryid:index});
                 }}>
                 <Surface style={style.card}>
                   <Image source={item.path} style={style.image} />
