@@ -20,15 +20,14 @@ export default class products extends Component {
     super();
     this.state = {
       data: [
-        {name: 'Smartphone', path: require('../images/smartphones.jpeg')},
-        {name: 'laptop', path: require('../images/laptop.jpg')},
+        {name: 'Mobiles', path: require('../images/smartphones.jpeg')},
         {name: 'Electronics', path: require('../images/electronics.jpg')},
         {name: 'Clothing', path: require('../images/clothing.jpg')},
-        {name: 'Cosmetics', path: require('../images/cosmetics.jpg')},
-        {name: 'Grocery', path: require('../images/grocery.jpg')},
         {name: 'Sports', path: require('../images/sports.jpg')},
-        {name: 'Toys & Baby', path: require('../images/baby_things.jpg')},
         {name: 'Books', path: require('../images/books.jpeg')},
+        {name: 'Decoration', path: require('../images/Decoration.jpg')},
+        {name: 'Video Games', path: require('../images/Video_games.jpg')},
+        {name: 'Computer and Peripherals', path: require('../images/computer&peripherals.jpg')},
       ],
       columnno:
         Dimensions.get('window').height >= Dimensions.get('window').width
