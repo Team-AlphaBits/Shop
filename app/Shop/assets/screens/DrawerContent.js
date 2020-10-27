@@ -74,7 +74,7 @@ export default class DrawerContent extends Component {
           </View>
 
           <View>
-            <Drawer.Section title="Myoptions">
+            <Drawer.Section title="My Options">
               <DrawerItem
                 icon={() => (
                   <Icon name="home" color={color.darkblue} size={30} />
@@ -103,29 +103,12 @@ export default class DrawerContent extends Component {
                 }}
               />
               <DrawerItem
-                label="Details"
-                onPress={() => {
-                  this.props.navigation.navigate('Details');
-                }}
-              />
-              <DrawerItem
-                label="Itemlist"
-                onPress={() => {
-                  this.props.navigation.navigate('Itemlist');
-                }}
-              />
-              <DrawerItem
                 label="Order"
                 onPress={() => {
                   this.props.navigation.navigate('Order');
                 }}
               />
-              <DrawerItem
-                label="Search"
-                onPress={() => {
-                  this.props.navigation.navigate('Search');
-                }}
-              />
+              
             </Drawer.Section>
           </View>
         </DrawerContentScrollView>
