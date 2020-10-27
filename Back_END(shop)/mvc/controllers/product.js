@@ -1,5 +1,6 @@
 const { resolveInclude } = require("ejs");
 const mongoose = require("mongoose");
+mongoose.set('useFindAndModify', false);
 const User = mongoose.model("User");
 const Product = mongoose.model("Product");
 let default_prod_data = require("../models/Product_data");
@@ -115,24 +116,102 @@ const getProductByID = function(req, res){
     });
 }
 
-const addToCart = function(req, res){
-    var cart = req.params.cart;
-    var prod_id = req.params.id;
-    var found =false;
-    User.find({"cart.cartlist.product_id" : prod_id},'', function (err,callback){
+const getUserByID = function(req, res){
+    user_id = req.params.userid;
+    User.findById(user_id, function(err, User_data){
         if(err){
+            res.send("ERROR IN SENDING DATA!!");
+            }
+            res.json(User_data);
+    });
+}
+
+const addToCart = function(req, res){
+    //testing
+   
+    var user_id = req.body.user_id;                 // NEED USER INFO FROM CLIENT
+    var prod_id = req.params.prodid;
+    var cart_data;
+    
+    let p1 = new Promise(function(resolve, reject) {
+
+        User.find({"_id":user_id},function(err ,User_data) {
+
+        if(err){
+            reject("ERROR IN FETCHING USER DATA");
+            console.log("ERROR IN SENDING DATA!!");
+            }
+           console.log("SUCCESSFULL ON RETREIVING USER_DATA");
+             cart_data =  User_data;
+    resolve("USER INFO FETCHED");
+        //  console.log(cart_data);
+    });
+});
+
+
+
+
+Promise.all([p1]).then(()=>{
+    
+
+//http://localhost:8080/api/add-to-cart/5f984e6563dfba42c45a8291/5f97381a2d9c4010ec3c9303
+    //
+   // var cart = req.cart;
+    
+   // PROBLEM NEED FIXING
+    var found =false;
+    console.log(cart_data.cartlist[0]);
+    var tmp = cart_data.cartlist[0];
+    console.log(tmp);
+    console.log("________________________");
+
+
+    //ERRORRRRRR
+    new Promise(function(resolve, reject){
+        if(tmp){
+            console.log("******^^^^^^^^^*******");
+            resolve();
+        }
+        User.find({"cart.cartlist.product_id" : prod_id},'', function (err,callback){
+        if(err){
+            reject("ERROR!!");
             res.send("ERROR IN FINDING PRODUCT IN CART");
         }
         found = true;
+        resolve("FOUND..!! PRODUCT EXIST ALREADY..!!");
     });
+}).then(()=>{
     if(found){
-        User.update({"cart.cartlist.product_id":prod_id}, {
-            $set: {
-                "cart.cartlist.$.quantity": cart.cartlist.quantity+1
+        User.findOneAndUpdate({"cart.cartlist.product_id":prod_id}, 
+            {
+                "cart.cartlist.$.quantity": cart.cartlist.$.quantity+1
+            },function(err,suc){
+                if(err){
+                    console.log(err);
+                }else{
+                    console.log(suc);
+                }
             }
-        });
+        );
     }else{
-        var tmp_data = getProductByID(prod_id);
+        // PROBLEM NEED TO INCLUDE PROMISE HERE TOO.
+        var tmp_data;
+        console.log("Need to add cart from new");
+        new Promise(function(resolve, reject) {
+
+            Product.findById(prod_id,function(err ,Prod_data) {
+    
+            if(err){
+                reject("ERROR IN FETCHING USER DATA");
+                console.log("ERROR IN SENDING DATA!!");
+                }
+               console.log("SUCCESSFULL ON RETREIVING CART");
+                 tmp_data =  Prod_data;
+                 resolve("USER INFO FETCHED");
+             //  console.log(cart_data);
+        });
+    }).then(()=>{
+        
         const new_cart_item = {
             product_id : tmp_data._id,
             image : tmp_data.home_image,
@@ -140,14 +219,57 @@ const addToCart = function(req, res){
             price : tmp_data.price,
             quantity : 1,
         }
-        User.update({"cart.cartlist.product_id":prod_id}, {
-            $push: {
-                "cart.cartlist.$.cartlist": new_cart_item
-            }
-        });
+        console.log("**********************");
+        console.log(new_cart_item);
+        console.log("**********************");
+    //    User.findOne({ '_id': user_id }, function(err, user_data) {
+    //        if(err){
+    //             return res.send({ error : err});
+    //        }
+    //        if(!user_data){
+    //            return res.status(404).send({message: "USER DATA NOT FOUND.!!"});
+    //        }
+           
+    //         user_data.cart.cartlist.push(new_cart_item);
+    //         console.log("**********************");
+    //         console.log("**UPDATED CART INFO**");
+    //         console.log(user_data);
+    //         console.log("**********************");
+    //         user_data.save(function(err, updated_user_data){
+    //             if(err){
+    //                 console.log("ERRRRRRRRRRRRRRRRRRRRRR");
+    //                 return res.send({error: err});
+    //             }
+    //            // res.send(updated_user_data);
+    //         });
+           
+    //    }) 
+  
+    User.findOneAndUpdate(
+        { _id: user_id }, 
+        { $push: { "cart.cartlist": new_cart_item  } },
+       function (err, suc) {
+             if (err) {
+                 console.log(err);
+                 
+             } 
+         });
+
+
+    });
 
     }
-    res.json({message: "RESET SUCCESSFULL"});
+    User.findById(user_id , 'cart', function (err, user_data){
+        if(err){
+            res.send("ERROR IN SENDING DATA!!");
+            next();
+            }
+            console.log(user_data);
+           // res.json({message: "ADD TO CART SUCCESSFULL",user_data});
+    });
+   res.json({message: "ADD TO CART SUCCESSFULL"});
+}).catch(err => console.log(err));
+});
 }
 
 
@@ -168,6 +290,7 @@ module.exports = {
     uploadProductsForm,
     sendProductData,
     getProductByID,
+    getUserByID,
     addToCart,
     viewCart,
 };

@@ -30,7 +30,7 @@ router.post("/upload-products", productsCtrl.uploadProductsForm);
 
 router.get("/home", productsCtrl.sendProductData);
 
-router.get("/add-to-cart/:id", productsCtrl.addToCart);
+router.put("/add-to-cart/:prodid", productsCtrl.addToCart);
 
 router.get("/product/:id", productsCtrl.getProductByID);
 
