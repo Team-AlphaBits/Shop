@@ -75,6 +75,7 @@ export default class Details extends React.Component {
             <View style={styles.btnView}>
               <Text style={styles.price}>{details.price[0]== '₹' ? details.price : '₹' + details.price}</Text>
                 <Text style={[styles.avl,{color:details.quantity>0?"green":"red"}]}>{details.quantity>0?"In Stock ("+details.quantity+")":"Out OF STOCk"}</Text>
+                <Text style={styles.sellerinfo}>Seller : {details.seller_name}</Text>
               <View
                 style={{
                   margin: '3%',
@@ -151,17 +152,24 @@ const styles = StyleSheet.create({
   },
   price: {
     margin: '5%',
-    marginBottom: '10%',
+    marginBottom: '5%',
     fontSize: 30,
     fontWeight: 'bold',
   },
   avl: {
     fontSize: 20,
     fontWeight: 'bold',
-    marginStart: '5%',
-    marginBottom: '5%',
+    margin:'6%',
+    marginEnd: '5%',
+    alignSelf:'flex-end',
+    position:'absolute'
   },
   headText: {
     marginHorizontal: '5%',
   },
+  sellerinfo:{
+    fontSize:20,
+    marginStart:'5%',
+    color:color.lightblue
+  }
 });
