@@ -38,7 +38,7 @@ function Deals() {
             <p>
               <strike>₹27,990</strike> (29% off)
             </p>
-            <MDBBtn href="/Cart">ADD TO CART</MDBBtn>
+            <button className={classes.btn}>ADD TO CART</button>
           </MDBCardBody>
         </MDBCard>
       </MDBCol>
@@ -48,31 +48,43 @@ function Deals() {
     <>
       <div className={classes.container}>
         <h1 className={classes.title}>Deals on Sports Kits</h1>
-        <hr/>
+        <hr />
         <div className={classes.App}>
           <Carousel breakPoints={breakPoints}>{cards}</Carousel>
         </div>
+        <a className={classes.all} href="/Productlist">
+          View All
+        </a>
       </div>
       <div className={classes.container}>
         <h1 className={classes.title2}>Groceries</h1>
-        <hr/>
+        <hr />
         <div className={classes.App}>
           <Carousel breakPoints={breakPoints}>{cards}</Carousel>
         </div>
+        <a className={classes.all} href="/Productlist">
+          View All
+        </a>
       </div>
       <div className={classes.container}>
         <h1 className={classes.title2}>Smartphones</h1>
-        <hr/>
+        <hr />
         <div className={classes.App}>
           <Carousel breakPoints={breakPoints}>{cards}</Carousel>
         </div>
+        <a className={classes.all} href="/Productlist">
+          View All
+        </a>
       </div>
       <div className={classes.container}>
         <h1 className={classes.title2}>Furnitures</h1>
-        <hr/>
+        <hr />
         <div className={classes.App}>
           <Carousel breakPoints={breakPoints}>{cards}</Carousel>
         </div>
+        <a className={classes.all} href="/Productlist">
+          View All
+        </a>
       </div>
     </>
   );
