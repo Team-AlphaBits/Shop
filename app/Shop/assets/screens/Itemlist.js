@@ -26,7 +26,8 @@ export default class Itemlist extends Component {
           ? 2
           : 3,
           visible:false,
-          isLoading:false
+          isLoading:false,
+          marg:Dimensions.get('window').height >= Dimensions.get('window').width? 5: 30
     };
   }
 
@@ -84,9 +85,9 @@ export default class Itemlist extends Component {
 
   onChange = ({window, screen}) => {
     if (window.height >= window.width) {
-      this.setState({cols: 2});
+      this.setState({cols: 2,marg:5});
     } else {
-      this.setState({cols: 3});
+      this.setState({cols: 3,marg:30});
     }
   };
 
@@ -120,7 +121,7 @@ export default class Itemlist extends Component {
           />
           <Appbar.Content title={categorytype} />
         </Appbar.Header>
-        <View style={styles.MainContainer}>
+        <View style={[styles.MainContainer,{marginStart:this.state.marg}]}>
           <FlatList
           onRefresh={()=>{this.fetchandupdatedata()}}
           refreshing={this.state.isLoading}
