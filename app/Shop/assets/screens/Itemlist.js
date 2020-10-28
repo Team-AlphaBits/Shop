@@ -12,7 +12,8 @@ import {
   Pressable,
 } from 'react-native';
 
-import {Appbar} from 'react-native-paper';
+import {Appbar,Snackbar} from 'react-native-paper';
+import axios from 'axios';
 import color from '../colors/colors';
 
 export default class Itemlist extends Component {
@@ -24,6 +25,9 @@ export default class Itemlist extends Component {
         Dimensions.get('window').height >= Dimensions.get('window').width
           ? 2
           : 3,
+          visible:false,
+          isLoading:false,
+          marg:Dimensions.get('window').height >= Dimensions.get('window').width? 5: 30
     };
   }
 
@@ -59,21 +63,36 @@ export default class Itemlist extends Component {
     }
   };
 
+  onToggleSnackBar = () => {this.setState({visible:true})}
+
+  onDismissSnackBar = () => {this.setState({visible:false})}
+
+  fetchandupdatedata=()=>{
+        this.setState({isLoading:true});
+      axios.get('https://calm-garden-34154.herokuapp.com/api/home?')
+      .then((res) => {
+        this.setState({dataSource: res.data})
+      })
+      .catch((error)=>{
+        this.onToggleSnackBar();
+        console.log(error);
+      })
+      .then(()=>{
+        this.setState({isLoading:false});
+      })
+      
+  }
+
   onChange = ({window, screen}) => {
     if (window.height >= window.width) {
-      this.setState({cols: 2});
+      this.setState({cols: 2,marg:5});
     } else {
-      this.setState({cols: 3});
+      this.setState({cols: 3,marg:30});
     }
   };
 
   componentDidMount() {
-    fetch('https://calm-garden-34154.herokuapp.com/api/home?')
-      .then((response) => response.json())
-      .then((response) => this.setState({dataSource: response}))
-      .catch((error) => {
-        console.log(error);
-      });
+    this.fetchandupdatedata();
 
     Dimensions.addEventListener('change', this.onChange);
   }
@@ -102,8 +121,10 @@ export default class Itemlist extends Component {
           />
           <Appbar.Content title={categorytype} />
         </Appbar.Header>
-        <View style={styles.MainContainer}>
+        <View style={[styles.MainContainer,{marginStart:this.state.marg}]}>
           <FlatList
+          onRefresh={()=>{this.fetchandupdatedata()}}
+          refreshing={this.state.isLoading}
             key={this.state.cols}
             data={itemdata}
             renderItem={({item, index}) => (
@@ -134,6 +155,19 @@ export default class Itemlist extends Component {
             numColumns={this.state.cols}
             keyExtractor={(item, index) => index.toString()}
           />
+        </View>
+        <View>
+        <Snackbar
+        visible={this.state.visible}
+        onDismiss={()=>{this.onDismissSnackBar()}}
+        action={{
+          label: 'Retry',
+          onPress: () => {
+            this.fetchandupdatedata();
+          },
+        }}>
+        Something Went Wrong !
+      </Snackbar>
         </View>
       </SafeAreaView>
     );
