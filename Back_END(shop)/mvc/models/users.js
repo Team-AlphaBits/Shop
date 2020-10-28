@@ -9,14 +9,51 @@ const jwt = require("jsonwebtoken");
 
 // console.log("=================");
 // console.log("=================");
-
 const productDataSchema = new mongoose.Schema(
-{  
-  id: {
-    type: String,
-    required: true,
-  },
-  title:{
+  {  
+    
+    title:{
+      type: String,
+      required: true,
+    },
+    home_image: {
+      type: String,
+      required: true,
+    },
+    images: {
+      type: Array,
+      default: null,
+    },
+    description: {
+      type: String,
+      required: true,
+    },
+    price: {
+      type: String,
+      required: true,
+    },
+    quantity: {
+      type: String,
+      required: true,
+    },
+    short_desc: {
+      type: String,
+      required: true,
+    },
+    cat_id: {
+      type: String,
+      required: true,
+    },
+    seller_name: {
+      type: String,
+      required:true,
+    },
+  
+  });
+
+const cartProductlist = new mongoose.Schema(
+{
+  product_id:{
     type: String,
     required: true,
   },
@@ -24,7 +61,7 @@ const productDataSchema = new mongoose.Schema(
     type: String,
     required: true,
   },
-  description: {
+  short_desc: {
     type: String,
     required: true,
   },
@@ -33,20 +70,8 @@ const productDataSchema = new mongoose.Schema(
     required: true,
   },
   quantity: {
-    type: String,
-    required: true,
-  },
-  short_desc: {
-    type: String,
-    required: true,
-  },
-  cat_id: {
-    type: String,
-    required: true,
-  },
-  seller_name: {
-    type: String,
-    required:true,
+    type: Number,
+    default: 1,
   },
 
 });
@@ -64,8 +89,17 @@ const userSchema = new mongoose.Schema(
   },
   password: String,
   salt: String,
-  cart: [productDataSchema],
-
+  cart:{
+  cartlist: [cartProductlist],
+  total_product: {
+    type: Number,
+    default: 0,
+  },
+  total_price: {
+    type: Number,
+    default: 0,
+  },
+  },
 });
 
 
