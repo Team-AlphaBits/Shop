@@ -12,7 +12,8 @@ import {
   Pressable,
 } from 'react-native';
 
-import {Appbar} from 'react-native-paper';
+import {Appbar,Snackbar} from 'react-native-paper';
+import axios from 'axios';
 import color from '../colors/colors';
 
 export default class Itemlist extends Component {
@@ -24,6 +25,7 @@ export default class Itemlist extends Component {
         Dimensions.get('window').height >= Dimensions.get('window').width
           ? 2
           : 3,
+          visible:false
     };
   }
 
@@ -59,6 +61,23 @@ export default class Itemlist extends Component {
     }
   };
 
+  onToggleSnackBar = () => {this.setState({visible:true})}
+
+  onDismissSnackBar = () => {this.setState({visible:false})}
+
+  fetchandupdatedata=()=>{
+   
+      axios.get('https://calm-garden-34154.herokuapp.com/api/home?')
+      .then((res) => {
+        this.setState({dataSource: res.data})
+      })
+      .catch((error)=>{
+        this.onToggleSnackBar();
+        console.log(error);
+      })
+      
+  }
+
   onChange = ({window, screen}) => {
     if (window.height >= window.width) {
       this.setState({cols: 2});
@@ -68,12 +87,7 @@ export default class Itemlist extends Component {
   };
 
   componentDidMount() {
-    fetch('https://calm-garden-34154.herokuapp.com/api/home?')
-      .then((response) => response.json())
-      .then((response) => this.setState({dataSource: response}))
-      .catch((error) => {
-        console.log(error);
-      });
+    this.fetchandupdatedata();
 
     Dimensions.addEventListener('change', this.onChange);
   }
@@ -104,6 +118,8 @@ export default class Itemlist extends Component {
         </Appbar.Header>
         <View style={styles.MainContainer}>
           <FlatList
+          onRefresh={()=>{this.fetchandupdatedata()}}
+          refreshing={false}
             key={this.state.cols}
             data={itemdata}
             renderItem={({item, index}) => (
@@ -134,6 +150,20 @@ export default class Itemlist extends Component {
             numColumns={this.state.cols}
             keyExtractor={(item, index) => index.toString()}
           />
+        </View>
+        <View>
+        <Snackbar
+        visible={this.state.visible}
+        onDismiss={()=>{this.onDismissSnackBar()}}
+        action={{
+          label: 'Retry',
+          onPress: () => {
+            this.onDismissSnackBar();
+            this.fetchandupdatedata();
+          },
+        }}>
+        Something Went Wrong !
+      </Snackbar>
         </View>
       </SafeAreaView>
     );
