@@ -1,6 +1,8 @@
 const { resolveInclude } = require("ejs");
 const mongoose = require("mongoose");
+mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
 const User = mongoose.model("User");
 const Product = mongoose.model("Product");
 let default_prod_data = require("../models/Product_data");
@@ -150,7 +152,6 @@ const addToCart = function(req, res){
 
 
 
-
 Promise.all([p1]).then(()=>{
     
 
@@ -160,36 +161,38 @@ Promise.all([p1]).then(()=>{
     
    // PROBLEM NEED FIXING
     var found =false;
-    console.log(cart_data.cartlist[0]);
-    var tmp = cart_data.cartlist[0];
-    console.log(tmp);
-    console.log("________________________");
-
-
-    //ERRORRRRRR
     new Promise(function(resolve, reject){
-        if(tmp){
-            console.log("******^^^^^^^^^*******");
-            resolve();
-        }
-        User.find({"cart.cartlist.product_id" : prod_id},'', function (err,callback){
+        // if(tmp){
+        //     console.log("******^^^^^^^^^*******");
+        //     resolve();
+        // }
+       
+        User.find({"cart.cartlist.product_id" : prod_id}, function (err,result){
         if(err){
             reject("ERROR!!");
             res.send("ERROR IN FINDING PRODUCT IN CART");
         }
-        found = true;
+        if(result.length)  {
+         found = true;
+        }
+        console.log("**********____________**********");
+        console.log(found);
+        console.log(result);
+        console.log("**********____________**********");
         resolve("FOUND..!! PRODUCT EXIST ALREADY..!!");
     });
 }).then(()=>{
     if(found){
         User.findOneAndUpdate({"cart.cartlist.product_id":prod_id}, 
-            {
-                "cart.cartlist.$.quantity": cart.cartlist.$.quantity+1
-            },function(err,suc){
+                { $inc: { [`cart.cartlist.$.quantity`]: 1 } }, {new: true}
+            ,function(err,suc){
                 if(err){
                     console.log(err);
                 }else{
                     console.log(suc);
+                    console.log("************************");
+                    console.log("____IM HERE YOO HOO .. SUCCESS IN INC QUANTITY____");
+                    console.log("***********************");
                 }
             }
         );
@@ -221,6 +224,7 @@ Promise.all([p1]).then(()=>{
         }
         console.log("**********************");
         console.log(new_cart_item);
+        // console.log(convert_price(new_cart_item.price));
         console.log("**********************");
     //    User.findOne({ '_id': user_id }, function(err, user_data) {
     //        if(err){
@@ -267,22 +271,31 @@ Promise.all([p1]).then(()=>{
             console.log(user_data);
            // res.json({message: "ADD TO CART SUCCESSFULL",user_data});
     });
-   res.json({message: "ADD TO CART SUCCESSFULL"});
+   res.json({message: "ADD TO CART SUCCESSFULL" });
 }).catch(err => console.log(err));
 });
 }
 
 
 const viewCart = function(req, res){
-    var userid = req.param._id;
+    var userid = req.params.userid;
     User.findById(userid , 'cart', function (err, cart_data){
         if(err){
             res.send("ERROR IN SENDING DATA!!");
             next();
             }
-            res.json(user_data);
+            res.json(cart_data);
     });
 }
+
+/////////////////////////////////////////////////////////////////////
+///////////////-regex for converting price-/////////////////////////
+///////////////////////////////////////////////////////////////////
+function convert_price(text){
+    console.log("<<<<<<<<<<<<<<<<CONVERTING>>>>>>>>>>>>>>>>>");
+    return (parseFloat(text.replace( /[^\d\.]*/g, '')));
+}
+
 
 module.exports = {
     reset,              //development purpose only
@@ -293,4 +306,5 @@ module.exports = {
     getUserByID,
     addToCart,
     viewCart,
+    convert_price,
 };
