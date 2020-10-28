@@ -25,7 +25,8 @@ export default class Itemlist extends Component {
         Dimensions.get('window').height >= Dimensions.get('window').width
           ? 2
           : 3,
-          visible:false
+          visible:false,
+          isLoading:false
     };
   }
 
@@ -66,7 +67,7 @@ export default class Itemlist extends Component {
   onDismissSnackBar = () => {this.setState({visible:false})}
 
   fetchandupdatedata=()=>{
-   
+        this.setState({isLoading:true});
       axios.get('https://calm-garden-34154.herokuapp.com/api/home?')
       .then((res) => {
         this.setState({dataSource: res.data})
@@ -74,6 +75,9 @@ export default class Itemlist extends Component {
       .catch((error)=>{
         this.onToggleSnackBar();
         console.log(error);
+      })
+      .then(()=>{
+        this.setState({isLoading:false});
       })
       
   }
@@ -119,7 +123,7 @@ export default class Itemlist extends Component {
         <View style={styles.MainContainer}>
           <FlatList
           onRefresh={()=>{this.fetchandupdatedata()}}
-          refreshing={false}
+          refreshing={this.state.isLoading}
             key={this.state.cols}
             data={itemdata}
             renderItem={({item, index}) => (
@@ -158,7 +162,6 @@ export default class Itemlist extends Component {
         action={{
           label: 'Retry',
           onPress: () => {
-            this.onDismissSnackBar();
             this.fetchandupdatedata();
           },
         }}>
