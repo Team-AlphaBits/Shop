@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {
   StyleSheet,
   View,
@@ -7,12 +7,49 @@ import {
   SafeAreaView,
   ScrollView,
 } from 'react-native';
-import {Button, Title, Paragraph, Appbar} from 'react-native-paper';
+
+import {
+  Button,
+  Title,
+  Paragraph,
+  Appbar,
+  Snackbar,
+  ActivityIndicator,
+} from 'react-native-paper';
+import axios from 'axios';
 import color from '../colors/colors';
-export default class Details extends React.Component {
+
+export default class Details extends Component {
+  constructor() {
+    super();
+    this.state = {
+      dataSource: {
+        images: [],
+        _id: '',
+        title: '',
+        home_image: '',
+        description: '',
+        price: '',
+        quantity: '',
+        short_desc: '',
+        cat_id: '',
+        seller_name: '',
+        __v: '',
+      },
+      visible: false,
+      isLoading: false,
+      showdescription: false,
+    };
+  }
+
   state = {
     active: 0,
   };
+
+  unsubscribe_function = {
+    unsubscribe: null,
+  };
+
   change = ({nativeEvent}) => {
     const slide = Math.ceil(
       nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width,
@@ -21,9 +58,65 @@ export default class Details extends React.Component {
       this.setState({active: slide});
     }
   };
+
+  onToggleSnackBar = () => {
+    this.setState({visible: true});
+  };
+
+  onDismissSnackBar = () => {
+    this.setState({visible: false});
+  };
+
+  fetchandupdatedata = () => {
+    this.setState({
+      isLoading: true,
+      dataSource: {
+        images: [],
+        _id: '',
+        title: '',
+        home_image: '',
+        description: '',
+        price: '',
+        quantity: '',
+        short_desc: '',
+        cat_id: '',
+        seller_name: '',
+        __v: '',
+      },
+    });
+    var productId = this.props.route.params.data;
+    axios
+      .get('https://calm-garden-34154.herokuapp.com/api/product/' + productId)
+      .then((res) => {
+        this.setState({dataSource: res.data});
+      })
+      .catch((error) => {
+        this.onToggleSnackBar();
+        console.log(error);
+      })
+      .then(() => {
+        this.setState({isLoading: false});
+      });
+  };
+
+  componentDidMount() {
+    //subscribing to screen changes to call fetchandupdatedata function
+    this.unsubscribe_function.unsubscribe = this.props.navigation.addListener(
+      'focus',
+      () => {
+        this.fetchandupdatedata();
+      },
+    );
+  }
+
+  componentWillUnmount() {
+    //unsubscribing from screen changes
+    this.unsubscribe_function.unsubscribe();
+  }
+
   render() {
-    var details=this.props.route.params.data;
-    var imageUri=details.images;
+    var details = this.state.dataSource;
+    var imageUri = details.images;
     return (
       <SafeAreaView style={{flex: 1}}>
         <Appbar.Header style={{backgroundColor: color.MintyGreenMedium}}>
@@ -32,12 +125,23 @@ export default class Details extends React.Component {
               this.props.navigation.navigate('Itemlist');
             }}
           />
-          <Appbar.Content title={details.title.length>35?details.title.substring(0, 35 - 3) + '...':details.title} />
+          <Appbar.Content
+            title={
+              details.title.length > 35
+                ? details.title.substring(0, 35 - 3) + '...'
+                : details.title
+            }
+          />
         </Appbar.Header>
+        <ActivityIndicator
+          animating={this.state.isLoading}
+          color={color.black}
+          size="large"
+        />
         <View style={styles.MainContainer}>
           <ScrollView showsVerticalScrollIndicator={false}>
             <Title style={styles.headText}>{details.short_desc}</Title>
-            <View style={{marginHorizontal: '3%',marginTop:50}}>
+            <View style={{marginHorizontal: '3%', marginTop: 50}}>
               <ScrollView
                 pagingEnabled
                 horizontal
@@ -73,9 +177,21 @@ export default class Details extends React.Component {
               ))}
             </View>
             <View style={styles.btnView}>
-              <Text style={styles.price}>{details.price[0]== '₹' ? details.price : '₹' + details.price}</Text>
-                <Text style={[styles.avl,{color:details.quantity>0?"green":"red"}]}>{details.quantity>0?"In Stock ("+details.quantity+")":"Out OF STOCk"}</Text>
-                <Text style={styles.sellerinfo}>Seller : {details.seller_name}</Text>
+              <Text style={styles.price}>
+                {details.price[0] == '₹' ? details.price : '₹' + details.price}
+              </Text>
+              <Text
+                style={[
+                  styles.avl,
+                  {color: details.quantity > 0 ? 'green' : 'red'},
+                ]}>
+                {details.quantity > 0
+                  ? 'In Stock (' + details.quantity + ')'
+                  : 'OUT OF STOCK'}
+              </Text>
+              <Text style={styles.sellerinfo}>
+                Seller : {details.seller_name}
+              </Text>
               <View
                 style={{
                   margin: '3%',
@@ -86,8 +202,21 @@ export default class Details extends React.Component {
                 }}>
                 <Title>Description</Title>
                 <Paragraph>
-                 {details.description}
+                  {this.state.showdescription
+                    ? details.description
+                    : details.description.substring(0, 50) + '...'}
                 </Paragraph>
+                <Text
+                  style={{fontWeight: 'bold', color: color.lightblue}}
+                  onPress={() => {
+                    this.setState({
+                      showdescription: this.state.showdescription
+                        ? false
+                        : true,
+                    });
+                  }}>
+                  {this.state.showdescription ? 'Show less' : 'Show More'}
+                </Text>
               </View>
             </View>
           </ScrollView>
@@ -105,6 +234,21 @@ export default class Details extends React.Component {
               Add to cart
             </Button>
           </View>
+        </View>
+        <View>
+          <Snackbar
+            visible={this.state.visible}
+            onDismiss={() => {
+              this.onDismissSnackBar();
+            }}
+            action={{
+              label: 'Retry',
+              onPress: () => {
+                this.fetchandupdatedata();
+              },
+            }}>
+            Something Went Wrong !
+          </Snackbar>
         </View>
       </SafeAreaView>
     );
@@ -159,17 +303,17 @@ const styles = StyleSheet.create({
   avl: {
     fontSize: 20,
     fontWeight: 'bold',
-    margin:'6%',
+    margin: '6%',
     marginEnd: '5%',
-    alignSelf:'flex-end',
-    position:'absolute'
+    alignSelf: 'flex-end',
+    position: 'absolute',
   },
   headText: {
     marginHorizontal: '5%',
   },
-  sellerinfo:{
-    fontSize:20,
-    marginStart:'5%',
-    color:color.lightblue
-  }
+  sellerinfo: {
+    fontSize: 20,
+    marginStart: '5%',
+    color: color.lightblue,
+  },
 });

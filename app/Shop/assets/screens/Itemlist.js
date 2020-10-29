@@ -12,7 +12,7 @@ import {
   Pressable,
 } from 'react-native';
 
-import {Appbar,Snackbar} from 'react-native-paper';
+import {Appbar, Snackbar} from 'react-native-paper';
 import axios from 'axios';
 import color from '../colors/colors';
 
@@ -25,9 +25,12 @@ export default class Itemlist extends Component {
         Dimensions.get('window').height >= Dimensions.get('window').width
           ? 2
           : 3,
-          visible:false,
-          isLoading:false,
-          marg:Dimensions.get('window').height >= Dimensions.get('window').width? 5: 30
+      visible: false,
+      isLoading: false,
+      marg:
+        Dimensions.get('window').height >= Dimensions.get('window').width
+          ? 5
+          : 30,
     };
   }
 
@@ -63,47 +66,60 @@ export default class Itemlist extends Component {
     }
   };
 
-  onToggleSnackBar = () => {this.setState({visible:true})}
+  onToggleSnackBar = () => {
+    this.setState({visible: true});
+  };
 
-  onDismissSnackBar = () => {this.setState({visible:false})}
+  onDismissSnackBar = () => {
+    this.setState({visible: false});
+  };
 
-  fetchandupdatedata=()=>{
-        this.setState({isLoading:true,dataSource:[]});
-        var categorytype=this.setCategorytpe();
-      axios.get('https://calm-garden-34154.herokuapp.com/api/category/'+categorytype)
+  unsubscribe_function = {
+    unsubscribe: null,
+  };
+
+  fetchandupdatedata = () => {
+    this.setState({isLoading: true, dataSource: []});
+    var categorytype = this.setCategorytpe();
+    axios
+      .get(
+        'https://calm-garden-34154.herokuapp.com/api/category/' + categorytype,
+      )
       .then((res) => {
-        this.setState({dataSource: res.data})
+        this.setState({dataSource: res.data});
       })
-      .catch((error)=>{
+      .catch((error) => {
         this.onToggleSnackBar();
         console.log(error);
       })
-      .then(()=>{
-        this.setState({isLoading:false});
-      })
-      
-  }
+      .then(() => {
+        this.setState({isLoading: false});
+      });
+  };
 
   onChange = ({window, screen}) => {
     if (window.height >= window.width) {
-      this.setState({cols: 2,marg:5});
+      this.setState({cols: 2, marg: 5});
     } else {
-      this.setState({cols: 3,marg:30});
+      this.setState({cols: 3, marg: 30});
     }
   };
 
   componentDidMount() {
     //subscribing to screen changes to call fetchandupdatedata function
-    const unsubscribe = this.props.navigation.addListener('focus', () => {
-      this.fetchandupdatedata();
-    });
+    this.unsubscribe_function.unsubscribe = this.props.navigation.addListener(
+      'focus',
+      () => {
+        this.fetchandupdatedata();
+      },
+    );
 
     Dimensions.addEventListener('change', this.onChange);
   }
 
   componentWillUnmount() {
     //unsubscribing from screen changes
-    this.unsubscribe();
+    this.unsubscribe_function.unsubscribe();
 
     Dimensions.removeEventListener('change', this.onChange);
   }
@@ -120,16 +136,21 @@ export default class Itemlist extends Component {
           />
           <Appbar.Content title={categorytype} />
         </Appbar.Header>
-        <View style={[styles.MainContainer,{marginStart:this.state.marg}]}>
+        <View style={[styles.MainContainer, {marginStart: this.state.marg}]}>
           <FlatList
-          onRefresh={()=>{this.fetchandupdatedata()}}
-          refreshing={this.state.isLoading}
+            onRefresh={() => {
+              this.fetchandupdatedata();
+            }}
+            refreshing={this.state.isLoading}
             key={this.state.cols}
             data={this.state.dataSource}
             renderItem={({item, index}) => (
               <Pressable
                 onPress={() => {
-                  this.props.navigation.navigate('Details',{data:item});
+                  this.props.navigation.navigate('Details', {
+                    data: item._id,
+                    title: item.title,
+                  });
                 }}>
                 <View style={styles.itemcontainer}>
                   <Image
@@ -156,17 +177,19 @@ export default class Itemlist extends Component {
           />
         </View>
         <View>
-        <Snackbar
-        visible={this.state.visible}
-        onDismiss={()=>{this.onDismissSnackBar()}}
-        action={{
-          label: 'Retry',
-          onPress: () => {
-            this.fetchandupdatedata();
-          },
-        }}>
-        Something Went Wrong !
-      </Snackbar>
+          <Snackbar
+            visible={this.state.visible}
+            onDismiss={() => {
+              this.onDismissSnackBar();
+            }}
+            action={{
+              label: 'Retry',
+              onPress: () => {
+                this.fetchandupdatedata();
+              },
+            }}>
+            Something Went Wrong !
+          </Snackbar>
         </View>
       </SafeAreaView>
     );
