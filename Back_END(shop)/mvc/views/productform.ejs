@@ -15,7 +15,7 @@
       h2 {
         font-weight: normal;
       }
-      input,#cat_id {
+      input,#cat_id,#desc {
         font-family: inherit;
         font-size: 18px;
         display: block;
@@ -54,8 +54,10 @@
       <h2>Enter Product details</h2>
       <input type="text" name="title" placeholder="Title" />
       
-      <input type="textarea"  name="description" placeholder="Details" />
-      
+      <!-- <input type="textarea"  name="description" placeholder="Details" /> -->
+      <textarea id="desc" name="description" rows="4" cols="50">
+  
+      </textarea>
       <input type="text" name="price" placeholder="PRICE" />
       <input type="text" name="quantity" placeholder="Quantity" />
       <input type="text" name="short_desc" placeholder="One line INFO" />
