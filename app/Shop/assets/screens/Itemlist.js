@@ -68,8 +68,9 @@ export default class Itemlist extends Component {
   onDismissSnackBar = () => {this.setState({visible:false})}
 
   fetchandupdatedata=()=>{
-        this.setState({isLoading:true});
-      axios.get('https://calm-garden-34154.herokuapp.com/api/home?')
+        this.setState({isLoading:true,dataSource:[]});
+        var categorytype=this.setCategorytpe();
+      axios.get('https://calm-garden-34154.herokuapp.com/api/category/'+categorytype)
       .then((res) => {
         this.setState({dataSource: res.data})
       })
@@ -92,25 +93,23 @@ export default class Itemlist extends Component {
   };
 
   componentDidMount() {
-    this.fetchandupdatedata();
+    //subscribing to screen changes to call fetchandupdatedata function
+    const unsubscribe = this.props.navigation.addListener('focus', () => {
+      this.fetchandupdatedata();
+    });
 
     Dimensions.addEventListener('change', this.onChange);
   }
 
   componentWillUnmount() {
+    //unsubscribing from screen changes
+    this.unsubscribe();
+
     Dimensions.removeEventListener('change', this.onChange);
   }
 
   render() {
     var categorytype = this.setCategorytpe();
-    var i;
-    var data = this.state.dataSource;
-    var itemdata = [];
-    for (i = 0; i < data.length; i++) {
-      if (data[i].cat_id == categorytype) {
-        itemdata.push(data[i]);
-      }
-    }
     return (
       <SafeAreaView style={{flex: 1, backgroundColor: 'lightblue'}}>
         <Appbar.Header style={{backgroundColor: color.MintyGreenMedium}}>
@@ -126,7 +125,7 @@ export default class Itemlist extends Component {
           onRefresh={()=>{this.fetchandupdatedata()}}
           refreshing={this.state.isLoading}
             key={this.state.cols}
-            data={itemdata}
+            data={this.state.dataSource}
             renderItem={({item, index}) => (
               <Pressable
                 onPress={() => {
