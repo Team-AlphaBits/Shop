@@ -5,9 +5,17 @@
   justify-content: center;
   margin-top: 10px;
 }
-.container{
+.container {
   background-color: white;
   /* padding-top: 1px; */
+  text-align: justify; /* For Edge */
+}
+.btn {
+  background-color: aqua;
+  width: 250px;
+  border-radius: 5px;
+  padding: 2px;
+  /* margin-left: 15px; */
 }
 .title {
   text-align: left;
@@ -18,6 +26,16 @@
   margin-top: 100px;
   color: black;
 }
+.all {
+  font-size: 20px;
+  color: blue;
+  font-weight: bold;
+  margin-left: 100px;
+}
+.cardconatiner {
+  height: 200px;
+  width: 200px;
+}
 .title2 {
   text-align: left;
   font-size: 35px;
@@ -27,7 +45,7 @@
   color: black;
   margin-top: 30px;
 }
-.cardbody{
+.cardbody {
   margin-right: 15%;
   box-shadow: white;
 }
@@ -38,13 +56,20 @@
 }
 .card {
   box-shadow: white;
-  width: 22rem;
+  width: 20rem;
+}
+card2 {
+  max-width: 200px;
+  margin-top: 200px;
 }
 @media (max-width: 500px) {
   .card {
     width: 15rem;
   }
-  .cardbody{
+  .cardbody {
     margin-right: 2%;
+  }
+  .btn {
+    width: 180px;
   }
 }

@@ -23,19 +23,23 @@ const breakPoints = [
 
 function Clothes(props) {
   let cards = [];
-  let cls = ["img-fluid",classes.img]
-  if(props.data){
+  let cls = ["img-fluid", classes.img];
+  if (props.data) {
     for (let i = 0; i < 8; i++) {
       cards.push(
         <MDBCol>
           <MDBCard className={classes.card}>
-            <MDBCardImage className={cls.join(' ')} src={props.data[i].image} waves />
+            <MDBCardImage
+              className={cls.join(" ")}
+              src={props.data[i].image}
+              waves
+            />
             <MDBCardBody className={classes.cardbody}>
-      <p className={classes.price}>${props.data[i].price}</p>
+              <p className={classes.price}>${props.data[i].price}</p>
               <p>
                 <strike>₹27,990</strike> (29% off)
               </p>
-              <MDBBtn href="#">ADD TO CART</MDBBtn>
+              <button className={classes.btn}>ADD TO CART</button>
             </MDBCardBody>
           </MDBCard>
         </MDBCol>

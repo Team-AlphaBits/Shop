@@ -21,6 +21,11 @@ export default class Itemlist extends Component {
     super();
     this.state = {
       dataSource: [],
+      marg:
+        Dimensions.get('window').height >= Dimensions.get('window').width
+          ? 5
+          : 30,
+      visible: false,
       cols:
         Dimensions.get('window').height >= Dimensions.get('window').width
           ? 2
