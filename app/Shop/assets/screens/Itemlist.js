@@ -31,14 +31,11 @@ export default class Itemlist extends Component {
           ? 2
           : 3,
       visible: false,
-<<<<<<< HEAD
-=======
       isLoading: false,
       marg:
         Dimensions.get('window').height >= Dimensions.get('window').width
           ? 5
           : 30,
->>>>>>> 074cf56194dd73b55f95a0e024138655abcb5aa4
     };
   }
 
@@ -82,11 +79,6 @@ export default class Itemlist extends Component {
     this.setState({visible: false});
   };
 
-<<<<<<< HEAD
-  fetchandupdatedata = () => {
-    axios
-      .get('https://calm-garden-34154.herokuapp.com/api/home?')
-=======
   unsubscribe_function = {
     unsubscribe: null,
   };
@@ -98,19 +90,15 @@ export default class Itemlist extends Component {
       .get(
         'https://calm-garden-34154.herokuapp.com/api/category/' + categorytype,
       )
->>>>>>> 074cf56194dd73b55f95a0e024138655abcb5aa4
       .then((res) => {
         this.setState({dataSource: res.data});
       })
       .catch((error) => {
         this.onToggleSnackBar();
         console.log(error);
-<<<<<<< HEAD
-=======
       })
       .then(() => {
         this.setState({isLoading: false});
->>>>>>> 074cf56194dd73b55f95a0e024138655abcb5aa4
       });
   };
 
@@ -158,24 +146,16 @@ export default class Itemlist extends Component {
             onRefresh={() => {
               this.fetchandupdatedata();
             }}
-<<<<<<< HEAD
-            refreshing={false}
-=======
             refreshing={this.state.isLoading}
->>>>>>> 074cf56194dd73b55f95a0e024138655abcb5aa4
             key={this.state.cols}
             data={this.state.dataSource}
             renderItem={({item, index}) => (
               <Pressable
                 onPress={() => {
-<<<<<<< HEAD
-                  this.props.navigation.navigate('Details', {data: item});
-=======
                   this.props.navigation.navigate('Details', {
                     data: item._id,
                     title: item.title,
                   });
->>>>>>> 074cf56194dd73b55f95a0e024138655abcb5aa4
                 }}>
                 <View style={styles.itemcontainer}>
                   <Image
@@ -210,10 +190,6 @@ export default class Itemlist extends Component {
             action={{
               label: 'Retry',
               onPress: () => {
-<<<<<<< HEAD
-                this.onDismissSnackBar();
-=======
->>>>>>> 074cf56194dd73b55f95a0e024138655abcb5aa4
                 this.fetchandupdatedata();
               },
             }}>
