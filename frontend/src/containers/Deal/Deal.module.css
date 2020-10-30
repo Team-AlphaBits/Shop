@@ -11,10 +11,11 @@
   text-align: justify; /* For Edge */
 }
 .btn {
-  background-color: #009387;
+  background-color: aqua;
   width: 250px;
   border-radius: 5px;
   padding: 2px;
+  /* margin-left: 15px; */
 }
 .title {
   text-align: left;
@@ -30,6 +31,10 @@
   color: blue;
   font-weight: bold;
   margin-left: 100px;
+}
+.cardconatiner {
+  height: 200px;
+  width: 200px;
 }
 .title2 {
   text-align: left;
@@ -51,7 +56,11 @@
 }
 .card {
   box-shadow: white;
-  width: 22rem;
+  width: 20rem;
+}
+card2 {
+  max-width: 200px;
+  margin-top: 200px;
 }
 @media (max-width: 500px) {
   .card {
