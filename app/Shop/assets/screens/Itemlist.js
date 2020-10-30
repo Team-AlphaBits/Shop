@@ -31,6 +31,14 @@ export default class Itemlist extends Component {
           ? 2
           : 3,
       visible: false,
+<<<<<<< HEAD
+=======
+      isLoading: false,
+      marg:
+        Dimensions.get('window').height >= Dimensions.get('window').width
+          ? 5
+          : 30,
+>>>>>>> 074cf56194dd73b55f95a0e024138655abcb5aa4
     };
   }
 
@@ -74,46 +82,67 @@ export default class Itemlist extends Component {
     this.setState({visible: false});
   };
 
+<<<<<<< HEAD
   fetchandupdatedata = () => {
     axios
       .get('https://calm-garden-34154.herokuapp.com/api/home?')
+=======
+  unsubscribe_function = {
+    unsubscribe: null,
+  };
+
+  fetchandupdatedata = () => {
+    this.setState({isLoading: true, dataSource: []});
+    var categorytype = this.setCategorytpe();
+    axios
+      .get(
+        'https://calm-garden-34154.herokuapp.com/api/category/' + categorytype,
+      )
+>>>>>>> 074cf56194dd73b55f95a0e024138655abcb5aa4
       .then((res) => {
         this.setState({dataSource: res.data});
       })
       .catch((error) => {
         this.onToggleSnackBar();
         console.log(error);
+<<<<<<< HEAD
+=======
+      })
+      .then(() => {
+        this.setState({isLoading: false});
+>>>>>>> 074cf56194dd73b55f95a0e024138655abcb5aa4
       });
   };
 
   onChange = ({window, screen}) => {
     if (window.height >= window.width) {
-      this.setState({cols: 2});
+      this.setState({cols: 2, marg: 5});
     } else {
-      this.setState({cols: 3});
+      this.setState({cols: 3, marg: 30});
     }
   };
 
   componentDidMount() {
-    this.fetchandupdatedata();
+    //subscribing to screen changes to call fetchandupdatedata function
+    this.unsubscribe_function.unsubscribe = this.props.navigation.addListener(
+      'focus',
+      () => {
+        this.fetchandupdatedata();
+      },
+    );
 
     Dimensions.addEventListener('change', this.onChange);
   }
 
   componentWillUnmount() {
+    //unsubscribing from screen changes
+    this.unsubscribe_function.unsubscribe();
+
     Dimensions.removeEventListener('change', this.onChange);
   }
 
   render() {
     var categorytype = this.setCategorytpe();
-    var i;
-    var data = this.state.dataSource;
-    var itemdata = [];
-    for (i = 0; i < data.length; i++) {
-      if (data[i].cat_id == categorytype) {
-        itemdata.push(data[i]);
-      }
-    }
     return (
       <SafeAreaView style={{flex: 1, backgroundColor: 'lightblue'}}>
         <Appbar.Header style={{backgroundColor: color.MintyGreenMedium}}>
@@ -124,18 +153,29 @@ export default class Itemlist extends Component {
           />
           <Appbar.Content title={categorytype} />
         </Appbar.Header>
-        <View style={styles.MainContainer}>
+        <View style={[styles.MainContainer, {marginStart: this.state.marg}]}>
           <FlatList
             onRefresh={() => {
               this.fetchandupdatedata();
             }}
+<<<<<<< HEAD
             refreshing={false}
+=======
+            refreshing={this.state.isLoading}
+>>>>>>> 074cf56194dd73b55f95a0e024138655abcb5aa4
             key={this.state.cols}
-            data={itemdata}
+            data={this.state.dataSource}
             renderItem={({item, index}) => (
               <Pressable
                 onPress={() => {
+<<<<<<< HEAD
                   this.props.navigation.navigate('Details', {data: item});
+=======
+                  this.props.navigation.navigate('Details', {
+                    data: item._id,
+                    title: item.title,
+                  });
+>>>>>>> 074cf56194dd73b55f95a0e024138655abcb5aa4
                 }}>
                 <View style={styles.itemcontainer}>
                   <Image
@@ -170,7 +210,10 @@ export default class Itemlist extends Component {
             action={{
               label: 'Retry',
               onPress: () => {
+<<<<<<< HEAD
                 this.onDismissSnackBar();
+=======
+>>>>>>> 074cf56194dd73b55f95a0e024138655abcb5aa4
                 this.fetchandupdatedata();
               },
             }}>
