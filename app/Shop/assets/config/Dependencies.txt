@@ -6,3 +6,5 @@ npm install --save react-native-vector-icons
 npm install react-native-linear-gradient --save
 npm install react-native-animatable --save
 npm install axios
+npm install redux 
+npm install react-redux
