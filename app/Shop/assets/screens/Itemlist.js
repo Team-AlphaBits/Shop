@@ -25,17 +25,12 @@ export default class Itemlist extends Component {
         Dimensions.get('window').height >= Dimensions.get('window').width
           ? 5
           : 30,
-      visible: false,
       cols:
         Dimensions.get('window').height >= Dimensions.get('window').width
           ? 2
           : 3,
       visible: false,
       isLoading: false,
-      marg:
-        Dimensions.get('window').height >= Dimensions.get('window').width
-          ? 5
-          : 30,
     };
   }
 
