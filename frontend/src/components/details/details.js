@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Button } from "react-bootstrap";
 // import Carousel from "../../components/carousel/carousel";
 import classes from "./details.module.css";
 import {

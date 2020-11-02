@@ -10,3 +10,15 @@
 .img{
   width: 18.7rem;
 }
+.modify{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.manualcard{
+  /* margin-left: 30%;
+  margin-top: 140px; */
+  height: 22rem;
+  width: 100%;
+  background-color: white;
+}

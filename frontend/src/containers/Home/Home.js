@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import Header from "../../components/Icons/headers";
-import FrontImage from "../../Assets/images/hero_2.jpg";
-import { MDBView, MDBMask, MDBRow, MDBContainer, MDBCol } from "mdbreact";
-import classes from "./Home.module.css";
+import { MDBRow, MDBContainer, MDBCol } from "mdbreact";
+// import classes from "./Home.module.css";
 import {connect} from 'react-redux';
 import * as actions from '../../Store/Action/index';
 import Clothes from "../../Cards/Clothes/Clothes";

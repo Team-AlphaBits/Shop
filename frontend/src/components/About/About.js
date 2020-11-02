@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import {
-  MDBBtn,
   MDBCard,
   MDBCardBody,
   MDBCardImage,
@@ -17,7 +16,7 @@ import Khem from "../../Assets/images/Khem.jpeg";
 class About extends Component {
   render() {
     let img = ["card-img-top", classes.img];
-    let cardbody = ["text-center", classes.cardbody];
+    // let cardbody = ["text-center", classes.cardbody];
     const data = [
       { name: "Khemchand Patel", post: "President & Co-Founder", src: Khem },
       { name: "Mohammad Fazil", post: "President & Co-Founder", src: Rahul },
@@ -64,6 +63,7 @@ class About extends Component {
       <div className={classes.maincontainer}>
         <div className={classes.container}>
           <img
+          alt="img"
             src="https://mdbootstrap.com/img/Photos/Horizontal/People/6-col/img%20%283%29.jpg"
             className={classes.mainImg}
           />

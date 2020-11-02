@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Button } from "react-bootstrap";
 // import Carousel from "../../components/carousel/carousel";
 import classes from "./Cart.module.css";
 import { Redirect } from "react-router-dom";
@@ -8,8 +7,8 @@ class Details extends Component {
     return <Redirect to="/Checkout" />;
   };
   render() {
-    let cls = ["z-depth-1", classes.car];
-    let img = ["d-block w-100", classes.car];
+    // let cls = ["z-depth-1", classes.car];
+    // let img = ["d-block w-100", classes.car];
     let cards = [];
     for (let i = 0; i < 2; i++) {
       cards.push(
@@ -17,6 +16,7 @@ class Details extends Component {
           <div className={classes.container}>
             <div className={classes.carousel_ctrl}>
               <img
+              alt="img"
                 src="https://m.media-amazon.com/images/I/714qRVfu2vL._AC_UY327_QL65_.jpg"
                 className={classes.img}
               />

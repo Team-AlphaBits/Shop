@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import classes from "./Checkout.module.css";
-import { MDBContainer, MDBInput, MDBModal, MDBModalBody } from "mdbreact";
+// import { MDBContainer, MDBModal, MDBModalBody } from "mdbreact";
 import { Button, Form, Col } from "react-bootstrap";
 
 class Checkout extends Component {
@@ -14,16 +14,16 @@ class Checkout extends Component {
     });
   };
   render() {
-    let ShowAlert = null;
-    if (this.state.modal) {
-      ShowAlert = (
-        <MDBContainer className={classes.modal}>
-          <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
-            <MDBModalBody>Your order placed successfully !...</MDBModalBody>
-          </MDBModal>
-        </MDBContainer>
-      );
-    }
+    // let ShowAlert = null
+    // if (this.state.modal) {
+    //   ShowAlert = (
+    //     <MDBContainer className={classes.modal}>
+    //       <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
+    //         <MDBModalBody>Your order placed successfully !...</MDBModalBody>
+    //       </MDBModal>
+    //     </MDBContainer>
+    //   );
+    // }
     let cls = ["form-check form-check-inline", classes.radio];
     let size = ["form-check-input", classes.btn];
     let text = ["form-check-input", classes.text];

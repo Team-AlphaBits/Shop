@@ -1,10 +1,6 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import { Card, Button } from "react-bootstrap";
 import Carousel from "react-elastic-carousel";
 import classes from "./BabyProducts.module.css";
-import Item from "./Item";
-import Penguin from "../../Assets/images/Penguins.jpg";
 const breakPoints = [
   { width: 1, itemsToShow: 1 },
   { width: 550, itemsToShow: 2 },
@@ -17,18 +13,16 @@ function Clothes(props) {
   if(props.data){
     for (let i = 0; i < 8; i++) {
       cards.push(
-        <Item>
-          <img src={props.data[i].image} height="250px" width="100%" />
-        </Item>
+         <div className={classes.manualcard}>
+         <img src={props.data.product_data[i].home_image} alt="pic" className={classes.modify}/>
+       </div>
       );
     }
   }
   return (
-    <div>
       <div className={classes.App}>
         <Carousel breakPoints={breakPoints}>{cards}</Carousel>
       </div>
-    </div>
   );
 }
 

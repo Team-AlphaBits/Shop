@@ -1,19 +1,18 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import { Card, Button } from "react-bootstrap";
+// import { Card, Button } from "react-bootstrap";
 import Carousel from "react-elastic-carousel";
 import classes from "./Deal.module.css";
 //import Item from "./Item";
-import Penguin from "../../Assets/images/Penguins.jpg";
-import {
-  MDBBtn,
-  MDBCard,
-  MDBCardBody,
-  MDBCardImage,
-  MDBCardTitle,
-  MDBCardText,
-  MDBCol,
-} from "mdbreact";
+// import Penguin from "../../Assets/images/Penguins.jpg";
+// import {
+//   MDBBtn,
+//   MDBCard,
+//   MDBCardBody,
+//   MDBCardImage,
+//   MDBCardTitle,
+//   MDBCardText,
+//   MDBCol,
+// } from "mdbreact";
 
 function Deals() {
   const breakPoints = [
@@ -23,27 +22,19 @@ function Deals() {
     { width: 1100, itemsToShow: 4 },
   ];
 
-  let cards = [];
-  for (let i = 0; i < 8; i++) {
-    cards.push(
-      <MDBCol>
-        <MDBCard className={classes.card}>
-          <MDBCardImage
-            className="img-fluid"
-            src="https://mdbootstrap.com/img/Photos/Others/images/43.jpg"
-            waves
-          />
-          <MDBCardBody className={classes.cardbody}>
-            <p className={classes.price}>₹19,990.00</p>
-            <p>
-              <strike>₹27,990</strike> (29% off)
-            </p>
-            <MDBBtn href="/Cart">ADD TO CART</MDBBtn>
-          </MDBCardBody>
-        </MDBCard>
-      </MDBCol>
-    );
-  }
+   let cards = [];
+   for(let i = 0; i<8; i++){
+     cards.push( 
+     <div className={classes.manualcard}>
+      <img src="https://images-na.ssl-images-amazon.com/images/I/81n8WL9e4xL._SL1500_.jpg" alt="pic" className={classes.modify}/>
+      <p className={classes.price}>₹19,990.00</p>
+             <p>
+               <strike>₹27,990</strike> (29% off)
+           </p>
+           <button>ADD TO CART</button>
+    </div>
+    )
+   }
   return (
     <>
       <div className={classes.container}>

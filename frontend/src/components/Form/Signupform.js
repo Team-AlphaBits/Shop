@@ -5,10 +5,6 @@ import {
   MDBCol,
   MDBInput,
   MDBBtn,
-  MDBAlert,
-  MDBModalHeader,
-  MDBModalBody,
-  MDBModal,
   MDBCard,
   MDBCardBody,
 } from "mdbreact";

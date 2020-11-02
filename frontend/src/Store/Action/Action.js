@@ -23,6 +23,7 @@ export const getData = () =>{
     return dispatch =>{
         Axios.get("https://cors-anywhere.herokuapp.com/https://calm-garden-34154.herokuapp.com/api/home")
              .then(data =>{
+                 console.log(data)
                  dispatch(dataFetched(data.data))
              })
              .catch(err => console.log(err));

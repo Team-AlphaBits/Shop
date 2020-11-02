@@ -1,18 +1,40 @@
 import React,{Component} from 'react';
 import Navbar from '../../components/Navbar/Navbar';
+import SideDrawer from '../../components/SideDrawer/SideDrawer';
 import classes from './Layout.module.css';
 class Layout extends Component{
     state = {
-        showDrawer: false
+        showDrawer: false,
+        fixed: false,
+        width: 0
     }
     drawerToggle = () =>{
         this.setState(prevState =>{
             return {showDrawer: !prevState.showDrawer}
         })
     }
+    listenScrollEvent = e => {
+        if (window.scrollY > 70) {
+          this.setState({fixed: true})
+        } else {
+          this.setState({fixed: false})
+        }
+      }
+      updateDimensions = () => {
+        this.setState({ width: window.innerWidth});
+      };
+    componentDidMount() {
+        window.addEventListener('scroll', this.listenScrollEvent)
+        window.addEventListener('resize', this.updateDimensions);
+      }
+
     render(){
           return <div className={classes.Layout}>
-              <Navbar Toggle={this.drawerToggle}/>
+              <SideDrawer show={this.state.showDrawer}/>
+              <Navbar 
+              Toggle={this.drawerToggle} 
+              fixed={this.state.fixed}
+              width={this.state.width}/>
               {this.props.children}
           </div>
     }
