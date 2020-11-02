@@ -94,9 +94,9 @@ class NavbarPage extends Component {
       </MDBNavbarNav>
     </MDBCollapse>
   </MDBNavbar>
-  if(this.props.width < 770){
-    nav2 = null
-  }
+  // if(this.props.width < 770){
+  //   nav2 = null
+  // }
     return (
      <>
      {nav2}

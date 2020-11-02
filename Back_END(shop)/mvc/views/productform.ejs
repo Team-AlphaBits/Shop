@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>PRODUCT FORM</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Cabin&display=swap"
+      rel="stylesheet"
+    />
+    <style media="screen">
+      :root {
+        font-size: 150%;
+      }
+      h1,
+      h2 {
+        font-weight: normal;
+      }
+      input,#cat_id,#desc {
+        font-family: inherit;
+        font-size: 18px;
+        display: block;
+        margin: 12px 0;
+        padding: 9px;
+        outline: none;
+        box-sizing: border-box;
+        width: 400px;
+      }
+      /* input:nth-child(4) {
+        width: 400px;
+        height: 500px;
+      } */
+
+    
+
+      body {
+        margin: 72px 180px 0;
+        font-family: "Cabin", sans-serif;
+      }
+
+      form {
+        width: 40%;
+        display: inline-block;
+        vertical-align: top;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>PRODUCT FORM</h1>
+    <div class="">
+      <a href="/">HOME</a>
+    </div>
+
+    <form action="/api/upload-products" method="post" autocomplete="off">
+      <h2>Enter Product details</h2>
+      <input type="text" name="title" placeholder="Title" />
+      
+      <!-- <input type="textarea"  name="description" placeholder="Details" /> -->
+      <textarea id="desc" name="description" rows="4" cols="50">
+  
+      </textarea>
+      <input type="text" name="price" placeholder="PRICE" />
+      <input type="text" name="quantity" placeholder="Quantity" />
+      <input type="text" name="short_desc" placeholder="One line INFO" />
+      <label for="cat_id">Category ID:</label>
+      <select id="cat_id" name="cat_id">
+        <option value="Electronics" selected>Electronics</option>
+        <option value="Clothings">Clothing</option>
+        <option value="Decoration">Decoration</option>
+        <option value="Mobiles">Mobiles</option>
+        <option value="Video_Games">Video Games</option>
+        <option value="Books">Books</option>
+        <option value="Sports">Sports</option>
+        <option value="Computer&peripheral">Computer and Peripheral</option>
+      </select>
+      <input type="text" name="seller_name" placeholder="Seller Name" />
+
+      <input type="text" name="home_image" placeholder="Main-Image source url" />
+      <input type="text" name="image1" placeholder="Image source url" />
+      <input type="text" name="image2" placeholder="Image source url" />
+      <input type="text" name="image3" placeholder="Image source url" />
+      <input type="text" name="image4" placeholder="Image source url" />
+      <input type="submit" value="CREATE PRODUCT" />
+    </form>
+    
+    
+   
+    <form action="/api/home" method="get">
+      <h2>GET DATA</h2>
+      <input type="submit" value="data" />
+    </form>
+  </body>
+</html>
