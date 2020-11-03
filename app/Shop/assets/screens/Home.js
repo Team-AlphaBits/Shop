@@ -11,77 +11,103 @@ import {
   Pressable,
   ScrollView,
   Title,
+  ActivityIndicator,
+  RefreshControl,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Appbar, Searchbar, Button} from 'react-native-paper';
+import {Appbar, Searchbar, Button, Snackbar} from 'react-native-paper';
 import color from '../colors/colors';
+import axios from 'axios';
 
-const img = [
-  {
-    src:
-      'https://images-na.ssl-images-amazon.com/images/I/71dujTTJDZL._SL1500_.jpg',
-    name: 'Samsung Galaxy M21 (Midnight Blue, 4GB RAM, 64GB Storage)',
-  },
-  {
-    src: 'https://m.media-amazon.com/images/I/61lxgxsz7VL._AC_UY327_QL65_.jpg',
-    name: 'Oppo A52 (Twilight Black, 6GB RAM, 128GB Storage)',
-  },
-  {
-    src:
-      'https://images-na.ssl-images-amazon.com/images/I/71aqNzEqj0L._SL1500_.jpg',
-    name: 'OnePlus Nord 5G (Gray Onyx, 12GB RAM, 256GB Storage) ',
-  },
-  {
-    src: 'https://m.media-amazon.com/images/I/81u6E5niDiL._AC_UY327_QL65_.jpg',
-    name: 'Redmi Note 9 Pro Max (Aurora Blue, 6GB RAM, 64GB Storage)',
-  },
-];
-const Deals = [
-  {
-    src:
-      'https://images-eu.ssl-images-amazon.com/images/G/31/img20/CEPC/Jupiter/Phase-3/GW/DesktopGateway_CategoryCard_758X608_40.5x._SY304_CB417695846_.jpg',
-    name: 'Electronic Products',
-  },
-  {
-    src:
-      'https://images-eu.ssl-images-amazon.com/images/G/31/img20/Fashion/EVENT/Jupiter_GW_Softlines/Phase-3/QC-English/PC/DesktopGateway_QuadCard_186x116_ASIN_LIFESTYLE2-fashion-3._SY116_CB417610420_.jpg',
-    name: 'School Kit',
-  },
-  {
-    src:
-      'https://images-eu.ssl-images-amazon.com/images/G/31/Launchpad/2019/FA/GW/JupiterPhase3/Home-decor-storage-essentials_379X304._SY304_CB418065311_.jpg',
-    name: 'Home Deoration',
-  },
-  {
-    src: 'https://m.media-amazon.com/images/I/81gobc50x6L._AC_UY327_QL65_.jpg',
-    name: 'Books',
-  },
-  {
-    src: 'https://m.media-amazon.com/images/I/81cIK-WlKDL._AC_UY327_QL65_.jpg',
-    name: 'Video Games',
-  },
-];
-const {width} = Dimensions.get('window');
-const height = width * 0.6; //60%
-const images = [
-  'https://images-eu.ssl-images-amazon.com/images/G/31/img20/Events/jupiter20/GWphase3/V4/Phase3_Unrec_PC_Hero_ENGLISH_1X._CB417898155_.jpg',
-  'https://images-eu.ssl-images-amazon.com/images/G/31/img20/CEPC/Jupiter/Phase-3/GW/Starting99_3000x1200._CB417694208_.jpg',
-  'https://images-eu.ssl-images-amazon.com/images/G/31/img20/Fashion/EVENT/Jupiter_GW_Softlines/Phase-3/Unrec_Amazon_GRD_3000x1200._CB417611024_.jpg',
-  'https://images-eu.ssl-images-amazon.com/images/G/31/img20/Recunrecphase3/1300._CB417698488_.jpg',
-  'https://images-eu.ssl-images-amazon.com/images/G/31/img18/Lawn_Garden/Mobile_hero_wave-3_3000x1200._CB417897278_.jpg',
-];
 export default class Home extends Component {
-  state = {
+  constructor() {
+    super();
+    this.state = {
+      carousal: [],
+      mobile: [],
+      clothing: null,
+      decoration: [],
+      gaming: [],
+      electronics: [],
+      visible: false,
+      isLoading: false,
+    };
+  }
+  mystate = {
     active: 0,
   };
   change = ({nativeEvent}) => {
     const slide = Math.ceil(
       nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width,
     );
-    if (slide !== this.state.active) {
+    if (slide !== this.mystate.active) {
       this.setState({active: slide});
     }
   };
+
+  onToggleSnackBar = () => {
+    this.setState({visible: true});
+  };
+
+  onDismissSnackBar = () => {
+    this.setState({visible: false});
+  };
+
+  fetchandupdatedata = () => {
+    this.setState({isLoading: true});
+    
+    const getCarousal = axios.get(
+      'https://calm-garden-34154.herokuapp.com/api/home',
+    );
+    const getMobile = axios.get(
+      'https://calm-garden-34154.herokuapp.com/api/category/Mobiles',
+    );
+    const getElectronics = axios.get(
+      'https://calm-garden-34154.herokuapp.com/api/category/Electronics',
+    );
+    const getClothing = axios.get(
+      'https://calm-garden-34154.herokuapp.com/api/category/Clothings',
+    );
+    const getGaming = axios.get(
+      'https://calm-garden-34154.herokuapp.com/api/category/Video_Games',
+    );
+    const getDecoration = axios.get(
+      'https://calm-garden-34154.herokuapp.com/api/category/Decoration',
+    );
+
+    axios
+      .all([
+        getCarousal,
+        getMobile,
+        getElectronics,
+        getClothing,
+        getGaming,
+        getDecoration,
+      ])
+      .then((response) => {
+        this.setState({
+          carousal: response[0].data.carousal_data,
+          mobile: response[1].data,
+          electronics: response[2].data,
+          clothing: response[3].data,
+          gaming: response[4].data,
+          decoration: response[5].data,
+        });
+      })
+      .catch((error) => {
+        this.onToggleSnackBar();
+        console.log(error);
+      })
+      .then(() => {
+        this.setState({isLoading: false});
+      });
+
+  };
+
+  componentDidMount() {
+    this.fetchandupdatedata();
+  }
+
   render() {
     return (
       <SafeAreaView style={{flex: 1}}>
@@ -118,6 +144,11 @@ export default class Home extends Component {
             }}
           />
         </Appbar.Header>
+        <ActivityIndicator
+          animating={this.state.isLoading}
+          color={color.black}
+          size="large"
+        />
         <ScrollView>
           <View style={styles.container}>
             <ScrollView
@@ -126,21 +157,21 @@ export default class Home extends Component {
               onScroll={this.change}
               showsHorizontalScrollIndicator={false}
               contentContainerStyle={{
-                width: images.length * 100 + '%',
+                width: this.state.carousal.length * 100 + '%',
                 height: 300,
                 flexGrow: 1,
               }}>
-              {images.map((image, index) => (
+              {this.state.carousal.map((image, index) => (
                 <Image
                   key={index}
-                  source={{uri: image}}
+                  source={{uri: image.carousal_images}}
                   style={styles.carimg}
                   resizeMode="cover"
                 />
               ))}
             </ScrollView>
             <View style={styles.pos}>
-              {images.map((i, k) => (
+              {this.state.carousal.map((i, k) => (
                 <Text
                   key={k}
                   style={
@@ -180,10 +211,10 @@ export default class Home extends Component {
               </Text>
             </View>
             <View style={styles.minimob}>
-              {img.map((image2, index) => (
+              {this.state.mobile.slice(0, 4).map((image2, index) => (
                 <Image
                   key={index}
-                  source={{uri: image2.src}}
+                  source={{uri: image2.home_image}}
                   style={styles.img2}
                   resizeMode="contain"
                 />
@@ -193,87 +224,69 @@ export default class Home extends Component {
           <Text style={styles.clothsDeal}>
             Great deals on clothings upto 20-40% off
           </Text>
+          {this.state.clothing!=null?
           <View style={styles.clothsMain}>
             <View style={styles.clothsinner}>
-              <View style={styles.clothsimg}>
+              {this.state.clothing.slice(0,4).map((item,index)=>(
+                <View style={styles.clothsimg}
+                key={index}>
                 <Image
                   style={styles.standardimg}
                   resizeMode="contain"
                   source={{
                     uri:
-                      'https://rukminim1.flixcart.com/image/580/696/jws547k0/jacket/f/3/p/l-torn-2-klizen-original-imafhd3n3tmdnwev.jpeg?q=50',
+                     item.home_image,
                   }}
                 />
                 <Text style={styles.clothsTitle}>
-                  Full Sleeve Washed Men Denim Jacket
+                  {item.title}
                 </Text>
-              </View>
-              <View style={styles.clothsimg}>
-                <Image
-                  style={styles.standardimg}
-                  resizeMode="contain"
-                  source={{
-                    uri:
-                      'https://m.media-amazon.com/images/I/81niC633wIL._AC_UL480_QL65_.jpg',
-                  }}
-                />
-                <Text style={styles.clothsTitle}>
-                  Full Sleeve Solid Denim Jacket
-                </Text>
-              </View>
             </View>
-            <View style={styles.clothsinner}>
-              <View style={styles.clothsimg}>
-                <Image
-                  style={styles.standardimg}
-                  resizeMode="contain"
-                  source={{
-                    uri:
-                      'https://rukminim1.flixcart.com/image/880/1056/kfeamq80-0/shirt/p/d/k/xl-bss-try-this-original-imafvvae4ghhy5pd.jpeg?q=50',
-                  }}
-                />
-                <Text style={styles.clothsTitle}>
-                  Solid Men Polo Neck White, Black T-Shirt
-                </Text>
-              </View>
-              <View style={styles.clothsimg}>
-                <Image
-                  style={styles.standardimg}
-                  resizeMode="contain"
-                  source={{
-                    uri:
-                      'https://rukminim1.flixcart.com/image/580/696/jp02t8w0/sweatshirt/4/s/3/s-trdsweatabs1-tripr-original-imafba7amtg5z4bd.jpeg?q=50',
-                  }}
-                />
-                <Text style={styles.clothsTitle}>
-                  Full Sleeve Printed Men Jacket
-                </Text>
-              </View>
+              ))}
             </View>
-          </View>
+          </View>:<View></View>}
           <View style={styles.TopDeals}>
-            <Text style={styles.TopDealsText}>Great Deals on Product</Text>
+            <Text style={styles.TopDealsText}>Great Deals on Electronics</Text>
             <View style={styles.DealsMain}>
-              <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                {Deals.map((Deal, index) => (
+              <FlatList
+                horizontal
+                data={this.state.electronics}
+                renderItem={({item, index}) => (
                   <View style={styles.DealCard} key={index}>
                     <View style={styles.DealImage}>
                       <Image
                         source={{
-                          uri: Deal.src,
+                          uri: item.home_image,
                         }}
                         style={styles.standardimg}
+                        resizeMode='contain'
                       />
                     </View>
                     <View style={styles.DealCardTextView}>
-                      <Text style={styles.DealCardText}>{Deal.name}</Text>
+                      <Text style={styles.DealCardText}>{item.title}</Text>
                     </View>
                   </View>
-                ))}
-              </ScrollView>
+                )}
+                keyExtractor={(item, index) => index.toString()}
+              />
             </View>
           </View>
         </ScrollView>
+        <View>
+          <Snackbar
+            visible={this.state.visible}
+            onDismiss={() => {
+              this.onDismissSnackBar();
+            }}
+            action={{
+              label: 'Retry',
+              onPress: () => {
+                this.fetchandupdatedata();
+              },
+            }}>
+            Something Went Wrong !
+          </Snackbar>
+        </View>
       </SafeAreaView>
     );
   }
@@ -320,9 +333,10 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     height: 200,
+    width: '100%',
     marginTop: 20,
   },
-  img2: {width: null, height: null, flex: 1, margin: 20},
+  img2: {width: null, height: null, flex: 1},
   clothsDeal: {
     fontSize: 25,
     fontWeight: 'bold',
@@ -332,25 +346,22 @@ const styles = StyleSheet.create({
   clothsMain: {
     flex: 1,
     backgroundColor: 'white',
-    marginTop: 30,
-    padding: 20,
-    margin: 10,
   },
   clothsinner: {
-    flex: 1,
-    flexDirection: 'row',
-    width: '100%',
-    marginVertical: 10,
+    alignItems:'flex-start',
+    flexWrap:'wrap',
+    flexDirection:'row',
+    justifyContent:'space-evenly',
   },
   clothsimg: {
-    flex: 1,
-    width: '40%',
+    width: 150,
     height: 200,
     borderColor: '#EEE8AA',
     borderWidth: 8,
-    marginHorizontal: 10,
-    padding: 10,
+    marginHorizontal: 20,
+    marginVertical:20,
     borderRadius: 5,
+    
   },
   clothsTitle: {fontWeight: 'bold', justifyContent: 'center'},
   TopDeals: {

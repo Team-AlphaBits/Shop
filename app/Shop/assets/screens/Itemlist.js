@@ -90,7 +90,6 @@ export default class Itemlist extends Component {
       })
       .catch((error) => {
         this.onToggleSnackBar();
-        console.log(error);
       })
       .then(() => {
         this.setState({isLoading: false});
@@ -127,7 +126,7 @@ export default class Itemlist extends Component {
   render() {
     var categorytype = this.setCategorytpe();
     return (
-      <SafeAreaView style={{flex: 1, backgroundColor: 'lightblue'}}>
+      <SafeAreaView style={{flex: 1}}>
         <Appbar.Header style={{backgroundColor: color.MintyGreenMedium}}>
           <Appbar.BackAction
             onPress={() => {
@@ -158,7 +157,7 @@ export default class Itemlist extends Component {
                     source={{uri: item.home_image}}
                     resizeMode="contain"
                   />
-                  <View style={{backgroundColor: 'white', width: 190}}>
+                  <View style={{backgroundColor: 'white'}}>
                     <Text style={styles.name}>
                       {item.title.length > 20
                         ? item.title.substring(0, 20 - 3) + '...'
@@ -227,5 +226,6 @@ const styles = StyleSheet.create({
     width: 190,
     height: 290,
     backgroundColor: color.white,
+    elevation:4
   },
 });
