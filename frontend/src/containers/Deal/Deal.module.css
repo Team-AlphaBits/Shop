@@ -5,9 +5,17 @@
   justify-content: center;
   margin-top: 10px;
 }
-.container{
+.container {
   background-color: white;
   /* padding-top: 1px; */
+  text-align: justify; /* For Edge */
+}
+.btn {
+  background-color: aqua;
+  width: 250px;
+  border-radius: 5px;
+  padding: 2px;
+  /* margin-left: 15px; */
 }
 .modify{
   width: 100%;
@@ -40,29 +48,8 @@
   color: black;
   margin-top: 30px;
 }
-.cardbody{
-  margin-right: 15%;
-  box-shadow: white;
-}
 .price {
   font-size: 20px;
   font-weight: bold;
   color: green;
-}
-.set{
-  margin-top: 140px;
-  width: 10px;
-  height: 30px;
-}
-.card {
-  box-shadow: white;
-  width: 22rem;
-}
-@media (max-width: 500px) {
-  .card {
-    width: 15rem;
-  }
-  .cardbody{
-    margin-right: 2%;
-  }
 }

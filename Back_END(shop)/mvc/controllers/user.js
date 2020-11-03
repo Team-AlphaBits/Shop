@@ -68,14 +68,12 @@ const loginUser = function (req, res) {
     }
   })(req, res);
 };
-//MIDDLEWARE
-const generateFeed = function(req, res) {
-    res.status(200).json({message: "Genrating posts for user feeds.."});
-}
+
+
 
 
 module.exports = {
   registerUser,
   loginUser,
-  generateFeed,
+ 
 };

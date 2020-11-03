@@ -39,28 +39,28 @@ function Deals() {
     <>
       <div className={classes.container}>
         <h1 className={classes.title}>Deals on Sports Kits</h1>
-        <hr/>
+        <hr />
         <div className={classes.App}>
           <Carousel breakPoints={breakPoints}>{cards}</Carousel>
         </div>
       </div>
       <div className={classes.container}>
         <h1 className={classes.title2}>Groceries</h1>
-        <hr/>
+        <hr />
         <div className={classes.App}>
           <Carousel breakPoints={breakPoints}>{cards}</Carousel>
         </div>
       </div>
       <div className={classes.container}>
         <h1 className={classes.title2}>Smartphones</h1>
-        <hr/>
+        <hr />
         <div className={classes.App}>
           <Carousel breakPoints={breakPoints}>{cards}</Carousel>
         </div>
       </div>
       <div className={classes.container}>
         <h1 className={classes.title2}>Furnitures</h1>
-        <hr/>
+        <hr />
         <div className={classes.App}>
           <Carousel breakPoints={breakPoints}>{cards}</Carousel>
         </div>

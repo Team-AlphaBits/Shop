@@ -5,5 +5,8 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
+router.get('/productform', function(req, res, next) {
+  res.render('productform', { title: 'PRODUCT FORM' });
+});
 
 module.exports = router;

@@ -34,7 +34,7 @@
 .cardbody{
   margin-right: 15%;
 }
-.img{
+.img {
   width: 18.7rem;
 }
 .card {
@@ -44,7 +44,10 @@
   .card {
     width: 15rem;
   }
-  .cardbody{
+  .cardbody {
     margin-right: 2%;
+  }
+  .btn {
+    width: 180px;
   }
 } ;
