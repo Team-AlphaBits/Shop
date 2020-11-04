@@ -22,7 +22,7 @@ export default class products extends Component {
       data: [
         {name: 'Mobiles', path: require('../images/smartphones.jpeg')},
         {name: 'Electronics', path: require('../images/electronics.jpg')},
-        {name: 'Clothing', path: require('../images/clothing.jpg')},
+        {name: 'Clothing', path: require('../images/clothing.jpeg')},
         {name: 'Sports', path: require('../images/sports.jpg')},
         {name: 'Books', path: require('../images/books.jpeg')},
         {name: 'Decoration', path: require('../images/Decoration.jpg')},

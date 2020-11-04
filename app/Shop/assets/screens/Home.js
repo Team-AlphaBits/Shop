@@ -11,11 +11,16 @@ import {
   Pressable,
   ScrollView,
   Title,
-  ActivityIndicator,
   RefreshControl,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Appbar, Searchbar, Button, Snackbar} from 'react-native-paper';
+import {
+  Appbar,
+  Searchbar,
+  Button,
+  Snackbar,
+  ActivityIndicator,
+} from 'react-native-paper';
 import color from '../colors/colors';
 import axios from 'axios';
 
@@ -24,17 +29,19 @@ export default class Home extends Component {
     super();
     this.state = {
       carousal: [],
-      mobile: [],
+      mobile: null,
       clothing: null,
       decoration: [],
       gaming: [],
       electronics: [],
       visible: false,
       isLoading: false,
+      mobilearr: null,
     };
   }
   mystate = {
     active: 0,
+    interval: null,
   };
   change = ({nativeEvent}) => {
     const slide = Math.ceil(
@@ -55,7 +62,7 @@ export default class Home extends Component {
 
   fetchandupdatedata = () => {
     this.setState({isLoading: true});
-    
+
     const getCarousal = axios.get(
       'https://calm-garden-34154.herokuapp.com/api/home',
     );
@@ -93,6 +100,12 @@ export default class Home extends Component {
           gaming: response[4].data,
           decoration: response[5].data,
         });
+        var marray = [];
+        marray.push(this.state.mobile[14]);
+        marray.push(this.state.mobile[15]);
+        marray.push(this.state.mobile[16]);
+        marray.push(this.state.mobile[10]);
+        this.setState({mobilearr: marray});
       })
       .catch((error) => {
         this.onToggleSnackBar();
@@ -101,7 +114,6 @@ export default class Home extends Component {
       .then(() => {
         this.setState({isLoading: false});
       });
-
   };
 
   componentDidMount() {
@@ -148,8 +160,9 @@ export default class Home extends Component {
           animating={this.state.isLoading}
           color={color.black}
           size="large"
+          style={styles.activityindicator}
         />
-        <ScrollView>
+        <ScrollView style={{flex: 1}}>
           <View style={styles.container}>
             <ScrollView
               pagingEnabled
@@ -193,58 +206,68 @@ export default class Home extends Component {
               }}
             />
           </View>
-          <View style={styles.mobliepar}>
-            <Text style={{fontSize: 20, fontWeight: 'bold'}}>
-              Blockbuster deals on on mobiles
-            </Text>
-            <View style={styles.mobilein}>
-              <Image
-                style={styles.standardimg}
-                resizeMode="contain"
-                source={{
-                  uri:
-                    'https://images-na.ssl-images-amazon.com/images/I/71dujTTJDZL._SL1500_.jpg',
-                }}
-              />
-              <Text style={styles.mobtitle}>
-                Samsung Galaxy M21 (Midnight Blue, 4GB RAM, 64GB Storage)
+          {this.state.mobilearr != null ? (
+            <View style={styles.mobliepar}>
+              <Text style={{fontSize: 20, fontWeight: 'bold'}}>
+                Blockbuster deals on on mobiles
               </Text>
-            </View>
-            <View style={styles.minimob}>
-              {this.state.mobile.slice(0, 4).map((image2, index) => (
-                <Image
-                  key={index}
-                  source={{uri: image2.home_image}}
-                  style={styles.img2}
-                  resizeMode="contain"
-                />
-              ))}
-            </View>
-          </View>
-          <Text style={styles.clothsDeal}>
-            Great deals on clothings upto 20-40% off
-          </Text>
-          {this.state.clothing!=null?
-          <View style={styles.clothsMain}>
-            <View style={styles.clothsinner}>
-              {this.state.clothing.slice(0,4).map((item,index)=>(
-                <View style={styles.clothsimg}
-                key={index}>
+              <View style={styles.mobilein}>
                 <Image
                   style={styles.standardimg}
                   resizeMode="contain"
                   source={{
-                    uri:
-                     item.home_image,
+                    uri: this.state.mobilearr[0].home_image,
                   }}
                 />
-                <Text style={styles.clothsTitle}>
-                  {item.title}
+                <Text style={styles.mobtitle}>
+                  {this.state.mobilearr[0].title}
                 </Text>
+              </View>
+              <View style={styles.minimob}>
+                {this.state.mobilearr.map((image2, index) => (
+                  <View style={{flex: 1}} key={index}>
+                    <Image
+                      source={{uri: image2.home_image}}
+                      style={styles.img2}
+                      resizeMode="contain"
+                    />
+                    <Text style={{alignSelf: 'center', fontWeight: 'bold'}}>
+                      {image2.title.length > 10
+                        ? image2.title.substring(0, 10) + '...'
+                        : image2.title}
+                    </Text>
+                  </View>
+                ))}
+              </View>
             </View>
-              ))}
+          ) : (
+            <View></View>
+          )}
+          {this.state.clothing != null ? (
+            <View>
+              <Text style={styles.clothsDeal}>
+                Great deals on clothings upto 20-40% off
+              </Text>
+              <View style={styles.clothsMain}>
+                <View style={styles.clothsinner}>
+                  {this.state.clothing.slice(0, 4).map((item, index) => (
+                    <View style={styles.clothsimg} key={index}>
+                      <Image
+                        style={styles.standardimg}
+                        resizeMode="contain"
+                        source={{
+                          uri: item.home_image,
+                        }}
+                      />
+                      <Text style={styles.clothsTitle}>{item.title}</Text>
+                    </View>
+                  ))}
+                </View>
+              </View>
             </View>
-          </View>:<View></View>}
+          ) : (
+            <View></View>
+          )}
           <View style={styles.TopDeals}>
             <Text style={styles.TopDealsText}>Great Deals on Electronics</Text>
             <View style={styles.DealsMain}>
@@ -259,7 +282,7 @@ export default class Home extends Component {
                           uri: item.home_image,
                         }}
                         style={styles.standardimg}
-                        resizeMode='contain'
+                        resizeMode="contain"
                       />
                     </View>
                     <View style={styles.DealCardTextView}>
@@ -294,7 +317,6 @@ export default class Home extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 0,
     flex: 1,
   },
   carimg: {
@@ -332,7 +354,7 @@ const styles = StyleSheet.create({
   minimob: {
     flex: 1,
     flexDirection: 'row',
-    height: 200,
+    height: 100,
     width: '100%',
     marginTop: 20,
   },
@@ -348,10 +370,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   clothsinner: {
-    alignItems:'flex-start',
-    flexWrap:'wrap',
-    flexDirection:'row',
-    justifyContent:'space-evenly',
+    alignItems: 'flex-start',
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
   },
   clothsimg: {
     width: 150,
@@ -359,11 +381,14 @@ const styles = StyleSheet.create({
     borderColor: '#EEE8AA',
     borderWidth: 8,
     marginHorizontal: 20,
-    marginVertical:20,
+    marginVertical: 20,
     borderRadius: 5,
-    
   },
-  clothsTitle: {fontWeight: 'bold', justifyContent: 'center'},
+  clothsTitle: {
+    fontWeight: 'bold',
+    justifyContent: 'center',
+    alignSelf: 'center',
+  },
   TopDeals: {
     flex: 1,
     backgroundColor: 'white',
@@ -386,4 +411,9 @@ const styles = StyleSheet.create({
   DealCardTextView: {flex: 1, paddingLeft: 20, paddingTop: 10},
   DealCardText: {fontSize: 16, fontWeight: '700'},
   DealsMain: {height: 130, marginTop: 20},
+  activityindicator: {
+    position: 'absolute',
+    alignSelf: 'center',
+    marginTop: 60,
+  },
 });
