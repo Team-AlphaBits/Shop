@@ -6,16 +6,10 @@ import {
   Text,
   SafeAreaView,
   ScrollView,
-  ActivityIndicator
+  ActivityIndicator,
 } from 'react-native';
 
-import {
-  Button,
-  Title,
-  Paragraph,
-  Appbar,
-  Snackbar,
-} from 'react-native-paper';
+import {Button, Title, Paragraph, Appbar, Snackbar} from 'react-native-paper';
 import axios from 'axios';
 import color from '../colors/colors';
 
@@ -118,7 +112,7 @@ export default class Details extends Component {
     var details = this.state.dataSource;
     var imageUri = details.images;
     return (
-      <SafeAreaView style={{flex: 1,backgroundColor:color.white}}>
+      <SafeAreaView style={{flex: 1, backgroundColor: color.white}}>
         <Appbar.Header style={{backgroundColor: color.MintyGreenMedium}}>
           <Appbar.BackAction
             onPress={() => {

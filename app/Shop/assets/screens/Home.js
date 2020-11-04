@@ -37,6 +37,8 @@ export default class Home extends Component {
       visible: false,
       isLoading: false,
       mobilearr: null,
+      bigMobileDisplay: null,
+      bigDecorationDisplay: null,
     };
   }
   mystate = {
@@ -106,6 +108,11 @@ export default class Home extends Component {
         marray.push(this.state.mobile[16]);
         marray.push(this.state.mobile[10]);
         this.setState({mobilearr: marray});
+        this.setState({
+          bigMobileDisplay: this.state.mobilearr[0],
+          bigDecorationDisplay: this.state.decoration[0],
+        });
+        this.setTimerFunction();
       })
       .catch((error) => {
         this.onToggleSnackBar();
@@ -116,8 +123,24 @@ export default class Home extends Component {
       });
   };
 
+  setTimerFunction = () => {
+    var count = 1;
+    this.mystate.interval = setInterval(() => {
+      this.setState({
+        bigMobileDisplay: this.state.mobilearr[count],
+        bigDecorationDisplay: this.state.decoration[count],
+      });
+      count += 1;
+      count %= 4;
+    }, 3000);
+  };
+
   componentDidMount() {
     this.fetchandupdatedata();
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.mystate.interval);
   }
 
   render() {
@@ -206,39 +229,58 @@ export default class Home extends Component {
               }}
             />
           </View>
-          {this.state.mobilearr != null ? (
+          {this.state.bigMobileDisplay != null ? (
             <View style={styles.mobliepar}>
               <Text style={{fontSize: 20, fontWeight: 'bold'}}>
-                Blockbuster deals on on mobiles
+                Blockbuster Deals on Mobiles :
               </Text>
               <View style={styles.mobilein}>
                 <Image
                   style={styles.standardimg}
                   resizeMode="contain"
                   source={{
-                    uri: this.state.mobilearr[0].home_image,
+                    uri: this.state.bigMobileDisplay.home_image,
                   }}
                 />
                 <Text style={styles.mobtitle}>
-                  {this.state.mobilearr[0].title}
+                  {this.state.bigMobileDisplay.title}
                 </Text>
               </View>
               <View style={styles.minimob}>
                 {this.state.mobilearr.map((image2, index) => (
-                  <View style={{flex: 1}} key={index}>
-                    <Image
-                      source={{uri: image2.home_image}}
-                      style={styles.img2}
-                      resizeMode="contain"
-                    />
-                    <Text style={{alignSelf: 'center', fontWeight: 'bold'}}>
-                      {image2.title.length > 10
-                        ? image2.title.substring(0, 10) + '...'
-                        : image2.title}
-                    </Text>
-                  </View>
+                  <Pressable
+                    key={index}
+                    style={{flex: 1}}
+                    onPress={() => {
+                      this.props.navigation.navigate('Details', {
+                        data: image2._id,
+                      });
+                    }}>
+                    <View style={{flex: 1}}>
+                      <Image
+                        source={{uri: image2.home_image}}
+                        style={styles.img2}
+                        resizeMode="contain"
+                      />
+                    </View>
+                  </Pressable>
                 ))}
               </View>
+              <Pressable
+                onPress={() => {
+                  this.props.navigation.navigate('Itemlist', {categoryid: 0});
+                }}>
+                <View style={styles.linkingPage}>
+                  <Text style={{color: color.MintyGreenMedium}}>
+                    Show All Deals{' '}
+                  </Text>
+                  <Icon
+                    name="arrow-right"
+                    size={20}
+                    color={color.MintyGreenMedium}
+                  />
+                </View>
+              </Pressable>
             </View>
           ) : (
             <View></View>
@@ -246,23 +288,46 @@ export default class Home extends Component {
           {this.state.clothing != null ? (
             <View>
               <Text style={styles.clothsDeal}>
-                Great deals on clothings upto 20-40% off
+                Great deals on clothings upto 20-40% off :
               </Text>
               <View style={styles.clothsMain}>
                 <View style={styles.clothsinner}>
                   {this.state.clothing.slice(0, 4).map((item, index) => (
-                    <View style={styles.clothsimg} key={index}>
-                      <Image
-                        style={styles.standardimg}
-                        resizeMode="contain"
-                        source={{
-                          uri: item.home_image,
-                        }}
-                      />
-                      <Text style={styles.clothsTitle}>{item.title}</Text>
-                    </View>
+                    <Pressable
+                      key={index}
+                      onPress={() => {
+                        this.props.navigation.navigate('Details', {
+                          data: item._id,
+                        });
+                      }}>
+                      <View style={styles.clothsimg}>
+                        <Image
+                          style={styles.standardimg}
+                          resizeMode="contain"
+                          source={{
+                            uri: item.home_image,
+                          }}
+                        />
+                        <Text style={styles.clothsTitle}>{item.title}</Text>
+                      </View>
+                    </Pressable>
                   ))}
                 </View>
+                <Pressable
+                  onPress={() => {
+                    this.props.navigation.navigate('Itemlist', {categoryid: 2});
+                  }}>
+                  <View style={styles.linkingPage}>
+                    <Text style={{color: color.MintyGreenMedium}}>
+                      Show All Deals{' '}
+                    </Text>
+                    <Icon
+                      name="arrow-right"
+                      size={20}
+                      color={color.MintyGreenMedium}
+                    />
+                  </View>
+                </Pressable>
               </View>
             </View>
           ) : (
@@ -275,23 +340,46 @@ export default class Home extends Component {
                 horizontal
                 data={this.state.electronics}
                 renderItem={({item, index}) => (
-                  <View style={styles.DealCard} key={index}>
-                    <View style={styles.DealImage}>
-                      <Image
-                        source={{
-                          uri: item.home_image,
-                        }}
-                        style={styles.standardimg}
-                        resizeMode="contain"
-                      />
+                  <Pressable
+                    key={index}
+                    onPress={() => {
+                      this.props.navigation.navigate('Details', {
+                        data: item._id,
+                      });
+                    }}>
+                    <View style={styles.DealCard}>
+                      <View style={styles.DealImage}>
+                        <Image
+                          source={{
+                            uri: item.home_image,
+                          }}
+                          style={styles.standardimg}
+                          resizeMode="contain"
+                        />
+                      </View>
+                      <View style={styles.DealCardTextView}>
+                        <Text style={styles.DealCardText}>{item.title}</Text>
+                      </View>
                     </View>
-                    <View style={styles.DealCardTextView}>
-                      <Text style={styles.DealCardText}>{item.title}</Text>
-                    </View>
-                  </View>
+                  </Pressable>
                 )}
                 keyExtractor={(item, index) => index.toString()}
               />
+              <Pressable
+                onPress={() => {
+                  this.props.navigation.navigate('Itemlist', {categoryid: 1});
+                }}>
+                <View style={styles.linkingPage}>
+                  <Text style={{color: color.MintyGreenMedium}}>
+                    Show All Deals{' '}
+                  </Text>
+                  <Icon
+                    name="arrow-right"
+                    size={20}
+                    color={color.MintyGreenMedium}
+                  />
+                </View>
+              </Pressable>
             </View>
           </View>
         </ScrollView>
@@ -332,9 +420,8 @@ const styles = StyleSheet.create({
   },
   mobliepar: {
     backgroundColor: 'white',
-    paddingHorizontal: 5,
     marginVertical: 50,
-    marginHorizontal: 10,
+    paddingHorizontal: 10,
   },
   indicator: {color: '#888', margin: 3, fontSize: 10},
   indicatorActive: {color: '#fff', margin: 3, fontSize: 10},
@@ -349,7 +436,8 @@ const styles = StyleSheet.create({
   mobtitle: {
     fontSize: 20,
     fontWeight: 'bold',
-    marginHorizontal: '5%',
+    justifyContent: 'center',
+    alignSelf: 'center',
   },
   minimob: {
     flex: 1,
@@ -368,6 +456,7 @@ const styles = StyleSheet.create({
   clothsMain: {
     flex: 1,
     backgroundColor: 'white',
+    paddingHorizontal: 10,
   },
   clothsinner: {
     alignItems: 'flex-start',
@@ -415,5 +504,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     alignSelf: 'center',
     marginTop: 60,
+  },
+  linkingPage: {
+    flexDirection: 'row',
+    marginVertical: 10,
+    marginStart: 20,
   },
 });
