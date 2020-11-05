@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component,PureComponent} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -24,7 +24,7 @@ import {
 import color from '../colors/colors';
 import axios from 'axios';
 
-export default class Home extends Component {
+export default class Home extends PureComponent {
   constructor() {
     super();
     this.state = {
@@ -39,17 +39,17 @@ export default class Home extends Component {
       mobilearr: null,
       bigMobileDisplay: null,
       bigDecorationDisplay: null,
+      active:0
     };
   }
   mystate = {
-    active: 0,
     interval: null,
   };
   change = ({nativeEvent}) => {
     const slide = Math.ceil(
       nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width,
     );
-    if (slide !== this.mystate.active) {
+    if (slide !== this.state.active) {
       this.setState({active: slide});
     }
   };
@@ -116,7 +116,6 @@ export default class Home extends Component {
       })
       .catch((error) => {
         this.onToggleSnackBar();
-        console.log(error);
       })
       .then(() => {
         this.setState({isLoading: false});
@@ -185,7 +184,9 @@ export default class Home extends Component {
           size="large"
           style={styles.activityindicator}
         />
-        <ScrollView style={{flex: 1}}>
+        <ScrollView
+         style={{flex: 1}}
+         nestedScrollEnabled>
           <View style={styles.container}>
             <ScrollView
               pagingEnabled
@@ -496,7 +497,7 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: '#dddddd',
   },
-  DealImage: {flex: 2},
+  DealImage: {flex: 1},
   DealCardTextView: {flex: 1, paddingLeft: 20, paddingTop: 10},
   DealCardText: {fontSize: 16, fontWeight: '700'},
   DealsMain: {height: 130, marginTop: 20},
