@@ -12,6 +12,7 @@ import {
   ScrollView,
   Title,
   RefreshControl,
+  ActivityIndicator
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
@@ -19,7 +20,6 @@ import {
   Searchbar,
   Button,
   Snackbar,
-  ActivityIndicator,
 } from 'react-native-paper';
 import color from '../colors/colors';
 import axios from 'axios';
@@ -469,8 +469,8 @@ const styles = StyleSheet.create({
     height: 200,
     borderColor: '#EEE8AA',
     borderWidth: 8,
-    marginHorizontal: 20,
-    marginVertical: 20,
+    paddingHorizontal:'5%',
+    marginVertical: '5%',
     borderRadius: 5,
   },
   clothsTitle: {
