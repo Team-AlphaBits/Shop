@@ -33,12 +33,9 @@ export default class Details extends Component {
       visible: false,
       isLoading: false,
       showdescription: false,
+      active:0
     };
   }
-
-  state = {
-    active: 0,
-  };
 
   unsubscribe_function = {
     unsubscribe: null,
@@ -86,7 +83,6 @@ export default class Details extends Component {
       })
       .catch((error) => {
         this.onToggleSnackBar();
-        console.log(error);
       })
       .then(() => {
         this.setState({isLoading: false});
