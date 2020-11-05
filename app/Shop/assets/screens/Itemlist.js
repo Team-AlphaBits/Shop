@@ -35,7 +35,13 @@ export default class Itemlist extends Component {
   }
 
   setCategorytpe = () => {
-    switch (this.props.route.params.categoryid) {
+    var catId;
+    try {
+      catId = this.props.route.params.categoryid;
+    } catch (e) {
+      catId = -1;
+    }
+    switch (catId) {
       case 0:
         return 'Mobiles';
         break;
@@ -226,6 +232,6 @@ const styles = StyleSheet.create({
     width: 190,
     height: 290,
     backgroundColor: color.white,
-    elevation:4
+    elevation: 4,
   },
 });

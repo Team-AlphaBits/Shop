@@ -11,11 +11,16 @@ import {
   Pressable,
   ScrollView,
   Title,
-  ActivityIndicator,
   RefreshControl,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Appbar, Searchbar, Button, Snackbar} from 'react-native-paper';
+import {
+  Appbar,
+  Searchbar,
+  Button,
+  Snackbar,
+  ActivityIndicator,
+} from 'react-native-paper';
 import color from '../colors/colors';
 import axios from 'axios';
 
@@ -24,17 +29,21 @@ export default class Home extends Component {
     super();
     this.state = {
       carousal: [],
-      mobile: [],
+      mobile: null,
       clothing: null,
       decoration: [],
       gaming: [],
       electronics: [],
       visible: false,
       isLoading: false,
+      mobilearr: null,
+      bigMobileDisplay: null,
+      bigDecorationDisplay: null,
     };
   }
   mystate = {
     active: 0,
+    interval: null,
   };
   change = ({nativeEvent}) => {
     const slide = Math.ceil(
@@ -55,7 +64,7 @@ export default class Home extends Component {
 
   fetchandupdatedata = () => {
     this.setState({isLoading: true});
-    
+
     const getCarousal = axios.get(
       'https://calm-garden-34154.herokuapp.com/api/home',
     );
@@ -93,6 +102,17 @@ export default class Home extends Component {
           gaming: response[4].data,
           decoration: response[5].data,
         });
+        var marray = [];
+        marray.push(this.state.mobile[14]);
+        marray.push(this.state.mobile[15]);
+        marray.push(this.state.mobile[16]);
+        marray.push(this.state.mobile[10]);
+        this.setState({mobilearr: marray});
+        this.setState({
+          bigMobileDisplay: this.state.mobilearr[0],
+          bigDecorationDisplay: this.state.decoration[0],
+        });
+        this.setTimerFunction();
       })
       .catch((error) => {
         this.onToggleSnackBar();
@@ -101,11 +121,26 @@ export default class Home extends Component {
       .then(() => {
         this.setState({isLoading: false});
       });
+  };
 
+  setTimerFunction = () => {
+    var count = 1;
+    this.mystate.interval = setInterval(() => {
+      this.setState({
+        bigMobileDisplay: this.state.mobilearr[count],
+        bigDecorationDisplay: this.state.decoration[count],
+      });
+      count += 1;
+      count %= 4;
+    }, 3000);
   };
 
   componentDidMount() {
     this.fetchandupdatedata();
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.mystate.interval);
   }
 
   render() {
@@ -148,8 +183,9 @@ export default class Home extends Component {
           animating={this.state.isLoading}
           color={color.black}
           size="large"
+          style={styles.activityindicator}
         />
-        <ScrollView>
+        <ScrollView style={{flex: 1}}>
           <View style={styles.container}>
             <ScrollView
               pagingEnabled
@@ -193,58 +229,110 @@ export default class Home extends Component {
               }}
             />
           </View>
-          <View style={styles.mobliepar}>
-            <Text style={{fontSize: 20, fontWeight: 'bold'}}>
-              Blockbuster deals on on mobiles
-            </Text>
-            <View style={styles.mobilein}>
-              <Image
-                style={styles.standardimg}
-                resizeMode="contain"
-                source={{
-                  uri:
-                    'https://images-na.ssl-images-amazon.com/images/I/71dujTTJDZL._SL1500_.jpg',
-                }}
-              />
-              <Text style={styles.mobtitle}>
-                Samsung Galaxy M21 (Midnight Blue, 4GB RAM, 64GB Storage)
+          {this.state.bigMobileDisplay != null ? (
+            <View style={styles.mobliepar}>
+              <Text style={{fontSize: 20, fontWeight: 'bold'}}>
+                Blockbuster Deals on Mobiles :
               </Text>
-            </View>
-            <View style={styles.minimob}>
-              {this.state.mobile.slice(0, 4).map((image2, index) => (
-                <Image
-                  key={index}
-                  source={{uri: image2.home_image}}
-                  style={styles.img2}
-                  resizeMode="contain"
-                />
-              ))}
-            </View>
-          </View>
-          <Text style={styles.clothsDeal}>
-            Great deals on clothings upto 20-40% off
-          </Text>
-          {this.state.clothing!=null?
-          <View style={styles.clothsMain}>
-            <View style={styles.clothsinner}>
-              {this.state.clothing.slice(0,4).map((item,index)=>(
-                <View style={styles.clothsimg}
-                key={index}>
+              <View style={styles.mobilein}>
                 <Image
                   style={styles.standardimg}
                   resizeMode="contain"
                   source={{
-                    uri:
-                     item.home_image,
+                    uri: this.state.bigMobileDisplay.home_image,
                   }}
                 />
-                <Text style={styles.clothsTitle}>
-                  {item.title}
+                <Text style={styles.mobtitle}>
+                  {this.state.bigMobileDisplay.title}
                 </Text>
+              </View>
+              <View style={styles.minimob}>
+                {this.state.mobilearr.map((image2, index) => (
+                  <Pressable
+                    key={index}
+                    style={{flex: 1}}
+                    onPress={() => {
+                      this.props.navigation.navigate('Details', {
+                        data: image2._id,
+                      });
+                    }}>
+                    <View style={{flex: 1}}>
+                      <Image
+                        source={{uri: image2.home_image}}
+                        style={styles.img2}
+                        resizeMode="contain"
+                      />
+                    </View>
+                  </Pressable>
+                ))}
+              </View>
+              <Pressable
+                onPress={() => {
+                  this.props.navigation.navigate('Itemlist', {categoryid: 0});
+                }}>
+                <View style={styles.linkingPage}>
+                  <Text style={{color: color.MintyGreenMedium}}>
+                    Show All Deals{' '}
+                  </Text>
+                  <Icon
+                    name="arrow-right"
+                    size={20}
+                    color={color.MintyGreenMedium}
+                  />
+                </View>
+              </Pressable>
             </View>
-              ))}
+          ) : (
+            <View></View>
+          )}
+          {this.state.clothing != null ? (
+            <View>
+              <Text style={styles.clothsDeal}>
+                Great deals on clothings upto 20-40% off :
+              </Text>
+              <View style={styles.clothsMain}>
+                <View style={styles.clothsinner}>
+                  {this.state.clothing.slice(0, 4).map((item, index) => (
+                    <Pressable
+                      key={index}
+                      onPress={() => {
+                        this.props.navigation.navigate('Details', {
+                          data: item._id,
+                        });
+                      }}>
+                      <View style={styles.clothsimg}>
+                        <Image
+                          style={styles.standardimg}
+                          resizeMode="contain"
+                          source={{
+                            uri: item.home_image,
+                          }}
+                        />
+                        <Text style={styles.clothsTitle}>{item.title}</Text>
+                      </View>
+                    </Pressable>
+                  ))}
+                </View>
+                <Pressable
+                  onPress={() => {
+                    this.props.navigation.navigate('Itemlist', {categoryid: 2});
+                  }}>
+                  <View style={styles.linkingPage}>
+                    <Text style={{color: color.MintyGreenMedium}}>
+                      Show All Deals{' '}
+                    </Text>
+                    <Icon
+                      name="arrow-right"
+                      size={20}
+                      color={color.MintyGreenMedium}
+                    />
+                  </View>
+                </Pressable>
+              </View>
             </View>
-          </View>:<View></View>}
+          ) : (
+            <View></View>
+          )}
           <View style={styles.TopDeals}>
             <Text style={styles.TopDealsText}>Great Deals on Electronics</Text>
             <View style={styles.DealsMain}>
@@ -252,23 +340,46 @@ export default class Home extends Component {
                 horizontal
                 data={this.state.electronics}
                 renderItem={({item, index}) => (
-                  <View style={styles.DealCard} key={index}>
-                    <View style={styles.DealImage}>
-                      <Image
-                        source={{
-                          uri: item.home_image,
-                        }}
-                        style={styles.standardimg}
-                        resizeMode='contain'
-                      />
+                  <Pressable
+                    key={index}
+                    onPress={() => {
+                      this.props.navigation.navigate('Details', {
+                        data: item._id,
+                      });
+                    }}>
+                    <View style={styles.DealCard}>
+                      <View style={styles.DealImage}>
+                        <Image
+                          source={{
+                            uri: item.home_image,
+                          }}
+                          style={styles.standardimg}
+                          resizeMode="contain"
+                        />
+                      </View>
+                      <View style={styles.DealCardTextView}>
+                        <Text style={styles.DealCardText}>{item.title}</Text>
+                      </View>
                     </View>
-                    <View style={styles.DealCardTextView}>
-                      <Text style={styles.DealCardText}>{item.title}</Text>
-                    </View>
-                  </View>
+                  </Pressable>
                 )}
                 keyExtractor={(item, index) => index.toString()}
               />
+              <Pressable
+                onPress={() => {
+                  this.props.navigation.navigate('Itemlist', {categoryid: 1});
+                }}>
+                <View style={styles.linkingPage}>
+                  <Text style={{color: color.MintyGreenMedium}}>
+                    Show All Deals{' '}
+                  </Text>
+                  <Icon
+                    name="arrow-right"
+                    size={20}
+                    color={color.MintyGreenMedium}
+                  />
+                </View>
+              </Pressable>
             </View>
           </View>
         </ScrollView>
@@ -294,7 +405,6 @@ export default class Home extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 0,
     flex: 1,
   },
   carimg: {
@@ -310,9 +420,8 @@ const styles = StyleSheet.create({
   },
   mobliepar: {
     backgroundColor: 'white',
-    paddingHorizontal: 5,
     marginVertical: 50,
-    marginHorizontal: 10,
+    paddingHorizontal: 10,
   },
   indicator: {color: '#888', margin: 3, fontSize: 10},
   indicatorActive: {color: '#fff', margin: 3, fontSize: 10},
@@ -327,12 +436,13 @@ const styles = StyleSheet.create({
   mobtitle: {
     fontSize: 20,
     fontWeight: 'bold',
-    marginHorizontal: '5%',
+    justifyContent: 'center',
+    alignSelf: 'center',
   },
   minimob: {
     flex: 1,
     flexDirection: 'row',
-    height: 200,
+    height: 100,
     width: '100%',
     marginTop: 20,
   },
@@ -346,12 +456,13 @@ const styles = StyleSheet.create({
   clothsMain: {
     flex: 1,
     backgroundColor: 'white',
+    paddingHorizontal: 10,
   },
   clothsinner: {
-    alignItems:'flex-start',
-    flexWrap:'wrap',
-    flexDirection:'row',
-    justifyContent:'space-evenly',
+    alignItems: 'flex-start',
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
   },
   clothsimg: {
     width: 150,
@@ -359,11 +470,14 @@ const styles = StyleSheet.create({
     borderColor: '#EEE8AA',
     borderWidth: 8,
     marginHorizontal: 20,
-    marginVertical:20,
+    marginVertical: 20,
     borderRadius: 5,
-    
   },
-  clothsTitle: {fontWeight: 'bold', justifyContent: 'center'},
+  clothsTitle: {
+    fontWeight: 'bold',
+    justifyContent: 'center',
+    alignSelf: 'center',
+  },
   TopDeals: {
     flex: 1,
     backgroundColor: 'white',
@@ -386,4 +500,14 @@ const styles = StyleSheet.create({
   DealCardTextView: {flex: 1, paddingLeft: 20, paddingTop: 10},
   DealCardText: {fontSize: 16, fontWeight: '700'},
   DealsMain: {height: 130, marginTop: 20},
+  activityindicator: {
+    position: 'absolute',
+    alignSelf: 'center',
+    marginTop: 60,
+  },
+  linkingPage: {
+    flexDirection: 'row',
+    marginVertical: 10,
+    marginStart: 20,
+  },
 });
