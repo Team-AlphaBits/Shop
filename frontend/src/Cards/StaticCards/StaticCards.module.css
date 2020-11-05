@@ -9,19 +9,22 @@
   flex-flow: row;
   margin-top: 50px;
   /* margin: 50px 0px 50px 0px; */
+  border: solid gold 5px;
+  padding: 10px 2px 20px 2px;
 }
-.modify{
+.modify {
   width: 100%;
-  height: 85%;
+  height: 200px;
   object-fit: contain;
 }
-.manualcard{
+.manualcard {
   /* margin-left: 30%;
   margin-top: 140px; */
-  height: 24rem;
+  height: 300px;
   width: 100%;
   outline: none;
   background-color: white;
+  padding: 10px 5px 10px 5px;
 }
 .disc {
   color: rgb(144, 0, 180);
@@ -30,7 +33,7 @@
   font-size: 20px;
   font: outline;
 }
-.img{
+.img {
   width: 18.7rem;
 }
 .card {
