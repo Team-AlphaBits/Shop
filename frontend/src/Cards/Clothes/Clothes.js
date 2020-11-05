@@ -40,6 +40,9 @@ function Clothes(props) {
       <div className={classes.App}>
         <Carousel breakPoints={breakPoints}>{cards}</Carousel>
       </div>
+      <p className={classes.offer}>
+        <a href="/ProductList">See All Offers ...</a>
+      </p>
     </>
   );
 }

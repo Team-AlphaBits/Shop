@@ -45,6 +45,9 @@ function Deals() {
         <div className={classes.App}>
           <Carousel breakPoints={breakPoints}>{cards}</Carousel>
         </div>
+        <p className={classes.offer}>
+          <a href="/ProductList">See All Offers ...</a>
+        </p>
       </div>
       <div className={classes.container}>
         <h1 className={classes.title2}>Groceries</h1>
@@ -52,6 +55,9 @@ function Deals() {
         <div className={classes.App}>
           <Carousel breakPoints={breakPoints}>{cards}</Carousel>
         </div>
+        <p className={classes.offer}>
+          <a href="/ProductList">See All Offers ...</a>
+        </p>
       </div>
       <div className={classes.container}>
         <h1 className={classes.title2}>Smartphones</h1>
@@ -60,6 +66,9 @@ function Deals() {
         <div className={classes.App}>
           <Carousel breakPoints={breakPoints}>{cards}</Carousel>
         </div>
+        <p className={classes.offer}>
+          <a href="/ProductList">See All Offers ...</a>
+        </p>
       </div>
       <div className={classes.container}>
         <h1 className={classes.title2}>Furnitures</h1>
@@ -68,6 +77,9 @@ function Deals() {
         <div className={classes.App}>
           <Carousel breakPoints={breakPoints}>{cards}</Carousel>
         </div>
+        <p className={classes.offer}>
+          <a href="/ProductList">See All Offers ...</a>
+        </p>
       </div>
     </>
   );

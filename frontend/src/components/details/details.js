@@ -11,7 +11,7 @@ import {
 class Details extends Component {
   render() {
     let cls = ["z-depth-1", classes.car];
-    let img = ["d-block w-100", classes.car];
+    let img = ["d-block w-100", classes.carimg];
     return (
       <div className={classes.container}>
         <div className={classes.carousel_ctrl}>
@@ -28,7 +28,7 @@ class Details extends Component {
                   <MDBView>
                     <img
                       className={img.join(" ")}
-                      src="https://mdbootstrap.com/img/Photos/Slides/img%20(130).jpg"
+                      src="https://m.media-amazon.com/images/I/81pezrPSgOL._AC_SX615_SY462_.jpg"
                       alt="First slide"
                     />
                   </MDBView>
@@ -37,7 +37,7 @@ class Details extends Component {
                   <MDBView>
                     <img
                       className={img.join(" ")}
-                      src="https://mdbootstrap.com/img/Photos/Slides/img%20(129).jpg"
+                      src="https://m.media-amazon.com/images/I/61s0UA4pmVL._AC_SX615_SY462_.jpg"
                       alt="Second slide"
                     />
                   </MDBView>
@@ -46,7 +46,7 @@ class Details extends Component {
                   <MDBView>
                     <img
                       className={img.join(" ")}
-                      src="https://mdbootstrap.com/img/Photos/Slides/img%20(70).jpg"
+                      src="https://m.media-amazon.com/images/I/914o5xV1+8L._AC_SX615_SY462_.jpg"
                       alt="Third slide"
                     />
                   </MDBView>

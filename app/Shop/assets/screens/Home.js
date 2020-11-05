@@ -338,6 +338,7 @@ export default class Home extends Component {
             <View style={styles.DealsMain}>
               <FlatList
                 horizontal
+                showsHorizontalScrollIndicator={false}
                 data={this.state.electronics}
                 renderItem={({item, index}) => (
                   <Pressable

@@ -10,8 +10,10 @@ import {
   MDBIcon,
 } from "mdbreact";
 import classes from "./About.module.css";
-import Rahul from "../../Assets/images/Rahul.jpeg";
-import Khem from "../../Assets/images/Khem.jpeg";
+import Khem from "../../Assets/images/khem1.jpg";
+import Rahul from "../../Assets/images/rahul1.jpg";
+import awek from "../../Assets/images/awek1.jpg";
+import fazil from "../../Assets/images/fazil1.jpg";
 
 class About extends Component {
   render() {
@@ -19,9 +21,9 @@ class About extends Component {
     // let cardbody = ["text-center", classes.cardbody];
     const data = [
       { name: "Khemchand Patel", post: "President & Co-Founder", src: Khem },
-      { name: "Mohammad Fazil", post: "President & Co-Founder", src: Rahul },
-      { name: "Rahul S Chauhan", post: "President & Co-Founder", src: Khem },
-      { name: "Awek Toppo", post: "President & Co-Founder", src: Rahul },
+      { name: "Mohammad Fazil", post: "President & Co-Founder", src: fazil },
+      { name: "Rahul S Chauhan", post: "President & Co-Founder", src: Rahul },
+      { name: "Awek Toppo", post: "President & Co-Founder", src: awek },
     ];
     let cards = [];
     for (let i = 0; i < 4; i++) {
@@ -63,7 +65,7 @@ class About extends Component {
       <div className={classes.maincontainer}>
         <div className={classes.container}>
           <img
-          alt="img"
+            alt="img"
             src="https://mdbootstrap.com/img/Photos/Horizontal/People/6-col/img%20%283%29.jpg"
             className={classes.mainImg}
           />

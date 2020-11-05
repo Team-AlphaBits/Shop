@@ -7,10 +7,17 @@
 .flexbox {
   display: flex;
   flex-flow: row;
-  margin-top: 50px;
   /* margin: 50px 0px 50px 0px; */
-  border: solid gold 5px;
+  border-top: solid gold 5px;
+  border-bottom: solid gold 5px;
   padding: 10px 2px 20px 2px;
+}
+.offer {
+  font-size: 20px;
+  font-weight: 600;
+  text-align: left;
+  color: blue;
+  margin-left: 3%;
 }
 .modify {
   width: 100%;
