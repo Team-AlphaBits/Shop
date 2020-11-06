@@ -52,14 +52,58 @@
         display: inline-block;
         vertical-align: top;
       }
+
+      .btn {
+        display: inline-block;
+        border-radius: 35px;
+        background-color: #c1c7c9;
+        border: none;
+        color: #000000;
+        text-align: center;
+        font-size: 15px;
+        padding: 10px;
+        width: 300px;
+        transition: all 0.5s;
+        cursor: pointer;
+        margin: 5px;
+      }
+
+      .btn span {
+        cursor: pointer;
+        display: inline-block;
+        position: relative;
+        transition: 0.5s;
+      }
+
+      .btn span:after {
+        content: '\00bb';
+        position: absolute;
+        opacity: 0;
+        top: -15px;
+        right: -60px;
+        transition: 0.6s;
+      }
+
+      .btn:hover span {
+        padding-right: 25px;
+      }
+
+      .btn:hover span:after {
+        opacity: 1;
+        right: 0;
+      }
     </style>
   </head>
   <body>
-    <h1>Passport JS</h1>  
-    <div class="">
-      <a href="/productform">UPLOAD PRODUCTS</a>
-    </div>
-
+    <h1 >ADMIN AREA</h1> 
+    <div>
+    <button class="btn" style="vertical-align:middle">
+     <span></span> <a href="/productform">UPLOAD PRODUCTS</a> </span>
+    </button>
+    <button class="btn" style="vertical-align:middle">
+     <span></span> <a href="/carousalform">UPLOAD CAROUSAL IMAGES</a> </span>
+    </button>
+</div> 
     <form action="/api/register" method="post" autocomplete="off">
       <h2>Register a User</h2>
       <input type="email" name="email" placeholder="Email" />

@@ -34,7 +34,7 @@ const registerUser = function ({ body }, res) {
       console.log(err.errmsg);
       if (err.errmsg && err.errmsg.includes("duplicate key error")) {
       //  console.log("__________________ERROR___________________");
-        return res.json({ message: "Email already exists.!" });
+        return res.status(400).json({ message: "Email already exists.!" });
       }
 
       return res.json({ message: "stop playing with registration.." });
@@ -44,8 +44,8 @@ const registerUser = function ({ body }, res) {
       
       
        
-      const token = newUser.getJwt();
-      res.status(200).json(token);
+     // const token = newUser.getJwt();
+      res.status(200).send("Successfully Registered !!");
     }
   });
 };
@@ -59,21 +59,34 @@ const loginUser = function (req, res) {
   passport.authenticate("local", (err, user, info) => {
     if (err) {
       return res.status(404).json(err);
-    }
+    } 
     if (user) {
       const token = user.getJwt();
-      res.status(201).json(token);
+      res.cookie('jwt', token, { maxAge: 900000, httpOnly: true })
+      // res.setHeader('jwt', token);
+      console.log(token);
+      res.status(201).json({mssg: "Logged In!!",token});
     } else {
       res.status(401).json(info);               //error mssg send back
     }
   })(req, res);
 };
 
+const logoutUser = function(req, res){
+  if(!req.user){
+    res.status(401).send("Login First !!");
+    return;
+  }
+  
+  console.log(req.user);
+  res.clearCookie('jwt');
+  res.send("DONE Logged Out!!");
+}
 
 
 
 module.exports = {
   registerUser,
   loginUser,
- 
+  logoutUser,
 };
