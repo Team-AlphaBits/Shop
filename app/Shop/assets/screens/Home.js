@@ -164,6 +164,7 @@ class Home extends PureComponent {
 
   componentDidMount() {
     this.fetchandupdatedata();
+    this.props.reloginAction();
     this.requestCameraPermission();
   }
 
