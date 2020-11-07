@@ -5,8 +5,10 @@ import {View, SafeAreaView, StyleSheet, Pressable} from 'react-native';
 import {Avatar, Text, Title, Drawer} from 'react-native-paper';
 import color from '../colors/colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {connect} from 'react-redux';
+import {logoutAction} from '../Redux/index';
 
-export default class DrawerContent extends Component {
+ class DrawerContent extends Component {
   constructor() {
     super();
     this.state = {
@@ -26,7 +28,7 @@ export default class DrawerContent extends Component {
       </Pressable>
     );
     var showlogout = <View></View>;
-    if (this.state.signIn) {
+    if (this.props.isLoggedIn) {
       profilepic = (
         <Avatar.Image
           size={100}
@@ -37,7 +39,7 @@ export default class DrawerContent extends Component {
       );
       gotologin = (
         <View>
-          <Title style={{color: color.darkblue}}>Username</Title>
+          <Title style={{color: color.darkblue}}>{this.props.username}</Title>
           <Pressable
             style={{flexDirection: 'row'}}
             onPress={() => {
@@ -57,7 +59,7 @@ export default class DrawerContent extends Component {
             paddingBottom: '3%',
           }}
           onPress={() => {
-            console.log('Goes to logout');
+            this.props.logoutAction();
           }}>
           <Icon name="logout" size={30} color={color.darkblue} />
           <Title style={{color: color.darkblue, fontSize: 25}}>Logout</Title>
@@ -125,3 +127,17 @@ const style = StyleSheet.create({
     flexDirection: 'row',
   },
 });
+
+const mapStatetoProps=(state)=>{
+  return{
+    username:state.LoginReducer.username,
+    isLoggedIn:state.LoginReducer.isLoggedIn
+  }
+}
+const mapDispatchToProps=(dispatch)=>{
+    return{
+        logoutAction:()=>{dispatch(logoutAction())}
+    }
+}
+
+export default connect(mapStatetoProps,mapDispatchToProps)(DrawerContent);

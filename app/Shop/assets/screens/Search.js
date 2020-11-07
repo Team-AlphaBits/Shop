@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
-import { Text, View,SafeAreaView,StatusBar } from 'react-native'
+import { Text, View,SafeAreaView,StatusBar,Button } from 'react-native'
 
 import color from '../colors/colors'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Appbar, Searchbar, Button} from 'react-native-paper';
+import {Appbar, Searchbar} from 'react-native-paper';
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default class Search extends Component {
 
@@ -13,6 +15,19 @@ export default class Search extends Component {
           searchquery: '',
         };
       }
+
+      RetriveCredentialAndLogin =async () => {
+        let values;
+        var data=null;
+        try {
+          values = await AsyncStorage.multiGet(['email', 'password']);
+          console.log(values);
+        } catch (e) {
+          // read error
+          //data= false;
+          console.log(e);
+        }
+    };
 
     render() {
         return (
@@ -37,6 +52,9 @@ export default class Search extends Component {
           value={this.state.searchquery}
         />
         </Appbar.Header>
+        <View>
+          <Button title='Print' onPress={()=>{this.RetriveCredentialAndLogin()}}/>
+        </View>
       </SafeAreaView>
         )
     }

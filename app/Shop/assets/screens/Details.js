@@ -79,7 +79,7 @@ export default class Details extends Component {
     axios
       .get('https://calm-garden-34154.herokuapp.com/api/product/' + productId)
       .then((res) => {
-        this.setState({dataSource: res.data});
+        this.setState({dataSource: res.data.productData});
       })
       .catch((error) => {
         this.onToggleSnackBar();
