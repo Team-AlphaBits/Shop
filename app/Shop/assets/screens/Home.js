@@ -12,7 +12,8 @@ import {
   ScrollView,
   Title,
   RefreshControl,
-  ActivityIndicator
+  ActivityIndicator,
+  PermissionsAndroid
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
@@ -23,8 +24,10 @@ import {
 } from 'react-native-paper';
 import color from '../colors/colors';
 import axios from 'axios';
+import {connect} from 'react-redux';
+import {reloginAction} from '../Redux/index';
 
-export default class Home extends PureComponent {
+class Home extends PureComponent {
   constructor() {
     super();
     this.state = {
@@ -66,7 +69,7 @@ export default class Home extends PureComponent {
     this.setState({isLoading: true});
 
     const getCarousal = axios.get(
-      'https://calm-garden-34154.herokuapp.com/api/home',
+      'https://calm-garden-34154.herokuapp.com/api/home?',
     );
     const getMobile = axios.get(
       'https://calm-garden-34154.herokuapp.com/api/category/Mobiles',
@@ -95,12 +98,12 @@ export default class Home extends PureComponent {
       ])
       .then((response) => {
         this.setState({
-          carousal: response[0].data.carousal_data,
-          mobile: response[1].data,
-          electronics: response[2].data,
-          clothing: response[3].data,
-          gaming: response[4].data,
-          decoration: response[5].data,
+          carousal: response[0].data.carousalData,
+          mobile: response[1].data.productData,
+          electronics: response[2].data.productData,
+          clothing: response[3].data.productData,
+          gaming: response[4].data.productData,
+          decoration: response[5].data.productData,
         });
         var marray = [];
         marray.push(this.state.mobile[14]);
@@ -134,8 +137,34 @@ export default class Home extends PureComponent {
     }, 3000);
   };
 
+  requestCameraPermission = async () => {
+    try {
+      const granted = await PermissionsAndroid.requestMultiple([
+        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+      ]).then((result) => {
+        if (
+          result['android.permission.READ_EXTERNAL_STORAGE'] &&
+          result['android.permission.WRITE_EXTERNAL_STORAGE'] === 'granted'
+        ) {
+          console.log('granted');
+        } else if (
+          result['android.permission.READ_EXTERNAL_STORAGE'] ||
+          result['android.permission.WRITE_EXTERNAL_STORAGE'] ===
+            'never_ask_again'
+        ) {
+          console.log('Not granted');
+        }
+      });
+    } catch (err) {
+      console.warn(err);
+    }
+  };
+
+
   componentDidMount() {
     this.fetchandupdatedata();
+    this.requestCameraPermission();
   }
 
   componentWillUnmount() {
@@ -512,3 +541,13 @@ const styles = StyleSheet.create({
     marginStart: 20,
   },
 });
+
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    reloginAction: () => {
+      dispatch(reloginAction());
+    },
+  };
+};
+export default connect(null, mapDispatchToProps)(Home);
