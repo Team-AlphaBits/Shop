@@ -12,7 +12,17 @@ class Home extends Component {
   componentDidMount() {
     this.props.onFetchData();
   }
+
+  changeUrl = (id) =>{
+    this.props.history.push({
+      pathname: '/details',
+      hash: '#item',
+      search: '?'+id
+    })
+  }
   render() {
+
+    console.log(this.props.Data)
     return (
       <div>
         <Header />
@@ -27,7 +37,7 @@ class Home extends Component {
             </MDBCol>
           </MDBRow>
         </MDBContainer>
-        <Clothes data={this.props.Data}/>
+        <Clothes data={this.props.Data} change={this.changeUrl}/>
         <BabyProducts data={this.props.Data}/>
          <StaticCards data={this.props.Data}/>
       </div>

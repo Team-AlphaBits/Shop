@@ -35,7 +35,7 @@ class NavbarPage extends Component {
       activeGift = true;
     }
     let fixed = null
-    if(this.props.fixed){
+    if(this.props.fixed || this.props.width < 770){
       fixed = "top"
     }
     const nav1 =
@@ -94,9 +94,9 @@ class NavbarPage extends Component {
       </MDBNavbarNav>
     </MDBCollapse>
   </MDBNavbar>
-  // if(this.props.width < 770){
-  //   nav2 = null
-  // }
+  if(this.props.width < 770){
+    nav2 = null
+  }
     return (
      <>
      {nav2}

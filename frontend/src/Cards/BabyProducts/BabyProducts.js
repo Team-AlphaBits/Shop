@@ -14,7 +14,7 @@ function Clothes(props) {
     for (let i = 0; i < 8; i++) {
       cards.push(
          <div className={classes.manualcard}>
-         <img src={props.data.product_data[i].home_image} alt="pic" className={classes.modify}/>
+         <img src={props.data.productData[i].home_image} alt="pic" className={classes.modify}/>
        </div>
       );
     }

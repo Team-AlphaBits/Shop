@@ -19,14 +19,28 @@ export const dataFetched = (data) =>{
         data: data
     }
 }
+export const detailData = (data) =>{
+    return{
+        type: actionTypes.GETBYID,
+        data: data
+    }
+}
 export const getData = () =>{
     return dispatch =>{
         Axios.get("https://cors-anywhere.herokuapp.com/https://calm-garden-34154.herokuapp.com/api/home")
              .then(data =>{
-                 console.log(data)
                  dispatch(dataFetched(data.data))
              })
              .catch(err => console.log(err));
+    }
+}
+export const getById = (id) =>{
+    return dispatch =>{
+        Axios.get("https://cors-anywhere.herokuapp.com/https://calm-garden-34154.herokuapp.com/api/product/" + id)
+             .then(data =>{
+                 dispatch(detailData(data.data))
+             })
+             .catch(err => console.log(err))
     }
 }
 export const Signup = (username, email, password) =>{

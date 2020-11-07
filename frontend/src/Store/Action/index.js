@@ -1,5 +1,6 @@
 export {
 signupSuccess,
 Signup,
-getData
+getData,
+getById
 }from './Action'
