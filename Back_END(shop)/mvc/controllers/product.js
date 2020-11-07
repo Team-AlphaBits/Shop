@@ -10,10 +10,12 @@ let productDatas = default_prod_data.Products;
 
 //SEARCHING FOR RESult
 const getSearchResults = function({query}, res) {
-if(!query.query) {
-    return res.json({ err: "Missing a query.!" });
-}
-Product.find({title: { $regex: query.query, $options : "i"} }, "title", (err, results) => {
+  //  console.log(query);
+    if(!query.query) {
+        return res.json({ err: "Missing a query.!" });
+    }
+    let searchingFor = escapeRegex(query.query);
+    Product.find({$or:[{title: { $regex: searchingFor, $options : "i"} },{ cat_id: { $regex: searchingFor, $options : "i"} }]}, 'title home_image short_desc cat_id price ', (err, results) => {
     if(err){
     return res.json({err: err});
     }
@@ -112,8 +114,8 @@ const sendProductData = async function(req, res) {
         userData = null;
     }
     }
-    catch{
-        return res.status(500).send("ERROR IN SENDING userData!!");
+    catch(err){
+        return res.status(500).send(err);
     }
     let p1 = new Promise(function(resolve, reject) {
         Product.find({},'title home_image short_desc cat_id price ', function(err, data){
@@ -154,8 +156,8 @@ const getProductByID = async function(req, res){
     productData = await Product.findById(product_id)
     res.status(200).json({productData,userData});
 }
-catch{
-    res.status(400).send("ERROR IN SENDING PRODUCT DATA!!");
+catch(err){
+    res.status(400).send(err);
 }
 }
 
@@ -171,7 +173,7 @@ const getUserByID =  function(req, res){
 
 const addToCart =  function(req, res){
     //testing
-   
+   try{
     var user_id = req.user;                 // NEED USER INFO FROM CLIENT
     var prod_id = req.params.prodid;
     var cart_data;
@@ -341,20 +343,24 @@ const addToCart =  function(req, res){
 }).catch(err => console.log(err));
 }).catch(err => console.log(err));
 
-
+}catch(err){
+    res.status(500).send(err);
+}
 
 }
 
 
-const viewCart = function(req, res){
+const viewCart = async function(req, res){
+    try{
     var userid = req.user;
-    User.findById(userid , 'cart', function (err, cart_data){
-        if(err){
-            res.send("ERROR IN SENDING DATA!!");
-            next();
-            }
-            res.json(cart_data);
-    });
+    cartData = await User.findById(userid , 'cart');
+    
+    res.status(200).json({message: "Cart Data fetched successfully" , cartData});
+}
+catch(err){
+    res.status(400).send(err);
+}
+    
 }
 
 const getProductByCategory = async function(req, res){
@@ -398,6 +404,9 @@ function convert_price(text){
     return (parseFloat(text.replace( /[^\d\.]*/g, '')));
 }
 
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
 /////////////////////////////////////////////////////////////////////
 ///////////////-CALCULATING PRICES AFTER UPDATE-////////////////////
 ///////////////////////////////////////////////////////////////////
@@ -449,6 +458,7 @@ async function update_price(user_id){
 
 
 const increaseQuantity = function(req, res){
+    try{
     let user_id = req.user;                 // NEED USER INFO FROM CLIENT
     let prod_id = req.params.prodid;
 
@@ -491,10 +501,15 @@ const increaseQuantity = function(req, res){
 
 
 }).catch(err => console.log(err));
+    }
+    catch(err){
+        res.status(500).send(err);
+    }
 }
 
 
 const decreaseQuantity = function(req, res){
+    try{
     let user_id = req.user;                 // NEED USER INFO FROM CLIENT
     let prod_id = req.params.prodid;
     let curr_qnt;
@@ -591,6 +606,10 @@ const decreaseQuantity = function(req, res){
 
 
 }).catch(err => console.log(err));
+    }
+    catch(err){
+        res.status(500).send(err);
+    }
 }
 
 

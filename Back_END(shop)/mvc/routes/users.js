@@ -33,7 +33,7 @@ router.post("/upload-carousal", productsCtrl.uploadCarousalForm);
 
 router.get("/home",middleware.authorize, productsCtrl.sendProductData);
 
-
+            
 
 router.get("/product/:id",middleware.authorize, productsCtrl.getProductByID);
 
@@ -44,13 +44,13 @@ router.get("/category/:category_name",middleware.authorize, productsCtrl.getProd
 /////////////////////////PROTECTED ROUTES/////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 
-router.put("/add-to-cart/:prodid",passport.authenticate('jwt', { session: false }), productsCtrl.addToCart);       //user_id needed from client
+router.put("/add-to-cart/:prodid",passport.authenticate('jwt', { session: false }), productsCtrl.addToCart);       //id fetched from client cookie  
 
-router.get("/view-Cart/",passport.authenticate('jwt', { session: false }), productsCtrl.viewCart);  //user_id from client side
+router.get("/view-Cart/",passport.authenticate('jwt', { session: false }), productsCtrl.viewCart);  //id fetched from client cookie  
 
-router.put("/incProd/:prodid",passport.authenticate('jwt', { session: false }), productsCtrl.increaseQuantity);         //user_id needed from client
+router.put("/incProd/:prodid",passport.authenticate('jwt', { session: false }), productsCtrl.increaseQuantity);         //id fetched from client cookie  
 
-router.put("/decProd/:prodid",passport.authenticate('jwt', { session: false }), productsCtrl.decreaseQuantity);          //user_id needed from client
+router.put("/decProd/:prodid",passport.authenticate('jwt', { session: false }), productsCtrl.decreaseQuantity);          //id fetched from client cookie  
 
 
 module.exports = router;
