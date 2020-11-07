@@ -368,6 +368,7 @@ class Home extends PureComponent {
             <View style={styles.DealsMain}>
               <FlatList
                 horizontal
+                showsHorizontalScrollIndicator={false}
                 data={this.state.electronics}
                 renderItem={({item, index}) => (
                   <Pressable

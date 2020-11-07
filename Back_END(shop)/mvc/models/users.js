@@ -102,7 +102,13 @@ const userSchema = new mongoose.Schema(
   },
 });
 
-
+const carousalDataSchema = new mongoose.Schema({
+  carousal_images: { 
+    type: String,
+    required: true,
+   
+  }
+});
 
 
 
@@ -124,11 +130,17 @@ userSchema.methods.getJwt = function () {
   return jwt.sign(
     {
       _id: this._id,
-      email: this.email,
     },
-    process.env.JWT_TOKEN
+    process.env.JWT_TOKEN,
+    { expiresIn: '2h' },
   );
 };
 
+
+
+
+
+
 mongoose.model("User", userSchema);
 mongoose.model("Product", productDataSchema);
+mongoose.model("Carousal", carousalDataSchema);

@@ -3,35 +3,53 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 100px;
+  border-top: solid gold 5px;
+  border-bottom: solid gold 5px;
+  padding: 10px 2px 20px 2px;
 }
 .price {
   font-size: 20px;
   font-weight: bold;
   color: green;
 }
-.modify{
+.offer {
+  font-size: 20px;
+  font-weight: 600;
+  text-align: left;
+  color: blue;
+  margin-left: 3%;
+}
+.modify {
   width: 100%;
-  height: 66%;
+  height: 170px;
   object-fit: contain;
 }
-.h4{
+.h4 {
   font-weight: bold;
   margin-top: 20px;
   text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
+  white-space: nowrap;
+  overflow: hidden;
 }
-.manualcard{
+.btn {
+  background-color: aqua;
+  width: 200px;
+  /* padding-top: 5px;
+  padding-bottom: 5px; */
+  border-radius: 6px;
+  font-weight: 500;
+}
+.manualcard {
   /* margin-left: 30%;
   margin-top: 140px; */
-  height: 34rem;
-  width: 90%;
+  height: 350px;
+  width: 200px;
   outline: none;
   border: none;
   background-color: white;
+  padding: 10px 5px 10px 5px;
 }
-.cardbody{
+.cardbody {
   margin-right: 15%;
 }
 .img {

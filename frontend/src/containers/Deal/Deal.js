@@ -22,48 +22,64 @@ function Deals() {
     { width: 1100, itemsToShow: 4 },
   ];
 
-   let cards = [];
-   for(let i = 0; i<8; i++){
-     cards.push( 
-     <div className={classes.manualcard}>
-      <img src="https://images-na.ssl-images-amazon.com/images/I/81n8WL9e4xL._SL1500_.jpg" alt="pic" className={classes.modify}/>
-      <p className={classes.price}>₹19,990.00</p>
-             <p>
-               <strike>₹27,990</strike> (29% off)
-           </p>
-           <button>ADD TO CART</button>
-    </div>
-    )
-   }
+  let cards = [];
+  for (let i = 0; i < 8; i++) {
+    cards.push(
+      <div className={classes.manualcard}>
+        <img
+          src="https://images-na.ssl-images-amazon.com/images/I/81n8WL9e4xL._SL1500_.jpg"
+          alt="pic"
+          className={classes.modify}
+        />
+        <p className={classes.price}>₹19,990.00</p>
+
+        <button className={classes.btn}>ADD TO CART</button>
+      </div>
+    );
+  }
   return (
     <>
       <div className={classes.container}>
         <h1 className={classes.title}>Deals on Sports Kits</h1>
-        <hr />
+        <hr className={classes.line} />
         <div className={classes.App}>
           <Carousel breakPoints={breakPoints}>{cards}</Carousel>
         </div>
+        <p className={classes.offer}>
+          <a href="/ProductList">See All Offers ...</a>
+        </p>
       </div>
       <div className={classes.container}>
         <h1 className={classes.title2}>Groceries</h1>
-        <hr />
+        <hr className={classes.line} />
         <div className={classes.App}>
           <Carousel breakPoints={breakPoints}>{cards}</Carousel>
         </div>
+        <p className={classes.offer}>
+          <a href="/ProductList">See All Offers ...</a>
+        </p>
       </div>
       <div className={classes.container}>
         <h1 className={classes.title2}>Smartphones</h1>
-        <hr />
+        <hr className={classes.line} />
+
         <div className={classes.App}>
           <Carousel breakPoints={breakPoints}>{cards}</Carousel>
         </div>
+        <p className={classes.offer}>
+          <a href="/ProductList">See All Offers ...</a>
+        </p>
       </div>
       <div className={classes.container}>
         <h1 className={classes.title2}>Furnitures</h1>
-        <hr />
+        <hr className={classes.line} />
+
         <div className={classes.App}>
           <Carousel breakPoints={breakPoints}>{cards}</Carousel>
         </div>
+        <p className={classes.offer}>
+          <a href="/ProductList">See All Offers ...</a>
+        </p>
       </div>
     </>
   );

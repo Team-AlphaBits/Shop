@@ -260,12 +260,12 @@ const styles = StyleSheet.create({
   paggingText: {
     color: 'black',
     margin: '3%',
-    fontSize: 20,
+    fontSize: 8,
   },
   paggingActiveText: {
     color: '#888',
     margin: '3%',
-    fontSize: 20,
+    fontSize: 8,
   },
   btnView: {
     marginTop: 20,
