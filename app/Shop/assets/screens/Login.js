@@ -2,11 +2,9 @@ import React, {Component} from 'react';
 import {
   View,
   Text,
-  TouchableOpacity,
   TextInput,
   Platform,
   StyleSheet,
-  StatusBar,
   ScrollView,
   SafeAreaView,
   Image,

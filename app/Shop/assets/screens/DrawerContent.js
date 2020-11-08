@@ -8,7 +8,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {connect} from 'react-redux';
 import {logoutAction} from '../Redux/index';
 
- class DrawerContent extends Component {
+class DrawerContent extends Component {
   constructor() {
     super();
     this.state = {
@@ -17,7 +17,6 @@ import {logoutAction} from '../Redux/index';
   }
 
   render() {
-    console.log(this.props.isLoggedIn+'drawer function');
     var profilepic = (
       <Icon name="account-circle" size={100} color={color.darkblue} />
     );
@@ -111,7 +110,6 @@ import {logoutAction} from '../Redux/index';
                   this.props.navigation.navigate('Order');
                 }}
               />
-              
             </Drawer.Section>
           </View>
         </DrawerContentScrollView>
@@ -129,16 +127,18 @@ const style = StyleSheet.create({
   },
 });
 
-const mapStatetoProps=(state)=>{
-  return{
-    username:state.LoginReducer.username,
-    isLoggedIn:state.LoginReducer.isLoggedIn
-  }
-}
-const mapDispatchToProps=(dispatch)=>{
-    return{
-        logoutAction:()=>{dispatch(logoutAction())}
-    }
-}
+const mapStatetoProps = (state) => {
+  return {
+    username: state.LoginReducer.username,
+    isLoggedIn: state.LoginReducer.isLoggedIn,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logoutAction: () => {
+      dispatch(logoutAction());
+    },
+  };
+};
 
-export default connect(mapStatetoProps,mapDispatchToProps)(DrawerContent);
+export default connect(mapStatetoProps, mapDispatchToProps)(DrawerContent);

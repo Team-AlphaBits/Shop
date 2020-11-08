@@ -23,56 +23,6 @@ saveCredentialToDevice = async (data) => {
   }
 };
 
-/*loginFuncion = (email, password) => {
-  var myemail = email;
-  var myPassword = password;
-
-  axios
-    .post('https://calm-garden-34154.herokuapp.com/api/login', {
-      email: myemail,
-      password: myPassword,
-    })
-    .then((res) => {
-      console.log('then block')
-      /*return{
-        email: res.data.userData.email,
-        password: myPassword,
-        username: res.data.userData.user_name,
-      };
-      console.log(res.data.userData.email+'main network call')
-    })
-    .catch((e) => {
-      console.log(e + 'network error');
-    });
-};*/
-
-/*RetriveCredentialAndLogin = async () => {
-  console.log('relogin called');
-  try {
-    const values = await AsyncStorage.multiGet(['email', 'password']);
-    myData.storageData = values;
-    console.log(values + 'between both function');
-    //networking
-    var network =await axios
-    .post('https://calm-garden-34154.herokuapp.com/api/login', {
-      email: values[0][1],
-      password: values[1][1],
-    })
-    //networking
-    console.log(network.data.userData.email+'login return');
-    console.log(myData.storageData + 'mydata async output');
-   // console.log(myData.networkData + 'mydata network data');
-   return{networkdata: network.data.userData,password:values[1][1]}
-
-  } catch (e) {
-    // read error
-    console.log(e + 'storage error');
-    return false;
-  }
-};*/
-
-
-
 removeFew = async () => {
   const keys = ['email', 'password'];
   try {
@@ -111,15 +61,15 @@ export default LoginReducer = (state = initialState, action) => {
       };
 
     case RE_LOGIN:
-            console.log(action.payload.netdata.email+' case log')
-      return{
+      console.log(action.payload.netdata.email + ' case log');
+      return {
         ...state,
-        email:action.payload.netdata.email,
-        password:action.payload.password,
-        username:action.payload.netdata.user_name,
-        isLoggedIn:true
-      }
-       break;
+        email: action.payload.netdata.email,
+        password: action.payload.password,
+        username: action.payload.netdata.user_name,
+        isLoggedIn: true,
+      };
+      break;
 
     case LOG_OUT:
       clearCredential();

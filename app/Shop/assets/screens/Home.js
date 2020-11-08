@@ -1,4 +1,4 @@
-import React, {Component,PureComponent} from 'react';
+import React, {PureComponent} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -7,21 +7,13 @@ import {
   Image,
   StatusBar,
   FlatList,
-  Dimensions,
   Pressable,
   ScrollView,
-  Title,
-  RefreshControl,
   ActivityIndicator,
-  PermissionsAndroid
+  PermissionsAndroid,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {
-  Appbar,
-  Searchbar,
-  Button,
-  Snackbar,
-} from 'react-native-paper';
+import {Appbar, Snackbar} from 'react-native-paper';
 import color from '../colors/colors';
 import axios from 'axios';
 import {connect} from 'react-redux';
@@ -43,7 +35,7 @@ class Home extends PureComponent {
       mobilearr: null,
       bigMobileDisplay: null,
       bigDecorationDisplay: null,
-      active:0
+      active: 0,
     };
   }
   mystate = {
@@ -162,27 +154,25 @@ class Home extends PureComponent {
     }
   };
 
-  storageData=async()=>{
-    try{
-    var data=await AsyncStorage.multiGet(['email', 'password']);
-    axios
- .post('https://calm-garden-34154.herokuapp.com/api/login', {
-   email: data[0][1],
-   password: data[1][1],
- })
- .then((res)=>{
-  this.props.FetchAndLoginData(res.data.userData,data[1][1])
- })
+  storageData = async () => {
+    try {
+      var data = await AsyncStorage.multiGet(['email', 'password']);
+      axios
+        .post('https://calm-garden-34154.herokuapp.com/api/login', {
+          email: data[0][1],
+          password: data[1][1],
+        })
+        .then((res) => {
+          this.props.FetchAndLoginData(res.data.userData, data[1][1]);
+        });
+    } catch (e) {
+      console.log(e + 'storage error');
     }
-    catch(e){
-      console.log(e+'storage error');
-    }
-   }
-
+  };
 
   componentDidMount() {
     this.fetchandupdatedata();
-this.storageData();
+    this.storageData();
     this.requestCameraPermission();
   }
 
@@ -232,9 +222,7 @@ this.storageData();
           size="large"
           style={styles.activityindicator}
         />
-        <ScrollView
-         style={{flex: 1}}
-         nestedScrollEnabled>
+        <ScrollView style={{flex: 1}} nestedScrollEnabled>
           <View style={styles.container}>
             <ScrollView
               pagingEnabled
@@ -519,7 +507,7 @@ const styles = StyleSheet.create({
     height: 200,
     borderColor: '#EEE8AA',
     borderWidth: 8,
-    paddingHorizontal:'5%',
+    paddingHorizontal: '5%',
     marginVertical: '5%',
     borderRadius: 5,
   },
@@ -561,7 +549,6 @@ const styles = StyleSheet.create({
     marginStart: 20,
   },
 });
-
 
 const mapDispatchToProps = (dispatch) => {
   return {
