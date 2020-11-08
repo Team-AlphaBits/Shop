@@ -23,55 +23,67 @@ saveCredentialToDevice = async (data) => {
   }
 };
 
-loginFuncion =async(email, password) => {
+/*loginFuncion = (email, password) => {
   var myemail = email;
   var myPassword = password;
-  if (myemail != '' && myPassword != '') {
-    const res=await  axios
-      .post('https://calm-garden-34154.herokuapp.com/api/login', {
-        email: myemail,
+
+  axios
+    .post('https://calm-garden-34154.herokuapp.com/api/login', {
+      email: myemail,
+      password: myPassword,
+    })
+    .then((res) => {
+      console.log('then block')
+      /*return{
+        email: res.data.userData.email,
         password: myPassword,
-      })
+        username: res.data.userData.user_name,
+      };
+      console.log(res.data.userData.email+'main network call')
+    })
+    .catch((e) => {
+      console.log(e + 'network error');
+    });
+};*/
 
-      return res.data.userData
+/*RetriveCredentialAndLogin = async () => {
+  console.log('relogin called');
+  try {
+    const values = await AsyncStorage.multiGet(['email', 'password']);
+    myData.storageData = values;
+    console.log(values + 'between both function');
+    //networking
+    var network =await axios
+    .post('https://calm-garden-34154.herokuapp.com/api/login', {
+      email: values[0][1],
+      password: values[1][1],
+    })
+    //networking
+    console.log(network.data.userData.email+'login return');
+    console.log(myData.storageData + 'mydata async output');
+   // console.log(myData.networkData + 'mydata network data');
+   return{networkdata: network.data.userData,password:values[1][1]}
 
-  } else {
+  } catch (e) {
+    // read error
+    console.log(e + 'storage error');
     return false;
   }
-};
+};*/
 
-RetriveCredentialAndLogin =async () => {
-    let values;
-    var data=null;
-    console.log('relogin called');
-    try {
-      values = await AsyncStorage.multiGet(['email', 'password']);
-      data=await loginFuncion(values[0][1],values[1][1]);
-      console.log(values+'async output')
-      console.log(data+'network data')
-    } catch (e) {
-      // read error
-      //data= false;
-      console.log(e);
-    }
 
-    console.log(values[0][1]+'outof try block')
-    return values;
-};
 
 removeFew = async () => {
-    const keys = ['email', 'password']
-    try {
-      await AsyncStorage.multiRemove(keys)
-    } catch(e) {
-      // remove error
-      console.log(e);
-    }
-  
-    console.log('Done')
+  const keys = ['email', 'password'];
+  try {
+    await AsyncStorage.multiRemove(keys);
+  } catch (e) {
+    // remove error
+    console.log(e);
   }
-  
-  
+
+  console.log('Done');
+};
 
 clearCredential = () => {
   removeFew();
@@ -99,29 +111,16 @@ export default LoginReducer = (state = initialState, action) => {
       };
 
     case RE_LOGIN:
-      var myCredential ;
-       RetriveCredentialAndLogin().then((data)=>{
-          myCredential=data;
-      })
-      console.log(myCredential+'case output');
-      myCredential=false;
-      if (myCredential!=false) {
-        return {
-          ...state,
-          username: myCredential.userData.user_name,
-          email: myCredential.userData.email,
-          password: myCredential.password,
-          isLoggedIn: true,
-        };
-      } else {
-        return {
-          ...state,
-          username: null,
-          email: null,
-          password: null,
-          isLoggedIn: false,
-        };
+            console.log(action.payload.netdata.email+' case log')
+      return{
+        ...state,
+        email:action.payload.netdata.email,
+        password:action.payload.password,
+        username:action.payload.netdata.user_name,
+        isLoggedIn:true
       }
+       break;
+
     case LOG_OUT:
       clearCredential();
       return {

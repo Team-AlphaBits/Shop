@@ -3,3 +3,4 @@
 export {loginAction} from './login/loginAction';
 export {reloginAction} from './login/loginAction';
 export {logoutAction} from './login/loginAction';
+export {FetchAndLoginData} from './login/loginAction';

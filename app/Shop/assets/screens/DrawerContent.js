@@ -17,6 +17,7 @@ import {logoutAction} from '../Redux/index';
   }
 
   render() {
+    console.log(this.props.isLoggedIn+'drawer function');
     var profilepic = (
       <Icon name="account-circle" size={100} color={color.darkblue} />
     );

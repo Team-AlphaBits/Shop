@@ -25,7 +25,8 @@ import {
 import color from '../colors/colors';
 import axios from 'axios';
 import {connect} from 'react-redux';
-import {reloginAction} from '../Redux/index';
+import {FetchAndLoginData} from '../Redux/index';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 class Home extends PureComponent {
   constructor() {
@@ -161,10 +162,27 @@ class Home extends PureComponent {
     }
   };
 
+  storageData=async()=>{
+    try{
+    var data=await AsyncStorage.multiGet(['email', 'password']);
+    axios
+ .post('https://calm-garden-34154.herokuapp.com/api/login', {
+   email: data[0][1],
+   password: data[1][1],
+ })
+ .then((res)=>{
+  this.props.FetchAndLoginData(res.data.userData,data[1][1])
+ })
+    }
+    catch(e){
+      console.log(e+'storage error');
+    }
+   }
+
 
   componentDidMount() {
     this.fetchandupdatedata();
-    this.props.reloginAction();
+this.storageData();
     this.requestCameraPermission();
   }
 
@@ -547,8 +565,8 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    reloginAction: () => {
-      dispatch(reloginAction());
+    FetchAndLoginData: (params) => {
+      dispatch(FetchAndLoginData(params));
     },
   };
 };
