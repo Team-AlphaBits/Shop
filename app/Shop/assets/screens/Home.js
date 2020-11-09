@@ -164,7 +164,9 @@ class Home extends PureComponent {
         })
         .then((res) => {
           this.props.FetchAndLoginData(res.data.userData, data[1][1]);
-        });
+        }).catch((e)=>{
+          console.log(e+' error occured in networking while relogging');
+        })
     } catch (e) {
       console.log(e + 'storage error');
     }

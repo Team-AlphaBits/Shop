@@ -30,7 +30,7 @@ class Login extends Component {
       email: '',
       password: '',
       visible: false,
-      isLoading:true
+      isLoading:false
     };
   }
 
@@ -43,12 +43,12 @@ class Login extends Component {
   };
 
   loginFunction = () => {
-    this.setState({isLoading:true})
 
     var myemail=this.state.email.trim();
       var myPassword=this.state.password.trim();
 
-    if (myemail != '' && myPassword != '') {
+    if (myemail.length!=0  && myPassword.length!=0) {
+      this.setState({isLoading:true})
       axios
         .post('https://calm-garden-34154.herokuapp.com/api/login', {
           email: myemail,
