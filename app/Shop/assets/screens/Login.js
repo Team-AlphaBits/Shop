@@ -9,6 +9,7 @@ import {
   SafeAreaView,
   Image,
   Pressable,
+  ActivityIndicator
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import {Snackbar} from 'react-native-paper';
@@ -29,6 +30,7 @@ class Login extends Component {
       email: '',
       password: '',
       visible: false,
+      isLoading:true
     };
   }
 
@@ -41,6 +43,8 @@ class Login extends Component {
   };
 
   loginFunction = () => {
+    this.setState({isLoading:true})
+
     var myemail=this.state.email.trim();
       var myPassword=this.state.password.trim();
 
@@ -65,7 +69,10 @@ class Login extends Component {
               this.onToggleSnackBar();
               break;
           }
-        });
+        })
+        .then(()=>{
+          this.setState({isLoading:false})
+        })
     } else {
       this.onToggleSnackBar();
     }
@@ -74,7 +81,14 @@ class Login extends Component {
     const {colors} = this.props.theme;
     return (
       <SafeAreaView style={{flex: 1, backgroundColor: color.MintyGreenDark}}>
-        <ScrollView contentContainerStyle={styles.container}>
+        <ActivityIndicator
+          animating={this.state.isLoading}
+          color={color.MintyGreenLight}
+          size="large"
+          style={styles.activityindicator}
+        />
+        <ScrollView
+         style={{flex:1,marginHorizontal:10}}>
           <View style={styles.logostyle}>
             <Image
               source={require('../images/redicon.png')}
@@ -85,7 +99,6 @@ class Login extends Component {
           <View style={styles.header}>
             <Text style={styles.text_header}>Welcome!</Text>
           </View>
-          <View>
             <Animatable.View animation="fadeInUpBig" style={styles.footer}>
               <Text
                 style={[
@@ -186,7 +199,6 @@ class Login extends Component {
                 </Pressable>
               </View>
             </Animatable.View>
-          </View>
         </ScrollView>
         <View>
           <Snackbar
@@ -209,12 +221,11 @@ class Login extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {marginHorizontal: 10},
   header: {
     flex: 1,
-    paddingHorizontal: 20,
-    paddingBottom: '5%',
-    marginTop: '5%',
+    marginStart: 20,
+    paddingBottom: 5,
+    paddingTop: 5,
   },
   footer: {
     flex: 1,
@@ -222,8 +233,9 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     paddingHorizontal: 20,
-    paddingTop: '10%',
-    paddingBottom: '56%',
+    paddingTop:40,
+    height:585,
+    marginTop:"5%"
   },
   text_header: {
     color: color.white,
@@ -236,21 +248,20 @@ const styles = StyleSheet.create({
   },
   action: {
     flexDirection: 'row',
-    marginTop: 5,
     borderBottomWidth: 1,
     borderBottomColor: '#f2f2f2',
-    paddingBottom: 5,
+    paddingVertical: 10,
   },
 
   textInput: {
     flex: 1,
-    marginTop: Platform.OS === 'ios' ? 0 : -12,
+    marginTop:Platform.OS === 'ios' ? 0 : -12,
     paddingLeft: 10,
     color: '#05375a',
   },
   button: {
     alignItems: 'center',
-    marginTop: 20,
+    marginTop:10
   },
   signIn: {
     width: '100%',
@@ -271,6 +282,12 @@ const styles = StyleSheet.create({
   logostyle: {
     width: '100%',
     height: '30%',
+    marginTop:60
+  },
+  activityindicator: {
+    position: 'absolute',
+    alignSelf: 'center',
+    zIndex:1
   },
 });
 
