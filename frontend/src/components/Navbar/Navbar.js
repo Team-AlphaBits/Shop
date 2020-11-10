@@ -18,7 +18,13 @@ class NavbarPage extends Component {
   state = {
     isOpen: false,
   };
-
+  changeUrl = (cat_id) =>{
+    this.props.history.push({
+      pathname: '/ProductList',
+      hash: '#items',
+      search: '?'+ cat_id
+    })
+  }
   render() {
     let activeHome = false,
       activeDeal = false,
@@ -77,14 +83,14 @@ class NavbarPage extends Component {
               <span className="mr-2">Categories</span>
             </MDBDropdownToggle>
             <MDBDropdownMenu>
-              <MDBDropdownItem href="#!">Electronics</MDBDropdownItem>
-              <MDBDropdownItem href="#!">Clothing</MDBDropdownItem>
-              <MDBDropdownItem href="#!">Games</MDBDropdownItem>
-              <MDBDropdownItem href="#!">Books</MDBDropdownItem>
-              <MDBDropdownItem href="#!">Sports</MDBDropdownItem>
-              <MDBDropdownItem href="#!">Computers & Accessories</MDBDropdownItem>
-              <MDBDropdownItem href="#!">Mobiles</MDBDropdownItem>
-              <MDBDropdownItem href="#!">Decoration</MDBDropdownItem>
+              <MDBDropdownItem href='/ProductList/Electronics'>Electronics</MDBDropdownItem>
+              <MDBDropdownItem href='/ProductList/Clothings'>Clothing</MDBDropdownItem>
+              <MDBDropdownItem href='/ProductList/Video_Games'>Games</MDBDropdownItem>
+              <MDBDropdownItem href='/ProductList/Books'>Books</MDBDropdownItem>
+              <MDBDropdownItem href='/ProductList/Sports'>Sports</MDBDropdownItem>
+              <MDBDropdownItem href='/ProductList/Computer&peripheral'>Computers & Accessories</MDBDropdownItem>
+              <MDBDropdownItem href='/ProductList/Mobiles'>Mobiles</MDBDropdownItem>
+              <MDBDropdownItem href='/ProductList/Decoration'>Decoration</MDBDropdownItem>
             </MDBDropdownMenu>
           </MDBDropdown>
         </MDBNavItem>
@@ -94,9 +100,9 @@ class NavbarPage extends Component {
       </MDBNavbarNav>
     </MDBCollapse>
   </MDBNavbar>
-  if(this.props.width < 770){
-    nav2 = null
-  }
+  // if(this.props.width < 770){
+  //   nav2 = null
+  // }
     return (
      <>
      {nav2}

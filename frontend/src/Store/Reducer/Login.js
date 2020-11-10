@@ -5,7 +5,9 @@ const InitialState = {
     signuped: false,
     Data: null,
     FetchSuccess: false,
-    detail: null
+    detail: null,
+    catData: null,
+    desArr: null,
 }
 const signupSuccess = (state,action) =>{
     return{
@@ -24,6 +26,7 @@ const dataFetched = (state,action) =>{
     return{
         ...state,
         Data: action.data,
+        desArr: action.desArr,
         FetchSuccess: true
     }
 }
@@ -33,6 +36,12 @@ const getBYid = (state,action) =>{
       detail: action.data
     }
 }
+const getBYcatId = (state,action) =>{
+    return{
+        ...state,
+        catData: action.data
+    }
+}
 const reducer = (state = InitialState, action) =>{
     switch(action.type){
          
@@ -40,6 +49,7 @@ const reducer = (state = InitialState, action) =>{
         case(actionTypes.SIGNUPFAILED): return signupFailed(state,action);
         case(actionTypes.DATASUCCESS): return dataFetched(state,action);
         case(actionTypes.GETBYID): return getBYid(state,action);
+        case(actionTypes.GETBYCATID): return getBYcatId(state,action);
         default: return state;
     }
 }

@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import Header from "../../components/Icons/headers";
 import { MDBRow, MDBContainer, MDBCol } from "mdbreact";
 // import classes from "./Home.module.css";
-import {connect} from 'react-redux';
-import * as actions from '../../Store/Action/index';
+import { connect } from "react-redux";
+import * as actions from "../../Store/Action/index";
 import Clothes from "../../Cards/Clothes/Clothes";
 import BabyProducts from "../../Cards/BabyProducts/BabyProducts";
 import StaticCards from "../../Cards/StaticCards/StaticCards";
 import Carousel from "../../components/carousel/carousel";
+import classes from "./Home.module.css";
 class Home extends Component {
   componentDidMount() {
     this.props.onFetchData();
@@ -16,7 +17,7 @@ class Home extends Component {
   changeUrl = (id) =>{
     this.props.history.push({
       pathname: '/details',
-      hash: '#item',
+      hash: '#items',
       search: '?'+id
     })
   }
@@ -37,23 +38,28 @@ class Home extends Component {
             </MDBCol>
           </MDBRow>
         </MDBContainer>
+        <p className={classes.headcloth}>
+          Great Deals on Clothings up-to 30-40% off
+        </p>
         <Clothes data={this.props.Data} change={this.changeUrl}/>
-        <BabyProducts data={this.props.Data}/>
-         <StaticCards data={this.props.Data}/>
+        <p className={classes.headcloth}>Special Offers on Gaming Devices</p>
+        <BabyProducts data={this.props.Data} change={this.changeUrl}/>
+        <p className={classes.headcloth}>Crazy Deals on Books :</p>
+        <StaticCards data={this.props.Data} change={this.changeUrl}/>
       </div>
     );
   }
 }
-const mapStateToProps = (state) =>{
-  return{
+const mapStateToProps = (state) => {
+  return {
     signedUp: state.Login.signuped,
     Data: state.Login.Data,
-    success: state.Login.FetchSuccess
-  }
-}
-const mapDispatchToProps = (dispatch) =>{
- return{
-    onFetchData: ()  => dispatch(actions.getData())
- }
-}
-export default connect(mapStateToProps,mapDispatchToProps)(Home);
+    success: state.Login.FetchSuccess,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onFetchData: () => dispatch(actions.getData()),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

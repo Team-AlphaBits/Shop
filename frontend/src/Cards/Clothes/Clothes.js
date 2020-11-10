@@ -10,25 +10,31 @@ const breakPoints = [
 
 function Clothes(props) {
 
-    let cards = [];
-  if(props.data != null){
-    for (let i = 0; i < props.data.productData.length; i++) {
-      if(props.data.productData[i].cat_id === "Clothings")
-      {
-        cards.push(
-        <div className={classes.manualcard} onClick={() => props.change(props.data.productData[i]._id)}>
-      <img 
-      src={props.data.productData[i].home_image} 
-      alt="pic" 
-      className={classes.modify}/>
-      <p className={classes.h4}>{props.data.productData[i].title}</p>
-      <p className={classes.price} style={{marginTop: "-15px"}}>₹{props.data.productData[i].price}</p>
-                 <p style={{marginTop: "-15px"}}>
-                   <strike>₹27,990</strike> (29% off)
-                 </p>
-                 <button>ADD TO CART</button>
-        </div>
-        );
+  let cards = [];
+  let cnt = 0;
+  if (props.data != null) {
+    for (let i = 0; i < 175 && cards.length < 8; i++) {
+      if (props.data.productData[i].cat_id === "Clothings") {
+        cnt++;
+        if(cnt > 8){
+          cards.push(
+            <div className={classes.manualcard} onClick={() => props.change(props.data.productData[i]._id)}>
+              <img
+                src={props.data.productData[i].home_image}
+                alt="pic"
+                className={classes.modify}
+              />
+              <p className={classes.h4}>{props.data.productData[i].title}</p>
+              <p className={classes.price} style={{ marginTop: "-15px" }}>
+                ₹{props.data.productData[i].price}
+              </p>
+              <p style={{ marginTop: "-15px" }}>
+                <strike>₹27,990</strike> (29% off)
+              </p>
+              <button className={classes.btn}>ADD TO CART</button>
+            </div>
+          );
+        }
       }
     }
   }
@@ -38,6 +44,9 @@ function Clothes(props) {
       <div className={classes.App}>
         <Carousel breakPoints={breakPoints}>{cards}</Carousel>
       </div>
+      <p className={classes.offer}>
+        <a href="/ProductList">See All Offers ...</a>
+      </p>
     </>
   );
 }

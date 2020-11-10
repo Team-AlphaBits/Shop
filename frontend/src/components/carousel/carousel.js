@@ -6,6 +6,9 @@ import {
   MDBView,
   MDBContainer,
 } from "mdbreact";
+import amz1 from "../../Assets/images/amz1.jpg";
+import amz3 from "../../Assets/images/amz3.jpg";
+import amz4 from "../../Assets/images/amz4.jpg";
 
 const carousel = () => {
   return (
@@ -21,29 +24,17 @@ const carousel = () => {
         <MDBCarouselInner>
           <MDBCarouselItem itemId="1">
             <MDBView>
-              <img
-                className="d-block w-100"
-                src="https://mdbootstrap.com/img/Photos/Slides/img%20(45).jpg"
-                alt="First slide"
-              />
+              <img className="d-block w-100" src={amz1} alt="First slide" />
             </MDBView>
           </MDBCarouselItem>
           <MDBCarouselItem itemId="2">
             <MDBView>
-              <img
-                className="d-block w-100"
-                src="https://mdbootstrap.com/img/Photos/Slides/img%20(46).jpg"
-                alt="Second slide"
-              />
+              <img className="d-block w-100" src={amz3} alt="Second slide" />
             </MDBView>
           </MDBCarouselItem>
           <MDBCarouselItem itemId="3">
             <MDBView>
-              <img
-                className="d-block w-100"
-                src="https://mdbootstrap.com/img/Photos/Slides/img%20(47).jpg"
-                alt="Third slide"
-              />
+              <img className="d-block w-100" src={amz4} alt="Third slide" />
             </MDBView>
           </MDBCarouselItem>
         </MDBCarouselInner>

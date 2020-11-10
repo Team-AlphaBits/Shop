@@ -6,8 +6,10 @@ import {
   Text,
   SafeAreaView,
   ScrollView,
+  ActivityIndicator,
 } from 'react-native';
 
+<<<<<<< HEAD
 import {
   Button,
   Title,
@@ -16,6 +18,9 @@ import {
   Snackbar,
   ActivityIndicator,
 } from 'react-native-paper';
+=======
+import {Button, Title, Paragraph, Appbar, Snackbar} from 'react-native-paper';
+>>>>>>> origin/master
 import axios from 'axios';
 import color from '../colors/colors';
 
@@ -39,6 +44,7 @@ export default class Details extends Component {
       visible: false,
       isLoading: false,
       showdescription: false,
+<<<<<<< HEAD
     };
   }
 
@@ -50,6 +56,16 @@ export default class Details extends Component {
     unsubscribe: null,
   };
 
+=======
+      active:0
+    };
+  }
+
+  unsubscribe_function = {
+    unsubscribe: null,
+  };
+
+>>>>>>> origin/master
   change = ({nativeEvent}) => {
     const slide = Math.ceil(
       nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width,
@@ -92,7 +108,10 @@ export default class Details extends Component {
       })
       .catch((error) => {
         this.onToggleSnackBar();
+<<<<<<< HEAD
         console.log(error);
+=======
+>>>>>>> origin/master
       })
       .then(() => {
         this.setState({isLoading: false});
@@ -118,7 +137,7 @@ export default class Details extends Component {
     var details = this.state.dataSource;
     var imageUri = details.images;
     return (
-      <SafeAreaView style={{flex: 1}}>
+      <SafeAreaView style={{flex: 1, backgroundColor: color.white}}>
         <Appbar.Header style={{backgroundColor: color.MintyGreenMedium}}>
           <Appbar.BackAction
             onPress={() => {
@@ -270,12 +289,12 @@ const styles = StyleSheet.create({
   paggingText: {
     color: 'black',
     margin: '3%',
-    fontSize: 20,
+    fontSize: 8,
   },
   paggingActiveText: {
     color: '#888',
     margin: '3%',
-    fontSize: 20,
+    fontSize: 8,
   },
   btnView: {
     marginTop: 20,

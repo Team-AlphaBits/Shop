@@ -13,10 +13,11 @@ export const signupFailed = (error) =>{
         error: error
     }
 }
-export const dataFetched = (data) =>{
+export const dataFetched = (data,desArr) =>{
     return{
         type: actionTypes.DATASUCCESS,
-        data: data
+        data: data,
+        desArr: desArr
     }
 }
 export const detailData = (data) =>{
@@ -25,11 +26,21 @@ export const detailData = (data) =>{
         data: data
     }
 }
+export const catData = (data) =>{
+    return {
+        type: actionTypes.GETBYCATID,
+        data: data
+    }
+}
 export const getData = () =>{
+    let desArr;
     return dispatch =>{
         Axios.get("https://cors-anywhere.herokuapp.com/https://calm-garden-34154.herokuapp.com/api/home")
              .then(data =>{
-                 dispatch(dataFetched(data.data))
+                 desArr = data.data.productData.map(prod => {
+                      return prod.short_desc
+                 })
+                 dispatch(dataFetched(data.data,desArr))
              })
              .catch(err => console.log(err));
     }
@@ -39,6 +50,15 @@ export const getById = (id) =>{
         Axios.get("https://cors-anywhere.herokuapp.com/https://calm-garden-34154.herokuapp.com/api/product/" + id)
              .then(data =>{
                  dispatch(detailData(data.data))
+             })
+             .catch(err => console.log(err))
+    }
+}
+export const getBycatId = (id) =>{
+    return dispatch =>{
+        Axios.get("https://cors-anywhere.herokuapp.com/https://calm-garden-34154.herokuapp.com/api/category/" + id)
+             .then(data =>{
+                 dispatch(catData(data.data))
              })
              .catch(err => console.log(err))
     }

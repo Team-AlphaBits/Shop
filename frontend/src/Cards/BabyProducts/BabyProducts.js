@@ -10,19 +10,30 @@ const breakPoints = [
 
 function Clothes(props) {
   let cards = [];
-  if(props.data){
+  if (props.data) {
     for (let i = 0; i < 8; i++) {
       cards.push(
-         <div className={classes.manualcard}>
-         <img src={props.data.productData[i].home_image} alt="pic" className={classes.modify}/>
-       </div>
+        <div className={classes.manualcard} onClick={() => props.change(props.data.productData[i]._id)}>
+          <img
+            src={props.data.productData[i].home_image}
+            alt="pic"
+            className={classes.modify}
+          />
+          <p className={classes.h4}>{props.data.productData[i].title}</p>
+        </div>
       );
     }
   }
   return (
+    <div>
       <div className={classes.App}>
         <Carousel breakPoints={breakPoints}>{cards}</Carousel>
       </div>
+
+      <p className={classes.offer}>
+        <a href="/ProductList">See All Offers ...</a>
+      </p>
+    </div>
   );
 }
 

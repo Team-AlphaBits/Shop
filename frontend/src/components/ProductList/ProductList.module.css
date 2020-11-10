@@ -20,6 +20,9 @@
   width: 230px;
   height: 400px;
 }
+.img:hover{
+  cursor: pointer;
+}
 .prc {
   margin-left: 10px;
   font-size: 18px;
@@ -54,6 +57,9 @@
   font-size: 30px;
   color: rgb(3, 3, 105);
   margin-right: 10%;
+}
+.heading:hover{
+  cursor: pointer;
 }
 .oldprc {
   font-weight: bold;

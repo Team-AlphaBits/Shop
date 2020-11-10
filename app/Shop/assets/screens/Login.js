@@ -9,7 +9,7 @@ import {
   StatusBar,
   ScrollView,
   SafeAreaView,
-  Image
+  Image,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
@@ -29,118 +29,114 @@ class Login extends Component {
       <SafeAreaView style={{flex: 1, backgroundColor: color.MintyGreenDark}}>
         <ScrollView contentContainerStyle={styles.container}>
           <View style={styles.logostyle}>
-              <Image
-                    source={require('../images/redicon.png')}
-                    style={styles.img}
-                    resizeMode="contain"
-                  />
-                  </View>
+            <Image
+              source={require('../images/redicon.png')}
+              style={styles.img}
+              resizeMode="contain"
+            />
+          </View>
           <View style={styles.header}>
             <Text style={styles.text_header}>Welcome!</Text>
           </View>
           <View>
-          <Animatable.View
-            animation="fadeInUpBig"
-            style={
-              styles.footer
-            }>
-            <Text
-              style={[
-                styles.text_footer,
-                {
-                  color: colors.text,
-                },
-              ]}>
-              Username
-            </Text>
-            <View style={styles.action}>
-              <FontAwesome name="user-o" color={colors.text} size={20} />
-              <TextInput
-                placeholder="Your Username"
-                placeholderTextColor={color.darkgrey}
-                style={[
-                  styles.textInput,
-                  {
-                    color: colors.text,
-                  },
-                ]}
-                autoCapitalize="none"
-              />
-            </View>
-            <Text
-              style={[
-                styles.text_footer,
-                {
-                  color: colors.text,
-                  marginTop: '1%',
-                },
-              ]}>
-              Password
-            </Text>
-            <View style={styles.action}>
-              <Feather name="lock" color={colors.text} size={20} />
-              <TextInput
-                placeholder="Your Password"
-                placeholderTextColor={color.darkgrey}
-                style={[
-                  styles.textInput,
-                  {
-                    color: colors.text,
-                  },
-                ]}
-                autoCapitalize="none"
-              />
-            </View>
-            <TouchableOpacity>
+            <Animatable.View animation="fadeInUpBig" style={styles.footer}>
               <Text
-                style={{color: color.MintyGreenDark, marginTop: 15}}
-                onPress={() => console.log('forgot password')}>
-                Forgot password?
+                style={[
+                  styles.text_footer,
+                  {
+                    color: colors.text,
+                  },
+                ]}>
+                Username
               </Text>
-            </TouchableOpacity>
-            <View style={styles.button}>
-              <TouchableOpacity
-                style={styles.signIn}
-                onPress={() => {
-                  console.log('pressed');
-                }}>
-                <LinearGradient
-                  colors={[color.MintyGreenLight, color.MintyGreenMedium]}
-                  style={styles.signIn}>
+              <View style={styles.action}>
+                <FontAwesome name="user-o" color={colors.text} size={20} />
+                <TextInput
+                  placeholder="Your Username"
+                  placeholderTextColor={color.darkgrey}
+                  style={[
+                    styles.textInput,
+                    {
+                      color: colors.text,
+                    },
+                  ]}
+                  autoCapitalize="none"
+                />
+              </View>
+              <Text
+                style={[
+                  styles.text_footer,
+                  {
+                    color: colors.text,
+                    marginTop: '1%',
+                  },
+                ]}>
+                Password
+              </Text>
+              <View style={styles.action}>
+                <Feather name="lock" color={colors.text} size={20} />
+                <TextInput
+                  placeholder="Your Password"
+                  placeholderTextColor={color.darkgrey}
+                  style={[
+                    styles.textInput,
+                    {
+                      color: colors.text,
+                    },
+                  ]}
+                  autoCapitalize="none"
+                />
+              </View>
+              <TouchableOpacity>
+                <Text
+                  style={{color: color.MintyGreenDark, marginTop: 15}}
+                  onPress={() => console.log('forgot password')}>
+                  Forgot password?
+                </Text>
+              </TouchableOpacity>
+              <View style={styles.button}>
+                <TouchableOpacity
+                  style={styles.signIn}
+                  onPress={() => {
+                    console.log('pressed');
+                  }}>
+                  <LinearGradient
+                    colors={[color.MintyGreenLight, color.MintyGreenMedium]}
+                    style={styles.signIn}>
+                    <Text
+                      style={[
+                        styles.textSign,
+                        {
+                          color: color.white,
+                        },
+                      ]}>
+                      Sign In
+                    </Text>
+                  </LinearGradient>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  onPress={() => console.log('pressed')}
+                  style={[
+                    styles.signIn,
+                    {
+                      borderColor: color.MintyGreenDark,
+                      borderWidth: 1,
+                      marginTop: '5%',
+                    },
+                  ]}>
                   <Text
                     style={[
                       styles.textSign,
                       {
-                        color: color.white,
+                        color: color.MintyGreenDark,
                       },
                     ]}>
-                    Sign In
+                    Sign Up
                   </Text>
-                </LinearGradient>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                onPress={() => console.log('pressed')}
-                style={[
-                  styles.signIn,
-                  {
-                    borderColor: color.MintyGreenDark,
-                    borderWidth: 1,
-                    marginTop:'5%',
-                  },
-                ]}>
-                <Text
-                  style={[
-                    styles.textSign,
-                    {
-                      color: color.MintyGreenDark,
-                    },
-                  ]}>
-                  Sign Up
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </Animatable.View>
+                </TouchableOpacity>
+              </View>
+            </Animatable.View>
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -159,13 +155,13 @@ const styles = StyleSheet.create({
     marginTop: '5%',
   },
   footer: {
-    flex:1,
+    flex: 1,
     backgroundColor: color.white,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     paddingHorizontal: 20,
-    paddingTop:'10%',
-    paddingBottom:'56%'
+    paddingTop: '10%',
+    paddingBottom: '56%',
   },
   text_header: {
     color: color.white,
@@ -210,8 +206,8 @@ const styles = StyleSheet.create({
     height: null,
     flex: 1,
   },
-  logostyle:{
-    width:'100%',
-    height:'30%'
-  }
+  logostyle: {
+    width: '100%',
+    height: '30%',
+  },
 });

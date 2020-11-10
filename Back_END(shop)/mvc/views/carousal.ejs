@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Carousal  FORM</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Cabin&display=swap"
+      rel="stylesheet"
+    />
+    <style media="screen">
+      :root {
+        font-size: 150%;
+      }
+      h1,
+      h2 {
+        font-weight: normal;
+      }
+      input{
+        font-family: inherit;
+        font-size: 18px;
+        display: block;
+        margin: 12px 0;
+        padding: 9px;
+        outline: none;
+        box-sizing: border-box;
+        width: 400px;
+      }
+ 
+
+    
+
+      body {
+        margin: 72px 180px 0;
+        font-family: "Cabin", sans-serif;
+      }
+
+      form {
+        width: 40%;
+        display: inline-block;
+        vertical-align: top;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CAROUSAL FORM</h1>
+    <div class="">
+      <a href="/">HOME</a>
+    </div>
+
+    <form action="/api/upload-carousal" method="post" autocomplete="off">
+      <h2>Enter Corousal Image details</h2>
+      <h3>Type the img source path can be uploaded multiple times</h3>
+      
+      
+      
+      <input type="text" name="image" placeholder="Images Source" />
+   
+      
+      <input type="submit" value="upload Carousal Images" />
+    </form>
+    
+    
+   
+   
+  </body>
+</html>

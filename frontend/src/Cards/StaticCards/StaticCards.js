@@ -10,21 +10,34 @@ const breakPoints = [
 class StaticCards extends Component {
   render() {
     let cards = [];
-    if(this.props.data){
-      for (let i = 0; i < 175; i++) {
-        if(this.props.data.productData[i].cat_id === "Books"){
-          cards.push(
-            <div className={classes.manualcard}>
-            <img src={this.props.data.productData[i].home_image} alt="pic" className={classes.modify}/>
-            <p className={classes.disc}>Up to 40% off</p>
-          </div>
-          );
+    let cnt = 0;
+    if (this.props.data) {
+      for (let i = 0; i < 175 && cards.length < 8; i++) {
+        if (this.props.data.productData[i].cat_id === "Books") {
+          cnt++;
+          if(cnt>8){
+            cards.push(
+              <div className={classes.manualcard} onClick={() => this.props.change(this.props.data.productData[i]._id)}>
+                <img
+                  src={this.props.data.productData[i].home_image}
+                  alt="pic"
+                  className={classes.modify}
+                />
+                <p className={classes.disc}>Up to 40% off</p>
+              </div>
+            );
+          }
         }
       }
     }
     return (
-      <div className={classes.flexbox}>
-        <Carousel breakPoints={breakPoints}>{cards}</Carousel>
+      <div>
+        <div className={classes.flexbox}>
+          <Carousel breakPoints={breakPoints}>{cards}</Carousel>
+        </div>
+        <p className={classes.offer}>
+          <a href="/ProductList">See All Offers ...</a>
+        </p>
       </div>
     );
   }
