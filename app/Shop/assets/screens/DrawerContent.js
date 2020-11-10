@@ -114,6 +114,12 @@ class DrawerContent extends Component {
                     this.props.navigation.navigate('Order');
                   }}
                 />
+                <DrawerItem
+                  label="modal"
+                  onPress={() => {
+                    this.props.navigation.navigate('modal');
+                  }}
+                />
               </Drawer.Section>
             </View>
           </DrawerContentScrollView>

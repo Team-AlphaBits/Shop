@@ -12,11 +12,11 @@ class StaticCards extends Component {
     let cards = [];
     if (this.props.data) {
       for (let i = 0; i < 175; i++) {
-        if (this.props.data.product_data[i].cat_id === "Books") {
+        if (this.props.data.productData[i].cat_id === "Books") {
           cards.push(
             <div className={classes.manualcard}>
               <img
-                src={this.props.data.product_data[i].home_image}
+                src={this.props.data.productData[i].home_image}
                 alt="pic"
                 className={classes.modify}
               />

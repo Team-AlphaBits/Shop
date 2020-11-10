@@ -10,6 +10,7 @@ import {
   Pressable,
   ScrollView,
   ActivityIndicator,
+  PermissionsAndroid,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Appbar, Snackbar} from 'react-native-paper';
@@ -129,6 +130,30 @@ class Home extends PureComponent {
     }, 3000);
   };
 
+  requestCameraPermission = async () => {
+    try {
+      const granted = await PermissionsAndroid.requestMultiple([
+        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+      ]).then((result) => {
+        if (
+          result['android.permission.READ_EXTERNAL_STORAGE'] &&
+          result['android.permission.WRITE_EXTERNAL_STORAGE'] === 'granted'
+        ) {
+          console.log('granted');
+        } else if (
+          result['android.permission.READ_EXTERNAL_STORAGE'] ||
+          result['android.permission.WRITE_EXTERNAL_STORAGE'] ===
+            'never_ask_again'
+        ) {
+          console.log('Not granted');
+        }
+      });
+    } catch (err) {
+      console.warn(err);
+    }
+  };
+
   storageData = async () => {
     try {
       var data = await AsyncStorage.multiGet(['email', 'password']);
@@ -139,9 +164,6 @@ class Home extends PureComponent {
         })
         .then((res) => {
           this.props.FetchAndLoginData(res.data.userData, data[1][1]);
-        })
-        .catch((e) => {
-          console.log(e + ' error occured in networking while relogging');
         });
     } catch (e) {
       console.log(e + 'storage error');
@@ -151,6 +173,7 @@ class Home extends PureComponent {
   componentDidMount() {
     this.fetchandupdatedata();
     this.storageData();
+    this.requestCameraPermission();
   }
 
   componentWillUnmount() {
@@ -168,19 +191,13 @@ class Home extends PureComponent {
           <Appbar.Action
             icon="menu"
             size={40}
-            color={color.white}
             onPress={() => {
               this.props.navigation.openDrawer();
             }}
           />
           <Appbar.Content
             title="SHOP"
-            titleStyle={{
-              fontWeight: 'bold',
-              fontSize: 35,
-              marginStart: '35%',
-              color: '#03045e',
-            }}
+            titleStyle={{fontWeight: 'bold', fontSize: 35, marginStart: '35%'}}
           />
           <Appbar.Action
             icon="magnify"

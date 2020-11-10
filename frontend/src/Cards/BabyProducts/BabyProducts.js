@@ -15,11 +15,11 @@ function Clothes(props) {
       cards.push(
         <div className={classes.manualcard}>
           <img
-            src={props.data.product_data[i].home_image}
+            src={props.data.productData[i].home_image}
             alt="pic"
             className={classes.modify}
           />
-          <p className={classes.h4}>{props.data.product_data[i].title}</p>
+          <p className={classes.h4}>{props.data.productData[i].title}</p>
         </div>
       );
     }
