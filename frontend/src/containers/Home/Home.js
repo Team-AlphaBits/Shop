@@ -13,7 +13,17 @@ class Home extends Component {
   componentDidMount() {
     this.props.onFetchData();
   }
+
+  changeUrl = (id) =>{
+    this.props.history.push({
+      pathname: '/details',
+      hash: '#items',
+      search: '?'+id
+    })
+  }
   render() {
+
+    console.log(this.props.Data)
     return (
       <div>
         <Header />
@@ -31,11 +41,11 @@ class Home extends Component {
         <p className={classes.headcloth}>
           Great Deals on Clothings up-to 30-40% off
         </p>
-        <Clothes data={this.props.Data} />
+        <Clothes data={this.props.Data} change={this.changeUrl}/>
         <p className={classes.headcloth}>Special Offers on Gaming Devices</p>
-        <BabyProducts data={this.props.Data} />
+        <BabyProducts data={this.props.Data} change={this.changeUrl}/>
         <p className={classes.headcloth}>Crazy Deals on Books :</p>
-        <StaticCards data={this.props.Data} />
+        <StaticCards data={this.props.Data} change={this.changeUrl}/>
       </div>
     );
   }

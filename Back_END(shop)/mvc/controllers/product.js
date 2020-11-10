@@ -1,7 +1,13 @@
 const { resolveInclude } = require("ejs");
 const mongoose = require("mongoose");
+<<<<<<< HEAD
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
+=======
 const passport = require("passport");
 
+>>>>>>> origin/master
 const User = mongoose.model("User");
 const Product = mongoose.model("Product");
 const Carousal = mongoose.model("Carousal");
@@ -78,6 +84,23 @@ const uploadProductsForm = function({body}, res){
    body.image2 && img.push(body.image2);
    body.image3 && img.push(body.image3);
    body.image4 && img.push(body.image4);
+<<<<<<< HEAD
+const product_details = {
+    title: body.title,
+    home_image: body.home_image,
+    description: body.description,
+    price: body.price,
+    quantity: body.quantity,
+    short_desc: body.short_desc,
+    cat_id: body.cat_id,
+    seller_name: body.seller_name,
+    
+    images: img
+}
+console.log("_____________");
+console.log(product_details);
+console.log("_____________");
+=======
     const product_details = {
         title: body.title,
         home_image: body.home_image,
@@ -93,6 +116,7 @@ const uploadProductsForm = function({body}, res){
     console.log("_____________");
     console.log(product_details);
     console.log("_____________");
+>>>>>>> origin/master
 
     body.origin && ( product_details.origin = body.origin)
 
@@ -104,6 +128,10 @@ Product.create(product_details, (err , new_product) => {
 });
 }
 
+<<<<<<< HEAD
+const sendProductData = function(req, res, next) {
+Product.find({},'title home_image short_desc cat_id price ', function(err, Prod_data){
+=======
 const sendProductData = async function(req, res) {
     let productData,carousalData,userData;
     try{
@@ -119,6 +147,7 @@ const sendProductData = async function(req, res) {
     }
     let p1 = new Promise(function(resolve, reject) {
         Product.find({},'title home_image short_desc cat_id price ', function(err, data){
+>>>>>>> origin/master
     if(err){
         reject("ERROR!!");
         res.status(500).send("ERROR IN SENDING ProdData!!");
@@ -144,6 +173,19 @@ const sendProductData = async function(req, res) {
 });
 }
 
+<<<<<<< HEAD
+const getProductByID = function(req, res){
+    product_id = req.params.id;
+    Product.findById(product_id, function(err, Prod_data){
+        if(err){
+            res.send("ERROR IN SENDING DATA!!");
+            }
+            res.json(Prod_data);
+    });
+}
+
+const getUserByID = function(req, res){
+=======
 const getProductByID = async function(req, res){
     try{
     let userData = null;
@@ -162,11 +204,26 @@ catch(err){
 }
 
 const getUserByID =  function(req, res){
+>>>>>>> origin/master
     user_id = req.params.userid;
     User.findById(user_id, function(err, User_data){
         if(err){
             res.send("ERROR IN SENDING DATA!!");
             }
+<<<<<<< HEAD
+            res.json(User_data);
+    });
+}
+
+const addToCart = function(req, res){
+    //testing
+   
+    var user_id = req.body.user_id;                 // NEED USER INFO FROM CLIENT
+    var prod_id = req.params.prodid;
+    var cart_data;
+    
+    let p1 = new Promise(function(resolve, reject) {
+=======
             res.status(200).json(User_data);
     });
 }
@@ -179,6 +236,7 @@ const addToCart =  function(req, res){
     var cart_data;
     
     new Promise(function(resolve, reject) {
+>>>>>>> origin/master
 
         User.find({"_id":user_id},function(err ,User_data) {
 
@@ -188,11 +246,28 @@ const addToCart =  function(req, res){
             }
            console.log("SUCCESSFULL ON RETREIVING USER_DATA");
              cart_data =  User_data;
+<<<<<<< HEAD
+    resolve("USER INFO FETCHED");
+        //  console.log(cart_data);
+    });
+});
+
+
+
+Promise.all([p1]).then(()=>{
+    
+
+//http://localhost:8080/api/add-to-cart/5f984e6563dfba42c45a8291/5f97381a2d9c4010ec3c9303
+    //
+   // var cart = req.cart;
+    
+=======
             //   console.log(cart_data);
     resolve("USER INFO FETCHED");
     });
 }).then(()=>{
 
+>>>>>>> origin/master
    // PROBLEM NEED FIXING
     var found =false;
     new Promise(function(resolve, reject){
@@ -216,20 +291,32 @@ const addToCart =  function(req, res){
         resolve("FOUND..!! PRODUCT EXIST ALREADY..!!");
     });
 }).then(()=>{
+<<<<<<< HEAD
+    if(found){
+=======
 
     if(found){
         new Promise((resolve, reject)=> {
+>>>>>>> origin/master
         User.findOneAndUpdate({"cart.cartlist.product_id":prod_id}, 
                 { $inc: { [`cart.cartlist.$.quantity`]: 1 } }, {new: true}
             ,function(err,suc){
                 if(err){
                     console.log(err);
+<<<<<<< HEAD
+=======
                     reject("ERROR!!");
+>>>>>>> origin/master
                 }else{
                     console.log(suc);
                     console.log("************************");
                     console.log("____IM HERE YOO HOO .. SUCCESS IN INC QUANTITY____");
                     console.log("***********************");
+<<<<<<< HEAD
+                }
+            }
+        );
+=======
                     resolve("done"); 
                 }
             }
@@ -246,6 +333,7 @@ const addToCart =  function(req, res){
             res.status(200).send({message: "ADD TO CART SUCCESSFULL" ,userData});
         }).catch(err => console.log(err));
         }).catch(err => console.log(err));
+>>>>>>> origin/master
     }else{
         // PROBLEM NEED TO INCLUDE PROMISE HERE TOO.
         var tmp_data;
@@ -276,6 +364,8 @@ const addToCart =  function(req, res){
         console.log(new_cart_item);
         // console.log(convert_price(new_cart_item.price));
         console.log("**********************");
+<<<<<<< HEAD
+=======
         new Promise((resolve, reject)=> {
         User.findOneAndUpdate(
             { _id: user_id }, 
@@ -306,6 +396,7 @@ const addToCart =  function(req, res){
             }).catch(err => console.log(err));
     
         }
+>>>>>>> origin/master
     //    User.findOne({ '_id': user_id }, function(err, user_data) {
     //        if(err){
     //             return res.send({ error : err});
@@ -328,6 +419,34 @@ const addToCart =  function(req, res){
     //         });
            
     //    }) 
+<<<<<<< HEAD
+  
+    User.findOneAndUpdate(
+        { _id: user_id }, 
+        { $push: { "cart.cartlist": new_cart_item  } },
+       function (err, suc) {
+             if (err) {
+                 console.log(err);
+                 
+             } 
+         });
+
+
+    });
+
+    }
+    User.findById(user_id , 'cart', function (err, user_data){
+        if(err){
+            res.send("ERROR IN SENDING DATA!!");
+            next();
+            }
+            console.log(user_data);
+           // res.json({message: "ADD TO CART SUCCESSFULL",user_data});
+    });
+   res.json({message: "ADD TO CART SUCCESSFULL" });
+}).catch(err => console.log(err));
+});
+=======
     // User.findById(user_id , 'cart', function (err, user_data){
     //     if(err){
     //         res.send("ERROR IN SENDING DATA!!");
@@ -347,9 +466,25 @@ const addToCart =  function(req, res){
     res.status(500).send(err);
 }
 
+>>>>>>> origin/master
 }
 
 
+<<<<<<< HEAD
+const viewCart = function(req, res){
+<<<<<<< HEAD
+    var userid = req.params.userid;
+=======
+    var userid = req.user;
+>>>>>>> origin/master
+    User.findById(userid , 'cart', function (err, cart_data){
+        if(err){
+            res.send("ERROR IN SENDING DATA!!");
+            next();
+            }
+            res.json(cart_data);
+    });
+=======
 const viewCart = async function(req, res){
     try{
     var userid = req.user;
@@ -361,8 +496,11 @@ catch(err){
     res.status(400).send(err);
 }
     
+>>>>>>> origin/master
 }
 
+<<<<<<< HEAD
+=======
 const getProductByCategory = async function(req, res){
     try{
     let category = req.params.category_name;
@@ -396,6 +534,7 @@ const uploadCarousalForm =  function({body}, res){
     })
 }
 
+>>>>>>> origin/master
 /////////////////////////////////////////////////////////////////////
 ///////////////-regex for converting price-/////////////////////////
 ///////////////////////////////////////////////////////////////////
@@ -404,9 +543,14 @@ function convert_price(text){
     return (parseFloat(text.replace( /[^\d\.]*/g, '')));
 }
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
 function escapeRegex(text) {
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 };
+>>>>>>> origin/master
 /////////////////////////////////////////////////////////////////////
 ///////////////-CALCULATING PRICES AFTER UPDATE-////////////////////
 ///////////////////////////////////////////////////////////////////
@@ -612,11 +756,19 @@ const decreaseQuantity = function(req, res){
     }
 }
 
+>>>>>>> origin/master
 
 module.exports = {
     reset,              //development purpose only
     getSearchResults,
     uploadProductsForm,
+<<<<<<< HEAD
+    sendProductData,
+    getProductByID,
+    getUserByID,
+    addToCart,
+    viewCart,
+=======
     uploadCarousalForm,
     sendProductData,
     getProductByID,
@@ -626,5 +778,6 @@ module.exports = {
     viewCart,
     increaseQuantity,
     decreaseQuantity,
+>>>>>>> origin/master
     convert_price,
 };

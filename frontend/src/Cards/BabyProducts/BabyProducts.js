@@ -13,7 +13,7 @@ function Clothes(props) {
   if (props.data) {
     for (let i = 0; i < 8; i++) {
       cards.push(
-        <div className={classes.manualcard}>
+        <div className={classes.manualcard} onClick={() => props.change(props.data.productData[i]._id)}>
           <img
             src={props.data.productData[i].home_image}
             alt="pic"

@@ -9,7 +9,18 @@ import {
   ActivityIndicator,
 } from 'react-native';
 
+<<<<<<< HEAD
+import {
+  Button,
+  Title,
+  Paragraph,
+  Appbar,
+  Snackbar,
+  ActivityIndicator,
+} from 'react-native-paper';
+=======
 import {Button, Title, Paragraph, Appbar, Snackbar} from 'react-native-paper';
+>>>>>>> origin/master
 import axios from 'axios';
 import color from '../colors/colors';
 
@@ -33,7 +44,24 @@ export default class Details extends Component {
       visible: false,
       isLoading: false,
       showdescription: false,
+<<<<<<< HEAD
+<<<<<<< HEAD
+    };
+  }
+
+  state = {
+    active: 0,
+  };
+
+  unsubscribe_function = {
+    unsubscribe: null,
+  };
+
+=======
+      active:0
+=======
       active: 0,
+>>>>>>> origin/master
     };
   }
 
@@ -41,6 +69,7 @@ export default class Details extends Component {
     unsubscribe: null,
   };
 
+>>>>>>> origin/master
   change = ({nativeEvent}) => {
     const slide = Math.ceil(
       nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width,
@@ -83,6 +112,10 @@ export default class Details extends Component {
       })
       .catch((error) => {
         this.onToggleSnackBar();
+<<<<<<< HEAD
+        console.log(error);
+=======
+>>>>>>> origin/master
       })
       .then(() => {
         this.setState({isLoading: false});

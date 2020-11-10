@@ -78,6 +78,9 @@ const loginUser =  function (req, res) {
   })(req, res);
 };
 
+<<<<<<< HEAD
+
+=======
 const logoutUser = function(req, res){
   if(!req.user){
     res.status(401).send("Login First !!");
@@ -88,11 +91,16 @@ const logoutUser = function(req, res){
   res.clearCookie('jwt');
   res.send("DONE Logged Out!!");
 }
+>>>>>>> origin/master
 
 
 
 module.exports = {
   registerUser,
   loginUser,
+<<<<<<< HEAD
+ 
+=======
   logoutUser,
+>>>>>>> origin/master
 };

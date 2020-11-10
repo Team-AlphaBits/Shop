@@ -6,7 +6,7 @@ class Layout extends Component{
     state = {
         showDrawer: false,
         fixed: false,
-        width: 0
+        width: window.innerWidth
     }
     drawerToggle = () =>{
         this.setState(prevState =>{
