@@ -140,9 +140,10 @@ class Home extends PureComponent {
         })
         .then((res) => {
           this.props.FetchAndLoginData(res.data.userData, data[1][1]);
-        }).catch((e)=>{
-          console.log(e+' error occured in networking while relogging');
         })
+        .catch((e) => {
+          console.log(e + ' error occured in networking while relogging');
+        });
     } catch (e) {
       console.log(e + 'storage error');
     }
@@ -175,7 +176,12 @@ class Home extends PureComponent {
           />
           <Appbar.Content
             title="SHOP"
-            titleStyle={{fontWeight: 'bold', fontSize: 35, marginStart: '35%',color:'#03045e'}}
+            titleStyle={{
+              fontWeight: 'bold',
+              fontSize: 35,
+              marginStart: '35%',
+              color: '#03045e',
+            }}
           />
           <Appbar.Action
             icon="magnify"

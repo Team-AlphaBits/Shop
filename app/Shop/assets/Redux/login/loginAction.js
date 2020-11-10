@@ -1,7 +1,6 @@
 import {USER_LOGIN, RE_LOGIN, LOG_OUT} from './loginActionTypes';
 
 export const FetchAndLoginData = (data, password) => {
-  console.log(data + ' data fetched from fetch login');
   return {
     type: RE_LOGIN,
     payload: {

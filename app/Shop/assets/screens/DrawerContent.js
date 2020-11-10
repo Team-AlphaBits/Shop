@@ -71,53 +71,53 @@ class DrawerContent extends Component {
     return (
       <SafeAreaView style={{flex: 1}}>
         <LinearGradient
-        colors={['#caf0f8','#caf0f8','#48cae4','#0096c7']}
-        style={{flex:1}}>
-        <DrawerContentScrollView>
-          <View style={style.userinfo}>
-            <View>{profilepic}</View>
-            <View style={{marginTop: 20, marginStart: 10}}>{gotologin}</View>
-          </View>
+          colors={['#caf0f8', '#caf0f8', '#48cae4', '#0096c7']}
+          style={{flex: 1}}>
+          <DrawerContentScrollView>
+            <View style={style.userinfo}>
+              <View>{profilepic}</View>
+              <View style={{marginTop: 20, marginStart: 10}}>{gotologin}</View>
+            </View>
 
-          <View>
-            <Drawer.Section title="My Options">
-              <DrawerItem
-                icon={() => (
-                  <Icon name="home" color={color.darkblue} size={30} />
-                )}
-                label="Home"
-                onPress={() => {
-                  this.props.navigation.navigate('Home');
-                }}
-              />
-              <DrawerItem
-                icon={() => (
-                  <Icon name="view-grid" color={color.darkblue} size={30} />
-                )}
-                label="Products"
-                onPress={() => {
-                  this.props.navigation.navigate('Products');
-                }}
-              />
-              <DrawerItem
-                icon={() => (
-                  <Icon name="cart" color={color.darkblue} size={30} />
-                )}
-                label="MyCart"
-                onPress={() => {
-                  this.props.navigation.navigate('MyCart');
-                }}
-              />
-              <DrawerItem
-                label="Order"
-                onPress={() => {
-                  this.props.navigation.navigate('Order');
-                }}
-              />
-            </Drawer.Section>
-          </View>
-        </DrawerContentScrollView>
-        <View>{showlogout}</View>
+            <View>
+              <Drawer.Section title="My Options">
+                <DrawerItem
+                  icon={() => (
+                    <Icon name="home" color={color.darkblue} size={30} />
+                  )}
+                  label="Home"
+                  onPress={() => {
+                    this.props.navigation.navigate('Home');
+                  }}
+                />
+                <DrawerItem
+                  icon={() => (
+                    <Icon name="view-grid" color={color.darkblue} size={30} />
+                  )}
+                  label="Products"
+                  onPress={() => {
+                    this.props.navigation.navigate('Products');
+                  }}
+                />
+                <DrawerItem
+                  icon={() => (
+                    <Icon name="cart" color={color.darkblue} size={30} />
+                  )}
+                  label="MyCart"
+                  onPress={() => {
+                    this.props.navigation.navigate('MyCart');
+                  }}
+                />
+                <DrawerItem
+                  label="Order"
+                  onPress={() => {
+                    this.props.navigation.navigate('Order');
+                  }}
+                />
+              </Drawer.Section>
+            </View>
+          </DrawerContentScrollView>
+          <View>{showlogout}</View>
         </LinearGradient>
       </SafeAreaView>
     );

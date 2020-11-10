@@ -9,7 +9,6 @@ import {
   Dimensions,
 } from 'react-native';
 
-
 import {Appbar, Text, Surface} from 'react-native-paper';
 
 import color from '../colors/colors';

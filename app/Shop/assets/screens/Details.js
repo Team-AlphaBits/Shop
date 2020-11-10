@@ -33,7 +33,7 @@ export default class Details extends Component {
       visible: false,
       isLoading: false,
       showdescription: false,
-      active:0
+      active: 0,
     };
   }
 

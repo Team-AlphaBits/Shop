@@ -9,7 +9,7 @@ import {
   SafeAreaView,
   Image,
   Pressable,
-  ActivityIndicator
+  ActivityIndicator,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import {Snackbar} from 'react-native-paper';
@@ -30,7 +30,7 @@ class Login extends Component {
       email: '',
       password: '',
       visible: false,
-      isLoading:false
+      isLoading: false,
     };
   }
 
@@ -43,20 +43,20 @@ class Login extends Component {
   };
 
   loginFunction = () => {
+    var myemail = this.state.email.trim();
+    var myPassword = this.state.password.trim();
 
-    var myemail=this.state.email.trim();
-      var myPassword=this.state.password.trim();
-
-    if (myemail.length!=0  && myPassword.length!=0) {
-      this.setState({isLoading:true})
+    if (myemail.length != 0 && myPassword.length != 0) {
+      this.setState({isLoading: true});
       axios
         .post('https://calm-garden-34154.herokuapp.com/api/login', {
           email: myemail,
           password: myPassword,
         })
         .then((res) => {
-         this.props.loginAction({
-            userData:res.data.userData,
+          this.props.navigation.navigate('Home');
+          this.props.loginAction({
+            userData: res.data.userData,
             password: myPassword,
           });
         })
@@ -70,9 +70,9 @@ class Login extends Component {
               break;
           }
         })
-        .then(()=>{
-          this.setState({isLoading:false})
-        })
+        .then(() => {
+          this.setState({isLoading: false});
+        });
     } else {
       this.onToggleSnackBar();
     }
@@ -87,8 +87,7 @@ class Login extends Component {
           size="large"
           style={styles.activityindicator}
         />
-        <ScrollView
-         style={{flex:1,marginHorizontal:10}}>
+        <ScrollView style={{flex: 1, marginHorizontal: 10}}>
           <View style={styles.logostyle}>
             <Image
               source={require('../images/redicon.png')}
@@ -99,106 +98,106 @@ class Login extends Component {
           <View style={styles.header}>
             <Text style={styles.text_header}>Welcome!</Text>
           </View>
-            <Animatable.View animation="fadeInUpBig" style={styles.footer}>
-              <Text
+          <Animatable.View animation="fadeInUpBig" style={styles.footer}>
+            <Text
+              style={[
+                styles.text_footer,
+                {
+                  color: colors.text,
+                },
+              ]}>
+              Email
+            </Text>
+            <View style={styles.action}>
+              <FontAwesome name="user-o" color={colors.text} size={20} />
+              <TextInput
+                placeholder="Your Email"
+                placeholderTextColor={color.darkgrey}
+                autoCompleteType="email"
                 style={[
-                  styles.text_footer,
+                  styles.textInput,
                   {
                     color: colors.text,
                   },
-                ]}>
-                Email
-              </Text>
-              <View style={styles.action}>
-                <FontAwesome name="user-o" color={colors.text} size={20} />
-                <TextInput
-                  placeholder="Your Email"
-                  placeholderTextColor={color.darkgrey}
-                  autoCompleteType="email"
-                  style={[
-                    styles.textInput,
-                    {
-                      color: colors.text,
-                    },
-                  ]}
-                  autoCapitalize="none"
-                  onChangeText={(e) => {
-                    this.setState({email: e});
-                  }}
-                />
-              </View>
-              <Text
+                ]}
+                autoCapitalize="none"
+                onChangeText={(e) => {
+                  this.setState({email: e});
+                }}
+              />
+            </View>
+            <Text
+              style={[
+                styles.text_footer,
+                {
+                  color: colors.text,
+                  marginTop: '1%',
+                },
+              ]}>
+              Password
+            </Text>
+            <View style={styles.action}>
+              <Feather name="lock" color={colors.text} size={20} />
+              <TextInput
+                placeholder="Your Password"
+                placeholderTextColor={color.darkgrey}
+                autoCompleteType="password"
+                secureTextEntry={true}
                 style={[
-                  styles.text_footer,
+                  styles.textInput,
                   {
                     color: colors.text,
-                    marginTop: '1%',
                   },
-                ]}>
-                Password
-              </Text>
-              <View style={styles.action}>
-                <Feather name="lock" color={colors.text} size={20} />
-                <TextInput
-                  placeholder="Your Password"
-                  placeholderTextColor={color.darkgrey}
-                  autoCompleteType="password"
-                  secureTextEntry={true}
-                  style={[
-                    styles.textInput,
-                    {
-                      color: colors.text,
-                    },
-                  ]}
-                  autoCapitalize="none"
-                  onChangeText={(e) => {
-                    this.setState({password: e});
-                  }}
-                />
-              </View>
-              <View style={styles.button}>
-                <Pressable
-                  style={styles.signIn}
-                  onPress={() => {
-                    this.loginFunction();
-                  }}>
-                  <LinearGradient
-                    colors={[color.MintyGreenLight, color.MintyGreenMedium]}
-                    style={styles.signIn}>
-                    <Text
-                      style={[
-                        styles.textSign,
-                        {
-                          color: color.white,
-                        },
-                      ]}>
-                      Sign In
-                    </Text>
-                  </LinearGradient>
-                </Pressable>
-
-                <Pressable
-                  onPress={() => console.log('pressed')}
-                  style={[
-                    styles.signIn,
-                    {
-                      borderColor: color.MintyGreenDark,
-                      borderWidth: 1,
-                      marginTop: '5%',
-                    },
-                  ]}>
+                ]}
+                autoCapitalize="none"
+                onChangeText={(e) => {
+                  this.setState({password: e});
+                }}
+              />
+            </View>
+            <View style={styles.button}>
+              <Pressable
+                style={styles.signIn}
+                onPress={() => {
+                  this.loginFunction();
+                }}>
+                <LinearGradient
+                  colors={[color.MintyGreenLight, color.MintyGreenMedium]}
+                  style={styles.signIn}>
                   <Text
                     style={[
                       styles.textSign,
                       {
-                        color: color.MintyGreenDark,
+                        color: color.white,
                       },
                     ]}>
-                    Sign Up
+                    Sign In
                   </Text>
-                </Pressable>
-              </View>
-            </Animatable.View>
+                </LinearGradient>
+              </Pressable>
+
+              <Pressable
+                onPress={() => console.log('pressed')}
+                style={[
+                  styles.signIn,
+                  {
+                    borderColor: color.MintyGreenDark,
+                    borderWidth: 1,
+                    marginTop: '5%',
+                  },
+                ]}>
+                <Text
+                  style={[
+                    styles.textSign,
+                    {
+                      color: color.MintyGreenDark,
+                    },
+                  ]}>
+                  Sign Up
+                </Text>
+              </Pressable>
+            </View>
+          </Animatable.View>
         </ScrollView>
         <View>
           <Snackbar
@@ -233,9 +232,9 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     paddingHorizontal: 20,
-    paddingTop:40,
-    height:585,
-    marginTop:"5%"
+    paddingTop: 40,
+    height: 585,
+    marginTop: '5%',
   },
   text_header: {
     color: color.white,
@@ -255,13 +254,13 @@ const styles = StyleSheet.create({
 
   textInput: {
     flex: 1,
-    marginTop:Platform.OS === 'ios' ? 0 : -12,
+    marginTop: Platform.OS === 'ios' ? 0 : -12,
     paddingLeft: 10,
     color: '#05375a',
   },
   button: {
     alignItems: 'center',
-    marginTop:10
+    marginTop: 10,
   },
   signIn: {
     width: '100%',
@@ -282,12 +281,12 @@ const styles = StyleSheet.create({
   logostyle: {
     width: '100%',
     height: '30%',
-    marginTop:60
+    marginTop: 60,
   },
   activityindicator: {
     position: 'absolute',
     alignSelf: 'center',
-    zIndex:1
+    zIndex: 1,
   },
 });
 

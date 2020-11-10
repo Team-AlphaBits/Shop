@@ -31,8 +31,6 @@ removeFew = async () => {
     // remove error
     console.log(e);
   }
-
-  console.log('Done');
 };
 
 clearCredential = () => {
@@ -61,7 +59,6 @@ export default LoginReducer = (state = initialState, action) => {
       };
 
     case RE_LOGIN:
-      console.log(action.payload.netdata.email + ' case log');
       return {
         ...state,
         email: action.payload.netdata.email,
