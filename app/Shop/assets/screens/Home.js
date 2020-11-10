@@ -10,7 +10,6 @@ import {
   Pressable,
   ScrollView,
   ActivityIndicator,
-  PermissionsAndroid,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Appbar, Snackbar} from 'react-native-paper';
