@@ -18,7 +18,6 @@ class MyCart extends Component {
   constructor() {
     super();
     this.state = {
-      count: 1,
       data: [],
       total_price: 0,
       visible: false,
@@ -56,10 +55,12 @@ class MyCart extends Component {
       });
   };
 
-  removeProduct=(productid)=>{
+  removeProduct = (productid) => {
     this.setState({isLoading: true});
     axios
-      .put('https://calm-garden-34154.herokuapp.com/api/removeProd/' + productid)
+      .put(
+        'https://calm-garden-34154.herokuapp.com/api/removeProd/' + productid,
+      )
       .then((res) => {
         this.props.decrementCart();
         this.fetchAndUpdateData();
@@ -70,7 +71,11 @@ class MyCart extends Component {
       .then(() => {
         this.setState({isLoading: false});
       });
-  }
+  };
+
+  unsubscribe_function = {
+    unsubscribe: null,
+  };
 
   onToggleSnackBar = () => {
     this.setState({visible: true});
@@ -101,7 +106,18 @@ class MyCart extends Component {
   };
 
   componentDidMount() {
-    this.fetchAndUpdateData();
+    //subscribing to screen changes to call fetchandupdatedata function
+    this.unsubscribe_function.unsubscribe = this.props.navigation.addListener(
+      'focus',
+      () => {
+        this.fetchAndUpdateData();
+      },
+    );
+  }
+
+  componentWillUnmount() {
+    //unsubscribing from screen changes
+    this.unsubscribe_function.unsubscribe();
   }
 
   render() {
@@ -208,7 +224,7 @@ class MyCart extends Component {
                     icon="delete"
                     style={styles.delete}
                     onPress={() =>
-                      console.log('Remove this item from Cart')
+                      this.removeProduct(item.product_id)
                     }></Button>
                 </View>
               </View>

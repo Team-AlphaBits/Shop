@@ -67,6 +67,41 @@ class Details extends Component {
     this.setState({visible: false});
   };
 
+  buyNow = (productid) => {
+    this.setState({isLoading: true});
+    axios
+      .put(
+        'https://calm-garden-34154.herokuapp.com/api/add-to-cart/' + productid,
+      )
+      .then((res) => {
+        this.props.incrementCart();
+        this.props.navigation.navigate('MyCart');
+      })
+      .catch((e) => {
+        this.onToggleSnackBar();
+      })
+      .then(() => {
+        this.setState({isLoading: false});
+      });
+  };
+
+  addToCart = (productid) => {
+    this.setState({isLoading: true});
+    axios
+      .put(
+        'https://calm-garden-34154.herokuapp.com/api/add-to-cart/' + productid,
+      )
+      .then((res) => {
+        this.props.incrementCart();
+      })
+      .catch((e) => {
+        this.onToggleSnackBar();
+      })
+      .then(() => {
+        this.setState({isLoading: false});
+      });
+  };
+
   fetchandupdatedata = () => {
     this.setState({
       isLoading: true,
@@ -227,20 +262,36 @@ class Details extends Component {
               </View>
             </View>
           </ScrollView>
-          <View style={{flexDirection: 'row', width: '100%'}}>
-            <Button
-              mode="contained"
-              onPress={() => console.log('Pressed')}
-              style={styles.btn1}>
-              Buy Now
-            </Button>
-            <Button
-              mode="contained"
-              onPress={() => console.log('Pressed')}
-              style={styles.btn2}>
-              Add to cart
-            </Button>
-          </View>
+          {this.props.isLoggedIn ? (
+            <View style={{flexDirection: 'row', width: '100%'}}>
+              <Button
+                mode="contained"
+                onPress={() => this.buyNow(this.state.dataSource._id)}
+                style={styles.btn1}>
+                Buy Now
+              </Button>
+              <Button
+                mode="contained"
+                onPress={() => this.addToCart(this.state.dataSource._id)}
+                style={styles.btn2}>
+                Add to cart
+              </Button>
+            </View>
+          ) : (
+            <View style={{width: '100%'}}>
+              <Button
+                mode="contained"
+                onPress={() => this.props.navigation.navigate('Login')}
+                style={{
+                  marginHorizontal: 10,
+                  marginVertical: 10,
+                  borderRadius: 8,
+                  backgroundColor: color.MintyGreenDark,
+                }}>
+                LOGIN
+              </Button>
+            </View>
+          )}
         </View>
         <View>
           <Snackbar
@@ -328,13 +379,16 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => {
   return {
     total_product: state.cartReducer.total_product,
+    isLoggedIn: state.LoginReducer.isLoggedIn,
   };
 };
 
-const mapDispatchToProps=(dispatch)=>{
-  return{
-      incrementCart:()=>{dispatch(incrementCart())}
-  }
-}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    incrementCart: () => {
+      dispatch(incrementCart());
+    },
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Details);

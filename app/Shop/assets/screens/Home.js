@@ -208,7 +208,7 @@ class Home extends PureComponent {
         </Appbar.Header>
         <ActivityIndicator
           animating={this.state.isLoading}
-          color={color.black}
+          color={color.MintyGreenDark}
           size="large"
           style={styles.activityindicator}
         />
