@@ -5,6 +5,7 @@ import {View, SafeAreaView, StyleSheet, Pressable} from 'react-native';
 import {Avatar, Text, Title, Drawer} from 'react-native-paper';
 import color from '../colors/colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import LinearGradient from 'react-native-linear-gradient';
 import {connect} from 'react-redux';
 import {logoutAction} from '../Redux/index';
 
@@ -69,6 +70,9 @@ class DrawerContent extends Component {
 
     return (
       <SafeAreaView style={{flex: 1}}>
+        <LinearGradient
+        colors={['#caf0f8','#0096c7']}
+        style={{flex:1}}>
         <DrawerContentScrollView>
           <View style={style.userinfo}>
             <View>{profilepic}</View>
@@ -114,6 +118,7 @@ class DrawerContent extends Component {
           </View>
         </DrawerContentScrollView>
         <View>{showlogout}</View>
+        </LinearGradient>
       </SafeAreaView>
     );
   }

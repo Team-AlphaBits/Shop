@@ -130,30 +130,6 @@ class Home extends PureComponent {
     }, 3000);
   };
 
-  requestCameraPermission = async () => {
-    try {
-      const granted = await PermissionsAndroid.requestMultiple([
-        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
-        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-      ]).then((result) => {
-        if (
-          result['android.permission.READ_EXTERNAL_STORAGE'] &&
-          result['android.permission.WRITE_EXTERNAL_STORAGE'] === 'granted'
-        ) {
-          console.log('granted');
-        } else if (
-          result['android.permission.READ_EXTERNAL_STORAGE'] ||
-          result['android.permission.WRITE_EXTERNAL_STORAGE'] ===
-            'never_ask_again'
-        ) {
-          console.log('Not granted');
-        }
-      });
-    } catch (err) {
-      console.warn(err);
-    }
-  };
-
   storageData = async () => {
     try {
       var data = await AsyncStorage.multiGet(['email', 'password']);
@@ -175,7 +151,6 @@ class Home extends PureComponent {
   componentDidMount() {
     this.fetchandupdatedata();
     this.storageData();
-    this.requestCameraPermission();
   }
 
   componentWillUnmount() {
@@ -193,13 +168,14 @@ class Home extends PureComponent {
           <Appbar.Action
             icon="menu"
             size={40}
+            color={color.white}
             onPress={() => {
               this.props.navigation.openDrawer();
             }}
           />
           <Appbar.Content
             title="SHOP"
-            titleStyle={{fontWeight: 'bold', fontSize: 35, marginStart: '35%'}}
+            titleStyle={{fontWeight: 'bold', fontSize: 35, marginStart: '35%',color:'#03045e'}}
           />
           <Appbar.Action
             icon="magnify"
