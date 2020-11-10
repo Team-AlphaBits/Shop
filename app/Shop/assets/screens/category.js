@@ -3,15 +3,13 @@ import {
   View,
   SafeAreaView,
   StyleSheet,
-  ScrollView,
   Pressable,
   Image,
   FlatList,
   Dimensions,
 } from 'react-native';
 
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Title, Appbar, Button, Text, Surface} from 'react-native-paper';
+import {Appbar, Text, Surface} from 'react-native-paper';
 
 import color from '../colors/colors';
 

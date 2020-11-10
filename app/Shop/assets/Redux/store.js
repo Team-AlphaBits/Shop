@@ -1,11 +1,10 @@
-import { createStore,combineReducers} from 'redux';
-import cakeReducer from './cake/cakeReducers';
-
+import {createStore, combineReducers} from 'redux';
+import LoginReducer from './login/loginreducer';
 
 //combining all the reducers because createStore only take single reducer
-const rootReducer=combineReducers({
-    cake:cakeReducer,
-})
+const rootReducer = combineReducers({
+  LoginReducer: LoginReducer,
+});
 
 const store = createStore(rootReducer);
 

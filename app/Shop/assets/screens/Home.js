@@ -1,7 +1,11 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import React, {Component} from 'react';
 =======
 import React, {Component,PureComponent} from 'react';
+>>>>>>> origin/master
+=======
+import React, {PureComponent} from 'react';
 >>>>>>> origin/master
 import {
   SafeAreaView,
@@ -11,9 +15,9 @@ import {
   Image,
   StatusBar,
   FlatList,
-  Dimensions,
   Pressable,
   ScrollView,
+<<<<<<< HEAD
   Title,
 <<<<<<< HEAD
 } from 'react-native';
@@ -90,18 +94,19 @@ export default class Home extends Component {
 =======
   RefreshControl,
   ActivityIndicator
+=======
+  ActivityIndicator,
+>>>>>>> origin/master
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {
-  Appbar,
-  Searchbar,
-  Button,
-  Snackbar,
-} from 'react-native-paper';
+import {Appbar, Snackbar} from 'react-native-paper';
 import color from '../colors/colors';
 import axios from 'axios';
+import {connect} from 'react-redux';
+import {FetchAndLoginData} from '../Redux/index';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default class Home extends PureComponent {
+class Home extends PureComponent {
   constructor() {
     super();
     this.state = {
@@ -116,7 +121,7 @@ export default class Home extends PureComponent {
       mobilearr: null,
       bigMobileDisplay: null,
       bigDecorationDisplay: null,
-      active:0
+      active: 0,
     };
   }
   mystate = {
@@ -143,7 +148,7 @@ export default class Home extends PureComponent {
     this.setState({isLoading: true});
 
     const getCarousal = axios.get(
-      'https://calm-garden-34154.herokuapp.com/api/home',
+      'https://calm-garden-34154.herokuapp.com/api/home?',
     );
     const getMobile = axios.get(
       'https://calm-garden-34154.herokuapp.com/api/category/Mobiles',
@@ -172,12 +177,12 @@ export default class Home extends PureComponent {
       ])
       .then((response) => {
         this.setState({
-          carousal: response[0].data.carousal_data,
-          mobile: response[1].data,
-          electronics: response[2].data,
-          clothing: response[3].data,
-          gaming: response[4].data,
-          decoration: response[5].data,
+          carousal: response[0].data.carousalData,
+          mobile: response[1].data.productData,
+          electronics: response[2].data.productData,
+          clothing: response[3].data.productData,
+          gaming: response[4].data.productData,
+          decoration: response[5].data.productData,
         });
         var marray = [];
         marray.push(this.state.mobile[14]);
@@ -211,8 +216,28 @@ export default class Home extends PureComponent {
     }, 3000);
   };
 
+  storageData = async () => {
+    try {
+      var data = await AsyncStorage.multiGet(['email', 'password']);
+      axios
+        .post('https://calm-garden-34154.herokuapp.com/api/login', {
+          email: data[0][1],
+          password: data[1][1],
+        })
+        .then((res) => {
+          this.props.FetchAndLoginData(res.data.userData, data[1][1]);
+        })
+        .catch((e) => {
+          console.log(e + ' error occured in networking while relogging');
+        });
+    } catch (e) {
+      console.log(e + 'storage error');
+    }
+  };
+
   componentDidMount() {
     this.fetchandupdatedata();
+    this.storageData();
   }
 
   componentWillUnmount() {
@@ -231,13 +256,19 @@ export default class Home extends PureComponent {
           <Appbar.Action
             icon="menu"
             size={40}
+            color={color.white}
             onPress={() => {
               this.props.navigation.openDrawer();
             }}
           />
           <Appbar.Content
             title="SHOP"
-            titleStyle={{fontWeight: 'bold', fontSize: 35, marginStart: '35%'}}
+            titleStyle={{
+              fontWeight: 'bold',
+              fontSize: 35,
+              marginStart: '35%',
+              color: '#03045e',
+            }}
           />
           <Appbar.Action
             icon="magnify"
@@ -265,9 +296,13 @@ export default class Home extends PureComponent {
           size="large"
           style={styles.activityindicator}
         />
+<<<<<<< HEAD
         <ScrollView
          style={{flex: 1}}
          nestedScrollEnabled>
+>>>>>>> origin/master
+=======
+        <ScrollView style={{flex: 1}} nestedScrollEnabled>
 >>>>>>> origin/master
           <View style={styles.container}>
             <ScrollView
@@ -776,7 +811,7 @@ const styles = StyleSheet.create({
     height: 200,
     borderColor: '#EEE8AA',
     borderWidth: 8,
-    paddingHorizontal:'5%',
+    paddingHorizontal: '5%',
     marginVertical: '5%',
     borderRadius: 5,
   },
@@ -819,3 +854,12 @@ const styles = StyleSheet.create({
   },
 >>>>>>> origin/master
 });
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    FetchAndLoginData: (params) => {
+      dispatch(FetchAndLoginData(params));
+    },
+  };
+};
+export default connect(null, mapDispatchToProps)(Home);

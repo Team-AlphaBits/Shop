@@ -1,3 +1,5 @@
 //file for exporting all actions from a single source file
 
-export {buycake} from './cake/CakeActions';
+export {loginAction} from './login/loginAction';
+export {logoutAction} from './login/loginAction';
+export {FetchAndLoginData} from './login/loginAction';

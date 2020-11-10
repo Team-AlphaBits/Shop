@@ -17,6 +17,7 @@ import store from './assets/Redux/store';
 const Drawer = createDrawerNavigator();
 function App() {
   return (
+    <Provider store={store}>
       <NavigationContainer>
         <Drawer.Navigator
           initialRouteName="Home"
@@ -31,6 +32,7 @@ function App() {
           <Drawer.Screen name="Search" component={Search} />
         </Drawer.Navigator>
       </NavigationContainer>
+      </Provider>
   );
 }
 

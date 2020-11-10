@@ -8,3 +8,4 @@ npm install react-native-animatable --save
 npm install axios
 npm install redux 
 npm install react-redux
+npm i @react-native-async-storage/async-storage

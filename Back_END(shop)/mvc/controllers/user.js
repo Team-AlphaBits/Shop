@@ -50,13 +50,13 @@ const registerUser = function ({ body }, res) {
   });
 };
 //JWT IMPLEMENTED
-const loginUser = function (req, res) {
+const loginUser =  function (req, res) {
                                                    //authentication req
   if (!req.body.email || !req.body.password) {
     return res.status(400).json({ message: "All fields are required." });
   }
 
-  passport.authenticate("local", (err, user, info) => {
+  passport.authenticate("local",async (err, user, info) => {
     if (err) {
       return res.status(404).json(err);
     } 
@@ -64,8 +64,14 @@ const loginUser = function (req, res) {
       const token = user.getJwt();
       res.cookie('jwt', token, { maxAge: 900000, httpOnly: true })
       // res.setHeader('jwt', token);
-      console.log(token);
-      res.status(201).json({mssg: "Logged In!!",token});
+     // console.log(token);
+     try{
+     userData = await User.findById(user._id,'user_name email cart');
+     }
+     catch{
+      res.status(401).send("Error in retrieving User info!!"); 
+     }
+      res.status(201).json({mssg: "Logged In!!",userData});
     } else {
       res.status(401).json(info);               //error mssg send back
     }

@@ -96,7 +96,7 @@ export default class Itemlist extends Component {
         'https://calm-garden-34154.herokuapp.com/api/category/' + categorytype,
       )
       .then((res) => {
-        this.setState({dataSource: res.data});
+        this.setState({dataSource: res.data.productData});
       })
       .catch((error) => {
         this.onToggleSnackBar();
