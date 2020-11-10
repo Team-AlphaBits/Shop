@@ -21,7 +21,7 @@ const composeEnhancers =
 const rootReducer = combineReducers({
   Login: LoginReducer,
 });
-const Store = createStore(rootReducer, applyMiddleware(thunk));
+const Store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
 
 ReactDOM.render(
   <React.StrictMode>

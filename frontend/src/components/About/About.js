@@ -10,20 +10,52 @@ import {
   MDBIcon,
 } from "mdbreact";
 import classes from "./About.module.css";
-import Khem from "../../Assets/images/khem1.jpg";
+import Khem from "../../Assets/images/pic3.jpeg";
 import Rahul from "../../Assets/images/rahul1.jpg";
 import awek from "../../Assets/images/awek1.jpg";
 import fazil from "../../Assets/images/fazil1.jpg";
+import about from "../../Assets/images/about_img.jpg";
+import cook from "../../Assets/images/cook2.jpg";
 
 class About extends Component {
   render() {
     let img = ["card-img-top", classes.img];
     // let cardbody = ["text-center", classes.cardbody];
     const data = [
-      { name: "Khemchand Patel", post: "President & Co-Founder", src: Khem },
-      { name: "Mohammad Fazil", post: "President & Co-Founder", src: fazil },
-      { name: "Rahul S Chauhan", post: "President & Co-Founder", src: Rahul },
-      { name: "Awek Toppo", post: "President & Co-Founder", src: awek },
+      {
+        name: "Khemchand Patel",
+        post: "President & Co-Founder",
+        src: Khem,
+        linkedin: "https://www.linkedin.com/in/khemchand-patel-7b60991b2/",
+        cc: "https://www.codechef.com/users/kn8rider",
+        skill:
+          "Full Stack Web Developer , Android App Developer & Competetive Programmer.",
+      },
+      {
+        name: "Mohammad Fazil",
+        post: "President & Co-Founder",
+        src: fazil,
+        linkedin: "https://www.linkedin.com/in/mohammad-fazil-2200991b2/",
+        cc: "https://www.codechef.com/users/mohammad_fazil",
+        skill: "Full Stack Mern. Developer & Competetive Programmer.",
+      },
+      {
+        name: "Rahul S Chauhan",
+        post: "President & Co-Founder",
+        src: Rahul,
+        linkedin: "https://www.linkedin.com/in/rahul-s-chauhan-005223199",
+        cc: "https://www.codechef.com/users/rahulschauhan",
+        skill:
+          "Full Stack Web Developer , Android App Developer & Competetive Programmer.",
+      },
+      {
+        name: "Awek Toppo",
+        post: "President & Co-Founder",
+        src: awek,
+        linkedin: "https://www.linkedin.com/in/awek-toppo-0574801a0",
+        cc: "https://www.codechef.com/users/dezx20",
+        skill: "Full Stack Mean. Developer & Competetive Programmer.",
+      },
     ];
     let cards = [];
     for (let i = 0; i < 4; i++) {
@@ -38,18 +70,15 @@ class About extends Component {
 
               <p className="font-weight-bold blue-text">{data[i].post}</p>
 
-              <MDBCardText>
-                Sed ut perspiciatis unde omnis iste natus sit voluptatem
-                accusantium doloremque laudantium, totam rem aperiam.
-              </MDBCardText>
+              <p className={classes.skill}>{data[i].skill}</p>
 
               <MDBCol md="12" className="d-flex justify-content-center">
-                <a href="!#" className="px-2 fa-lg li-ic">
+                <a href={data[i].linkedin} className="px-2 fa-lg li-ic">
                   <MDBIcon fab icon="linkedin-in"></MDBIcon>
                 </a>
 
-                <a href="!#" className="px-2 fa-lg tw-ic">
-                  <MDBIcon fab icon="twitter"></MDBIcon>
+                <a href={data[i].cc} className="px-2 fa-lg tw-ic">
+                  <img src={cook} className={classes.cook} />
                 </a>
 
                 <a href="!#" className="px-2 fa-lg fb-ic">
@@ -64,11 +93,7 @@ class About extends Component {
     return (
       <div className={classes.maincontainer}>
         <div className={classes.container}>
-          <img
-            alt="img"
-            src="https://mdbootstrap.com/img/Photos/Horizontal/People/6-col/img%20%283%29.jpg"
-            className={classes.mainImg}
-          />
+          <img alt="img" src={about} className={classes.mainImg} />
 
           <div className={classes.disc}>
             <p className={classes.header}>About us</p>

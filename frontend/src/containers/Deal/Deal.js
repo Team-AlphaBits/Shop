@@ -1,6 +1,7 @@
 import React from "react";
 // import { Card, Button } from "react-bootstrap";
 import Carousel from "react-elastic-carousel";
+import { connect } from "react-redux";
 import classes from "./Deal.module.css";
 //import Item from "./Item";
 // import Penguin from "../../Assets/images/Penguins.jpg";
@@ -70,19 +71,14 @@ function Deals() {
           <a href="/ProductList">See All Offers ...</a>
         </p>
       </div>
-      <div className={classes.container}>
-        <h1 className={classes.title2}>Furnitures</h1>
-        <hr className={classes.line} />
-
-        <div className={classes.App}>
-          <Carousel breakPoints={breakPoints}>{cards}</Carousel>
-        </div>
-        <p className={classes.offer}>
-          <a href="/ProductList">See All Offers ...</a>
-        </p>
-      </div>
     </>
   );
 }
-
-export default Deals;
+const mapStateToProps = (state) => {
+  return {
+    signedUp: state.Login.signuped,
+    Data: state.Login.Data,
+    success: state.Login.FetchSuccess,
+  };
+};
+export default connect(mapStateToProps)(Deals);

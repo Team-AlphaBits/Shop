@@ -35,6 +35,9 @@ export default class Itemlist extends Component {
   }
 
   setCategorytpe = () => {
+<<<<<<< HEAD
+    switch (this.props.route.params.categoryid) {
+=======
     var catId;
     try {
       catId = this.props.route.params.categoryid;
@@ -42,6 +45,7 @@ export default class Itemlist extends Component {
       catId = -1;
     }
     switch (catId) {
+>>>>>>> origin/master
       case 0:
         return 'Mobiles';
         break;
@@ -96,6 +100,10 @@ export default class Itemlist extends Component {
       })
       .catch((error) => {
         this.onToggleSnackBar();
+<<<<<<< HEAD
+        console.log(error);
+=======
+>>>>>>> origin/master
       })
       .then(() => {
         this.setState({isLoading: false});
@@ -163,7 +171,11 @@ export default class Itemlist extends Component {
                     source={{uri: item.home_image}}
                     resizeMode="contain"
                   />
+<<<<<<< HEAD
+                  <View style={{backgroundColor: 'white', width: 190}}>
+=======
                   <View style={{backgroundColor: 'white'}}>
+>>>>>>> origin/master
                     <Text style={styles.name}>
                       {item.title.length > 20
                         ? item.title.substring(0, 20 - 3) + '...'
@@ -232,6 +244,9 @@ const styles = StyleSheet.create({
     width: 190,
     height: 290,
     backgroundColor: color.white,
+<<<<<<< HEAD
+=======
     elevation: 4,
+>>>>>>> origin/master
   },
 });

@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 // import Carousel from "../../components/carousel/carousel";
 import classes from "./details.module.css";
+import {connect} from 'react-redux';
+import * as actions from '../../Store/Action/index';
 import {
   MDBCarousel,
   MDBCarouselInner,
@@ -9,10 +11,28 @@ import {
   MDBContainer,
 } from "mdbreact";
 class Details extends Component {
+  componentDidMount(){
+    this.props.getProduct(this.props.location.search.split('?')[1])
+  }
   render() {
+    if(this.props.DetailData){
+    console.log(this.props.DetailData.productData)
+    }
     let cls = ["z-depth-1", classes.car];
-    let img = ["d-block w-100", classes.carimg];
-    return (
+    let img = ["d-block w-100", classes.car];
+    let show = null;
+    if(this.props.DetailData){
+      let des = this.props.DetailData.productData.description.split('.')
+      let details = []
+      let Yes = false;
+      for(let i = 0; i<des.length-1; i++){
+           details.push(<li>{des[i]}.</li>)
+           Yes = true
+      }
+      if(!Yes){
+      details.push(<li>{this.props.DetailData.productData.description}.</li>)
+      }
+      show = 
       <div className={classes.container}>
         <div className={classes.carousel_ctrl}>
           <MDBContainer>
@@ -22,13 +42,14 @@ class Details extends Component {
               showControls={true}
               showIndicators={true}
               className={cls.join(" ")}
+              interval={3000}
             >
               <MDBCarouselInner>
                 <MDBCarouselItem itemId="1">
                   <MDBView>
                     <img
                       className={img.join(" ")}
-                      src="https://m.media-amazon.com/images/I/81pezrPSgOL._AC_SX615_SY462_.jpg"
+                      src={this.props.DetailData.productData.images[0]}
                       alt="First slide"
                     />
                   </MDBView>
@@ -37,7 +58,7 @@ class Details extends Component {
                   <MDBView>
                     <img
                       className={img.join(" ")}
-                      src="https://m.media-amazon.com/images/I/61s0UA4pmVL._AC_SX615_SY462_.jpg"
+                      src={this.props.DetailData.productData.images[1]}
                       alt="Second slide"
                     />
                   </MDBView>
@@ -46,7 +67,7 @@ class Details extends Component {
                   <MDBView>
                     <img
                       className={img.join(" ")}
-                      src="https://m.media-amazon.com/images/I/914o5xV1+8L._AC_SX615_SY462_.jpg"
+                      src={this.props.DetailData.productData.images[2]}
                       alt="Third slide"
                     />
                   </MDBView>
@@ -57,14 +78,13 @@ class Details extends Component {
         </div>
         <div className={classes.disc}>
           <p className={classes.heading}>
-            Samsung Galaxy Tab A7 (10.4 inch, RAM 3 GB, ROM 32 GB, Wi-Fi-only),
-            Gold{" "}
+          {this.props.DetailData.productData.short_desc}
           </p>
           <p className={classes.oldprc}>
             M.R.P.: <strike>₹ 20,999.00</strike>
           </p>
           <p className={classes.amount}>
-            Deal of the Day: <b className={classes.price}>₹ 16,999.00</b>
+            Deal of the Day: <b className={classes.price}>₹ {this.props.DetailData.productData.price}.00</b>
           </p>
           <p className={classes.price2}>
             You Save: <b className={classes.price}> ₹ 4,000.00 (19%) </b>
@@ -77,24 +97,31 @@ class Details extends Component {
           <button className={classes.cartBtn}>Add to Cart</button>
           <button className={classes.buyBtn}>Buy Now</button>
           <p>
-            Sold by <b className={classes.sold}>Appario Retail Private Ltd</b>{" "}
+    Sold by <b className={classes.sold}>{this.props.DetailData.productData.seller_name}</b>{" "}
             and Fulfilled by <b className={classes.sold}>Shop</b>.{" "}
           </p>
 
           <ul className={classes.discription}>
-            <li>
-              10.4 inch ( 26.31 cms) Immersive Display (2000 X 1200 pixels
-              resolution ) with symetric bezel for un-interrupted visual
-              experience for gaming, watching videos, multi-tasking and more
-            </li>
-            <li>Quad Stereo Sound - more lively movies and music </li>
-            <li>
-              Seamless apps and gaming experience with Qualcomm Snapdragon 662
-            </li>
+            {details}
           </ul>
         </div>
       </div>
+    }
+    return (
+      <>
+      {show}
+      </>
     );
   }
 }
-export default Details;
+const mapStatetoProps = (state) =>{
+  return{
+    DetailData: state.Login.detail
+  }
+}
+const mapDispatchToprops = (dispatch) =>{
+  return{
+  getProduct : (id) => { dispatch(actions.getById(id))}
+  }
+}
+export default connect(mapStatetoProps,mapDispatchToprops)(Details);

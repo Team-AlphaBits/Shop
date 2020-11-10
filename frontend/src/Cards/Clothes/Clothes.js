@@ -9,21 +9,24 @@ const breakPoints = [
 ];
 
 function Clothes(props) {
+
   let cards = [];
+  let cnt = 0;
   if (props.data != null) {
-    console.log(props.data.product_data[0].cat_id);
-    for (let i = 0; i < props.data.product_data.length; i++) {
-      if (props.data.product_data[i].cat_id === "Clothings") {
+<<<<<<< HEAD
+    console.log(props.data.productData[0].cat_id);
+    for (let i = 0; i < props.data.productData.length; i++) {
+      if (props.data.ProductData[i].cat_id === "Clothings") {
         cards.push(
           <div className={classes.manualcard}>
             <img
-              src={props.data.product_data[i].home_image}
+              src={props.data.productData[i].home_image}
               alt="pic"
               className={classes.modify}
             />
-            <p className={classes.h4}>{props.data.product_data[i].title}</p>
+            <p className={classes.h4}>{props.data.productData[i].title}</p>
             <p className={classes.price} style={{ marginTop: "-15px" }}>
-              ₹{props.data.product_data[i].price}
+              ₹{props.data.productData[i].price}
             </p>
             <p style={{ marginTop: "-15px" }}>
               <strike>₹27,990</strike> (29% off)
@@ -31,6 +34,30 @@ function Clothes(props) {
             <button className={classes.btn}>ADD TO CART</button>
           </div>
         );
+=======
+    for (let i = 0; i < 175 && cards.length < 8; i++) {
+      if (props.data.productData[i].cat_id === "Clothings") {
+        cnt++;
+        if(cnt > 8){
+          cards.push(
+            <div className={classes.manualcard} onClick={() => props.change(props.data.productData[i]._id)}>
+              <img
+                src={props.data.productData[i].home_image}
+                alt="pic"
+                className={classes.modify}
+              />
+              <p className={classes.h4}>{props.data.productData[i].title}</p>
+              <p className={classes.price} style={{ marginTop: "-15px" }}>
+                ₹{props.data.productData[i].price}
+              </p>
+              <p style={{ marginTop: "-15px" }}>
+                <strike>₹27,990</strike> (29% off)
+              </p>
+              <button className={classes.btn}>ADD TO CART</button>
+            </div>
+          );
+        }
+>>>>>>> 5369f3bd1e1d312742c1cc26fde7a38d0609d09f
       }
     }
   }
