@@ -71,7 +71,7 @@ class DrawerContent extends Component {
     return (
       <SafeAreaView style={{flex: 1}}>
         <LinearGradient
-        colors={['#caf0f8','#0096c7']}
+        colors={['#caf0f8','#caf0f8','#48cae4','#0096c7']}
         style={{flex:1}}>
         <DrawerContentScrollView>
           <View style={style.userinfo}>
