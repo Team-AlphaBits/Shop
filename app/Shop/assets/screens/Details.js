@@ -9,11 +9,20 @@ import {
   ActivityIndicator,
 } from 'react-native';
 
-import {Button, Title, Paragraph, Appbar, Snackbar} from 'react-native-paper';
+import {
+  Button,
+  Title,
+  Paragraph,
+  Appbar,
+  Snackbar,
+  Badge,
+} from 'react-native-paper';
 import axios from 'axios';
+import {connect} from 'react-redux';
+import {incrementCart} from '../Redux/index';
 import color from '../colors/colors';
 
-export default class Details extends Component {
+class Details extends Component {
   constructor() {
     super();
     this.state = {
@@ -115,13 +124,21 @@ export default class Details extends Component {
               this.props.navigation.navigate('Itemlist');
             }}
           />
-          <Appbar.Content
-            title={
-              details.title.length > 35
-                ? details.title.substring(0, 35 - 3) + '...'
-                : details.title
-            }
-          />
+          <Appbar.Content title={details.title} />
+          <View>
+            <Appbar.Action
+              icon="cart"
+              color={color.white}
+              size={30}
+              onPress={() => {
+                this.props.navigation.navigate('MyCart');
+              }}
+            />
+            <Badge
+              style={{position: 'absolute', backgroundColor: color.BadgeColor}}>
+              {this.props.total_product}
+            </Badge>
+          </View>
         </Appbar.Header>
         <ActivityIndicator
           animating={this.state.isLoading}
@@ -307,3 +324,17 @@ const styles = StyleSheet.create({
     color: color.lightblue,
   },
 });
+
+const mapStateToProps = (state) => {
+  return {
+    total_product: state.cartReducer.total_product,
+  };
+};
+
+const mapDispatchToProps=(dispatch)=>{
+  return{
+      incrementCart:()=>{dispatch(incrementCart())}
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Details);

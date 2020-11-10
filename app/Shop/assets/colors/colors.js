@@ -16,4 +16,6 @@ export default {
   burntyellow: '#E6BF7B',
   fadedblue: '#00CCCC',
   darkgrey: '#666666',
+  GoldenYellow: '#EEE8AA',
+  BadgeColor: '#EEE8AA',
 };

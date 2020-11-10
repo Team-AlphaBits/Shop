@@ -9,11 +9,11 @@ import {
   Dimensions,
 } from 'react-native';
 
-import {Appbar, Text, Surface} from 'react-native-paper';
-
+import {Appbar, Text, Surface, Badge} from 'react-native-paper';
+import {connect} from 'react-redux';
 import color from '../colors/colors';
 
-export default class products extends Component {
+class products extends Component {
   constructor() {
     super();
     this.state = {
@@ -64,13 +64,20 @@ export default class products extends Component {
             }}
           />
           <Appbar.Content titleStyle={{fontSize: 25}} title="Products" />
-          <Appbar.Action
-            icon="cart"
-            size={30}
-            onPress={() => {
-              this.props.navigation.navigate('MyCart');
-            }}
-          />
+          <View>
+            <Appbar.Action
+              icon="cart"
+              color={color.white}
+              size={30}
+              onPress={() => {
+                this.props.navigation.navigate('MyCart');
+              }}
+            />
+            <Badge
+              style={{position: 'absolute', backgroundColor: color.BadgeColor}}>
+              {this.props.total_product}
+            </Badge>
+          </View>
         </Appbar.Header>
         <View style={{marginStart: 5, marginBottom: 60}}>
           <FlatList
@@ -114,3 +121,11 @@ const style = StyleSheet.create({
     marginHorizontal: '5%',
   },
 });
+
+const mapStateToProps = (state) => {
+  return {
+    total_product: state.cartReducer.total_product,
+  };
+};
+
+export default connect(mapStateToProps, null)(products);

@@ -18,7 +18,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import axios from 'axios';
 import {connect} from 'react-redux';
-import {loginAction} from '../Redux/index';
+import {loginAction,initializeCart} from '../Redux/index';
 import color from '../colors/colors';
 
 import {withTheme} from 'react-native-paper';
@@ -54,6 +54,7 @@ class Login extends Component {
           password: myPassword,
         })
         .then((res) => {
+          this.props.initializeCart(res.data.userData.cart.total_product);
           this.props.navigation.navigate('Home');
           this.props.loginAction({
             userData: res.data.userData,
@@ -295,6 +296,7 @@ const mapDispatchToProps = (dispatch) => {
     loginAction: (params) => {
       dispatch(loginAction(params));
     },
+    initializeCart:(params)=>{dispatch(initializeCart(params))}
   };
 };
 

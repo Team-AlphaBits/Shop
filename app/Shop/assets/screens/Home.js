@@ -12,11 +12,11 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Appbar, Snackbar} from 'react-native-paper';
+import {Appbar, Snackbar, Badge} from 'react-native-paper';
 import color from '../colors/colors';
 import axios from 'axios';
 import {connect} from 'react-redux';
-import {FetchAndLoginData} from '../Redux/index';
+import {FetchAndLoginData, initializeCart} from '../Redux/index';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 class Home extends PureComponent {
@@ -138,6 +138,7 @@ class Home extends PureComponent {
           password: data[1][1],
         })
         .then((res) => {
+          this.props.initializeCart(res.data.userData.cart.total_product);
           this.props.FetchAndLoginData(res.data.userData, data[1][1]);
         })
         .catch((e) => {
@@ -190,14 +191,20 @@ class Home extends PureComponent {
               this.props.navigation.navigate('Search');
             }}
           />
-          <Appbar.Action
-            icon="cart"
-            color={color.white}
-            size={30}
-            onPress={() => {
-              this.props.navigation.navigate('MyCart');
-            }}
-          />
+          <View>
+            <Appbar.Action
+              icon="cart"
+              color={color.white}
+              size={30}
+              onPress={() => {
+                this.props.navigation.navigate('MyCart');
+              }}
+            />
+            <Badge
+              style={{position: 'absolute', backgroundColor: color.BadgeColor}}>
+              {this.props.total_product}
+            </Badge>
+          </View>
         </Appbar.Header>
         <ActivityIndicator
           animating={this.state.isLoading}
@@ -488,7 +495,7 @@ const styles = StyleSheet.create({
   clothsimg: {
     width: 150,
     height: 200,
-    borderColor: '#EEE8AA',
+    borderColor: color.GoldenYellow,
     borderWidth: 8,
     paddingHorizontal: '5%',
     marginVertical: '5%',
@@ -533,11 +540,20 @@ const styles = StyleSheet.create({
   },
 });
 
+const mapStateToProps = (state) => {
+  return {
+    total_product: state.cartReducer.total_product,
+  };
+};
+
 const mapDispatchToProps = (dispatch) => {
   return {
     FetchAndLoginData: (params) => {
       dispatch(FetchAndLoginData(params));
     },
+    initializeCart: (params) => {
+      dispatch(initializeCart(params));
+    },
   };
 };
-export default connect(null, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

@@ -6,42 +6,110 @@ import {
   Text,
   Image,
   FlatList,
+  ActivityIndicator,
 } from 'react-native';
-import {Button, Appbar, Title} from 'react-native-paper';
-
+import {Button, Appbar, Title, Badge, Snackbar} from 'react-native-paper';
+import {connect} from 'react-redux';
+import axios from 'axios';
+import {decrementCart} from '../Redux/index';
 import color from '../colors/colors';
 
-export default class MyCart extends Component {
+class MyCart extends Component {
   constructor() {
     super();
     this.state = {
       count: 1,
-      data: [
-        {
-          src: require('../images/img_1.jpg'),
-          price: '₹ 24,999.00',
-          desc: 'Nikon D5600 Digital SLR 18-55 mm f/3.5-5.6 G VR',
-        },
-        {
-          src: require('../images/watch.jpg'),
-          price: '₹ 999.00',
-          desc:
-            'Polex Analog Multicolor Dial Date Calendar & Time Watch for Mens Boys Watches - Meh 4',
-        },
-      ],
+      data: [],
+      total_price: 0,
+      visible: false,
+      isLoading: false,
     };
   }
 
-  increament = (count) => {
-    this.setState({count: this.state.count + 1});
+  incrementProductCount = (productid) => {
+    this.setState({isLoading: true});
+    axios
+      .put('https://calm-garden-34154.herokuapp.com/api/incProd/' + productid)
+      .then((res) => {
+        this.fetchAndUpdateData();
+      })
+      .catch((e) => {
+        this.onToggleSnackBar();
+      })
+      .then(() => {
+        this.setState({isLoading: false});
+      });
   };
-  decreament = (count) => {
-    this.setState({count: this.state.count - 1});
+
+  decrementProductCount = (productid) => {
+    this.setState({isLoading: true});
+    axios
+      .put('https://calm-garden-34154.herokuapp.com/api/decProd/' + productid)
+      .then((res) => {
+        this.fetchAndUpdateData();
+      })
+      .catch((e) => {
+        this.onToggleSnackBar();
+      })
+      .then(() => {
+        this.setState({isLoading: false});
+      });
   };
+
+  removeProduct=(productid)=>{
+    this.setState({isLoading: true});
+    axios
+      .put('https://calm-garden-34154.herokuapp.com/api/removeProd/' + productid)
+      .then((res) => {
+        this.props.decrementCart();
+        this.fetchAndUpdateData();
+      })
+      .catch((e) => {
+        this.onToggleSnackBar();
+      })
+      .then(() => {
+        this.setState({isLoading: false});
+      });
+  }
+
+  onToggleSnackBar = () => {
+    this.setState({visible: true});
+  };
+
+  onDismissSnackBar = () => {
+    this.setState({visible: false});
+  };
+
+  fetchAndUpdateData = () => {
+    if (this.props.isLoggedIn) {
+      this.setState({isLoading: true});
+      axios
+        .get('https://calm-garden-34154.herokuapp.com/api/view-Cart')
+        .then((res) => {
+          this.setState({
+            data: res.data.cartData.cart.cartlist,
+            total_price: res.data.cartData.cart.total_price,
+          });
+        })
+        .catch((e) => {
+          this.onToggleSnackBar();
+        })
+        .then(() => {
+          this.setState({isLoading: false});
+        });
+    }
+  };
+
+  componentDidMount() {
+    this.fetchAndUpdateData();
+  }
+
   render() {
     var header = (
       <View style={styles.uperContainer}>
-        <Text style={styles.subtotal}>Subtotal ( 1 item): ₹ 24,999.00</Text>
+        <Text style={styles.subtotal}>
+          SUBTOTAL : ₹ {this.state.total_price}
+        </Text>
         <Text style={styles.shipping}>
           ✓ Your order is eligible for FREE Delivery.
         </Text>
@@ -61,7 +129,7 @@ export default class MyCart extends Component {
       </View>
     );
     return (
-      <SafeAreaView style={{flex: 1}}>
+      <SafeAreaView style={{flex: 1, backgroundColor: color.white}}>
         <Appbar.Header style={{backgroundColor: color.MintyGreenMedium}}>
           <Appbar.Action
             icon="menu"
@@ -70,74 +138,118 @@ export default class MyCart extends Component {
               this.props.navigation.openDrawer();
             }}
           />
-          <Appbar.Content title="MyCart" />
-        </Appbar.Header>
-
-        <FlatList
-          ListHeaderComponent={header}
-          data={this.state.data}
-          renderItem={({item, index}) => (
-            <View
+          <View style={{flexDirection: 'row'}}>
+            <Appbar.Content title="MyCart" />
+            <Badge
               style={{
-                borderBottomColor: 'black',
-                borderBottomWidth: 1,
+                position: 'absolute',
+                marginStart: 85,
+                backgroundColor: color.BadgeColor,
               }}>
-              <View style={styles.itemDesc}>
-                <Image style={styles.item} source={item.src} />
-                <View style={styles.details}>
-                  <Text
-                    style={{
-                      marginBottom: 10,
-                      fontSize: 18,
-                      fontWeight: 'bold',
-                    }}>
-                    {item.desc}
-                  </Text>
-                  <Text style={styles.price}>{item.price}</Text>
-                  <Text style={styles.avl}>In stock</Text>
-                  <Text style={styles.eligibility}>
-                    Eligible for FREE Shipping.
-                  </Text>
+              {this.props.total_product}
+            </Badge>
+          </View>
+        </Appbar.Header>
+        <ActivityIndicator
+          animating={this.state.isLoading}
+          color={color.MintyGreenDark}
+          size="large"
+          style={styles.activityindicator}
+        />
+        {this.props.isLoggedIn ? (
+          <FlatList
+            ListHeaderComponent={header}
+            data={this.state.data}
+            renderItem={({item, index}) => (
+              <View
+                style={{
+                  borderBottomColor: 'black',
+                  borderBottomWidth: 1,
+                }}>
+                <View style={styles.itemDesc}>
+                  <Image
+                    style={styles.item}
+                    source={{uri: item.image}}
+                    resizeMode="contain"
+                  />
+                  <View style={styles.details}>
+                    <Text
+                      style={{
+                        marginBottom: 10,
+                        fontSize: 18,
+                        fontWeight: 'bold',
+                      }}>
+                      {item.short_desc}
+                    </Text>
+                    <Text style={styles.price}>{item.price}</Text>
+                    <Text style={styles.avl}>In stock</Text>
+                    <Text style={styles.eligibility}>
+                      Eligible for FREE Shipping.
+                    </Text>
+                  </View>
+                </View>
+                <View style={styles.btns}>
+                  <Button
+                    icon={'minus'}
+                    color="blue"
+                    style={styles.quantitybtn}
+                    onPress={() => {
+                      this.decrementProductCount(item.product_id);
+                    }}></Button>
+                  <Title style={{color: color.darkblue}}>{item.quantity}</Title>
+                  <Button
+                    icon={'plus'}
+                    color="blue"
+                    style={styles.quantitybtn}
+                    onPress={() => {
+                      this.incrementProductCount(item.product_id);
+                    }}></Button>
+                  <Button
+                    icon="delete"
+                    style={styles.delete}
+                    onPress={() =>
+                      console.log('Remove this item from Cart')
+                    }></Button>
                 </View>
               </View>
-              <View style={styles.btns}>
-                <Button
-                  icon={'minus'}
-                  color="blue"
-                  style={styles.quantitybtn}
-                  onPress={this.decreament}></Button>
-                <Title style={{color: color.darkblue}}>
-                  {this.state.count}
-                </Title>
-                <Button
-                  icon={'plus'}
-                  color="blue"
-                  style={styles.quantitybtn}
-                  onPress={this.increament}></Button>
-                <Button
-                  icon="delete"
-                  style={styles.delete}
-                  onPress={() =>
-                    console.log('Remove this item from Cart')
-                  }></Button>
-
-                <Button
-                  style={styles.save}
-                  onPress={() => console.log('Save this item for later')}>
-                  Save
-                </Button>
-              </View>
-            </View>
-          )}
-          keyExtractor={(item, index) => index.toString()}
-        />
+            )}
+            keyExtractor={(item, index) => index.toString()}
+          />
+        ) : (
+          <View
+            style={{alignItems: 'center', justifyContent: 'center', flex: 1}}>
+            <Text style={styles.shipping}>You are not LoggedIn !!!</Text>
+            <Button
+              mode="contained"
+              onPress={() => {
+                this.props.navigation.navigate('Login');
+              }}>
+              Go To Login
+            </Button>
+          </View>
+        )}
+        <View>
+          <Snackbar
+            visible={this.state.visible}
+            onDismiss={() => {
+              this.onDismissSnackBar();
+            }}
+            action={{
+              label: 'Retry',
+              onPress: () => {
+                this.fetchAndUpdateData();
+              },
+            }}>
+            Something Went Wrong !
+          </Snackbar>
+        </View>
       </SafeAreaView>
     );
   }
 }
 const styles = StyleSheet.create({
   uperContainer: {
-    padding: '5%',
+    paddingHorizontal: '5%',
     borderBottomColor: 'black',
     borderBottomWidth: 1,
   },
@@ -147,6 +259,7 @@ const styles = StyleSheet.create({
   },
   subtotal: {
     fontSize: 20,
+    fontWeight: 'bold',
     marginVertical: '2%',
   },
   shipping: {
@@ -166,9 +279,9 @@ const styles = StyleSheet.create({
     margin: '5%',
   },
   item: {
-    width: '30%',
-    height: 200,
-    marginTop: '2%',
+    width: null,
+    height: null,
+    flex: 1,
   },
   details: {
     marginHorizontal: '5%',
@@ -205,9 +318,26 @@ const styles = StyleSheet.create({
     width: '10%',
     marginHorizontal: '5%',
   },
-  save: {
-    backgroundColor: 'lightblue',
-    width: '20%',
-    marginHorizontal: '5%',
+  activityindicator: {
+    position: 'absolute',
+    alignSelf: 'center',
+    marginTop: 60,
   },
 });
+
+const mapStateToProps = (state) => {
+  return {
+    total_product: state.cartReducer.total_product,
+    isLoggedIn: state.LoginReducer.isLoggedIn,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    decrementCart: () => {
+      dispatch(decrementCart());
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MyCart);
