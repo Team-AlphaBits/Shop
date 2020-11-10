@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, Modal, TouchableHighlight} from 'react-native';
+import {StyleSheet, Text} from 'react-native';
 import {View} from 'react-native-animatable';
 import {ScrollView} from 'react-native-gesture-handler';
 import {
@@ -19,11 +19,7 @@ export default class Order extends Component {
       first: 'unchecked',
       second: 'unchecked',
       third: 'unchecked',
-      modalVisible: false,
     };
-  }
-  toggleModal(visible) {
-    this.setState({modalVisible: visible});
   }
   one = () => {
     this.setState({first: 'checked', second: 'unchecked', third: 'unchecked'});
@@ -140,36 +136,9 @@ export default class Order extends Component {
             </View>
             <Button
               style={styles.placeOrder}
-              onPress={() => {
-                this.toggleModal(true);
-              }}>
+              onPress={() => console.log('order placed successfully')}>
               Place order
             </Button>
-            <Modal
-              animationType={'slide'}
-              transparent={false}
-              visible={this.state.modalVisible}
-              presentationStyle={'formSheet'}
-              onRequestClose={() => {
-                console.log('Modal has been closed.');
-              }}>
-              <TouchableHighlight
-                onPress={() => {
-                  this.toggleModal(!this.state.modalVisible);
-                }}>
-                <View style={styles.modal}>
-                  <Text style={styles.text}>
-                    Your Order Placed Succesfully !
-                  </Text>
-                  <Text style={styles.text}>
-                    Your Order Placed Succesfully !
-                  </Text>
-                  <Text style={styles.text}>
-                    Your Order Placed Succesfully !
-                  </Text>
-                </View>
-              </TouchableHighlight>
-            </Modal>
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -218,21 +187,5 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     marginBottom: '5%',
-  },
-  container: {
-    alignItems: 'center',
-    backgroundColor: '#ede3f2',
-    padding: 100,
-  },
-  modal: {
-    flex: 1,
-    alignItems: 'center',
-    // backgroundColor: '#f7021a',
-    padding: 100,
-  },
-  text: {
-    color: '#3f2949',
-    marginTop: 10,
-    fontSize: 20,
   },
 });
