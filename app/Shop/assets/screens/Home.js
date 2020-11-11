@@ -160,7 +160,7 @@ class Home extends PureComponent {
 
   render() {
     return (
-      <SafeAreaView style={{flex: 1,backgroundColor:color.white}}>
+      <SafeAreaView style={{flex: 1, backgroundColor: color.white}}>
         <StatusBar
           backgroundColor={color.MintyGreenDark}
           barStyle="light-content"
@@ -211,115 +211,168 @@ class Home extends PureComponent {
           color={color.MintyGreenDark}
           size="large"
           style={styles.activityindicator}
-        />{this.state.mobile!=null?
-        <ScrollView style={{flex: 1}} nestedScrollEnabled>
-          <View style={styles.container}>
-            <ScrollView
-              pagingEnabled
-              horizontal
-              onScroll={this.change}
-              showsHorizontalScrollIndicator={false}
-              contentContainerStyle={{
-                width: this.state.carousal.length * 100 + '%',
-                height: 300,
-                flexGrow: 1,
-              }}>
-              {this.state.carousal.map((image, index) => (
-                <Image
-                  key={index}
-                  source={{uri: image.carousal_images}}
-                  style={styles.carimg}
-                  resizeMode="cover"
-                />
-              ))}
-            </ScrollView>
-            <View style={styles.pos}>
-              {this.state.carousal.map((i, k) => (
-                <Text
-                  key={k}
-                  style={
-                    k == this.state.active
-                      ? styles.indicatorActive
-                      : styles.indicator
-                  }>
-                  ⬤
-                </Text>
-              ))}
-            </View>
-          </View>
-          <View style={styles.imgslide}>
-            <Image
-              style={styles.standardimg}
-              source={{
-                uri:
-                  'https://images-eu.ssl-images-amazon.com/images/G/31/img16/vineet/Jupiter_GW-Editorial_1150x323_P3._CB418019451_.jpg',
-              }}
-            />
-          </View>
-          {this.state.bigMobileDisplay != null ? (
-            <View style={styles.mobliepar}>
-              <Text style={{fontSize: 20, fontWeight: 'bold'}}>
-                Blockbuster Deals on Mobiles :
-              </Text>
-              <View style={styles.mobilein}>
-                <Image
-                  style={styles.standardimg}
-                  resizeMode="contain"
-                  source={{
-                    uri: this.state.bigMobileDisplay.home_image,
-                  }}
-                />
-                <Text style={styles.mobtitle}>
-                  {this.state.bigMobileDisplay.title}
-                </Text>
-              </View>
-              <View style={styles.minimob}>
-                {this.state.mobilearr.map((image2, index) => (
-                  <Pressable
+        />
+        {this.state.mobile != null ? (
+          <ScrollView style={{flex: 1}} nestedScrollEnabled>
+            <View style={styles.container}>
+              <ScrollView
+                pagingEnabled
+                horizontal
+                onScroll={this.change}
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={{
+                  width: this.state.carousal.length * 100 + '%',
+                  height: 300,
+                  flexGrow: 1,
+                }}>
+                {this.state.carousal.map((image, index) => (
+                  <Image
                     key={index}
-                    style={{flex: 1}}
+                    source={{uri: image.carousal_images}}
+                    style={styles.carimg}
+                    resizeMode="cover"
+                  />
+                ))}
+              </ScrollView>
+              <View style={styles.pos}>
+                {this.state.carousal.map((i, k) => (
+                  <Text
+                    key={k}
+                    style={
+                      k == this.state.active
+                        ? styles.indicatorActive
+                        : styles.indicator
+                    }>
+                    ⬤
+                  </Text>
+                ))}
+              </View>
+            </View>
+            <View style={styles.imgslide}>
+              <Image
+                style={styles.standardimg}
+                source={{
+                  uri:
+                    'https://images-eu.ssl-images-amazon.com/images/G/31/img16/vineet/Jupiter_GW-Editorial_1150x323_P3._CB418019451_.jpg',
+                }}
+              />
+            </View>
+            {this.state.bigMobileDisplay != null ? (
+              <View style={styles.mobliepar}>
+                <Text style={{fontSize: 20, fontWeight: 'bold'}}>
+                  Blockbuster Deals on Mobiles :
+                </Text>
+                <View style={styles.mobilein}>
+                  <Image
+                    style={styles.standardimg}
+                    resizeMode="contain"
+                    source={{
+                      uri: this.state.bigMobileDisplay.home_image,
+                    }}
+                  />
+                  <Text style={styles.mobtitle}>
+                    {this.state.bigMobileDisplay.title}
+                  </Text>
+                </View>
+                <View style={styles.minimob}>
+                  {this.state.mobilearr.map((image2, index) => (
+                    <Pressable
+                      key={index}
+                      style={{flex: 1}}
+                      onPress={() => {
+                        this.props.navigation.navigate('Details', {
+                          data: image2._id,
+                        });
+                      }}>
+                      <View style={{flex: 1}}>
+                        <Image
+                          source={{uri: image2.home_image}}
+                          style={styles.img2}
+                          resizeMode="contain"
+                        />
+                      </View>
+                    </Pressable>
+                  ))}
+                </View>
+                <Pressable
+                  onPress={() => {
+                    this.props.navigation.navigate('Itemlist', {categoryid: 0});
+                  }}>
+                  <View style={styles.linkingPage}>
+                    <Text style={{color: color.MintyGreenMedium}}>
+                      Show All Deals{' '}
+                    </Text>
+                    <Icon
+                      name="arrow-right"
+                      size={20}
+                      color={color.MintyGreenMedium}
+                    />
+                  </View>
+                </Pressable>
+              </View>
+            ) : (
+              <View></View>
+            )}
+            {this.state.clothing != null ? (
+              <View>
+                <Text style={styles.clothsDeal}>
+                  Great deals on clothings upto 20-40% off :
+                </Text>
+                <View style={styles.clothsMain}>
+                  <View style={styles.clothsinner}>
+                    {this.state.clothing.slice(0, 4).map((item, index) => (
+                      <Pressable
+                        key={index}
+                        onPress={() => {
+                          this.props.navigation.navigate('Details', {
+                            data: item._id,
+                          });
+                        }}>
+                        <View style={styles.clothsimg}>
+                          <Image
+                            style={styles.standardimg}
+                            resizeMode="contain"
+                            source={{
+                              uri: item.home_image,
+                            }}
+                          />
+                          <Text style={styles.clothsTitle}>{item.title}</Text>
+                        </View>
+                      </Pressable>
+                    ))}
+                  </View>
+                  <Pressable
                     onPress={() => {
-                      this.props.navigation.navigate('Details', {
-                        data: image2._id,
+                      this.props.navigation.navigate('Itemlist', {
+                        categoryid: 2,
                       });
                     }}>
-                    <View style={{flex: 1}}>
-                      <Image
-                        source={{uri: image2.home_image}}
-                        style={styles.img2}
-                        resizeMode="contain"
+                    <View style={styles.linkingPage}>
+                      <Text style={{color: color.MintyGreenMedium}}>
+                        Show All Deals{' '}
+                      </Text>
+                      <Icon
+                        name="arrow-right"
+                        size={20}
+                        color={color.MintyGreenMedium}
                       />
                     </View>
                   </Pressable>
-                ))}
-              </View>
-              <Pressable
-                onPress={() => {
-                  this.props.navigation.navigate('Itemlist', {categoryid: 0});
-                }}>
-                <View style={styles.linkingPage}>
-                  <Text style={{color: color.MintyGreenMedium}}>
-                    Show All Deals{' '}
-                  </Text>
-                  <Icon
-                    name="arrow-right"
-                    size={20}
-                    color={color.MintyGreenMedium}
-                  />
                 </View>
-              </Pressable>
-            </View>
-          ) : (
-            <View></View>
-          )}
-          {this.state.clothing != null ? (
-            <View>
-              <Text style={styles.clothsDeal}>
-                Great deals on clothings upto 20-40% off :
+              </View>
+            ) : (
+              <View></View>
+            )}
+            <View style={styles.TopDeals}>
+              <Text style={styles.TopDealsText}>
+                Great Deals on Electronics
               </Text>
-              <View style={styles.clothsMain}>
-                <View style={styles.clothsinner}>
-                  {this.state.clothing.slice(0, 4).map((item, index) => (
+              <View style={styles.DealsMain}>
+                <FlatList
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  data={this.state.electronics}
+                  renderItem={({item, index}) => (
                     <Pressable
                       key={index}
                       onPress={() => {
@@ -327,22 +380,27 @@ class Home extends PureComponent {
                           data: item._id,
                         });
                       }}>
-                      <View style={styles.clothsimg}>
-                        <Image
-                          style={styles.standardimg}
-                          resizeMode="contain"
-                          source={{
-                            uri: item.home_image,
-                          }}
-                        />
-                        <Text style={styles.clothsTitle}>{item.title}</Text>
+                      <View style={styles.DealCard}>
+                        <View style={styles.DealImage}>
+                          <Image
+                            source={{
+                              uri: item.home_image,
+                            }}
+                            style={styles.standardimg}
+                            resizeMode="contain"
+                          />
+                        </View>
+                        <View style={styles.DealCardTextView}>
+                          <Text style={styles.DealCardText}>{item.title}</Text>
+                        </View>
                       </View>
                     </Pressable>
-                  ))}
-                </View>
+                  )}
+                  keyExtractor={(item, index) => index.toString()}
+                />
                 <Pressable
                   onPress={() => {
-                    this.props.navigation.navigate('Itemlist', {categoryid: 2});
+                    this.props.navigation.navigate('Itemlist', {categoryid: 1});
                   }}>
                   <View style={styles.linkingPage}>
                     <Text style={{color: color.MintyGreenMedium}}>
@@ -357,60 +415,10 @@ class Home extends PureComponent {
                 </Pressable>
               </View>
             </View>
-          ) : (
-            <View></View>
-          )}
-          <View style={styles.TopDeals}>
-            <Text style={styles.TopDealsText}>Great Deals on Electronics</Text>
-            <View style={styles.DealsMain}>
-              <FlatList
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                data={this.state.electronics}
-                renderItem={({item, index}) => (
-                  <Pressable
-                    key={index}
-                    onPress={() => {
-                      this.props.navigation.navigate('Details', {
-                        data: item._id,
-                      });
-                    }}>
-                    <View style={styles.DealCard}>
-                      <View style={styles.DealImage}>
-                        <Image
-                          source={{
-                            uri: item.home_image,
-                          }}
-                          style={styles.standardimg}
-                          resizeMode="contain"
-                        />
-                      </View>
-                      <View style={styles.DealCardTextView}>
-                        <Text style={styles.DealCardText}>{item.title}</Text>
-                      </View>
-                    </View>
-                  </Pressable>
-                )}
-                keyExtractor={(item, index) => index.toString()}
-              />
-              <Pressable
-                onPress={() => {
-                  this.props.navigation.navigate('Itemlist', {categoryid: 1});
-                }}>
-                <View style={styles.linkingPage}>
-                  <Text style={{color: color.MintyGreenMedium}}>
-                    Show All Deals{' '}
-                  </Text>
-                  <Icon
-                    name="arrow-right"
-                    size={20}
-                    color={color.MintyGreenMedium}
-                  />
-                </View>
-              </Pressable>
-            </View>
-          </View>
-        </ScrollView>:<View></View>}
+          </ScrollView>
+        ) : (
+          <View></View>
+        )}
         <View>
           <Snackbar
             visible={this.state.visible}
