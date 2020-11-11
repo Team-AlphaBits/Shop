@@ -73,10 +73,12 @@ class DrawerContent extends Component {
       <SafeAreaView style={{flex: 1}}>
         <LinearGradient
           colors={[
-            color.MintyGreenLightest,
-            color.MintyGreenLightest,
-            color.MintyGreenLightest,
             color.MintyGreenDark,
+            color.MintyGreenLight,
+            color.MintyGreenLight,
+            color.MintyGreenLight,
+            color.MintyGreenLight,
+            color.MintyGreenLight,
           ]}
           style={{flex: 1}}>
           <DrawerContentScrollView>
