@@ -40,6 +40,7 @@ class Details extends Component {
         __v: '',
       },
       visible: false,
+      description_splited: null,
       isLoading: false,
       showdescription: false,
       active: 0,
@@ -123,7 +124,10 @@ class Details extends Component {
     axios
       .get('https://calm-garden-34154.herokuapp.com/api/product/' + productId)
       .then((res) => {
-        this.setState({dataSource: res.data.productData});
+        this.setState({
+          dataSource: res.data.productData,
+          description_splited: res.data.productData.description.split('.'),
+        });
       })
       .catch((error) => {
         this.onToggleSnackBar();
@@ -234,6 +238,7 @@ class Details extends Component {
               <Text style={styles.sellerinfo}>
                 Seller : {details.seller_name}
               </Text>
+              {this.state.description_splited!=null?
               <View
                 style={{
                   margin: '3%',
@@ -243,11 +248,17 @@ class Details extends Component {
                   borderRadius: 8,
                 }}>
                 <Title>Description</Title>
-                <Paragraph>
-                  {this.state.showdescription
-                    ? details.description
-                    : details.description.substring(0, 50) + '...'}
+                {this.state.showdescription==true?
+                this.state.description_splited.map((item,index)=>(
+                  <Paragraph key={index}>{item}
                 </Paragraph>
+                )):
+                this.state.description_splited.slice(0,1).map((item,index)=>(
+                  <Paragraph key={index}>
+                  {item.substring(0, 20) + '...'}
+                </Paragraph>
+                ))
+                  }
                 <Text
                   style={{fontWeight: 'bold', color: color.lightblue}}
                   onPress={() => {
@@ -259,7 +270,7 @@ class Details extends Component {
                   }}>
                   {this.state.showdescription ? 'Show less' : 'Show More'}
                 </Text>
-              </View>
+              </View>:<View></View>}
             </View>
           </ScrollView>
           {this.props.isLoggedIn ? (
