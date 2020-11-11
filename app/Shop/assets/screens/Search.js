@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, SafeAreaView, Button} from 'react-native';
+import {View, SafeAreaView, Button,Image} from 'react-native';
 
 import color from '../colors/colors';
 import {Appbar, Searchbar} from 'react-native-paper';
@@ -47,13 +47,20 @@ export default class Search extends Component {
             value={this.state.searchquery}
           />
         </Appbar.Header>
-        <View>
+        <View style={{flex:1}}>
           <Button
             title="Print"
             onPress={() => {
               this.RetriveCredentialAndLogin();
             }}
           />
+          <Image
+        style={{flex:1}}
+        source={{
+          uri: 'https://cdn.dribbble.com/users/1283437/screenshots/4486866/checkbox-dribbble-looped-landing.gif',
+        }}
+        resizeMode='contain'
+      />
         </View>
       </SafeAreaView>
     );
