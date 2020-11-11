@@ -11,7 +11,7 @@ import {
 import {Button, Appbar, Title, Badge, Snackbar} from 'react-native-paper';
 import {connect} from 'react-redux';
 import axios from 'axios';
-import {decrementCart} from '../Redux/index';
+import {decrementCart, initializeCart} from '../Redux/index';
 import color from '../colors/colors';
 
 class MyCart extends Component {
@@ -91,6 +91,7 @@ class MyCart extends Component {
       axios
         .get('https://calm-garden-34154.herokuapp.com/api/view-Cart')
         .then((res) => {
+          this.props.initializeCart(res.data.cartData.cart.total_product);
           this.setState({
             data: res.data.cartData.cart.cartlist,
             total_price: res.data.cartData.cart.total_price,
@@ -352,6 +353,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     decrementCart: () => {
       dispatch(decrementCart());
+    },
+    initializeCart: (params) => {
+      dispatch(initializeCart(params));
     },
   };
 };

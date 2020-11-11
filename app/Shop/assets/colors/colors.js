@@ -13,6 +13,7 @@ export default {
   MintyGreenDark: '#009387',
   MintyGreenLight: '#08d4c4',
   MintyGreenMedium: '#01ab9d',
+  MintyGreenLightest:'#80ffdb',
   burntyellow: '#E6BF7B',
   fadedblue: '#00CCCC',
   darkgrey: '#666666',

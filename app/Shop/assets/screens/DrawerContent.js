@@ -39,16 +39,17 @@ class DrawerContent extends Component {
         />
       );
       gotologin = (
-        <View>
-          <Title style={{color: color.darkblue}}>{this.props.username}</Title>
-          <Pressable
-            style={{flexDirection: 'row'}}
-            onPress={() => {
-              console.log('Going to profile');
-            }}>
-            <Text style={{color: color.darkblue}}>Open Profile</Text>
-            <Icon name="open-in-new" size={20} color={color.darkblue} />
-          </Pressable>
+        <View
+          style={{
+            flexWrap: 'wrap',
+            alignItems: 'flex-start',
+            width: 150,
+            flexDirection: 'row',
+          }}>
+          <Title style={{color: color.darkblue, fontSize: 20}}>Welcome, </Title>
+          <Title style={{color: color.darkblue, fontSize: 20}}>
+            {this.props.username}
+          </Title>
         </View>
       );
 
@@ -71,7 +72,12 @@ class DrawerContent extends Component {
     return (
       <SafeAreaView style={{flex: 1}}>
         <LinearGradient
-          colors={['#caf0f8', '#caf0f8', '#48cae4', '#0096c7']}
+          colors={[
+            color.MintyGreenLightest,
+            color.MintyGreenLightest,
+            color.MintyGreenLightest,
+            color.MintyGreenDark,
+          ]}
           style={{flex: 1}}>
           <DrawerContentScrollView>
             <View style={style.userinfo}>
@@ -86,6 +92,7 @@ class DrawerContent extends Component {
                     <Icon name="home" color={color.darkblue} size={30} />
                   )}
                   label="Home"
+                  labelStyle={{fontWeight: 'bold', color: color.darkblue}}
                   onPress={() => {
                     this.props.navigation.navigate('Home');
                   }}
@@ -95,6 +102,7 @@ class DrawerContent extends Component {
                     <Icon name="view-grid" color={color.darkblue} size={30} />
                   )}
                   label="Products"
+                  labelStyle={{fontWeight: 'bold', color: color.darkblue}}
                   onPress={() => {
                     this.props.navigation.navigate('Products');
                   }}
@@ -104,6 +112,7 @@ class DrawerContent extends Component {
                     <Icon name="cart" color={color.darkblue} size={30} />
                   )}
                   label="MyCart"
+                  labelStyle={{fontWeight: 'bold', color: color.darkblue}}
                   onPress={() => {
                     this.props.navigation.navigate('MyCart');
                   }}

@@ -160,7 +160,7 @@ class Home extends PureComponent {
 
   render() {
     return (
-      <SafeAreaView style={{flex: 1}}>
+      <SafeAreaView style={{flex: 1,backgroundColor:color.white}}>
         <StatusBar
           backgroundColor={color.MintyGreenDark}
           barStyle="light-content"
