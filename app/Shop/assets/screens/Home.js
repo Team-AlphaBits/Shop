@@ -211,7 +211,7 @@ class Home extends PureComponent {
           color={color.MintyGreenDark}
           size="large"
           style={styles.activityindicator}
-        />
+        />{this.state.mobile!=null?
         <ScrollView style={{flex: 1}} nestedScrollEnabled>
           <View style={styles.container}>
             <ScrollView
@@ -410,7 +410,7 @@ class Home extends PureComponent {
               </Pressable>
             </View>
           </View>
-        </ScrollView>
+        </ScrollView>:<View></View>}
         <View>
           <Snackbar
             visible={this.state.visible}
