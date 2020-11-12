@@ -128,7 +128,7 @@ export default class Itemlist extends Component {
   render() {
     var categorytype = this.setCategorytpe();
     return (
-      <SafeAreaView style={{flex: 1}}>
+      <SafeAreaView style={{flex: 1, backgroundColor: color.white}}>
         <Appbar.Header style={{backgroundColor: color.MintyGreenMedium}}>
           <Appbar.BackAction
             onPress={() => {
@@ -147,14 +147,7 @@ export default class Itemlist extends Component {
             data={this.state.dataSource}
             renderItem={({item, index}) => (
               <Pressable
-                style={{
-                  width: 160,
-                  height: 260,
-                  marginVertical: '3%',
-                  marginHorizontal: 10,
-                  backgroundColor: color.white,
-                  elevation: 4,
-                }}
+                style={styles.outerContainer}
                 onPress={() => {
                   this.props.navigation.navigate('Details', {
                     data: item._id,
@@ -229,5 +222,13 @@ const styles = StyleSheet.create({
   },
   itemcontainer: {
     flex: 1,
+  },
+  outerContainer: {
+    width: 160,
+    height: 260,
+    marginVertical: '3%',
+    marginHorizontal: 10,
+    backgroundColor: color.white,
+    elevation: 10,
   },
 });

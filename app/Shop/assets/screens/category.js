@@ -54,7 +54,7 @@ class products extends Component {
 
   render() {
     return (
-      <SafeAreaView style={{flex: 1}}>
+      <SafeAreaView style={{flex: 1, backgroundColor: color.white}}>
         <Appbar.Header style={{backgroundColor: color.MintyGreenMedium}}>
           <Appbar.Action
             icon="menu"
@@ -85,12 +85,7 @@ class products extends Component {
             data={this.state.data}
             renderItem={({item, index}) => (
               <Pressable
-                style={{
-                  width: 160,
-                  height: 160,
-                  marginVertical: '3%',
-                  marginHorizontal: 10,
-                }}
+                style={style.outerContainer}
                 onPress={() => {
                   this.props.navigation.navigate('Itemlist', {
                     categoryid: index,
@@ -124,7 +119,13 @@ const style = StyleSheet.create({
   card: {
     width: '100%',
     height: '100%',
-    elevation: 4,
+    elevation: 10,
+  },
+  outerContainer: {
+    width: 160,
+    height: 160,
+    marginVertical: '3%',
+    marginHorizontal: 10,
   },
 });
 
