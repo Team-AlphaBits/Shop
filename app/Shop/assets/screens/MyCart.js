@@ -12,6 +12,7 @@ import {Button, Appbar, Title, Badge, Snackbar} from 'react-native-paper';
 import {connect} from 'react-redux';
 import axios from 'axios';
 import {decrementCart, initializeCart} from '../Redux/index';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import color from '../colors/colors';
 
 class MyCart extends Component {
@@ -174,64 +175,73 @@ class MyCart extends Component {
           style={styles.activityindicator}
         />
         {this.props.isLoggedIn ? (
-          <FlatList
-            ListHeaderComponent={header}
-            data={this.state.data}
-            renderItem={({item, index}) => (
-              <View
-                style={{
-                  borderBottomColor: 'black',
-                  borderBottomWidth: 1,
-                }}>
-                <View style={styles.itemDesc}>
-                  <Image
-                    style={styles.item}
-                    source={{uri: item.image}}
-                    resizeMode="contain"
-                  />
-                  <View style={styles.details}>
-                    <Text
-                      style={{
-                        marginBottom: 10,
-                        fontSize: 18,
-                        fontWeight: 'bold',
-                      }}>
-                      {item.short_desc}
-                    </Text>
-                    <Text style={styles.price}>{item.price}</Text>
-                    <Text style={styles.avl}>In stock</Text>
-                    <Text style={styles.eligibility}>
-                      Eligible for FREE Shipping.
-                    </Text>
+          this.props.total_product != 0 ? (
+            <FlatList
+              ListHeaderComponent={header}
+              data={this.state.data}
+              renderItem={({item, index}) => (
+                <View
+                  style={{
+                    borderBottomColor: 'black',
+                    borderBottomWidth: 1,
+                  }}>
+                  <View style={styles.itemDesc}>
+                    <Image
+                      style={styles.item}
+                      source={{uri: item.image}}
+                      resizeMode="contain"
+                    />
+                    <View style={styles.details}>
+                      <Text
+                        style={{
+                          marginBottom: 10,
+                          fontSize: 18,
+                          fontWeight: 'bold',
+                        }}>
+                        {item.short_desc}
+                      </Text>
+                      <Text style={styles.price}>{item.price}</Text>
+                      <Text style={styles.avl}>In stock</Text>
+                      <Text style={styles.eligibility}>
+                        Eligible for FREE Shipping.
+                      </Text>
+                    </View>
+                  </View>
+                  <View style={styles.btns}>
+                    <Button
+                      icon={'minus'}
+                      color="blue"
+                      style={styles.quantitybtn}
+                      onPress={() => {
+                        this.decrementProductCount(item.product_id);
+                      }}></Button>
+                    <Title style={{color: color.darkblue}}>
+                      {item.quantity}
+                    </Title>
+                    <Button
+                      icon={'plus'}
+                      color="blue"
+                      style={styles.quantitybtn}
+                      onPress={() => {
+                        this.incrementProductCount(item.product_id);
+                      }}></Button>
+                    <Button
+                      icon="delete"
+                      style={styles.delete}
+                      onPress={() =>
+                        this.removeProduct(item.product_id)
+                      }></Button>
                   </View>
                 </View>
-                <View style={styles.btns}>
-                  <Button
-                    icon={'minus'}
-                    color="blue"
-                    style={styles.quantitybtn}
-                    onPress={() => {
-                      this.decrementProductCount(item.product_id);
-                    }}></Button>
-                  <Title style={{color: color.darkblue}}>{item.quantity}</Title>
-                  <Button
-                    icon={'plus'}
-                    color="blue"
-                    style={styles.quantitybtn}
-                    onPress={() => {
-                      this.incrementProductCount(item.product_id);
-                    }}></Button>
-                  <Button
-                    icon="delete"
-                    style={styles.delete}
-                    onPress={() =>
-                      this.removeProduct(item.product_id)
-                    }></Button>
-                </View>
-              </View>
-            )}
-            keyExtractor={(item, index) => index.toString()}
-          />
+              )}
+              keyExtractor={(item, index) => index.toString()}
+            />
+          ) : (
+            <View style={{flex:1,alignItems:'center',justifyContent:'center'}}>
+                <Icon name='cart-plus' size={150} color={color.MintyGreenDark}/>
+                <Text style={{color:color.MintyGreenDark,fontWeight:'bold'}}>Your Cart is Empty !!!</Text>
+            </View>
+          )
         ) : (
           <View
             style={{alignItems: 'center', justifyContent: 'center', flex: 1}}>

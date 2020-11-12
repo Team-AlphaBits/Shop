@@ -8,6 +8,7 @@ const InitialState = {
     detail: null,
     catData: null,
     desArr: null,
+    resultData: null
 }
 const signupSuccess = (state,action) =>{
     return{
@@ -42,6 +43,12 @@ const getBYcatId = (state,action) =>{
         catData: action.data
     }
 }
+const getBysearch = (state,action) =>{
+    return{
+        ...state,
+        resultData: action.data
+    }
+}
 const reducer = (state = InitialState, action) =>{
     switch(action.type){
          
@@ -50,6 +57,7 @@ const reducer = (state = InitialState, action) =>{
         case(actionTypes.DATASUCCESS): return dataFetched(state,action);
         case(actionTypes.GETBYID): return getBYid(state,action);
         case(actionTypes.GETBYCATID): return getBYcatId(state,action);
+        case(actionTypes.getBYSearch): return getBysearch(state,action);
         default: return state;
     }
 }

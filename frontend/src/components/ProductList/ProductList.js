@@ -14,6 +14,10 @@ class ProductList extends Component {
       search: "?" + id,
     });
   };
+  state = {
+    particular: false,
+  };
+
   render() {
     console.log(this.props.Data);
     let cards = [];

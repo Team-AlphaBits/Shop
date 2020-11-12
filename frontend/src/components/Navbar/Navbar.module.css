@@ -13,13 +13,14 @@
   box-shadow: none;
   /* margin-top: 56px; */
 }
+.h4 {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
 .nav1 {
   background-color: #08d4c4;
   box-shadow: none;
-}
-.icon {
-  /* margin-left: 400px; */
-  text-align: right;
 }
 .nav1child {
   width: 40rem;

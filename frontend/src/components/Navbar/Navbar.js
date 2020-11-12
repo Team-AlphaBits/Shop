@@ -15,14 +15,15 @@ import {
 } from "mdbreact";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import Badges from "../Badge/Badges";
-
 import classes from "./Navbar.module.css";
+import * as actions from "../../Store/Action/index";
+import Badges from "../Badge/Badges";
 // import Dicon from '../SideDrawer/DrawerIcon/DrawerIcon'
 
 class NavbarPage extends Component {
   state = {
     isOpen: false,
+    Input: "",
   };
   changeUrl = (cat_id) => {
     this.props.history.push({
@@ -31,7 +32,31 @@ class NavbarPage extends Component {
       search: "?" + cat_id,
     });
   };
+  InputChangeHandler = (event) => {
+    this.setState({
+      Input: event.target.value,
+    });
+  };
+  searchResult = (event) => {
+    event.preventDefault();
+    this.props.getResult(this.state.Input);
+  };
+  //onSubmit={() => this.props.getResult(this.state.Input)}
   render() {
+    console.log(this.props.search);
+    let filterArr = [];
+    const options = [];
+    if (this.props.opt) {
+      filterArr = this.props.opt.filter((ele) => {
+        return ele
+          .toLowerCase()
+          .replace(/\s+/g, "")
+          .includes(this.state.Input.toLowerCase().replace(/\s+/g, ""));
+      });
+      for (let i = 0; i < 5 && i < filterArr.length; i++) {
+        options.push(<option value={filterArr[i]}></option>);
+      }
+    }
     let activeHome = false,
       activeDeal = false,
       activeGift = false,
@@ -68,12 +93,19 @@ class NavbarPage extends Component {
         <MDBNavbarNav className={classes.set1}>
           <h3 style={{ color: "white" }}>Hello User</h3>
           <MDBCol md="6" className={classes.set2}>
-            <input
-              className="form-control"
-              type="text"
-              placeholder="Search"
-              aria-label="Search"
-            />
+            <form onSubmit={this.searchResult}>
+              <input
+                className="form-control"
+                type="text"
+                value={this.state.Input}
+                onChange={this.InputChangeHandler}
+                placeholder="Search"
+                aria-label="Search"
+                list="show"
+              />
+              <datalist id="show">{options}</datalist>
+              <button style={{ display: "none" }} type="submit"></button>
+            </form>
           </MDBCol>
           <MDBNavItem active={activeLogin}>
             <MDBNavLink to="/Cart" className={classes.icon}>
@@ -107,28 +139,28 @@ class NavbarPage extends Component {
                   <span className="mr-2">Categories</span>
                 </MDBDropdownToggle>
                 <MDBDropdownMenu>
-                  <MDBDropdownItem href="/ProductList/Electronics">
+                  <MDBDropdownItem href="/ProductList/Electronics/true">
                     Electronics
                   </MDBDropdownItem>
-                  <MDBDropdownItem href="/ProductList/Clothings">
+                  <MDBDropdownItem href="/ProductList/Clothings/true">
                     Clothing
                   </MDBDropdownItem>
-                  <MDBDropdownItem href="/ProductList/Video_Games">
+                  <MDBDropdownItem href="/ProductList/Video_Games/true">
                     Games
                   </MDBDropdownItem>
-                  <MDBDropdownItem href="/ProductList/Books">
+                  <MDBDropdownItem href="/ProductList/Books/true">
                     Books
                   </MDBDropdownItem>
-                  <MDBDropdownItem href="/ProductList/Sports">
+                  <MDBDropdownItem href="/ProductList/Sports/true">
                     Sports
                   </MDBDropdownItem>
-                  <MDBDropdownItem href="/ProductList/Computer&peripheral">
+                  <MDBDropdownItem href="/ProductList/Computer&peripheral/true">
                     Computers & Accessories
                   </MDBDropdownItem>
-                  <MDBDropdownItem href="/ProductList/Mobiles">
+                  <MDBDropdownItem href="/ProductList/Mobiles/true">
                     Mobiles
                   </MDBDropdownItem>
-                  <MDBDropdownItem href="/ProductList/Decoration">
+                  <MDBDropdownItem href="/ProductList/Decoration/true">
                     Decoration
                   </MDBDropdownItem>
                 </MDBDropdownMenu>
@@ -155,6 +187,18 @@ class NavbarPage extends Component {
 const mapStateToProps = (state) => {
   return {
     isAuth: state.signuped,
+    opt: state.Login.desArr,
+    search: state.Login.resultData,
   };
 };
-export default connect(mapStateToProps)(withRouter(NavbarPage));
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getResult: (des) => {
+      dispatch(actions.getSearch(des));
+    },
+  };
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(NavbarPage));

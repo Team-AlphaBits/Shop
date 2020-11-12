@@ -26,6 +26,36 @@ export const detailData = (data) =>{
         data: data
     }
 }
+export const addTocartSuccess =() =>{
+    return{
+        type: actionTypes.ADDTOCART
+    }
+}
+export const addTocart = (id) =>{
+    return dispatch=>{
+        Axios.post("https://calm-garden-34154.herokuapp.com/api/add-to-cart/"+id)
+             .then(data =>{
+                 console.log(data)
+             })
+             .catch(err => console.log(err))
+    }
+}
+export const afterSearch = (data) =>{
+    return {
+        type: actionTypes.getBYSearch,
+        data: data
+    }
+}
+export const getSearch =(des) =>{
+    return dispatch=>{
+        // const queryParam = '?des='
+        Axios.get("https://calm-garden-34154.herokuapp.com/api/getSearchResults?query="+des)
+             .then(res =>{
+                dispatch(afterSearch(res))
+             })
+             .catch(err => console.log(err))
+    }
+}
 export const catData = (data) =>{
     return {
         type: actionTypes.GETBYCATID,
@@ -35,7 +65,7 @@ export const catData = (data) =>{
 export const getData = () =>{
     let desArr;
     return dispatch =>{
-        Axios.get("https://cors-anywhere.herokuapp.com/https://calm-garden-34154.herokuapp.com/api/home")
+        Axios.get("https://calm-garden-34154.herokuapp.com/api/home")
              .then(data =>{
                  desArr = data.data.productData.map(prod => {
                       return prod.short_desc
@@ -47,7 +77,7 @@ export const getData = () =>{
 }
 export const getById = (id) =>{
     return dispatch =>{
-        Axios.get("https://cors-anywhere.herokuapp.com/https://calm-garden-34154.herokuapp.com/api/product/" + id)
+        Axios.get("https://calm-garden-34154.herokuapp.com/api/product/" + id)
              .then(data =>{
                  dispatch(detailData(data.data))
              })
@@ -56,7 +86,7 @@ export const getById = (id) =>{
 }
 export const getBycatId = (id) =>{
     return dispatch =>{
-        Axios.get("https://cors-anywhere.herokuapp.com/https://calm-garden-34154.herokuapp.com/api/category/" + id)
+        Axios.get("https://calm-garden-34154.herokuapp.com/api/category/" + id)
              .then(data =>{
                  dispatch(catData(data.data))
              })
@@ -71,7 +101,7 @@ export const Signup = (username, email, password) =>{
             password: password
         }
         console.log(userData)
-        Axios.post("https://cors-anywhere.herokuapp.com/https://calm-garden-34154.herokuapp.com/api/register",userData)
+        Axios.post("https://calm-garden-34154.herokuapp.com/api/register",userData)
              .then(res =>{
                  console.log(res);
                  dispatch(signupSuccess())
