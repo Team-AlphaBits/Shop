@@ -5,11 +5,11 @@ import {
   TextInput,
   Platform,
   StyleSheet,
-  ScrollView,
   SafeAreaView,
   Image,
   Pressable,
   ActivityIndicator,
+  Dimensions,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import {Snackbar} from 'react-native-paper';
@@ -31,6 +31,14 @@ class Login extends Component {
       password: '',
       visible: false,
       isLoading: false,
+      buttonFlexDirection:
+        Dimensions.get('window').height >= Dimensions.get('window').width
+          ? 'column'
+          : 'row',
+      buttonWidth:
+        Dimensions.get('window').height >= Dimensions.get('window').width
+          ? '100%'
+          : '50%',
     };
   }
 
@@ -78,6 +86,23 @@ class Login extends Component {
       this.onToggleSnackBar();
     }
   };
+
+  onChange = ({window, screen}) => {
+    if (window.height >= window.width) {
+      this.setState({buttonFlexDirection: 'column', buttonWidth: '100%'});
+    } else {
+      this.setState({buttonFlexDirection: 'row', buttonWidth: '50%'});
+    }
+  };
+
+  componentDidMount() {
+    Dimensions.addEventListener('change', this.onChange);
+  }
+
+  componentWillUnmount() {
+    Dimensions.removeEventListener('change', this.onChange);
+  }
+
   render() {
     const {colors} = this.props.theme;
     return (
@@ -88,14 +113,20 @@ class Login extends Component {
           size="large"
           style={styles.activityindicator}
         />
-        <ScrollView style={{flex: 1, marginHorizontal: 10}}>
-          <View style={styles.logostyle}>
-            <Image
-              source={require('../images/redicon.png')}
-              style={styles.img}
-              resizeMode="contain"
-            />
-          </View>
+        <View style={styles.logostyle}>
+          <Image
+            source={require('../images/redicon.png')}
+            style={styles.img}
+            resizeMode="contain"
+          />
+        </View>
+
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'flex-end',
+            marginHorizontal: 10,
+          }}>
           <View style={styles.header}>
             <Text style={styles.text_header}>Welcome!</Text>
           </View>
@@ -156,15 +187,19 @@ class Login extends Component {
                 value={this.state.password}
               />
             </View>
-            <View style={styles.button}>
+            <View
+              style={[
+                styles.button,
+                {flexDirection: this.state.buttonFlexDirection},
+              ]}>
               <Pressable
-                style={styles.signIn}
+                style={[styles.signIn,{width:this.state.buttonWidth}]}
                 onPress={() => {
                   this.loginFunction();
                 }}>
                 <LinearGradient
                   colors={[color.MintyGreenLight, color.MintyGreenMedium]}
-                  style={styles.signIn}>
+                  style={[styles.signIn,{width:'100%'}]}>
                   <Text
                     style={[
                       styles.textSign,
@@ -184,7 +219,7 @@ class Login extends Component {
                   {
                     borderColor: color.MintyGreenDark,
                     borderWidth: 1,
-                    marginTop: '5%',
+                    width:this.state.buttonWidth
                   },
                 ]}>
                 <Text
@@ -199,7 +234,7 @@ class Login extends Component {
               </Pressable>
             </View>
           </Animatable.View>
-        </ScrollView>
+        </View>
         <View>
           <Snackbar
             visible={this.state.visible}
@@ -222,20 +257,16 @@ class Login extends Component {
 
 const styles = StyleSheet.create({
   header: {
-    flex: 1,
     marginStart: 20,
-    paddingBottom: 5,
-    paddingTop: 5,
+    marginBottom: 5,
   },
   footer: {
-    flex: 1,
-    backgroundColor: color.white,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
+    backgroundColor: color.white,
     paddingHorizontal: 20,
-    paddingTop: 40,
-    height: 585,
-    marginTop: '5%',
+    paddingTop: 30,
+    paddingBottom: 10,
   },
   text_header: {
     color: color.white,
@@ -250,7 +281,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderBottomWidth: 1,
     borderBottomColor: '#f2f2f2',
-    paddingVertical: 10,
+    paddingTop: 5,
   },
 
   textInput: {
@@ -260,14 +291,14 @@ const styles = StyleSheet.create({
     color: '#05375a',
   },
   button: {
-    alignItems: 'center',
     marginTop: 10,
   },
   signIn: {
-    width: '100%',
-    height: 50,
+    height: 40,
     justifyContent: 'center',
     alignItems: 'center',
+    marginVertical:5,
+    marginHorizontal:5,
     borderRadius: 10,
   },
   textSign: {
@@ -281,8 +312,7 @@ const styles = StyleSheet.create({
   },
   logostyle: {
     width: '100%',
-    height: '30%',
-    marginTop: 60,
+    height: '29%',
   },
   activityindicator: {
     position: 'absolute',
