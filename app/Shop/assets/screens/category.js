@@ -79,12 +79,18 @@ class products extends Component {
             </Badge>
           </View>
         </Appbar.Header>
-        <View style={{marginStart: 5, marginBottom: 60}}>
+        <View style={{marginBottom: 60, alignItems: 'center'}}>
           <FlatList
             key={this.state.columnno}
             data={this.state.data}
             renderItem={({item, index}) => (
               <Pressable
+                style={{
+                  width: 160,
+                  height: 160,
+                  marginVertical: '3%',
+                  marginHorizontal: 10,
+                }}
                 onPress={() => {
                   this.props.navigation.navigate('Itemlist', {
                     categoryid: index,
@@ -92,8 +98,10 @@ class products extends Component {
                 }}>
                 <Surface style={style.card}>
                   <Image source={item.path} style={style.image} />
-                  <View style={{alignItems: 'center'}}>
-                    <Text style={{fontWeight: 'bold'}}>{item.name}</Text>
+                  <View>
+                    <Text style={{fontWeight: 'bold', textAlign: 'center'}}>
+                      {item.name}
+                    </Text>
                   </View>
                 </Surface>
               </Pressable>
@@ -114,11 +122,9 @@ const style = StyleSheet.create({
     flex: 1,
   },
   card: {
-    width: 170,
-    height: 170,
+    width: '100%',
+    height: '100%',
     elevation: 4,
-    marginVertical: '5%',
-    marginHorizontal: '5%',
   },
 });
 
