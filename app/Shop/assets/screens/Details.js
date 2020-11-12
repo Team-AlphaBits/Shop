@@ -9,22 +9,20 @@ import {
   ActivityIndicator,
 } from 'react-native';
 
-<<<<<<< HEAD
 import {
   Button,
   Title,
   Paragraph,
   Appbar,
   Snackbar,
-  ActivityIndicator,
+  Badge,
 } from 'react-native-paper';
-=======
-import {Button, Title, Paragraph, Appbar, Snackbar} from 'react-native-paper';
->>>>>>> origin/master
 import axios from 'axios';
+import {connect} from 'react-redux';
+import {incrementCart} from '../Redux/index';
 import color from '../colors/colors';
 
-export default class Details extends Component {
+class Details extends Component {
   constructor() {
     super();
     this.state = {
@@ -42,26 +40,10 @@ export default class Details extends Component {
         __v: '',
       },
       visible: false,
+      description_splited: null,
       isLoading: false,
       showdescription: false,
-<<<<<<< HEAD
-<<<<<<< HEAD
-    };
-  }
-
-  state = {
-    active: 0,
-  };
-
-  unsubscribe_function = {
-    unsubscribe: null,
-  };
-
-=======
-      active:0
-=======
       active: 0,
->>>>>>> origin/master
     };
   }
 
@@ -69,7 +51,6 @@ export default class Details extends Component {
     unsubscribe: null,
   };
 
->>>>>>> origin/master
   change = ({nativeEvent}) => {
     const slide = Math.ceil(
       nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width,
@@ -85,6 +66,41 @@ export default class Details extends Component {
 
   onDismissSnackBar = () => {
     this.setState({visible: false});
+  };
+
+  buyNow = (productid) => {
+    this.setState({isLoading: true});
+    axios
+      .put(
+        'https://calm-garden-34154.herokuapp.com/api/add-to-cart/' + productid,
+      )
+      .then((res) => {
+        this.props.incrementCart();
+        this.props.navigation.navigate('MyCart');
+      })
+      .catch((e) => {
+        this.onToggleSnackBar();
+      })
+      .then(() => {
+        this.setState({isLoading: false});
+      });
+  };
+
+  addToCart = (productid) => {
+    this.setState({isLoading: true});
+    axios
+      .put(
+        'https://calm-garden-34154.herokuapp.com/api/add-to-cart/' + productid,
+      )
+      .then((res) => {
+        this.props.incrementCart();
+      })
+      .catch((e) => {
+        this.onToggleSnackBar();
+      })
+      .then(() => {
+        this.setState({isLoading: false});
+      });
   };
 
   fetchandupdatedata = () => {
@@ -108,14 +124,13 @@ export default class Details extends Component {
     axios
       .get('https://calm-garden-34154.herokuapp.com/api/product/' + productId)
       .then((res) => {
-        this.setState({dataSource: res.data.productData});
+        this.setState({
+          dataSource: res.data.productData,
+          description_splited: res.data.productData.description.split('.'),
+        });
       })
       .catch((error) => {
         this.onToggleSnackBar();
-<<<<<<< HEAD
-        console.log(error);
-=======
->>>>>>> origin/master
       })
       .then(() => {
         this.setState({isLoading: false});
@@ -148,13 +163,21 @@ export default class Details extends Component {
               this.props.navigation.navigate('Itemlist');
             }}
           />
-          <Appbar.Content
-            title={
-              details.title.length > 35
-                ? details.title.substring(0, 35 - 3) + '...'
-                : details.title
-            }
-          />
+          <Appbar.Content title={details.title} />
+          <View>
+            <Appbar.Action
+              icon="cart"
+              color={color.white}
+              size={30}
+              onPress={() => {
+                this.props.navigation.navigate('MyCart');
+              }}
+            />
+            <Badge
+              style={{position: 'absolute', backgroundColor: color.BadgeColor}}>
+              {this.props.total_product}
+            </Badge>
+          </View>
         </Appbar.Header>
         <ActivityIndicator
           animating={this.state.isLoading}
@@ -215,6 +238,7 @@ export default class Details extends Component {
               <Text style={styles.sellerinfo}>
                 Seller : {details.seller_name}
               </Text>
+              {this.state.description_splited!=null?
               <View
                 style={{
                   margin: '3%',
@@ -224,11 +248,17 @@ export default class Details extends Component {
                   borderRadius: 8,
                 }}>
                 <Title>Description</Title>
-                <Paragraph>
-                  {this.state.showdescription
-                    ? details.description
-                    : details.description.substring(0, 50) + '...'}
+                {this.state.showdescription==true?
+                this.state.description_splited.map((item,index)=>(
+                  <Paragraph key={index}>{item}
                 </Paragraph>
+                )):
+                this.state.description_splited.slice(0,1).map((item,index)=>(
+                  <Paragraph key={index}>
+                  {item.substring(0, 20) + '...'}
+                </Paragraph>
+                ))
+                  }
                 <Text
                   style={{fontWeight: 'bold', color: color.lightblue}}
                   onPress={() => {
@@ -240,23 +270,39 @@ export default class Details extends Component {
                   }}>
                   {this.state.showdescription ? 'Show less' : 'Show More'}
                 </Text>
-              </View>
+              </View>:<View></View>}
             </View>
           </ScrollView>
-          <View style={{flexDirection: 'row', width: '100%'}}>
-            <Button
-              mode="contained"
-              onPress={() => console.log('Pressed')}
-              style={styles.btn1}>
-              Buy Now
-            </Button>
-            <Button
-              mode="contained"
-              onPress={() => console.log('Pressed')}
-              style={styles.btn2}>
-              Add to cart
-            </Button>
-          </View>
+          {this.props.isLoggedIn ? (
+            <View style={{flexDirection: 'row', width: '100%'}}>
+              <Button
+                mode="contained"
+                onPress={() => this.buyNow(this.state.dataSource._id)}
+                style={styles.btn1}>
+                Buy Now
+              </Button>
+              <Button
+                mode="contained"
+                onPress={() => this.addToCart(this.state.dataSource._id)}
+                style={styles.btn2}>
+                Add to cart
+              </Button>
+            </View>
+          ) : (
+            <View style={{width: '100%'}}>
+              <Button
+                mode="contained"
+                onPress={() => this.props.navigation.navigate('Login')}
+                style={{
+                  marginHorizontal: 10,
+                  marginVertical: 10,
+                  borderRadius: 8,
+                  backgroundColor: color.MintyGreenDark,
+                }}>
+                LOGIN
+              </Button>
+            </View>
+          )}
         </View>
         <View>
           <Snackbar
@@ -340,3 +386,20 @@ const styles = StyleSheet.create({
     color: color.lightblue,
   },
 });
+
+const mapStateToProps = (state) => {
+  return {
+    total_product: state.cartReducer.total_product,
+    isLoggedIn: state.LoginReducer.isLoggedIn,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    incrementCart: () => {
+      dispatch(incrementCart());
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Details);
