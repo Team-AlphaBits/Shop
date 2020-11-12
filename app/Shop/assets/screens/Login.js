@@ -114,7 +114,6 @@ class Login extends Component {
               <TextInput
                 placeholder="Your Email"
                 placeholderTextColor={color.darkgrey}
-                autoCompleteType="email"
                 style={[
                   styles.textInput,
                   {
@@ -143,7 +142,6 @@ class Login extends Component {
               <TextInput
                 placeholder="Your Password"
                 placeholderTextColor={color.darkgrey}
-                autoCompleteType="password"
                 secureTextEntry={true}
                 style={[
                   styles.textInput,
