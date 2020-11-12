@@ -3,5 +3,7 @@ signupSuccess,
 Signup,
 getData,
 getById,
-getBycatId
+getBycatId,
+addTocart,
+getSearch
 }from './Action'

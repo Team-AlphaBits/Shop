@@ -25,7 +25,7 @@ class Home extends Component {
 
     console.log(this.props.Data)
     return (
-      <div>
+      <div style={{backgroundColor: "#eeeef0"}}>
         <Header />
         {/* <MDBView src={FrontImage} >
             <MDBMask overlay="black-light" className="flex-center flex-column text-white text-center">

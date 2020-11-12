@@ -14,11 +14,15 @@ class ProductList extends Component {
       search: '?'+id
     })
   }
+  state={
+    particular: false
+  }
+  
   render() {
     console.log(this.props.Data)
     let cards = [];
     if(this.props.Data){
-      for (let i = 0; i < 8; i++) {
+      for (let i = 0; i < this.props.Data.productData.length; i++) {
         cards.push(
           <div>
             <div className={classes.container}>
