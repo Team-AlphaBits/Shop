@@ -4,7 +4,6 @@ import {
   MDBCardBody,
   MDBCardImage,
   MDBCardTitle,
-  MDBCardText,
   MDBCol,
   MDBRow,
   MDBIcon,
@@ -78,7 +77,7 @@ class About extends Component {
                 </a>
 
                 <a href={data[i].cc} className="px-2 fa-lg tw-ic">
-                  <img src={cook} className={classes.cook} />
+                  <img src={cook} className={classes.cook} alt="some"/>
                 </a>
 
                 <a href="!#" className="px-2 fa-lg fb-ic">
