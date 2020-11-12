@@ -1,5 +1,6 @@
 .maincontainer {
   margin-top: 100px;
+  padding: 10px 10% 10px 10%;
 }
 .container {
   margin-left: 10%;
@@ -43,15 +44,20 @@
 }
 .order {
   width: 300px;
-  margin-left: 35%;
+  margin-left: 27%;
   margin-top: 30px;
   margin-bottom: 50px;
   background-color: aqua;
   border-radius: 8px;
 }
-@media (max-width: 600px) {
+@media (max-width: 800px) {
   .order {
     margin-left: 20%;
+  }
+}
+@media (max-width: 600px) {
+  .order {
+    margin-left: 15%;
     width: 200px;
   }
   .container {
@@ -63,7 +69,7 @@
 }
 @media (max-width: 350px) {
   .order {
-    margin-left: 10%;
+    margin-left: -5%;
     width: 200px;
   }
 }

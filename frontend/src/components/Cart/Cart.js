@@ -16,7 +16,7 @@ class Details extends Component {
           <div className={classes.container}>
             <div className={classes.carousel_ctrl}>
               <img
-              alt="img"
+                alt="img"
                 src="https://m.media-amazon.com/images/I/714qRVfu2vL._AC_UY327_QL65_.jpg"
                 className={classes.img}
               />
@@ -44,17 +44,21 @@ class Details extends Component {
                 ✔ Your order is eligible for FREE Delivery.{" "}
               </p>
               <p className={classes.total}>
-                Subtotal (1 item): <b>15,999.00</b>
+                Subtotal (1 item): <b>₹ 15,999.00</b>
               </p>
-              <button className={classes.proceed} onClick={this.check}>
-                Proceed to Checkout
-              </button>
             </div>
           </div>
         </div>
       );
     }
-    return <div className={classes.maincontainer}>{cards}</div>;
+    return (
+      <div className={classes.maincontainer}>
+        {cards}
+        <hr className={classes.hr} />
+        <p className={classes.totalprice}>Subtotal : ₹ 20,000.00</p>
+        <button className={classes.totalbtn}> Checkout all Product</button>
+      </div>
+    );
   }
 }
 export default Details;

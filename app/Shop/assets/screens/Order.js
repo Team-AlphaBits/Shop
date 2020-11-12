@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text} from 'react-native';
+import {StyleSheet, Text, Modal, TouchableHighlight, Image} from 'react-native';
 import {View} from 'react-native-animatable';
 import {ScrollView} from 'react-native-gesture-handler';
 import {
@@ -19,7 +19,11 @@ export default class Order extends Component {
       first: 'unchecked',
       second: 'unchecked',
       third: 'unchecked',
+      modalVisible: false,
     };
+  }
+  toggleModal(visible) {
+    this.setState({modalVisible: visible});
   }
   one = () => {
     this.setState({first: 'checked', second: 'unchecked', third: 'unchecked'});
@@ -136,9 +140,36 @@ export default class Order extends Component {
             </View>
             <Button
               style={styles.placeOrder}
-              onPress={() => console.log('order placed successfully')}>
+              onPress={() => {
+                this.toggleModal(true);
+              }}>
               Place order
             </Button>
+            <Modal
+              animationType={'slide'}
+              transparent={false}
+              visible={this.state.modalVisible}
+              presentationStyle={'formSheet'}
+              onRequestClose={() => {
+                console.log('Modal has been closed.');
+              }}>
+              <View style={styles.gif}>
+                <Image
+                  source={require('../images/gif.gif')}
+                  style={styles.img}
+                  resizeMode="contain"
+                />
+              </View>
+              <Text style={styles.text2}>Your Order Placed Succesfully !</Text>
+              <TouchableHighlight
+                onPress={() => {
+                  this.toggleModal(!this.state.modalVisible);
+                }}>
+                <View style={styles.modal}>
+                  <Text style={styles.text3}>View related items...</Text>
+                </View>
+              </TouchableHighlight>
+            </Modal>
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -187,5 +218,38 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     marginBottom: '5%',
+  },
+  container: {
+    alignItems: 'center',
+    backgroundColor: '#ede3f2',
+    padding: 100,
+  },
+  modal: {
+    flex: 1,
+    alignItems: 'center',
+    // backgroundColor: '#f7021a',
+    paddingHorizontal: '20%',
+  },
+  gif: {
+    width: '100%',
+    height: 200,
+    marginTop: 50,
+  },
+  img: {
+    height: null,
+    width: null,
+    flex: 1,
+  },
+  text2: {
+    color: 'red',
+    marginTop: 10,
+    fontSize: 30,
+    fontWeight: 'bold',
+    marginHorizontal: '20%',
+  },
+  text3: {
+    marginTop: 100,
+    fontSize: 18,
+    color: 'blue',
   },
 });

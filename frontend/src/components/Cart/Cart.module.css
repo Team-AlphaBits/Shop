@@ -128,3 +128,22 @@
   color: green;
   margin-top: 15px;
 }
+.hr {
+  background-color: gold;
+  height: 2px;
+}
+.totalprice {
+  font-size: 25px;
+  margin-top: 10px;
+  font-weight: 700;
+  text-align: right;
+  margin-right: 5%;
+  /* color: red; */
+}
+.totalbtn {
+  margin-top: 30px;
+  width: 300px;
+  padding: 2px 2px 2px 2px;
+  border-radius: 8px;
+  background-color: aqua;
+}
