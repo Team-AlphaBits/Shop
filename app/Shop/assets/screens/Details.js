@@ -44,6 +44,8 @@ class Details extends Component {
       isLoading: false,
       showdescription: false,
       active: 0,
+      discount: 0,
+      ItemPrice: 0,
     };
   }
 
@@ -66,6 +68,10 @@ class Details extends Component {
 
   onDismissSnackBar = () => {
     this.setState({visible: false});
+  };
+
+  convert_price = (text) => {
+    return parseFloat(text.replace(/[^\d\.]*/g, ''));
   };
 
   buyNow = (productid) => {
@@ -127,6 +133,8 @@ class Details extends Component {
         this.setState({
           dataSource: res.data.productData,
           description_splited: res.data.productData.description.split('.'),
+          discount: Math.floor(Math.random() * 50) + 1,
+          ItemPrice: this.convert_price(res.data.productData.price),
         });
       })
       .catch((error) => {
@@ -223,9 +231,22 @@ class Details extends Component {
               ))}
             </View>
             <View style={styles.btnView}>
-              <Text style={styles.price}>
-                {details.price[0] == '₹' ? details.price : '₹' + details.price}
-              </Text>
+              {this.state.discount == 0 ? (
+                <Text style={styles.price}>{'₹ ' + this.state.ItemPrice}</Text>
+              ) : (
+                <View>
+                  <Text
+                    style={[
+                      styles.price,
+                      {textDecorationLine: 'line-through'},
+                    ]}>
+                    {'₹ ' + this.state.ItemPrice}
+                  </Text>
+                  <Text style={styles.Discountprice}>
+                    {'₹ '+(this.state.ItemPrice * this.state.discount) / 100}
+                  </Text>
+                </View>
+              )}
               <Text
                 style={[
                   styles.avl,
@@ -238,39 +259,42 @@ class Details extends Component {
               <Text style={styles.sellerinfo}>
                 Seller : {details.seller_name}
               </Text>
-              {this.state.description_splited!=null?
-              <View
-                style={{
-                  margin: '3%',
-                  borderColor: 'black',
-                  borderWidth: 1,
-                  padding: '3%',
-                  borderRadius: 8,
-                }}>
-                <Title>Description</Title>
-                {this.state.showdescription==true?
-                this.state.description_splited.map((item,index)=>(
-                  <Paragraph key={index}>{item}
-                </Paragraph>
-                )):
-                this.state.description_splited.slice(0,1).map((item,index)=>(
-                  <Paragraph key={index}>
-                  {item.substring(0, 20) + '...'}
-                </Paragraph>
-                ))
-                  }
-                <Text
-                  style={{fontWeight: 'bold', color: color.lightblue}}
-                  onPress={() => {
-                    this.setState({
-                      showdescription: this.state.showdescription
-                        ? false
-                        : true,
-                    });
+              {this.state.description_splited != null ? (
+                <View
+                  style={{
+                    margin: '3%',
+                    borderColor: 'black',
+                    borderWidth: 1,
+                    padding: '3%',
+                    borderRadius: 8,
                   }}>
-                  {this.state.showdescription ? 'Show less' : 'Show More'}
-                </Text>
-              </View>:<View></View>}
+                  <Title>Description</Title>
+                  {this.state.showdescription == true
+                    ? this.state.description_splited.map((item, index) => (
+                        <Paragraph key={index}>{item}</Paragraph>
+                      ))
+                    : this.state.description_splited
+                        .slice(0, 1)
+                        .map((item, index) => (
+                          <Paragraph key={index}>
+                            {item.substring(0, 20) + '...'}
+                          </Paragraph>
+                        ))}
+                  <Text
+                    style={{fontWeight: 'bold', color: color.lightblue}}
+                    onPress={() => {
+                      this.setState({
+                        showdescription: this.state.showdescription
+                          ? false
+                          : true,
+                      });
+                    }}>
+                    {this.state.showdescription ? 'Show less' : 'Show More'}
+                  </Text>
+                </View>
+              ) : (
+                <View></View>
+              )}
             </View>
           </ScrollView>
           {this.props.isLoggedIn ? (
@@ -364,10 +388,16 @@ const styles = StyleSheet.create({
     width: '48%',
   },
   price: {
-    margin: '5%',
-    marginBottom: '5%',
+    marginStart: '5%',
+    marginTop: '5%',
     fontSize: 30,
     fontWeight: 'bold',
+  },
+  Discountprice:{
+    fontSize: 30,
+    fontWeight: 'bold',
+    marginStart: '5%',
+    color:color.lightblue
   },
   avl: {
     fontSize: 20,
