@@ -1,7 +1,6 @@
 import * as actionTypes from './actionTypes';
 import Axios from 'axios';
 
-
 export const signupSuccess = () =>{
     return{
         type: actionTypes.SIGNUPSUCCESS,
@@ -31,9 +30,14 @@ export const addTocartSuccess =() =>{
         type: actionTypes.ADDTOCART
     }
 }
-export const addTocart = (id) =>{
+export const getCart = (cookies) =>{
+    console.log(cookies)
     return dispatch=>{
-        Axios.post("https://calm-garden-34154.herokuapp.com/api/add-to-cart/"+id)
+        Axios.get("https://calm-garden-34154.herokuapp.com/api/view-Cart/",{
+            headers:{
+                jwt: localStorage.getItem('jwt')
+            }
+        })
              .then(data =>{
                  console.log(data)
              })
@@ -86,6 +90,7 @@ export const getById = (id) =>{
 }
 export const getBycatId = (id) =>{
     return dispatch =>{
+        dispatch(getData())
         Axios.get("https://calm-garden-34154.herokuapp.com/api/category/" + id)
              .then(data =>{
                  dispatch(catData(data.data))
@@ -93,15 +98,30 @@ export const getBycatId = (id) =>{
              .catch(err => console.log(err))
     }
 }
+export const Login = (email,password,cookies) =>{
+    return dispatch=>{
+        let userInfo ={
+            email: email,
+            password: password
+        }
+        Axios.post("https://cors-anywhere.herokuapp.com/https://calm-garden-34154.herokuapp.com/api/login",userInfo)
+             .then(res =>{
+                 console.log(res)
+                 localStorage.setItem('jwt',res.data.token)
+                 console.log(cookies)
+             })
+             .catch(err => console.log(err))
+    }
+}
 export const Signup = (username, email, password) =>{
     return dispatch =>{
         let userData = {
-            username: username,
+            user_name: username,
             email: email,
             password: password
         }
         console.log(userData)
-        Axios.post("https://calm-garden-34154.herokuapp.com/api/register",userData)
+        Axios.post("https://cors-anywhere.herokuapp.com/https://calm-garden-34154.herokuapp.com/api/register",userData)
              .then(res =>{
                  console.log(res);
                  dispatch(signupSuccess())

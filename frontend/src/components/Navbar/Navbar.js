@@ -25,13 +25,6 @@ class NavbarPage extends Component {
     isOpen: false,
     Input: "",
   };
-  changeUrl = (cat_id) => {
-    this.props.history.push({
-      pathname: "/ProductList",
-      hash: "#items",
-      search: "?" + cat_id,
-    });
-  };
   InputChangeHandler = (event) => {
     this.setState({
       Input: event.target.value,
@@ -40,10 +33,12 @@ class NavbarPage extends Component {
   searchResult = (event) => {
     event.preventDefault();
     this.props.getResult(this.state.Input);
+    this.props.history.push({
+      pathname: "/ProductList/RelatedItems/false"
+    });
   };
   //onSubmit={() => this.props.getResult(this.state.Input)}
   render() {
-    console.log(this.props.search);
     let filterArr = [];
     const options = [];
     if (this.props.opt) {
@@ -187,8 +182,7 @@ class NavbarPage extends Component {
 const mapStateToProps = (state) => {
   return {
     isAuth: state.signuped,
-    opt: state.Login.desArr,
-    search: state.Login.resultData,
+    opt: state.Login.desArr
   };
 };
 const mapDispatchToProps = (dispatch) => {

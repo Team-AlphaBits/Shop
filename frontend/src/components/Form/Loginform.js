@@ -70,7 +70,7 @@ class Login extends Component {
                         <MDBBtn
                           color="cyan"
                           type="submit"
-                          onClick={this.toggle}
+                          onClick={this.props.clicked}
                         >
                           Sign in
                         </MDBBtn>

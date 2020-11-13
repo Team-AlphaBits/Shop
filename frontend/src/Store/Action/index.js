@@ -4,6 +4,7 @@ Signup,
 getData,
 getById,
 getBycatId,
-addTocart,
-getSearch
+getCart,
+getSearch,
+Login
 }from './Action'

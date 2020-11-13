@@ -1,23 +1,9 @@
 import React, { Component } from "react";
-// import Carousel from "../../components/carousel/carousel";
 import classes from "./details.module.css";
 import { connect } from "react-redux";
 import * as actions from "../../Store/Action/index";
 import Carousel from "react-elastic-carousel";
 
-import {
-  MDBCarousel,
-  MDBCarouselInner,
-  MDBCarouselItem,
-  MDBView,
-  MDBContainer,
-} from "mdbreact";
-const breakPoints = [
-  { width: 1, itemsToShow: 1 },
-  { width: 550, itemsToShow: 2 },
-  { width: 768, itemsToShow: 3 },
-  { width: 1200, itemsToShow: 4 },
-];
 class Details extends Component {
   componentDidMount() {
     this.props.getProduct(this.props.location.search.split("?")[1]);
@@ -26,7 +12,6 @@ class Details extends Component {
     if (this.props.DetailData) {
       console.log(this.props.DetailData.productData);
     }
-    let cls = ["z-depth-1", classes.car];
     let img = ["d-block w-100", classes.carimg];
     let show = null;
     if (this.props.DetailData) {

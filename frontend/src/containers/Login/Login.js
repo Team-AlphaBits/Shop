@@ -3,6 +3,7 @@ import Lform from '../../components/Form/Loginform';
 import Form from '../../components/Form/Signupform';
 import {connect} from 'react-redux';
 import * as actions from '../../Store/Action/index';
+import {withCookies} from 'react-cookie'
 
 
 class Login extends Component{
@@ -24,6 +25,10 @@ class Login extends Component{
     this.setState(prev =>{
       return { login: !prev.login}
     })
+  }
+  callLogin=(event) =>{
+    event.preventDefault();
+    this.props.forLogin(this.state.emailValue,this.state.passwordValue,this.props.cookies)
   }
   onChangeHandler = (event,field) =>{
     if(field==='usernameValue'){
@@ -59,6 +64,7 @@ class Login extends Component{
         changeEmail={(event) => this.onChangeHandler(event, "emailValue")}
         valuePassword={this.state.passwordValue}
         changePassword={(event) => this.onChangeHandler(event, "passwordValue")}
+        clicked={this.callLogin}
       />
     );
     if (!this.state.login) {
@@ -91,8 +97,8 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    forSignup: (username, email, password) =>
-      dispatch(actions.Signup(username, email, password)),
+    forSignup: (username, email, password) =>{dispatch(actions.Signup(username, email, password))},
+    forLogin: (email,password,cookies) =>{dispatch(actions.Login(email,password,cookies))}
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(withCookies(Login));
