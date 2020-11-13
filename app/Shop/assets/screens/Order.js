@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, Modal, TouchableHighlight, Image} from 'react-native';
+import {StyleSheet, Text, Image} from 'react-native';
 import {View} from 'react-native-animatable';
 import {ScrollView} from 'react-native-gesture-handler';
 import {
@@ -8,6 +8,9 @@ import {
   Button,
   RadioButton,
   Appbar,
+  Portal,
+  Modal,
+  Provider,
 } from 'react-native-paper';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import color from '../colors/colors';
@@ -37,142 +40,155 @@ export default class Order extends Component {
 
   render() {
     return (
-      <SafeAreaView style={{flex: 1}}>
-        <Appbar.Header style={{backgroundColor: color.MintyGreenMedium}}>
-          <Appbar.BackAction
-            onPress={() => {
-              this.props.navigation.navigate('MyCart');
-            }}
-          />
-          <Appbar.Content title="Address" />
-        </Appbar.Header>
-        <ScrollView>
-          <View style={styles.upContainer}>
-            <Title style={styles.title}>Fill your address</Title>
-            <TextInput
-              label="Full name"
-              mode="outlined"
-              theme={{
-                colors: {text: color.black, primary: color.MintyGreenDark},
-              }}
-              style={styles.text}></TextInput>
-            <TextInput
-              label="Mobile number"
-              mode="outlined"
-              theme={{
-                colors: {text: color.black, primary: color.MintyGreenDark},
-              }}
-              style={styles.text}></TextInput>
-            <TextInput
-              label="PIN code"
-              mode="outlined"
-              theme={{
-                colors: {text: color.black, primary: color.MintyGreenDark},
-              }}
-              style={styles.text}></TextInput>
-            <TextInput
-              label="Flat, House no, Buildind,Apartment"
-              mode="outlined"
-              theme={{
-                colors: {text: color.black, primary: color.MintyGreenDark},
-              }}
-              style={styles.text}></TextInput>
-            <TextInput
-              label="Area, Colony, Street, Sector, Village"
-              mode="outlined"
-              theme={{
-                colors: {text: color.black, primary: color.MintyGreenDark},
-              }}
-              style={styles.text}></TextInput>
-            <TextInput
-              label="Landmark"
-              mode="outlined"
-              theme={{
-                colors: {text: color.black, primary: color.MintyGreenDark},
-              }}
-              style={styles.text}></TextInput>
-            <TextInput
-              label="Town/City"
-              mode="outlined"
-              theme={{
-                colors: {text: color.black, primary: color.MintyGreenDark},
-              }}
-              style={styles.text}></TextInput>
-            <TextInput
-              label="State"
-              mode="outlined"
-              theme={{
-                colors: {text: color.black, primary: color.MintyGreenDark},
-              }}
-              style={styles.text}></TextInput>
-            <Button
-              style={styles.addressBtn}
-              onPress={() => console.log('Address saved')}>
-              {' '}
-              Save Address
-            </Button>
-            <Title style={styles.payOption}>Choose your payment option</Title>
-            <View style={styles.payment}>
-              <View style={styles.radiobtn}>
-                <RadioButton
-                  value="first"
-                  status={this.state.first}
-                  onPress={() => this.one()}
-                />
-                <Text style={styles.rdText}>COD (Cash on delivery)</Text>
-              </View>
-              <View style={styles.radiobtn}>
-                <RadioButton
-                  value="second"
-                  status={this.state.second}
-                  onPress={() => this.two()}
-                />
-                <Text style={styles.rdText}>Debit/Credit Cards</Text>
-              </View>
-              <View style={styles.radiobtn}>
-                <RadioButton
-                  value="third"
-                  status={this.state.third}
-                  onPress={() => this.three()}
-                />
-                <Text style={styles.rdText}>Payments using UPI/Wallet</Text>
-              </View>
-            </View>
-            <Button
-              style={styles.placeOrder}
+      <Provider>
+        <SafeAreaView style={{flex: 1}}>
+          <Appbar.Header style={{backgroundColor: color.MintyGreenMedium}}>
+            <Appbar.BackAction
               onPress={() => {
-                this.toggleModal(true);
-              }}>
-              Place order
-            </Button>
-            <Modal
-              animationType={'slide'}
-              transparent={false}
-              visible={this.state.modalVisible}
-              presentationStyle={'formSheet'}
-              onRequestClose={() => {
-                console.log('Modal has been closed.');
-              }}>
-              <View style={styles.gif}>
-                <Image
-                  source={require('../images/gif.gif')}
-                  style={styles.img}
-                  resizeMode="contain"
-                />
-              </View>
-              <Text style={styles.text2}>Your Order Placed Succesfully !</Text>
-              <TouchableHighlight
-                onPress={() => {
-                  this.toggleModal(!this.state.modalVisible);
-                }}>
-                <View style={styles.modal}>
-                  <Text style={styles.text3}>View related items...</Text>
+                this.props.navigation.navigate('MyCart');
+              }}
+            />
+            <Appbar.Content title="Address" />
+          </Appbar.Header>
+          <ScrollView>
+            <View style={styles.upContainer}>
+              <Title style={styles.title}>Fill your address</Title>
+              <TextInput
+                label="Full name"
+                mode="outlined"
+                theme={{
+                  colors: {text: color.black, primary: color.MintyGreenDark},
+                }}
+                style={styles.text}></TextInput>
+              <TextInput
+                label="Mobile number"
+                mode="outlined"
+                theme={{
+                  colors: {text: color.black, primary: color.MintyGreenDark},
+                }}
+                style={styles.text}></TextInput>
+              <TextInput
+                label="PIN code"
+                mode="outlined"
+                theme={{
+                  colors: {text: color.black, primary: color.MintyGreenDark},
+                }}
+                style={styles.text}></TextInput>
+              <TextInput
+                label="Flat, House no, Buildind,Apartment"
+                mode="outlined"
+                theme={{
+                  colors: {text: color.black, primary: color.MintyGreenDark},
+                }}
+                style={styles.text}></TextInput>
+              <TextInput
+                label="Area, Colony, Street, Sector, Village"
+                mode="outlined"
+                theme={{
+                  colors: {text: color.black, primary: color.MintyGreenDark},
+                }}
+                style={styles.text}></TextInput>
+              <TextInput
+                label="Landmark"
+                mode="outlined"
+                theme={{
+                  colors: {text: color.black, primary: color.MintyGreenDark},
+                }}
+                style={styles.text}></TextInput>
+              <TextInput
+                label="Town/City"
+                mode="outlined"
+                theme={{
+                  colors: {text: color.black, primary: color.MintyGreenDark},
+                }}
+                style={styles.text}></TextInput>
+              <TextInput
+                label="State"
+                mode="outlined"
+                theme={{
+                  colors: {text: color.black, primary: color.MintyGreenDark},
+                }}
+                style={styles.text}></TextInput>
+              <Button
+                style={styles.addressBtn}
+                onPress={() => console.log('Address saved')}>
+                {' '}
+                Save Address
+              </Button>
+              <Title style={styles.payOption}>Choose your payment option</Title>
+              <View style={styles.payment}>
+                <View style={styles.radiobtn}>
+                  <RadioButton
+                    value="first"
+                    status={this.state.first}
+                    onPress={() => this.one()}
+                  />
+                  <Text style={styles.rdText}>COD (Cash on delivery)</Text>
                 </View>
-              </TouchableHighlight>
-            </Modal>
-          </View>
-        </ScrollView>
-      </SafeAreaView>
+                <View style={styles.radiobtn}>
+                  <RadioButton
+                    value="second"
+                    status={this.state.second}
+                    onPress={() => this.two()}
+                  />
+                  <Text style={styles.rdText}>Debit/Credit Cards</Text>
+                </View>
+                <View style={styles.radiobtn}>
+                  <RadioButton
+                    value="third"
+                    status={this.state.third}
+                    onPress={() => this.three()}
+                  />
+                  <Text style={styles.rdText}>Payments using UPI/Wallet</Text>
+                </View>
+              </View>
+              <Button
+                style={styles.placeOrder}
+                onPress={() => {
+                  this.toggleModal(true);
+                }}>
+                Place order
+              </Button>
+
+              <Portal>
+                <Modal
+                  onDismiss={() => {
+                    this.toggleModal(false);
+                  }}
+                  visible={this.state.modalVisible}>
+                  <View style={styles.modalViewContainer}>
+                    <View style={styles.gif}>
+                      <Image
+                        source={require('../images/gif.gif')}
+                        style={styles.img}
+                        resizeMode="contain"
+                      />
+                    </View>
+                    <Text style={styles.text2}>
+                      Your Order Placed Succesfully !
+                    </Text>
+                  </View>
+                  <Button
+                    mode="contained"
+                    style={{
+                      backgroundColor: color.MintyGreenDark,
+                      marginTop: 50,
+                      width: 250,
+                      alignSelf: 'center',
+                      borderRadius: 10,
+                    }}
+                    onPress={() => {
+                      this.toggleModal(false);
+                      this.props.navigation.navigate('Products');
+                    }}>
+                    Browse More Products
+                  </Button>
+                </Modal>
+              </Portal>
+            </View>
+          </ScrollView>
+        </SafeAreaView>
+      </Provider>
     );
   }
 }
@@ -190,7 +206,7 @@ const styles = StyleSheet.create({
     marginTop: '5%',
   },
   rdText: {
-    fontSize: 20,
+    fontSize: 18,
     marginTop: '1%',
     marginLeft: '2%',
   },
@@ -224,16 +240,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#ede3f2',
     padding: 100,
   },
-  modal: {
-    flex: 1,
-    alignItems: 'center',
-    // backgroundColor: '#f7021a',
-    paddingHorizontal: '20%',
-  },
   gif: {
     width: '100%',
     height: 200,
-    marginTop: 50,
   },
   img: {
     height: null,
@@ -245,11 +254,12 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontSize: 30,
     fontWeight: 'bold',
-    marginHorizontal: '20%',
+    textAlign:'center'
   },
-  text3: {
-    marginTop: 100,
-    fontSize: 18,
-    color: 'blue',
+
+  modalViewContainer: {
+    backgroundColor: color.white,
+    marginHorizontal: '5%',
+    borderRadius: 10, 
   },
 });

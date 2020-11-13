@@ -21,10 +21,6 @@ export default class Itemlist extends Component {
     super();
     this.state = {
       dataSource: [],
-      marg:
-        Dimensions.get('window').height >= Dimensions.get('window').width
-          ? 5
-          : 30,
       cols:
         Dimensions.get('window').height >= Dimensions.get('window').width
           ? 2
@@ -104,9 +100,9 @@ export default class Itemlist extends Component {
 
   onChange = ({window, screen}) => {
     if (window.height >= window.width) {
-      this.setState({cols: 2, marg: 5});
+      this.setState({cols: 2});
     } else {
-      this.setState({cols: 3, marg: 30});
+      this.setState({cols: 3});
     }
   };
 
@@ -132,7 +128,7 @@ export default class Itemlist extends Component {
   render() {
     var categorytype = this.setCategorytpe();
     return (
-      <SafeAreaView style={{flex: 1}}>
+      <SafeAreaView style={{flex: 1, backgroundColor: color.white}}>
         <Appbar.Header style={{backgroundColor: color.MintyGreenMedium}}>
           <Appbar.BackAction
             onPress={() => {
@@ -141,7 +137,7 @@ export default class Itemlist extends Component {
           />
           <Appbar.Content title={categorytype} />
         </Appbar.Header>
-        <View style={[styles.MainContainer, {marginStart: this.state.marg}]}>
+        <View style={styles.MainContainer}>
           <FlatList
             onRefresh={() => {
               this.fetchandupdatedata();
@@ -151,6 +147,7 @@ export default class Itemlist extends Component {
             data={this.state.dataSource}
             renderItem={({item, index}) => (
               <Pressable
+                style={styles.outerContainer}
                 onPress={() => {
                   this.props.navigation.navigate('Details', {
                     data: item._id,
@@ -163,16 +160,15 @@ export default class Itemlist extends Component {
                     source={{uri: item.home_image}}
                     resizeMode="contain"
                   />
-                  <View style={{backgroundColor: 'white'}}>
-                    <Text style={styles.name}>
-                      {item.title.length > 20
-                        ? item.title.substring(0, 20 - 3) + '...'
-                        : item.title}
-                    </Text>
-                    <Text style={styles.price}>
-                      {item.price[0] == '₹' ? item.price : '₹' + item.price}
-                    </Text>
-                  </View>
+
+                  <Text style={styles.name}>
+                    {item.title.length > 20
+                      ? item.title.substring(0, 20 - 3) + '...'
+                      : item.title}
+                  </Text>
+                  <Text style={styles.price}>
+                    {item.price[0] == '₹' ? item.price : '₹' + item.price}
+                  </Text>
                 </View>
               </Pressable>
             )}
@@ -202,13 +198,11 @@ export default class Itemlist extends Component {
 }
 const styles = StyleSheet.create({
   MainContainer: {
-    justifyContent: 'center',
-    flex: 1,
+    marginBottom: 60,
     paddingTop: 20,
+    alignItems: 'center',
   },
   imageThumbnail: {
-    justifyContent: 'center',
-    alignItems: 'center',
     height: null,
     width: null,
     marginTop: 10,
@@ -228,10 +222,13 @@ const styles = StyleSheet.create({
   },
   itemcontainer: {
     flex: 1,
-    margin: '2%',
-    width: 190,
-    height: 290,
+  },
+  outerContainer: {
+    width: 160,
+    height: 260,
+    marginVertical: '3%',
+    marginHorizontal: 10,
     backgroundColor: color.white,
-    elevation: 4,
+    elevation: 10,
   },
 });
