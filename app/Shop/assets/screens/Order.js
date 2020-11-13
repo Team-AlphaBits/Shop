@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
     marginTop: '5%',
   },
   rdText: {
-    fontSize: 20,
+    fontSize: 18,
     marginTop: '1%',
     marginLeft: '2%',
   },
