@@ -41,7 +41,7 @@ function Deals() {
   return (
     <>
       <div className={classes.container}>
-        <h1 className={classes.title}>Deals on Sports Kits</h1>
+        <h1 className={classes.title}>Exclusive offers on Smartphones</h1>
         <hr className={classes.line} />
         <div className={classes.App}>
           <Carousel breakPoints={breakPoints}>{cards}</Carousel>
@@ -51,7 +51,9 @@ function Deals() {
         </p>
       </div>
       <div className={classes.container}>
-        <h1 className={classes.title2}>Groceries</h1>
+        <h1 className={classes.title2}>
+          Blockbuster Deals on Electronic Products
+        </h1>
         <hr className={classes.line} />
         <div className={classes.App}>
           <Carousel breakPoints={breakPoints}>{cards}</Carousel>
@@ -61,7 +63,7 @@ function Deals() {
         </p>
       </div>
       <div className={classes.container}>
-        <h1 className={classes.title2}>Smartphones</h1>
+        <h1 className={classes.title2}>Best Deals ever on Home Decors</h1>
         <hr className={classes.line} />
 
         <div className={classes.App}>

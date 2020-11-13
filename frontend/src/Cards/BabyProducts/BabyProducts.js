@@ -28,7 +28,7 @@ function Clothes(props) {
     }
   }
   return (
-    <div>
+    <div className={classes.maincontainer}>
       <div className={classes.App}>
         <Carousel breakPoints={breakPoints}>{cards}</Carousel>
       </div>

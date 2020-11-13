@@ -36,7 +36,7 @@ class StaticCards extends Component {
       }
     }
     return (
-      <div>
+      <div className={classes.maincontainer}>
         <div className={classes.flexbox}>
           <Carousel breakPoints={breakPoints}>{cards}</Carousel>
         </div>

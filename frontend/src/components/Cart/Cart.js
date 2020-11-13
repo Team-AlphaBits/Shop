@@ -2,16 +2,14 @@ import React, { Component } from "react";
 // import Carousel from "../../components/carousel/carousel";
 import classes from "./Cart.module.css";
 import { Redirect } from "react-router-dom";
-import {connect} from 'react-redux';
-import * as actions from '../../Store/Action/index'
-import {withCookies} from 'react-cookie';
-
+import { connect } from "react-redux";
+import * as actions from "../../Store/Action/index";
 class Details extends Component {
   check = () => {
     return <Redirect to="/Checkout" />;
   };
-  componentDidMount(){
-    this.props.getCartData(this.props.cookies)
+  componentDidMount() {
+    this.props.getCartData();
   }
   render() {
     // let cls = ["z-depth-1", classes.car];
@@ -68,9 +66,11 @@ class Details extends Component {
     );
   }
 }
-const mapDispatchToProps=(dispatch) =>{
-  return{
-   getCartData : () =>{ dispatch(actions.getCart())}
-  }
-}
-export default connect(null,mapDispatchToProps)(withCookies(Details));
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getCartData: () => {
+      dispatch(actions.getCart());
+    },
+  };
+};
+export default connect(null, mapDispatchToProps)(Details);
