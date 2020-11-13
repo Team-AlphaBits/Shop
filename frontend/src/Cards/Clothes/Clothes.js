@@ -42,14 +42,14 @@ function Clothes(props) {
   }
 
   return (
-    <>
+    <div className={classes.maincontainer}>
       <div className={classes.App}>
         <Carousel breakPoints={breakPoints}>{cards}</Carousel>
       </div>
       <p className={classes.offer}>
-        <a href="/ProductList/Clothings">See All Offers ...</a>
+        <a href="/ProductList/Clothings/true">See All Offers ...</a>
       </p>
-    </>
+    </div>
   );
 }
 
