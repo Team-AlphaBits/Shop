@@ -242,9 +242,21 @@ class Details extends Component {
                     ]}>
                     {'₹ ' + this.state.ItemPrice}
                   </Text>
-                  <Text style={styles.Discountprice}>
-                    {'₹ '+(this.state.ItemPrice * this.state.discount) / 100}
-                  </Text>
+                  <View style={{flexDirection: 'row'}}>
+                    <Text style={styles.Discountprice}>
+                      {'₹ ' +
+                        (this.state.ItemPrice -
+                          (this.state.ItemPrice * this.state.discount) / 100)}
+                    </Text>
+                    <Text
+                      style={{
+                        color: color.MintyGreenMedium,
+                        fontWeight: 'bold',
+                        marginTop: '3%',
+                      }}>
+                      {' (' + this.state.discount + '% OFF)'}
+                    </Text>
+                  </View>
                 </View>
               )}
               <Text
@@ -393,11 +405,11 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
   },
-  Discountprice:{
+  Discountprice: {
     fontSize: 30,
     fontWeight: 'bold',
     marginStart: '5%',
-    color:color.lightblue
+    color: color.lightblue,
   },
   avl: {
     fontSize: 20,
