@@ -32,7 +32,10 @@ function Deals() {
           alt="pic"
           className={classes.modify}
         />
-        <p className={classes.price}>₹19,990.00</p>
+        <strike className={classes.price}>₹19,990.00</strike>
+        <p className={classes.price2}>
+          ₹16,990.00<b className={classes.disc}> (15% off)</b>
+        </p>
 
         <button className={classes.btn}>ADD TO CART</button>
       </div>
@@ -47,7 +50,7 @@ function Deals() {
           <Carousel breakPoints={breakPoints}>{cards}</Carousel>
         </div>
         <p className={classes.offer}>
-          <a href="/ProductList">See All Offers ...</a>
+          <a href="/ProductList/Mobiles/true">See All Offers ...</a>
         </p>
       </div>
       <div className={classes.container}>
@@ -59,7 +62,7 @@ function Deals() {
           <Carousel breakPoints={breakPoints}>{cards}</Carousel>
         </div>
         <p className={classes.offer}>
-          <a href="/ProductList">See All Offers ...</a>
+          <a href="/ProductList/Electronics/true">See All Offers ...</a>
         </p>
       </div>
       <div className={classes.container}>
@@ -70,7 +73,7 @@ function Deals() {
           <Carousel breakPoints={breakPoints}>{cards}</Carousel>
         </div>
         <p className={classes.offer}>
-          <a href="/ProductList">See All Offers ...</a>
+          <a href="/ProductList/Decoration/true">See All Offers ...</a>
         </p>
       </div>
     </>

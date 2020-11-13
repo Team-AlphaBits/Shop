@@ -41,7 +41,7 @@ class StaticCards extends Component {
           <Carousel breakPoints={breakPoints}>{cards}</Carousel>
         </div>
         <p className={classes.offer}>
-          <a href="/ProductList/Books">See All Offers ...</a>
+          <a href="/ProductList/Books/true">See All Offers ...</a>
         </p>
       </div>
     );

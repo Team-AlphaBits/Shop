@@ -34,7 +34,7 @@ function Clothes(props) {
       </div>
 
       <p className={classes.offer}>
-        <a href="/ProductList/Computer&peripheral">See All Offers ...</a>
+        <a href="/ProductList/Computer&peripheral/true">See All Offers ...</a>
       </p>
     </div>
   );
