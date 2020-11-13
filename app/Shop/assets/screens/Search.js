@@ -8,9 +8,11 @@ import {
   FlatList,
   ActivityIndicator,
   StyleSheet,
+  TextInput,
 } from 'react-native';
 
 import color from '../colors/colors';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Appbar, Searchbar, Snackbar} from 'react-native-paper';
 import axios from 'axios';
 
@@ -67,18 +69,35 @@ export default class Search extends PureComponent {
               this.props.navigation.navigate('Home');
             }}
           />
-          <Searchbar
-            onIconPress={() => {
+          <TextInput
+            style={{
+              width: '70%',
+              height: 40,
+              backgroundColor: color.white,
+              borderRadius: 5,
+            }}
+            placeholder="Search"
+            returnKeyType="search"
+            onChangeText={(e) => this.setState({searchquery: e})}
+            onSubmitEditing={() => {
               this.getSearchResults();
             }}
-            searchAccessibilityLabel='search'
-            placeholder="Search"
-            style={{width: '80%', height: 40}}
-            onChangeText={(e) => {
-              this.setState({searchquery: e});
-            }}
-            value={this.state.searchquery}
           />
+          <Pressable
+            onPress={() => {
+              this.getSearchResults();
+            }}
+            style={{
+              borderRadius: 50,
+              height: 40,
+              backgroundColor: color.white,
+              width: 40,
+              marginStart: '3%',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <Icon name="magnify" size={30} color={color.black} />
+          </Pressable>
         </Appbar.Header>
         <ActivityIndicator
           animating={this.state.isLoading}
@@ -155,6 +174,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     alignSelf: 'center',
     marginTop: 60,
+    elevation: 5,
   },
   img: {
     height: null,
