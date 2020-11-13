@@ -132,7 +132,7 @@ class Details extends Component {
       .then((res) => {
         this.setState({
           dataSource: res.data.productData,
-          description_splited: res.data.productData.description.split('.'),
+          description_splited: res.data.productData.description.split(/[.,;|]/),
           discount: Math.floor(Math.random() * 50) + 1,
           ItemPrice: this.convert_price(res.data.productData.price),
         });
@@ -245,8 +245,10 @@ class Details extends Component {
                   <View style={{flexDirection: 'row'}}>
                     <Text style={styles.Discountprice}>
                       {'₹ ' +
-                        (this.state.ItemPrice -
-                          (this.state.ItemPrice * this.state.discount) / 100)}
+                        parseInt(
+                          this.state.ItemPrice -
+                            (this.state.ItemPrice * this.state.discount) / 100,
+                        )+'.00'}
                     </Text>
                     <Text
                       style={{
