@@ -1,4 +1,4 @@
-import React, {Component, PureComponent} from 'react';
+import React, {PureComponent} from 'react';
 import {
   View,
   SafeAreaView,
@@ -13,7 +13,7 @@ import {
 
 import color from '../colors/colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Appbar, Searchbar, Snackbar} from 'react-native-paper';
+import {Appbar, Snackbar} from 'react-native-paper';
 import axios from 'axios';
 
 export default class Search extends PureComponent {
