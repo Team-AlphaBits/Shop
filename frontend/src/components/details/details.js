@@ -82,7 +82,9 @@ class Details extends Component {
               and Fulfilled by <b className={classes.sold}>Shop</b>.{" "}
             </p>
 
-            <ul className={classes.discription}>{details}</ul>
+            <div className={classes.discborder}>
+              <ul className={classes.discription}>{details}</ul>
+            </div>
           </div>
         </div>
       );

@@ -6,8 +6,8 @@
   /* background-color: white; */
 }
 .maincontainer {
-  border-top: solid gold 5px;
-  border-bottom: solid gold 5px;
+  border-top: solid #01ab9d 5px;
+  border-bottom: solid #01ab9d 5px;
   padding: 10px 2px 5px 2px;
   background-color: white;
 }
@@ -36,12 +36,15 @@
   overflow: hidden;
 }
 .btn {
-  background-color: aqua;
+  background-color: #08d4c4;
   width: 200px;
   /* padding-top: 5px;
   padding-bottom: 5px; */
   border-radius: 6px;
   font-weight: 500;
+  color: white;
+  border: none;
+  height: 30px;
 }
 .manualcard {
   /* margin-left: 30%;
