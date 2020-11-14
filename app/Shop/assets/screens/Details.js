@@ -20,6 +20,7 @@ import {
 import axios from 'axios';
 import {connect} from 'react-redux';
 import {incrementCart} from '../Redux/index';
+import CurrencyFormat from 'react-currency-format';
 import color from '../colors/colors';
 
 class Details extends Component {
@@ -232,7 +233,11 @@ class Details extends Component {
             </View>
             <View style={styles.btnView}>
               {this.state.discount == 0 ? (
-                <Text style={styles.price}>{'₹ ' + this.state.ItemPrice}</Text>
+                <Text style={styles.price}>
+                  {details.price[0] == '₹'
+                    ? details.price
+                    : '₹ ' + details.price}
+                </Text>
               ) : (
                 <View>
                   <Text
@@ -240,9 +245,12 @@ class Details extends Component {
                       styles.price,
                       {textDecorationLine: 'line-through'},
                     ]}>
-                    {'₹ ' + this.state.ItemPrice}
+                    {details.price[0] == '₹'
+                      ? details.price
+                      : '₹ ' + details.price}
                   </Text>
                   <View style={{flexDirection: 'row'}}>
+<<<<<<< HEAD
                     <Text style={styles.Discountprice}>
                       {'₹ ' +
                         parseInt(
@@ -251,11 +259,25 @@ class Details extends Component {
                         ) +
                         '.00'}
                     </Text>
+=======
+                    <CurrencyFormat
+                      value={
+                        this.state.ItemPrice -
+                        (this.state.ItemPrice * this.state.discount) / 100
+                      }
+                      displayType={'text'}
+                      thousandSeparator={true}
+                      thousandSpacing="2s"
+                      renderText={(value) => (
+                        <Text style={styles.Discountprice}>{'₹ ' + value}</Text>
+                      )}
+                    />
+>>>>>>> d7f3970cf214a437b90812eff07f99cd9871426c
                     <Text
                       style={{
                         color: color.MintyGreenMedium,
                         fontWeight: 'bold',
-                        marginTop: '3%',
+                        marginTop: '1%',
                       }}>
                       {' (' + this.state.discount + '% OFF)'}
                     </Text>
@@ -405,11 +427,11 @@ const styles = StyleSheet.create({
   price: {
     marginStart: '5%',
     marginTop: '5%',
-    fontSize: 30,
+    fontSize: 20,
     fontWeight: 'bold',
   },
   Discountprice: {
-    fontSize: 30,
+    fontSize: 20,
     fontWeight: 'bold',
     marginStart: '5%',
     color: color.lightblue,
