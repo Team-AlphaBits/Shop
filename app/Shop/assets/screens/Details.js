@@ -248,7 +248,8 @@ class Details extends Component {
                         parseInt(
                           this.state.ItemPrice -
                             (this.state.ItemPrice * this.state.discount) / 100,
-                        )+'.00'}
+                        ) +
+                        '.00'}
                     </Text>
                     <Text
                       style={{
