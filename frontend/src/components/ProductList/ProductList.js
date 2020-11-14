@@ -5,6 +5,7 @@ import * as actions from "../../Store/Action/index";
 import classes from "./ProductList.module.css";
 class ProductList extends Component {
   componentDidMount() {
+    this.props.authCheckout();
     if(this.props.history.location.pathname.split("/")[3] === "true"){
       this.props.getProduct(this.props.history.location.pathname.split("/")[2]);
     }
@@ -125,6 +126,7 @@ const mapDispatchToprops = (dispatch) => {
     getProduct: (id) => {
       dispatch(actions.getBycatId(id));
     },
+    authCheckout: () => dispatch(actions.authCheckState())
   };
 };
 export default connect(mapStatetoProps, mapDispatchToprops)(ProductList);

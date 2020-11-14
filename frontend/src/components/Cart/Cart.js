@@ -11,66 +11,102 @@ class Details extends Component {
     return <Redirect to="/Checkout" />;
   };
   componentDidMount(){
-    this.props.getCartData(this.props.cookies)
+    this.props.authCheckout();
+    this.props.getCartData();
+  }
+  state = {
+    prodValue: 1
+  }
+  quantChange = (id,event) =>{
+    this.setState({prodValue: event.target.value})
+    this.props.changeQuantity(id,event.target.value)
   }
   render() {
     // let cls = ["z-depth-1", classes.car];
     // let img = ["d-block w-100", classes.car];
+    let options=[];
+    for(let i = 1; i<11; i++){
+      options.push(<option value={i}>{i}</option>)
+    }
+    console.log(this.props.data)
     let cards = [];
-    for (let i = 0; i < 2; i++) {
-      cards.push(
-        <div>
-          <div className={classes.container}>
-            <div className={classes.carousel_ctrl}>
-              <img
-                alt="img"
-                src="https://m.media-amazon.com/images/I/714qRVfu2vL._AC_UY327_QL65_.jpg"
-                className={classes.img}
-              />
-            </div>
-            <div className={classes.disc}>
-              <p className={classes.heading}>
-                Samsung Galaxy Tab A7 (10.4 inch, RAM 3 GB, ROM 32 GB,
-                Wi-Fi-only), Gold{" "}
-              </p>
-              <p className={classes.oldprc}>₹ 20,999.00</p>
-              <p className={classes.price}>
-                You Save: <b className={classes.color}> ₹ 4,000.00 (19%) </b>
-              </p>
-              <p className={classes.avl}>In stock.</p>
-              <p className={classes.amount}>Eligible for FREE Shipping </p>
-              <div className={classes.quantity}>
-                <button className={classes.addBtn}>Qty:1</button>
-                <div className={classes.btns}>
-                  <button className={classes.quaBtn}>Delete</button>
-                  <button className={classes.quaBtn}>Save for later</button>
-                  <button className={classes.quaBtn}>See more like this</button>
+    let subTotal = null;
+    if(this.props.data){
+      let prods = this.props.data.cartData.cart.cartlist;
+      if(prods.length){
+        subTotal = <>
+        <hr className={classes.hr} />
+        <p className={classes.totalprice}>Subtotal : ₹ {this.props.data.cartData.cart.total_price}</p>
+        <button className={classes.totalbtn}> Checkout all Product</button>
+        </>
+        for (let i = 0; i < prods.length; i++) {
+          cards.push(
+            <div>
+              <div className={classes.container}>
+                <div className={classes.carousel_ctrl}>
+                  <img
+                    alt="img"
+                    src={prods[i].image}
+                    className={classes.img}
+                  />
+                </div>
+                <div className={classes.disc}>
+                  <p className={classes.heading}>
+                    {prods[i].short_desc}
+                  </p>
+          <p className={classes.oldprc}>₹ {prods[i].price}</p>
+                  <p className={classes.price}>
+                    You Save: <b className={classes.color}> ₹ 4,000.00 (19%) </b>
+                  </p>
+                  <p className={classes.avl}>In stock.</p>
+                  <p className={classes.amount}>Eligible for FREE Shipping </p>
+                  <div className={classes.quantity}>
+                    {/* <button className={classes.addBtn}>Qty:{prods[i].quantity}</button> */}
+                    <select 
+                    className={classes.addBtn} 
+                    onChange={(event) => this.quantChange(prods[i].product_id,event)} 
+                    value= {prods[i].quantity}>
+                      {options}
+                    </select>
+                    <div className={classes.btns}>
+                      <button className={classes.quaBtn} onClick={() => this.props.removeProd(prods[i].product_id)}>Delete</button>
+                    </div>
+                  </div>
+                  <p className={classes.free}>
+                    ✔ Your order is eligible for FREE Delivery.{" "}
+                  </p>
+                  <p className={classes.total}>
+                    Subtotal ({prods[i].quantity} item): <b>₹ 15,999.00</b>
+                  </p>
                 </div>
               </div>
-              <p className={classes.free}>
-                ✔ Your order is eligible for FREE Delivery.{" "}
-              </p>
-              <p className={classes.total}>
-                Subtotal (1 item): <b>₹ 15,999.00</b>
-              </p>
             </div>
-          </div>
-        </div>
-      );
+          );
+        }
+      }
+      else{
+        cards.push(<h1>No Products....!</h1>)
+      }
     }
     return (
       <div className={classes.maincontainer}>
         {cards}
-        <hr className={classes.hr} />
-        <p className={classes.totalprice}>Subtotal : ₹ 20,000.00</p>
-        <button className={classes.totalbtn}> Checkout all Product</button>
+        {subTotal}
       </div>
     );
   }
 }
-const mapDispatchToProps=(dispatch) =>{
+const mapStateToProps = (state) =>{
   return{
-   getCartData : () =>{ dispatch(actions.getCart())}
+    data: state.Login.Cart
   }
 }
-export default connect(null,mapDispatchToProps)(withCookies(Details));
+const mapDispatchToProps=(dispatch) =>{
+  return{
+   getCartData : () =>{ dispatch(actions.getCart())},
+   authCheckout: () => dispatch(actions.authCheckState()),
+   changeQuantity: (id,val) => dispatch(actions.changeValue(id,val)),
+   removeProd: (id) => dispatch(actions.deleteProd(id))
+  }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(withCookies(Details));

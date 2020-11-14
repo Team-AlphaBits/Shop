@@ -55,7 +55,8 @@ class NavbarPage extends Component {
     let activeHome = false,
       activeDeal = false,
       activeGift = false,
-      activeLogin = false;
+      activeLogin = false,
+      activeCart = false;
 
     if (this.props.history.location.pathname === "/login") {
       activeLogin = true;
@@ -65,6 +66,8 @@ class NavbarPage extends Component {
       activeDeal = true;
     } else if (this.props.history.location.pathname === "/gifts") {
       activeGift = true;
+    }else if (this.props.history.location.pathname === "/cart") {
+      activeCart = true;
     }
     let fixed = null;
     if (this.props.fixed || this.props.width < 770) {
@@ -161,8 +164,15 @@ class NavbarPage extends Component {
                 </MDBDropdownMenu>
               </MDBDropdown>
             </MDBNavItem>
+            {this.props.isAuthenticated ?  
+            <MDBNavItem active={activeCart}>
+              <MDBNavLink to="/cart">Cart</MDBNavLink>
+            </MDBNavItem> :
+            null}
             <MDBNavItem active={activeLogin}>
-              <MDBNavLink to="/login">Login/Signup</MDBNavLink>
+              {this.props.isAuthenticated ? 
+              <MDBNavLink onClick = {() => this.props.Logout()} to="/">Logout</MDBNavLink> : 
+              <MDBNavLink to="/login">Login/Signup</MDBNavLink>}
             </MDBNavItem>
           </MDBNavbarNav>
         </MDBCollapse>
@@ -182,7 +192,8 @@ class NavbarPage extends Component {
 const mapStateToProps = (state) => {
   return {
     isAuth: state.signuped,
-    opt: state.Login.desArr
+    opt: state.Login.desArr,
+    isAuthenticated: state.Login.TokenId !== null
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -190,6 +201,9 @@ const mapDispatchToProps = (dispatch) => {
     getResult: (des) => {
       dispatch(actions.getSearch(des));
     },
+    Logout: () => {
+      dispatch(actions.logOut())
+    }
   };
 };
 export default connect(

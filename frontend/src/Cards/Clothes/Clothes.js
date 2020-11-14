@@ -18,22 +18,24 @@ function Clothes(props) {
         if (cnt < 8) {
           cards.push(
             <div
-              className={classes.manualcard}
-              onClick={() => props.change(props.data.productData[i]._id)}
-            >
+              className={classes.manualcard}>
               <img
                 src={props.data.productData[i].home_image}
                 alt="pic"
                 className={classes.modify}
+                onClick={() => props.change(props.data.productData[i]._id)}
               />
-              <p className={classes.h4}>{props.data.productData[i].title}</p>
+              <p className={classes.h4} 
+              onClick={() => props.change(props.data.productData[i]._id)}>
+                {props.data.productData[i].title}
+                </p>
               <p className={classes.price} style={{ marginTop: "-15px" }}>
                 ₹{props.data.productData[i].price}
               </p>
               <p style={{ marginTop: "-15px" }}>
                 <strike>₹27,990</strike> (29% off)
               </p>
-              <button className={classes.btn}>ADD TO CART</button>
+              <button className={classes.btn} onClick={() => props.cartAdd(props.data.productData[i]._id)}>ADD TO CART</button>
             </div>
           );
         }

@@ -30,18 +30,63 @@ export const addTocartSuccess =() =>{
         type: actionTypes.ADDTOCART
     }
 }
-export const getCart = (cookies) =>{
-    console.log(cookies)
+export const cartData = (data) =>{
+    return{
+        type: actionTypes.CART_DATA,
+        data: data
+    }
+}
+export const deleteProd = (id) =>{
+    return dispatch=>{
+     Axios.put("https://calm-garden-34154.herokuapp.com/api/removeProd/"+id,{},{
+        headers:{
+            jwt: localStorage.getItem('jwt')
+        }
+     })
+        .then(res =>{
+            dispatch(getCart())
+        })
+        .catch(err => console.log(err))
+    }
+}
+export const addToCart = (id) =>{
+    return dispatch =>{
+    Axios.put("https://calm-garden-34154.herokuapp.com/api/add-to-cart/"+id,{},{
+        headers:{
+            jwt: localStorage.getItem('jwt')
+        }
+    })
+         .then(res =>{
+             console.log(res)
+         })
+         .catch(err => console.log(err))
+    }
+}
+export const changeValue = (id,val) =>{
+    return dispatch=>{
+  Axios.post("https://calm-garden-34154.herokuapp.com/api/incByVal/"+id+"/"+val,{},{
+    headers:{
+        jwt: localStorage.getItem('jwt')
+    }
+  })
+    .then(res =>{
+        console.log(res)
+        dispatch(getCart())
+    })
+    .catch(err => console.log(err))
+    }
+}
+export const getCart = () =>{
     return dispatch=>{
         Axios.get("https://calm-garden-34154.herokuapp.com/api/view-Cart/",{
             headers:{
                 jwt: localStorage.getItem('jwt')
             }
         })
-             .then(data =>{
-                 console.log(data)
-             })
-             .catch(err => console.log(err))
+            .then(data =>{
+                dispatch(cartData(data.data))
+            })
+            .catch(err => console.log(err))
     }
 }
 export const afterSearch = (data) =>{
@@ -90,15 +135,41 @@ export const getById = (id) =>{
 }
 export const getBycatId = (id) =>{
     return dispatch =>{
-        dispatch(getData())
         Axios.get("https://calm-garden-34154.herokuapp.com/api/category/" + id)
              .then(data =>{
+                 dispatch(getData())
                  dispatch(catData(data.data))
              })
              .catch(err => console.log(err))
     }
 }
-export const Login = (email,password,cookies) =>{
+export const authSuccess = (TokenID) => {
+    return {
+        type: actionTypes.AUTH_SUCCESS,
+        tokenid: TokenID
+    };
+};
+
+export const authFail = () => {
+    return {
+        type: actionTypes.AUTH_FAIL
+    };
+};
+export const logOut = () =>{
+    localStorage.removeItem('jwt');
+    localStorage.removeItem('expirationDate');
+    return{
+        type: actionTypes.AUTH_LOGOUT
+    }
+}
+export const checkAuthTimeout =(expireTime) =>{
+    return dispatch => {
+    setTimeout(() =>{
+    dispatch(logOut());
+    },expireTime*1000)
+    }
+}
+export const Login = (email,password) =>{
     return dispatch=>{
         let userInfo ={
             email: email,
@@ -106,9 +177,12 @@ export const Login = (email,password,cookies) =>{
         }
         Axios.post("https://cors-anywhere.herokuapp.com/https://calm-garden-34154.herokuapp.com/api/login",userInfo)
              .then(res =>{
+                 let expirationDate = new Date(new Date().getTime() + 7200*1000)
                  console.log(res)
                  localStorage.setItem('jwt',res.data.token)
-                 console.log(cookies)
+                 localStorage.setItem('expirationDate',expirationDate)
+                 dispatch(authSuccess(res.data.token))
+                 dispatch(checkAuthTimeout(7200))
              })
              .catch(err => console.log(err))
     }
@@ -129,5 +203,23 @@ export const Signup = (username, email, password) =>{
              .catch(err =>{
                  dispatch(signupFailed(err))
              })
+    }
+}
+export const authCheckState = () =>{
+    return dispatch =>{
+       const tokenid = localStorage.getItem('jwt');
+       if(!tokenid){
+           dispatch(logOut());
+       }
+       else {
+           const expiration = new Date(localStorage.getItem('expirationDate'));
+           if(expiration > new Date()){
+               dispatch(authSuccess(tokenid));
+               dispatch(checkAuthTimeout((expiration.getTime() - new Date().getTime())/1000));
+           }
+           else{
+               dispatch(logOut());
+           }
+       }
     }
 }

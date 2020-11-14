@@ -6,5 +6,10 @@ getById,
 getBycatId,
 getCart,
 getSearch,
-Login
+Login,
+logOut,
+authCheckState,
+addToCart,
+changeValue,
+deleteProd
 }from './Action'

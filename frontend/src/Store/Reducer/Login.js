@@ -8,7 +8,9 @@ const InitialState = {
     detail: null,
     catData: null,
     desArr: null,
-    resultData: null
+    resultData: null,
+    TokenId: null,
+    Cart: null
 }
 const signupSuccess = (state,action) =>{
     return{
@@ -49,6 +51,25 @@ const getBysearch = (state,action) =>{
         resultData: action.data
     }
 }
+const loggedIn = (state,action) =>{
+    return{
+        ...state,
+        TokenId: action.tokenid
+    }
+}
+const logOut = (state,action) =>{
+    return{
+        ...state,
+        TokenId: null,
+        Cart: null
+    }
+}
+const cartData = (state,action) =>{
+    return{
+        ...state,
+        Cart: action.data
+    }
+}
 const reducer = (state = InitialState, action) =>{
     switch(action.type){
          
@@ -58,6 +79,9 @@ const reducer = (state = InitialState, action) =>{
         case(actionTypes.GETBYID): return getBYid(state,action);
         case(actionTypes.GETBYCATID): return getBYcatId(state,action);
         case(actionTypes.getBYSearch): return getBysearch(state,action);
+        case(actionTypes.AUTH_SUCCESS): return loggedIn(state,action);
+        case(actionTypes.AUTH_LOGOUT): return logOut(state,action);
+        case(actionTypes.CART_DATA): return cartData(state,action);
         default: return state;
     }
 }
