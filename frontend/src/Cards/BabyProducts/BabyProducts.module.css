@@ -3,12 +3,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #fff;
+  /* background-color: #fff; */
   padding-top: 20px;
-  border-top: solid gold 5px;
-  border-bottom: solid gold 5px;
-
-  padding: 10px 2px 20px 2px;
+}
+.maincontainer {
+  border-top: solid #01ab9d 5px;
+  border-bottom: solid #01ab9d 5px;
+  padding: 10px 2px 5px 2px;
+  background-color: white;
 }
 .offer {
   font-size: 20px;

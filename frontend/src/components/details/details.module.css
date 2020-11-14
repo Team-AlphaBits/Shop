@@ -35,23 +35,37 @@
   margin-right: 30%;
 }
 .cartBtn {
-  background-color: #06a7c4;
+  background-color: rgb(52, 52, 231);
   width: 51%;
   border-radius: 5px;
   margin-bottom: 2px;
+  color: white;
+  border: none;
+  height: 30px;
 }
 .buyBtn {
-  background-color: rgba(155, 119, 19, 0.308);
+  background-color: #01ab9d;
   width: 51%;
   border-radius: 5px;
   margin: 5px;
+  color: white;
+  border: none;
+  height: 30px;
 }
 .sold {
   color: rgb(10, 10, 163);
 }
+.discborder {
+  border: 2px black solid;
+  border-radius: 5px;
+  padding: 10px;
+}
 .discription {
   text-align: justify; /* For Edge */
   font-weight: 400;
+
+  /* padding: 5px; */
+  /* margin-right: 10px; */
 }
 .car {
   max-width: 300px;

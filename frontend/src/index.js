@@ -12,7 +12,6 @@ import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import thunk from "redux-thunk";
 import "bootstrap-css-only/css/bootstrap.min.css";
-import {CookiesProvider} from 'react-cookie'
 import "mdbreact/dist/css/mdb.css";
 
 const composeEnhancers =
@@ -26,13 +25,11 @@ const Store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
 
 ReactDOM.render(
   <React.StrictMode>
-    <CookiesProvider>
     <Provider store={Store}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
     </Provider>
-    </CookiesProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

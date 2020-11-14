@@ -2,10 +2,8 @@ import React, { Component } from "react";
 // import Carousel from "../../components/carousel/carousel";
 import classes from "./Cart.module.css";
 import { Redirect } from "react-router-dom";
-import {connect} from 'react-redux';
-import * as actions from '../../Store/Action/index'
-import {withCookies} from 'react-cookie';
-
+import { connect } from "react-redux";
+import * as actions from "../../Store/Action/index";
 class Details extends Component {
   check = () => {
     return <Redirect to="/Checkout" />;
@@ -13,9 +11,6 @@ class Details extends Component {
   componentDidMount(){
     this.props.authCheckout();
     this.props.getCartData();
-  }
-  state = {
-    prodValue: 1
   }
   quantChange = (id,event) =>{
     this.setState({prodValue: event.target.value})
@@ -55,9 +50,6 @@ class Details extends Component {
                     {prods[i].short_desc}
                   </p>
           <p className={classes.oldprc}>₹ {prods[i].price}</p>
-                  <p className={classes.price}>
-                    You Save: <b className={classes.color}> ₹ 4,000.00 (19%) </b>
-                  </p>
                   <p className={classes.avl}>In stock.</p>
                   <p className={classes.amount}>Eligible for FREE Shipping </p>
                   <div className={classes.quantity}>
@@ -109,4 +101,4 @@ const mapDispatchToProps=(dispatch) =>{
    removeProd: (id) => dispatch(actions.deleteProd(id))
   }
 }
-export default connect(mapStateToProps,mapDispatchToProps)(withCookies(Details));
+export default connect(mapStateToProps,mapDispatchToProps)(Details);

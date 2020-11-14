@@ -17,13 +17,26 @@ class ProductList extends Component {
       search: "?" + id,
     });
   };
-
+  discount= (price,arg,dis) =>{
+    let modifiedPrice = parseFloat(price.replace( /[^\d.]*/g,''));
+  if(arg === "newprice"){
+    return Math.floor(modifiedPrice - (dis * modifiedPrice)/100).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
+  }
+  else if(arg === "oldprice"){
+    let newprice = modifiedPrice.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
+    return newprice
+  }
+    else if(arg === "diff"){
+        return (modifiedPrice - Math.floor(modifiedPrice - (dis * modifiedPrice)/100)).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
+    }
+}
   render() {
     console.log(this.props.Data);
     let cards = [];
     if(this.props.history.location.pathname.split("/")[3] === "true"){
     if (this.props.Data) {
       for (let i = 0; i < this.props.Data.productData.length; i++) {
+        let des = Math.floor(Math.random() * (50)) + 1;
         cards.push(
           <div>
             <div className={classes.container}>
@@ -48,16 +61,13 @@ class ProductList extends Component {
                 </p>
                 <div className={classes.pricing}>
                   {" "}
-                  <p className={classes.oldprc}>₹ 14,999.00</p>
-                  <strike className={classes.prc}>₹ 18,999.00</strike>
-                  <p className={classes.price}>Save: 4,000.00 (26%)</p>
+                  <p className={classes.oldprc}>₹ {this.discount(this.props.Data.productData[i].price,"newprice",des)}</p>
+                  <strike className={classes.prc}>₹ {this.discount(this.props.Data.productData[i].price,"oldprice",des)}</strike>
+                <p className={classes.price}>Save: ₹{this.discount(this.props.Data.productData[i].price,"diff",des)} ({des}%)</p>
                 </div>
                 <p className={classes.amount}>
-                  Get it by <b>Sunday, October 25 </b>
-                </p>
-                <p className={classes.amount}>
-                  FREE Delivery by <b>SHOP</b>{" "}
-                </p>
+                    FREE Delivery by <b>SHOP</b>{" "}
+                  </p>
               </div>
             </div>
             <hr className={classes.line} />
@@ -70,6 +80,7 @@ class ProductList extends Component {
       if(this.props.search){
         console.log(this.props.search)
         for (let i = 0; i < this.props.search.data.result.length; i++) {
+          let des = Math.floor(Math.random() * (50)) + 1;
           cards.push(
             <div>
               <div className={classes.container}>
@@ -94,13 +105,10 @@ class ProductList extends Component {
                   </p>
                   <div className={classes.pricing}>
                     {" "}
-                    <p className={classes.oldprc}>₹ 14,999.00</p>
-                    <strike className={classes.prc}>₹ 18,999.00</strike>
-                    <p className={classes.price}>Save: 4,000.00 (26%)</p>
+                    <p className={classes.oldprc}>₹ {this.discount(this.props.Data.productData[i].price,"newprice",des)}</p>
+                    <strike className={classes.prc}>₹ {this.discount(this.props.Data.productData[i].price,"oldprice",des)}</strike>
+                  <p className={classes.price}>Save: ₹{this.discount(this.props.Data.productData[i].price,"diff",des)} ({des}%)</p>
                   </div>
-                  <p className={classes.amount}>
-                    Get it by <b>Sunday, October 25 </b>
-                  </p>
                   <p className={classes.amount}>
                     FREE Delivery by <b>SHOP</b>{" "}
                   </p>

@@ -145,6 +145,7 @@
   font-weight: bold;
   color: rgb(4, 31, 107);
   margin-bottom: 50px;
+  text-decoration: underline;
 }
 .skill {
   font-weight: 400;

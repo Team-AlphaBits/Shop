@@ -19,14 +19,14 @@ class Home extends Component {
  }
   changeUrl = (id) =>{
     this.props.history.push({
-      pathname: '/details',
-      hash: '#items',
-      search: '?'+id
-    })
-  }
+      pathname: "/details",
+      hash: "#items",
+      search: "?" + id,
+    });
+  };
   render() {
     return (
-      <div style={{backgroundColor: "#eeeef0"}}>
+      <div style={{ backgroundColor: "#eeeef0" }}>
         <Header />
         {/* <MDBView src={FrontImage} >
             <MDBMask overlay="black-light" className="flex-center flex-column text-white text-center">
@@ -40,13 +40,13 @@ class Home extends Component {
           </MDBRow>
         </MDBContainer>
         <p className={classes.headcloth}>
-          Great Deals on Clothings up-to 30-40% off
+          Great Deals on Clothings up-to 30-40% off :
         </p>
         <Clothes data={this.props.Data} change={this.changeUrl} cartAdd = {this.AddedtoCart}/>
         <p className={classes.headcloth}>Special Offers on Gaming Devices</p>
         <BabyProducts data={this.props.Data} change={this.changeUrl}/>
         <p className={classes.headcloth}>Crazy Deals on Books :</p>
-        <StaticCards data={this.props.Data} change={this.changeUrl}/>
+        <StaticCards data={this.props.Data} change={this.changeUrl} />
       </div>
     );
   }

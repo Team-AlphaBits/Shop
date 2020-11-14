@@ -13,6 +13,7 @@ class StaticCards extends Component {
     let cnt = 0;
     if (this.props.data) {
       for (let i = 0; i < 175 && cards.length < 8; i++) {
+      let des = Math.floor(Math.random() * (50)) + 1;
         if (this.props.data.productData[i].cat_id === "Books") {
           cnt++;
           if (cnt > 8) {
@@ -28,7 +29,7 @@ class StaticCards extends Component {
                   alt="pic"
                   className={classes.modify}
                 />
-                <p className={classes.disc}>Up to 40% off</p>
+                <p className={classes.disc}>Up to {des}% off</p>
               </div>
             );
           }
@@ -36,12 +37,12 @@ class StaticCards extends Component {
       }
     }
     return (
-      <div>
+      <div className={classes.maincontainer}>
         <div className={classes.flexbox}>
           <Carousel breakPoints={breakPoints}>{cards}</Carousel>
         </div>
         <p className={classes.offer}>
-          <a href="/ProductList/Books">See All Offers ...</a>
+          <a href="/ProductList/Books/true">See All Offers ...</a>
         </p>
       </div>
     );

@@ -1,3 +1,6 @@
+.maincontainer {
+  background-color: #eeeef0;
+}
 .App {
   font-family: sans-serif;
   display: flex;
@@ -23,13 +26,15 @@
   object-fit: contain;
 }
 .btn {
-  background-color: aqua;
+  background-color: #08d4c4;
   width: 200px;
   /* padding-top: 5px;
   padding-bottom: 5px; */
   border-radius: 6px;
   font-weight: 500;
   margin-left: 20%;
+  color: white;
+  border: none;
 }
 .manualcard {
   /* margin-left: 30%;
@@ -45,11 +50,13 @@
   font-weight: 500;
   margin-bottom: -20px;
   margin-left: 5%;
-  margin-top: 150px;
-  color: black;
+  margin-top: 50px;
+  color: rgba(5, 5, 90, 0.911);
+  text-decoration: underline;
+  margin-bottom: 10px;
 }
 .line {
-  background-color: gold;
+  background-color: #01ab9d;
   height: 2px;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -60,8 +67,12 @@
   font-weight: 500;
   margin-bottom: -20px;
   margin-left: 5%;
-  color: black;
+  color: rgba(5, 5, 90, 0.911);
   margin-top: 30px;
+  text-decoration: underline;
+  margin-bottom: 10px;
+  margin-top: 150px;
+  padding-top: 5px;
 }
 .offer {
   font-size: 20px;
@@ -73,9 +84,21 @@
 .price {
   font-size: 20px;
   font-weight: bold;
-  color: green;
+  color: rgb(143, 8, 8);
   margin-left: 33%;
   margin-top: 20px;
+}
+.price2 {
+  font-size: 20px;
+  font-weight: bold;
+  color: green;
+  margin-top: 10px;
+  margin-left: 23%;
+}
+.disc {
+  font-weight: 600;
+  font-size: 15px;
+  color: black;
 }
 @media (max-width: 400px) {
   .btn {

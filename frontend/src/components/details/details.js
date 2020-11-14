@@ -8,11 +8,25 @@ class Details extends Component {
   componentDidMount() {
     this.props.getProduct(this.props.location.search.split("?")[1]);
   }
+  discount= (price,arg,dis) =>{
+    let modifiedPrice = parseFloat(price.replace( /[^\d.]*/g,''));
+  if(arg === "newprice"){
+    return Math.floor(modifiedPrice - (dis * modifiedPrice)/100).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
+  }
+  else if(arg === "oldprice"){
+    let newprice = modifiedPrice.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
+    return newprice
+  }
+    else if(arg === "diff"){
+        return (modifiedPrice - Math.floor(modifiedPrice - (dis * modifiedPrice)/100)).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
+    }
+}
   render() {
     if (this.props.DetailData) {
       console.log(this.props.DetailData.productData);
     }
     let img = ["d-block w-100", classes.carimg];
+    let dis = Math.floor(Math.random() * (50)) + 1;
     let show = null;
     if (this.props.DetailData) {
       let des = this.props.DetailData.productData.description.split(".");
@@ -56,21 +70,18 @@ class Details extends Component {
               {this.props.DetailData.productData.short_desc}
             </p>
             <p className={classes.oldprc}>
-              M.R.P.: <strike>₹ 20,999.00</strike>
-            </p>
+              M.R.P.: <strike>₹ {this.discount(this.props.DetailData.productData.price,"oldprice",dis)}</strike>
+            </p>  
             <p className={classes.amount}>
               Deal of the Day:{" "}
               <b className={classes.price}>
-                ₹ {this.props.DetailData.productData.price}.00
+                ₹ {this.discount(this.props.DetailData.productData.price,"newprice",dis)}.00
               </b>
             </p>
             <p className={classes.price2}>
-              You Save: <b className={classes.price}> ₹ 4,000.00 (19%) </b>
+              You Save: <b className={classes.price}> ₹ {this.discount(this.props.DetailData.productData.price,"diff",dis)} (19%) </b>
             </p>
             <b>Inclusive of all taxes</b>
-            <p>
-              Delivery by: <b>Monday, Oct 26</b> Details
-            </p>
             <p className={classes.avl}>In stock.</p>
             <button className={classes.cartBtn}>Add to Cart</button>
             <button className={classes.buyBtn}>Buy Now</button>
@@ -82,7 +93,9 @@ class Details extends Component {
               and Fulfilled by <b className={classes.sold}>Shop</b>.{" "}
             </p>
 
-            <ul className={classes.discription}>{details}</ul>
+            <div className={classes.discborder}>
+              <ul className={classes.discription}>{details}</ul>
+            </div>
           </div>
         </div>
       );
