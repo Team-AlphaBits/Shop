@@ -10,6 +10,7 @@ import Itemlist from './assets/screens/Itemlist.js';
 import Details from './assets/screens/Details.js';
 import MyCart from './assets/screens/MyCart';
 import Order from './assets/screens/Order';
+import MyOrder from './assets/screens/MyOrder';
 import Drawercontent from './assets/screens/DrawerContent';
 import Search from './assets/screens/Search';
 import store from './assets/Redux/store';
@@ -29,10 +30,11 @@ function App() {
           <Drawer.Screen name="Details" component={Details} />
           <Drawer.Screen name="MyCart" component={MyCart} />
           <Drawer.Screen name="Order" component={Order} />
+          <Drawer.Screen name="MyOrder" component={MyOrder} />
           <Drawer.Screen name="Search" component={Search} />
         </Drawer.Navigator>
       </NavigationContainer>
-      </Provider>
+    </Provider>
   );
 }
 

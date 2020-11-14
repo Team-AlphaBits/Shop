@@ -250,16 +250,6 @@ class Details extends Component {
                       : '₹ ' + details.price}
                   </Text>
                   <View style={{flexDirection: 'row'}}>
-<<<<<<< HEAD
-                    <Text style={styles.Discountprice}>
-                      {'₹ ' +
-                        parseInt(
-                          this.state.ItemPrice -
-                            (this.state.ItemPrice * this.state.discount) / 100,
-                        ) +
-                        '.00'}
-                    </Text>
-=======
                     <CurrencyFormat
                       value={
                         this.state.ItemPrice -
@@ -272,7 +262,6 @@ class Details extends Component {
                         <Text style={styles.Discountprice}>{'₹ ' + value}</Text>
                       )}
                     />
->>>>>>> d7f3970cf214a437b90812eff07f99cd9871426c
                     <Text
                       style={{
                         color: color.MintyGreenMedium,
