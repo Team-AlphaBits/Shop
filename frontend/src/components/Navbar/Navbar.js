@@ -34,7 +34,7 @@ class NavbarPage extends Component {
     event.preventDefault();
     this.props.getResult(this.state.Input);
     this.props.history.push({
-      pathname: "/ProductList/RelatedItems/false"
+      pathname: "/ProductList/RelatedItems/false",
     });
   };
   //onSubmit={() => this.props.getResult(this.state.Input)}
@@ -164,6 +164,9 @@ class NavbarPage extends Component {
             <MDBNavItem active={activeLogin}>
               <MDBNavLink to="/login">Login/Signup</MDBNavLink>
             </MDBNavItem>
+            <MDBNavItem active={activeLogin}>
+              <MDBNavLink to="/MyOrder">My Order</MDBNavLink>
+            </MDBNavItem>
           </MDBNavbarNav>
         </MDBCollapse>
       </MDBNavbar>
@@ -182,7 +185,7 @@ class NavbarPage extends Component {
 const mapStateToProps = (state) => {
   return {
     isAuth: state.signuped,
-    opt: state.Login.desArr
+    opt: state.Login.desArr,
   };
 };
 const mapDispatchToProps = (dispatch) => {
