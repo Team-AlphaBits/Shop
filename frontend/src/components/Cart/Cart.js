@@ -16,6 +16,13 @@ class Details extends Component {
     this.setState({prodValue: event.target.value})
     this.props.changeQuantity(id,event.target.value)
   }
+  changeUrl = (id) =>{
+    this.props.history.push({
+      pathname: "/details",
+      hash: "#items",
+      search: "?" + id,
+    });
+  };
   render() {
     // let cls = ["z-depth-1", classes.car];
     // let img = ["d-block w-100", classes.car];
@@ -43,13 +50,14 @@ class Details extends Component {
                     alt="img"
                     src={prods[i].image}
                     className={classes.img}
+                    onClick={() => this.changeUrl(prods[i].product_id)}
                   />
                 </div>
                 <div className={classes.disc}>
-                  <p className={classes.heading}>
+                  <p className={classes.heading}  onClick={() => this.changeUrl(prods[i].product_id)}>
                     {prods[i].short_desc}
                   </p>
-          <p className={classes.oldprc}>₹ {prods[i].price}</p>
+          <p className={classes.oldprc}>₹ {parseFloat(prods[i].price.replace( /[^\d.]*/g,'')).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}</p>
                   <p className={classes.avl}>In stock.</p>
                   <p className={classes.amount}>Eligible for FREE Shipping </p>
                   <div className={classes.quantity}>
@@ -68,7 +76,7 @@ class Details extends Component {
                     ✔ Your order is eligible for FREE Delivery.{" "}
                   </p>
                   <p className={classes.total}>
-                    Subtotal ({prods[i].quantity} item): <b>₹ 15,999.00</b>
+          Subtotal ({prods[i].quantity} item): <b>₹ {(parseFloat(prods[i].quantity)*parseFloat(prods[i].price.replace( /[^\d.]*/g,''))).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}</b>
                   </p>
                 </div>
               </div>

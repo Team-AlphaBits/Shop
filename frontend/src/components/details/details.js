@@ -21,6 +21,9 @@ class Details extends Component {
         return (modifiedPrice - Math.floor(modifiedPrice - (dis * modifiedPrice)/100)).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
     }
 }
+AddedtoCart = (id) =>{
+  this.props.addTocart(id)
+  }
   render() {
     if (this.props.DetailData) {
       console.log(this.props.DetailData.productData);
@@ -83,7 +86,7 @@ class Details extends Component {
             </p>
             <b>Inclusive of all taxes</b>
             <p className={classes.avl}>In stock.</p>
-            <button className={classes.cartBtn}>Add to Cart</button>
+            <button className={classes.cartBtn} onClick={() => this.AddedtoCart(this.props.DetailData.productData._id)}>Add to Cart</button>
             <button className={classes.buyBtn}>Buy Now</button>
             <p>
               Sold by{" "}
@@ -113,6 +116,7 @@ const mapDispatchToprops = (dispatch) => {
     getProduct: (id) => {
       dispatch(actions.getById(id));
     },
+    addTocart: (id) => dispatch(actions.addToCart(id))
   };
 };
 export default connect(mapStatetoProps, mapDispatchToprops)(Details);

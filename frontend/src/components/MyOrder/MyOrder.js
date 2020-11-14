@@ -8,11 +8,12 @@ export default class MyOrder extends Component {
       cards.push(
         <div className={classes.container}>
           <img
+          alt="some"
             src="https://m.media-amazon.com/images/I/714qRVfu2vL._AC_UY327_QL65_.jpg"
             className={classes.img}
           />
           <div className={classes.disc}>
-            <a className={classes.name} href="">
+            <a className={classes.name} href="/">
               Samsung Galaxy Tab A7 (10.4 inch, RAM 3 GB, ROM 32 GB,
               Wi-Fi-only), Gold
             </a>

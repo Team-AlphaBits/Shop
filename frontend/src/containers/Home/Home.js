@@ -44,7 +44,7 @@ class Home extends Component {
         </p>
         <Clothes data={this.props.Data} change={this.changeUrl} cartAdd = {this.AddedtoCart}/>
         <p className={classes.headcloth}>Special Offers on Gaming Devices</p>
-        <BabyProducts data={this.props.Data} change={this.changeUrl}/>
+        <BabyProducts data={this.props.Data} change={this.changeUrl} />
         <p className={classes.headcloth}>Crazy Deals on Books :</p>
         <StaticCards data={this.props.Data} change={this.changeUrl} />
       </div>

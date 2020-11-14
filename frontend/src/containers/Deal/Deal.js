@@ -20,6 +20,16 @@ class Deals extends Component{
     return newprice
   }
 }
+changeUrl = (id) =>{
+  this.props.history.push({
+    pathname: "/details",
+    hash: "#items",
+    search: "?" + id,
+  });
+};
+AddedtoCart = (id) =>{
+  this.props.addTocart(id)
+  }
   render() {
 
     let smartPhone = [],ph=0;
@@ -44,13 +54,14 @@ class Deals extends Component{
                 src={some[i].home_image}
                 alt="pic"
                 className={classes.modify}
+                onClick={() => this.changeUrl(some[i]._id)}
               />
               <strike className={classes.price}>₹{this.discount(some[i].price,"oldprice",des)}</strike>
               <p className={classes.price2}>
               ₹{this.discount(some[i].price,"newprice",des)}<b className={classes.disc}> ({des}% off)</b>
               </p>
       
-              <button className={classes.btn}>ADD TO CART</button>
+              <button className={classes.btn} onClick={() => this.AddedtoCart(some[i]._id)}>ADD TO CART</button>
             </div>
           );
       }
@@ -63,13 +74,14 @@ class Deals extends Component{
               src={some[i].home_image}
               alt="pic"
               className={classes.modify}
+              onClick={() => this.changeUrl(some[i]._id)}
             />
             <strike className={classes.price}>₹{this.discount(some[i].price,"oldprice",des)}</strike>
             <p className={classes.price2}>
             ₹{this.discount(some[i].price,"newprice",des)}<b className={classes.disc}> ({des}% off)</b>
             </p>
     
-            <button className={classes.btn}>ADD TO CART</button>
+            <button className={classes.btn} onClick={() => this.AddedtoCart(some[i]._id)}>ADD TO CART</button>
           </div>
         );
     }
@@ -82,13 +94,14 @@ class Deals extends Component{
             src={some[i].home_image}
             alt="pic"
             className={classes.modify}
+            onClick={() => this.changeUrl(some[i]._id)}
           />
           <strike className={classes.price}>₹{this.discount(some[i].price,"oldprice",des)}</strike>
           <p className={classes.price2}>
       ₹{this.discount(some[i].price,"newprice",des)}<b className={classes.disc}> ({des}% off)</b>
           </p>
   
-          <button className={classes.btn}>ADD TO CART</button>
+          <button className={classes.btn} onClick={() => this.AddedtoCart(some[i]._id)}>ADD TO CART</button>
         </div>
       );
   }
