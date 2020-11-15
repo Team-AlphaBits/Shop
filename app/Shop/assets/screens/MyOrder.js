@@ -85,9 +85,6 @@ class MyOrder extends Component {
   }
 
   render() {
-    if (this.state.data != null) {
-      console.log(this.dataMapFunction());
-    }
     return (
       <SafeAreaView style={{flex: 1}}>
         <Appbar.Header style={{backgroundColor: color.MintyGreenMedium}}>
@@ -106,29 +103,94 @@ class MyOrder extends Component {
           size="large"
           style={styles.activityindicator}
         />
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <View style={{flex: 1}}>
           {this.props.isLoggedIn ? (
             this.state.data != null ? (
               <SectionList
                 sections={this.dataMapFunction()}
                 keyExtractor={(item, index) => item + index}
                 renderSectionHeader={({section}) => (
-                  <Text
-                    style={{
-                      width: '100%',
-                      height: 50,
-                      backgroundColor: color.burntyellow,
-                      fontWeight: 'bold',
-                      color: color.white,
-                      marginTop:10,
-                      fontSize:25
-                    }}>
+                  <Text style={styles.sectionHeader}>
                     Date: {section.title}
                   </Text>
                 )}
-                renderItem={({item}) => <Text>{item.short_desc}</Text>}
+                renderItem={({item}) => (
+                  <Pressable
+                    style={styles.sectionRenderItem}
+                    onPress={() => {
+                      this.props.navigation.navigate('Details', {
+                        data: item.product_id,
+                      });
+                    }}>
+                    <View style={{width: 100, height: 100}}>
+                      <Image
+                        style={{width: null, height: null, flex: 1}}
+                        resizeMode="contain"
+                        source={{uri: item.image}}
+                      />
+                    </View>
+                    <View
+                      style={{
+                        flexWrap: 'wrap',
+                        alignItems: 'flex-start',
+                        flexDirection: 'row',
+                        width: 250,
+                      }}>
+                      <Text style={{fontWeight: 'bold'}}>
+                        {item.short_desc}
+                      </Text>
+                      <Text
+                        style={{
+                          fontWeight: 'bold',
+                          color: color.lightblue,
+                          marginTop: 5,
+                        }}>
+                        {item.price[0] == '₹' ? item.price : '₹' + item.price}
+                      </Text>
+                    </View>
+                  </Pressable>
+                )}
                 renderSectionFooter={({section}) => (
-                  <Text>{section.address}</Text>
+                  <View style={styles.sectionFooter}>
+                    <View style={{flexDirection: 'row'}}>
+                      <Text style={styles.footerTextHeading}>Address: </Text>
+                      <View
+                        style={{
+                          flexWrap: 'wrap',
+                          alignItems: 'flex-end',
+                          width: 250,
+                        }}>
+                        <Text style={styles.footerTextHeading}>
+                          {section.address}
+                        </Text>
+                      </View>
+                    </View>
+                    <Text style={styles.footerTextHeading}>
+                      Total Products: {section.totalProducts}
+                    </Text>
+                    <Text style={styles.footerTextHeading}>
+                      Total Price:{' '}
+                      {section.totalPrice[0] == '₹'
+                        ? section.totalPrice
+                        : '₹' + section.totalPrice}
+                    </Text>
+                    <Text style={styles.footerTextHeading}>
+                      Payment Method: {section.paymentMethod}
+                    </Text>
+                    <Text
+                      style={[
+                        styles.footerTextHeading,
+                        {
+                          color: section.paymentSuccessful
+                            ? color.MintyGreenMedium
+                            : 'red',
+                        },
+                      ]}>
+                      {section.paymentSuccessful
+                        ? 'Payment Successful'
+                        : 'Payment Failed'}
+                    </Text>
+                  </View>
                 )}
               />
             ) : (
@@ -167,6 +229,35 @@ const styles = StyleSheet.create({
     position: 'absolute',
     alignSelf: 'center',
     marginTop: 60,
+    zIndex: 3,
+  },
+  sectionFooter: {
+    marginBottom: 40,
+    paddingHorizontal: 5,
+    borderBottomColor: color.burntyellow,
+    borderBottomWidth: 15,
+    paddingVertical: 5,
+    backgroundColor: color.white,
+  },
+  sectionHeader: {
+    width: '100%',
+    height: 50,
+    backgroundColor: color.burntyellow,
+    fontWeight: 'bold',
+    color: color.white,
+    marginTop: 10,
+    paddingStart: 5,
+    fontSize: 20,
+    textAlignVertical: 'center',
+  },
+  sectionRenderItem: {
+    flexDirection: 'row',
+    paddingVertical: 10,
+    borderBottomWidth: 2,
+    backgroundColor: color.white,
+  },
+  footerTextHeading: {
+    color: color.darkblue,
   },
 });
 
