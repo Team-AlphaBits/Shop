@@ -14,6 +14,8 @@ import MyOrder from './assets/screens/MyOrder';
 import Drawercontent from './assets/screens/DrawerContent';
 import Search from './assets/screens/Search';
 import store from './assets/Redux/store';
+import about from './assets/screens/about';
+import registration from './assets/screens/registration';
 
 const Drawer = createDrawerNavigator();
 function App() {
@@ -32,6 +34,8 @@ function App() {
           <Drawer.Screen name="Order" component={Order} />
           <Drawer.Screen name="MyOrder" component={MyOrder} />
           <Drawer.Screen name="Search" component={Search} />
+          <Drawer.Screen name="About" component={about} />
+          <Drawer.Screen name="Registration" component={registration} />
         </Drawer.Navigator>
       </NavigationContainer>
     </Provider>

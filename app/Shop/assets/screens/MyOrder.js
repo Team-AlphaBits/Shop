@@ -1,96 +1,179 @@
 import React, {Component} from 'react';
-import {Text, View, StyleSheet, Image} from 'react-native';
-import {FlatList, ScrollView} from 'react-native-gesture-handler';
-import {color} from 'react-native-reanimated';
-const Data = [
-  {
-    index: 1,
-    src: 'https://m.media-amazon.com/images/I/41xg1z2h-uL._AC_SY200_.jpg',
-    name: 'Samsung Galaxy M21 (Midnight Blue, 4GB RAM, 64GB Storage) ',
-  },
-  {
-    index: 2,
-    src: 'https://m.media-amazon.com/images/I/41IGxaJjq8L._AC_SY200_.jpg',
-    name: 'OnePlus Nord 5G (Gray Onyx, 12GB RAM, 256GB Storage) ',
-  },
-  {
-    index: 3,
-    src:
-      'https://images-na.ssl-images-amazon.com/images/I/61pW8BWBq1L._SL1000_.jpg',
-    name: 'Lenovo Legion 5Pi 10th Gen Intel Core i7 15.6" FHD Gaming Laptop ',
-  },
-  {
-    index: 4,
-    src:
-      'https://images-na.ssl-images-amazon.com/images/I/61p3lA4N3uL._SL1000_.jpg',
-    name:
-      'Lenovo Legion 5i 10th Gen Intel Core i7 15.6 inch Full HD Gaming Laptop  ',
-  },
-  {
-    index: 5,
-    src:
-      'https://images-na.ssl-images-amazon.com/images/I/914o5xV1%2B8L._SL1500_.jpg',
-    name: 'ASUS TUF Gaming F15 Laptop 15.6" FHD Intel Core i7 10th Gen ',
-  },
-];
-export default class MyOrder extends Component {
+import {
+  Text,
+  View,
+  StyleSheet,
+  Image,
+  SafeAreaView,
+  ActivityIndicator,
+  Pressable,
+  SectionList,
+} from 'react-native';
+import {Appbar, Snackbar} from 'react-native-paper';
+import {connect} from 'react-redux';
+import axios from 'axios';
+import color from '../colors/colors';
+
+class MyOrder extends Component {
+  constructor() {
+    super();
+    this.state = {
+      data: null,
+      visible: false,
+      isLoading: false,
+    };
+  }
+  unsubscribe_function = {
+    unsubscribe: null,
+  };
+
+  onToggleSnackBar = () => {
+    this.setState({visible: true});
+  };
+
+  onDismissSnackBar = () => {
+    this.setState({visible: false});
+  };
+
+  dataMapFunction = () => {
+    var mydata = this.state.data.map((item) => {
+      return {
+        title: item.date,
+        data: item.productDetails,
+        totalProducts: item.totalProducts,
+        totalPrice: item.totalPrice,
+        address: item.address,
+        paymentMethod: item.paymentMethod,
+        paymentSuccessful: item.paymentSuccessful,
+      };
+    });
+    return mydata;
+  };
+
+  fetchAndUpdateData = () => {
+    if (this.props.isLoggedIn) {
+      this.setState({isLoading: true});
+      axios
+        .get('https://calm-garden-34154.herokuapp.com/api/prevOrder')
+        .then((res) => {
+          this.setState({
+            data: res.data,
+          });
+        })
+        .catch((e) => {
+          this.onToggleSnackBar();
+        })
+        .then(() => {
+          this.setState({isLoading: false});
+        });
+    }
+  };
+
+  componentDidMount() {
+    //subscribing to screen changes to call fetchandupdatedata function
+    this.unsubscribe_function.unsubscribe = this.props.navigation.addListener(
+      'focus',
+      () => {
+        this.fetchAndUpdateData();
+      },
+    );
+  }
+
+  componentWillUnmount() {
+    //unsubscribing from screen changes
+    this.unsubscribe_function.unsubscribe();
+  }
+
   render() {
+    if (this.state.data != null) {
+      console.log(this.dataMapFunction());
+    }
     return (
-      <View style={styles.maincontainer}>
-        <FlatList
-          data={Data}
-          renderItem={({item}) => (
-            <View style={styles.container}>
-              <View style={styles.imgcontainer}>
-                <Image
-                  style={styles.img}
-                  resizeMode="contain"
-                  source={{
-                    uri: item.src,
-                  }}
-                />
-              </View>
-              <View style={styles.textContainer}>
-                <Text style={styles.text}>{item.name} </Text>
-              </View>
+      <SafeAreaView style={{flex: 1}}>
+        <Appbar.Header style={{backgroundColor: color.MintyGreenMedium}}>
+          <Appbar.Action
+            icon="menu"
+            size={40}
+            onPress={() => {
+              this.props.navigation.openDrawer();
+            }}
+          />
+          <Appbar.Content title="My Order" />
+        </Appbar.Header>
+        <ActivityIndicator
+          animating={this.state.isLoading}
+          color={color.MintyGreenDark}
+          size="large"
+          style={styles.activityindicator}
+        />
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          {this.props.isLoggedIn ? (
+            this.state.data != null ? (
+              <SectionList
+                sections={this.dataMapFunction()}
+                keyExtractor={(item, index) => item + index}
+                renderSectionHeader={({section}) => (
+                  <Text
+                    style={{
+                      width: '100%',
+                      height: 50,
+                      backgroundColor: color.burntyellow,
+                      fontWeight: 'bold',
+                      color: color.white,
+                      marginTop:10,
+                      fontSize:25
+                    }}>
+                    Date: {section.title}
+                  </Text>
+                )}
+                renderItem={({item}) => <Text>{item.short_desc}</Text>}
+                renderSectionFooter={({section}) => (
+                  <Text>{section.address}</Text>
+                )}
+              />
+            ) : (
+              <View></View>
+            )
+          ) : (
+            <View
+              style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
+              <Text style={{color: color.MintyGreenMedium, fontWeight: 'bold'}}>
+                Login to see Previous Orders...
+              </Text>
             </View>
           )}
-          keyExtractor={(item, index) => index.toString()}
-        />
-      </View>
+        </View>
+        <View>
+          <Snackbar
+            visible={this.state.visible}
+            onDismiss={() => {
+              this.onDismissSnackBar();
+            }}
+            action={{
+              label: 'Retry',
+              onPress: () => {
+                this.fetchandupdatedata();
+              },
+            }}>
+            Something Went Wrong !
+          </Snackbar>
+        </View>
+      </SafeAreaView>
     );
   }
 }
 const styles = StyleSheet.create({
-  maincontainer: {
-    marginTop: 10,
-    flex: 1,
-    paddingHorizontal: '10%',
-    backgroundColor: 'white',
-  },
-  container: {
-    flexDirection: 'row',
-    height: 120,
-    borderBottomWidth: 2,
-  },
-  imgcontainer: {
-    flex: 1,
-    width: '20%',
-    height: 100,
-    padding: 10,
-  },
-  img: {
-    flex: 1,
-    width: null,
-    height: null,
-  },
-  textContainer: {
-    width: '60%',
-    height: 100,
-  },
-  text: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginTop: '15%',
+  activityindicator: {
+    position: 'absolute',
+    alignSelf: 'center',
+    marginTop: 60,
   },
 });
+
+const mapStateToProps = (state) => {
+  return {
+    isLoggedIn: state.LoginReducer.isLoggedIn,
+  };
+};
+
+export default connect(mapStateToProps, null)(MyOrder);

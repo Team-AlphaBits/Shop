@@ -213,7 +213,7 @@ class Login extends Component {
               </Pressable>
 
               <Pressable
-                onPress={() => console.log('pressed')}
+                onPress={() => this.props.navigation.navigate('Registration')}
                 style={[
                   styles.signIn,
                   {

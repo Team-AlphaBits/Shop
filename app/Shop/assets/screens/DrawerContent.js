@@ -119,16 +119,35 @@ class DrawerContent extends Component {
                     this.props.navigation.navigate('MyCart');
                   }}
                 />
+
+                <DrawerItem
+                  icon={() => (
+                    <Icon
+                      name="clipboard-list"
+                      color={color.darkblue}
+                      size={30}
+                    />
+                  )}
+                  label="My Order"
+                  labelStyle={{fontWeight: 'bold', color: color.darkblue}}
+                  onPress={() => {
+                    this.props.navigation.navigate('MyOrder');
+                  }}
+                />
+                <DrawerItem
+                  icon={() => (
+                    <Icon name="information" color={color.darkblue} size={30} />
+                  )}
+                  label="About"
+                  labelStyle={{fontWeight: 'bold', color: color.darkblue}}
+                  onPress={() => {
+                    this.props.navigation.navigate('About');
+                  }}
+                />
                 <DrawerItem
                   label="Order"
                   onPress={() => {
                     this.props.navigation.navigate('Order');
-                  }}
-                />
-                <DrawerItem
-                  label=" My Order"
-                  onPress={() => {
-                    this.props.navigation.navigate('MyOrder');
                   }}
                 />
               </Drawer.Section>
