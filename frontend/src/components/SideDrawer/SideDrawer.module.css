@@ -1,32 +1,57 @@
-.body{
+.body {
   position: fixed;
   width: 30%;
   height: 100%;
-  background: #1FA2FF;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to right, #A6FFCB, #12D8FA, #1FA2FF);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to right, #A6FFCB, #12D8FA, #1FA2FF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-margin-top: 50px;
+  background: #1fa2ff; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #a6ffcb,
+    #12d8fa,
+    #1fa2ff
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #a6ffcb,
+    #12d8fa,
+    #1fa2ff
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  margin-top: 50px;
   z-index: 200;
   transition: transform 0.3s ease-out;
 }
-.Open{
-    transform: translateX(0);
+.sidelink1 {
+  margin-top: 10px;
+  border-bottom: 2px black solid;
+  padding-bottom: 10px;
+  border-top: 4px white solid;
+  padding-top: 20px;
 }
-.Close{
-    transform: translateX(-100%);
+.sidelink {
+  margin-top: 10px;
+  border-bottom: 2px black solid;
+  padding-bottom: 10px;
 }
-.list{
+.log {
+  margin-top: 10px;
+}
+.Open {
+  transform: translateX(0);
+}
+.Close {
+  transform: translateX(-100%);
+}
+.list {
   list-style: none;
   margin-top: 40px;
 }
-.list li{
+.list li {
   font-size: 20px;
 }
-@media(max-width: 770px){
-  .list{
+@media (max-width: 770px) {
+  .list {
     margin-top: 100px;
   }
-  .body{
+  .body {
     width: 300px;
   }
 }
