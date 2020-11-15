@@ -1,6 +1,10 @@
 .maincontainer {
   margin-top: 100px;
   padding: 10px 10% 10px 10%;
+  margin-bottom: 80px;
+}
+.modi{
+  margin-bottom: 0px;
 }
 .container {
   margin-left: 10%;

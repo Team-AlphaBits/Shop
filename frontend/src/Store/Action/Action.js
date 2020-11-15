@@ -57,7 +57,7 @@ export const addToCart = (id) =>{
         }
     })
          .then(res =>{
-             console.log(res)
+             dispatch(getCart())
          })
          .catch(err => console.log(err))
     }
@@ -143,10 +143,11 @@ export const getBycatId = (id) =>{
              .catch(err => console.log(err))
     }
 }
-export const authSuccess = (TokenID) => {
+export const authSuccess = (TokenID,cart) => {
     return {
         type: actionTypes.AUTH_SUCCESS,
-        tokenid: TokenID
+        tokenid: TokenID,
+        cartdata: cart
     };
 };
 
@@ -181,7 +182,7 @@ export const Login = (email,password) =>{
                  console.log(res)
                  localStorage.setItem('jwt',res.data.token)
                  localStorage.setItem('expirationDate',expirationDate)
-                 dispatch(authSuccess(res.data.token))
+                 dispatch(authSuccess(res.data.token,res.data.userData.cart.cartlist))
                  dispatch(checkAuthTimeout(7200))
              })
              .catch(err => console.log(err))

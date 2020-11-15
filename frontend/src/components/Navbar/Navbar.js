@@ -37,6 +37,9 @@ class NavbarPage extends Component {
       pathname: "/ProductList/RelatedItems/false",
     });
   };
+  componentDidMount(){
+    this.props.getCartData()
+  }
   //onSubmit={() => this.props.getResult(this.state.Input)}
   render() {
     let filterArr = [];
@@ -106,8 +109,11 @@ class NavbarPage extends Component {
             </form>
           </MDBCol>
           <MDBNavItem active={activeLogin}>
-            <MDBNavLink to="/Cart" className={classes.icon}>
-              <Badges />
+            <MDBNavLink to={this.props.isAuthenticated ? "/cart" : "/login"}className={classes.icon}>
+              {window.innerWidth >770 ? 
+              <Badges 
+              cart ={this.props.data ? this.props.data.cartData.cart.cartlist : null}
+              cartLogin = {this.props.login}/>: null}
             </MDBNavLink>
           </MDBNavItem>
         </MDBNavbarNav>
@@ -169,6 +175,9 @@ class NavbarPage extends Component {
               <MDBNavLink to="/cart">Cart</MDBNavLink>
             </MDBNavItem> :
             null}
+            <MDBNavItem active={activeHome}>
+              <MDBNavLink to="/about">About</MDBNavLink>
+            </MDBNavItem>
             <MDBNavItem active={activeLogin}>
               {this.props.isAuthenticated ? 
               <MDBNavLink onClick = {() => this.props.Logout()} to="/">Logout</MDBNavLink> : 
@@ -194,9 +203,10 @@ class NavbarPage extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    isAuth: state.signuped,
     opt: state.Login.desArr,
-    isAuthenticated: state.Login.TokenId !== null
+    isAuthenticated: state.Login.TokenId !== null,
+    data: state.Login.Cart,
+    login: state.Login.loginData
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -206,7 +216,8 @@ const mapDispatchToProps = (dispatch) => {
     },
     Logout: () => {
       dispatch(actions.logOut())
-    }
+    },
+    getCartData : () =>{ dispatch(actions.getCart())},
   };
 };
 export default connect(

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Lform from "../../components/Form/Loginform";
 import Form from "../../components/Form/Signupform";
 import { connect } from "react-redux";
+import {Redirect} from 'react-router'
 import * as actions from "../../Store/Action/index";
 
 class Login extends Component {
@@ -24,6 +25,12 @@ class Login extends Component {
       this.state.emailValue,
       this.state.passwordValue
     );
+    this.setState({
+      usernameValue: "",
+    emailValue: "",
+    passwordValue: "",
+    confirmpasswordValue: "",
+    })
     this.setState((prev) => {
       return { login: !prev.login };
     });
@@ -35,6 +42,12 @@ class Login extends Component {
       this.state.passwordValue,
       this.props.cookies
     );
+    this.setState({
+      usernameValue: "",
+    emailValue: "",
+    passwordValue: "",
+    confirmpasswordValue: "",
+    })
   };
   onChangeHandler = (event, field) => {
     if (field === "usernameValue") {
@@ -70,6 +83,9 @@ class Login extends Component {
         clicked={this.callLogin}
       />
     );
+    if(this.props.isAuthenticated){
+      form= <Redirect to="/" />
+    }
     if (!this.state.login) {
       form = (
         <Form
@@ -95,7 +111,7 @@ class Login extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    signedUp: state.signuped,
+    isAuthenticated: state.Login.TokenId !== null
   };
 };
 const mapDispatchToProps = (dispatch) => {
