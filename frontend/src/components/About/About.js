@@ -15,8 +15,13 @@ import awek from "../../Assets/images/awek1.jpg";
 import fazil from "../../Assets/images/fazil1.jpg";
 import about from "../../Assets/images/about_img.jpg";
 import cook from "../../Assets/images/cook2.jpg";
+import { connect } from "react-redux";
+import * as actions from "../../Store/Action/index";
 
 class About extends Component {
+  componentDidMount(){
+    this.props.authCheckout()
+  }
   render() {
     let img = ["card-img-top", classes.img];
     // let cardbody = ["text-center", classes.cardbody];
@@ -36,7 +41,7 @@ class About extends Component {
         src: fazil,
         linkedin: "https://www.linkedin.com/in/mohammad-fazil-2200991b2/",
         cc: "https://www.codechef.com/users/mohammad_fazil",
-        skill: "Full Stack Mern. Developer & Competetive Programmer.",
+        skill: "Full Stack M.E.R.N Developer & Competetive Programmer.",
       },
       {
         name: "Rahul S Chauhan",
@@ -53,7 +58,7 @@ class About extends Component {
         src: awek,
         linkedin: "https://www.linkedin.com/in/awek-toppo-0574801a0",
         cc: "https://www.codechef.com/users/dezx20",
-        skill: "Full Stack Mean. Developer & Competetive Programmer.",
+        skill: "Full Stack M.E.A.N Developer & Competetive Programmer.",
       },
     ];
     let cards = [];
@@ -117,4 +122,9 @@ class About extends Component {
     );
   }
 }
-export default About;
+const mapDispatchToprops = (dispatch) => {
+  return {
+    authCheckout: () => dispatch(actions.authCheckState()),
+  };
+};
+export default connect(null,mapDispatchToprops)(About);

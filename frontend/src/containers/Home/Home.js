@@ -15,7 +15,14 @@ class Home extends Component {
     this.props.authCheckout();
   }
  AddedtoCart = (id) =>{
- this.props.addTocart(id)
+   if(this.props.isAuthenticated){
+    this.props.addTocart(id)
+   }
+   else{
+    this.props.history.push({
+      pathname: "/login"
+    });
+   }
  }
   changeUrl = (id) =>{
     this.props.history.push({
@@ -56,6 +63,7 @@ const mapStateToProps = (state) => {
     signedUp: state.Login.signuped,
     Data: state.Login.Data,
     success: state.Login.FetchSuccess,
+    isAuthenticated: state.Login.TokenId !== null
   };
 };
 const mapDispatchToProps = (dispatch) => {

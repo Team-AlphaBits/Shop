@@ -28,8 +28,15 @@ changeUrl = (id) =>{
   });
 };
 AddedtoCart = (id) =>{
-  this.props.addTocart(id)
+  if(this.props.isAuthenticated){
+    this.props.addTocart(id)
+   }
+   else{
+    this.props.history.push({
+      pathname: "/login"
+    });
   }
+}
   render() {
 
     let smartPhone = [],ph=0;
@@ -150,6 +157,7 @@ const mapStateToProps = (state) => {
   return {
     signedUp: state.Login.signuped,
     Data: state.Login.Data,
+    isAuthenticated: state.Login.TokenId !== null,
     success: state.Login.FetchSuccess,
   };
 };

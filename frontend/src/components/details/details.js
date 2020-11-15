@@ -6,6 +6,7 @@ import Carousel from "react-elastic-carousel";
 
 class Details extends Component {
   componentDidMount() {
+    this.props.authCheckout();
     this.props.getProduct(this.props.location.search.split("?")[1]);
   }
   discount= (price,arg,dis) =>{
@@ -21,13 +22,24 @@ class Details extends Component {
         return (modifiedPrice - Math.floor(modifiedPrice - (dis * modifiedPrice)/100)).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
     }
 }
-AddedtoCart = (id) =>{
-  this.props.addTocart(id)
+AddedtoCart = (id,stat) =>{
+  if(this.props.isAuthenticated && stat === "Add"){
+    this.props.addTocart(id)
+   }
+   else if(this.props.isAuthenticated && stat === "Buy"){
+    this.props.addTocart(id)
+    this.props.history.push({
+      pathname: "/cart"
+    });
+   }
+   else{
+    this.props.history.push({
+      pathname: "/login"
+    });
+  }
   }
   render() {
-    if (this.props.DetailData) {
-      console.log(this.props.DetailData.productData);
-    }
+    
     let img = ["d-block w-100", classes.carimg];
     let dis = Math.floor(Math.random() * (50)) + 1;
     let show = null;
@@ -86,8 +98,8 @@ AddedtoCart = (id) =>{
             </p>
             <b>Inclusive of all taxes</b>
             <p className={classes.avl}>In stock.</p>
-            <button className={classes.cartBtn} onClick={() => this.AddedtoCart(this.props.DetailData.productData._id)}>Add to Cart</button>
-            <button className={classes.buyBtn}>Buy Now</button>
+            <button className={classes.cartBtn} onClick={() => this.AddedtoCart(this.props.DetailData.productData._id,"Add")}>Add to Cart</button>
+            <button className={classes.buyBtn} onClick={() => this.AddedtoCart(this.props.DetailData.productData._id,"Buy")}>Buy Now</button>
             <p>
               Sold by{" "}
               <b className={classes.sold}>
@@ -108,6 +120,7 @@ AddedtoCart = (id) =>{
 }
 const mapStatetoProps = (state) => {
   return {
+    isAuthenticated: state.Login.TokenId !== null,
     DetailData: state.Login.detail,
   };
 };
@@ -116,7 +129,8 @@ const mapDispatchToprops = (dispatch) => {
     getProduct: (id) => {
       dispatch(actions.getById(id));
     },
-    addTocart: (id) => dispatch(actions.addToCart(id))
+    addTocart: (id) => dispatch(actions.addToCart(id)),
+    authCheckout: () => dispatch(actions.authCheckState()),
   };
 };
 export default connect(mapStatetoProps, mapDispatchToprops)(Details);

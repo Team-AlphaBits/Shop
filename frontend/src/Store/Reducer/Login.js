@@ -10,7 +10,8 @@ const InitialState = {
     desArr: null,
     resultData: null,
     TokenId: null,
-    Cart: null
+    Cart: null,
+    loginData: null
 }
 const signupSuccess = (state,action) =>{
     return{
@@ -52,16 +53,22 @@ const getBysearch = (state,action) =>{
     }
 }
 const loggedIn = (state,action) =>{
+    let some = state.loginData;
+    if(action.cartdata){
+       some = action.cartdata
+    }
     return{
         ...state,
-        TokenId: action.tokenid
+        TokenId: action.tokenid,
+        loginData: some
     }
 }
 const logOut = (state,action) =>{
     return{
         ...state,
         TokenId: null,
-        Cart: null
+        Cart: null,
+    loginData: null
     }
 }
 const cartData = (state,action) =>{
