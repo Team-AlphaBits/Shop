@@ -23,6 +23,11 @@ class Details extends Component {
       search: "?" + id,
     });
   };
+  checkOut = () =>{
+    this.props.history.push({
+      pathname: "/checkout"
+    });
+  };
   render() {
     // let cls = ["z-depth-1", classes.car];
     // let img = ["d-block w-100", classes.car];
@@ -30,7 +35,6 @@ class Details extends Component {
     for(let i = 1; i<11; i++){
       options.push(<option value={i}>{i}</option>)
     }
-    console.log(this.props.data)
     let cards = [];
     let subTotal = null;
     if(this.props.data){
@@ -39,7 +43,7 @@ class Details extends Component {
         subTotal = <>
         <hr className={classes.hr} />
         <p className={classes.totalprice}>Subtotal : ₹ {this.props.data.cartData.cart.total_price}</p>
-        <button className={classes.totalbtn}> Checkout all Product</button>
+        <button className={classes.totalbtn} onClick={this.checkOut}> Checkout all Product</button>
         </>
         for (let i = 0; i < prods.length; i++) {
           cards.push(
@@ -98,6 +102,7 @@ class Details extends Component {
 }
 const mapStateToProps = (state) =>{
   return{
+    isAuthenticated: state.Login.TokenId !== null,
     data: state.Login.Cart
   }
 }
