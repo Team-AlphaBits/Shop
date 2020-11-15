@@ -18,7 +18,7 @@ class SideDrawer extends Component {
     let backdrop = null
     if(this.props.show){
         sideClass = [classes.body,classes.Open]
-        backdrop = <Backdrop />
+        backdrop = <Backdrop toggle={this.props.Toggle}/>
     }
     let nav2 ;
       nav2=(
@@ -32,7 +32,7 @@ class SideDrawer extends Component {
             <li><Badges 
               cart ={this.props.data ? this.props.data.cartData.cart.cartlist : null}
               cartLogin = {this.props.login}/></li>
-              <li><NavLink to="/">Home</NavLink></li>
+              <li><NavLink to="/" onClick={this.props.Toggle}>Home</NavLink></li>
               <li><NavLink to="/deal">Today's Deals</NavLink></li>
               <li><MDBDropdown>
                   <MDBDropdownToggle nav caret>
@@ -66,8 +66,10 @@ class SideDrawer extends Component {
                   </MDBDropdownMenu>
                 </MDBDropdown></li>
               {this.props.isAuthenticated ?  
-              <li><NavLink to="/cart">Cart</NavLink></li> : null}
-              <li><NavLink to="/about">About</NavLink></li>
+              <li><NavLink to="/cart" onClick={this.props.Toggle}>Cart</NavLink></li> : null}
+               {this.props.isAuthenticated ?  
+              <li><NavLink to="/MyOrder" onClick={this.props.Toggle}>My Order</NavLink></li> : null}
+              <li><NavLink to="/about" onClick={this.props.Toggle}>About</NavLink></li>
               {this.props.isAuthenticated ?  
               <li><NavLink onClick={() => this.props.Logout()} to="/">Logout</NavLink></li> :
               <li><NavLink to="/login">Login/Signup</NavLink></li>}

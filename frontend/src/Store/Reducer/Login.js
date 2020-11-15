@@ -11,7 +11,10 @@ const InitialState = {
     resultData: null,
     TokenId: null,
     Cart: null,
-    loginData: null
+    loginData: null,
+    name: "User",
+    Orders: null,
+    orderSuccess: false,
 }
 const signupSuccess = (state,action) =>{
     return{
@@ -35,9 +38,13 @@ const dataFetched = (state,action) =>{
     }
 }
 const getBYid = (state,action) =>{
+    let dat = state.detail;
+    if(action.data){
+        dat = action.data
+    }
     return{
       ...state,
-      detail: action.data
+      detail: dat
     }
 }
 const getBYcatId = (state,action) =>{
@@ -54,13 +61,22 @@ const getBysearch = (state,action) =>{
 }
 const loggedIn = (state,action) =>{
     let some = state.loginData;
+    let nam = state.name
     if(action.cartdata){
        some = action.cartdata
+       nam = action.cartdata.user_name
     }
     return{
         ...state,
         TokenId: action.tokenid,
-        loginData: some
+        loginData: some,
+        name: nam
+    }
+}
+const userDetail = (state,action) =>{
+    return{
+        ...state,
+        name: action.name
     }
 }
 const logOut = (state,action) =>{
@@ -68,13 +84,27 @@ const logOut = (state,action) =>{
         ...state,
         TokenId: null,
         Cart: null,
-    loginData: null
+    loginData: null,
+    name: "User"
     }
 }
 const cartData = (state,action) =>{
     return{
         ...state,
-        Cart: action.data
+        Cart: action.data,
+        name: action.name
+    }
+}
+const prevOrders = (state,action) =>{
+    return{
+        ...state,
+        Orders: action.data
+    }
+}
+const orderSuccesfull = (state,action) =>{
+    return{
+        ...state,
+        orderSuccess: true
     }
 }
 const reducer = (state = InitialState, action) =>{
@@ -89,6 +119,9 @@ const reducer = (state = InitialState, action) =>{
         case(actionTypes.AUTH_SUCCESS): return loggedIn(state,action);
         case(actionTypes.AUTH_LOGOUT): return logOut(state,action);
         case(actionTypes.CART_DATA): return cartData(state,action);
+        case(actionTypes.USER_DATA): return userDetail(state,action);
+        case(actionTypes.PREV_ORDER): return prevOrders(state,action);
+        case(actionTypes.ORDER_SUCCESS): return orderSuccesfull(state,action);
         default: return state;
     }
 }

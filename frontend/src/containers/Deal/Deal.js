@@ -8,7 +8,6 @@ import * as actions from "../../Store/Action/index";
 class Deals extends Component{
   componentDidMount(){
     this.props.onFetchData();
-    this.props.authCheckout();
   }
   discount= (price,arg,dis) =>{
     let modifiedPrice = parseFloat(price.replace( /[^\d.]*/g,''));

@@ -30,7 +30,7 @@ class Layout extends Component{
 
     render(){
           return <div className={classes.Layout}>
-              <SideDrawer show={this.state.showDrawer}/>
+              <SideDrawer show={this.state.showDrawer} Toggle={this.drawerToggle}/>
               <Navbar 
               Toggle={this.drawerToggle} 
               fixed={this.state.fixed}

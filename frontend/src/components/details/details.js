@@ -6,7 +6,6 @@ import Carousel from "react-elastic-carousel";
 
 class Details extends Component {
   componentDidMount() {
-    this.props.authCheckout();
     this.props.getProduct(this.props.location.search.split("?")[1]);
   }
   discount= (price,arg,dis) =>{
@@ -39,7 +38,7 @@ AddedtoCart = (id,stat) =>{
   }
   }
   render() {
-    
+     console.log(this.props.DetailData)
     let img = ["d-block w-100", classes.carimg];
     let dis = Math.floor(Math.random() * (50)) + 1;
     let show = null;

@@ -4,6 +4,7 @@ import classes from "./Checkout.module.css";
 import { Button, Form, Col } from "react-bootstrap";
 import { connect } from "react-redux";
 import * as actions from "../../Store/Action/index";
+import {Redirect} from 'react-router-dom'
 
 class Checkout extends Component {
   state = {
@@ -15,9 +16,6 @@ class Checkout extends Component {
       modal: !this.state.modal,
     });
   };
-  componentDidMount(){
-    this.props.authCheckout()
-  }
   state={
     name: '',
     mobileNo: '',
@@ -65,6 +63,19 @@ class Checkout extends Component {
     setTimeout(() =>{
       window.scrollBy(0,320)
       },1)
+  }
+  orderNow = () =>{
+    this.props.placeOrder(
+    this.state.name,
+    this.state.mobileNo,
+    this.state.addressLine1,
+    this.state.addressLine2,
+    this.state.landmark,
+    this.state.city,
+    this.state.state,
+    this.state.pincode,
+    this.state.paymentMethod
+    )
   }
   render() {
     let cls = ["form-check form-check-inline", classes.radio];
@@ -115,71 +126,92 @@ class Checkout extends Component {
                 UPI Payments
               </label>
             </div>
-            <button className={classes.order} onClick={this.toggle}>
+            <button className={classes.order} onClick={this.orderNow}>
               Place Order
             </button>
           </div>
-    return (
-      <div className={marg.join(' ')}>
-        <div className={classes.container}>
-          <p className={classes.heading}>FILL YOUR ADDRESS</p>
-          <Form>
-            <Form.Row>
-              <Form.Group as={Col}>
-                <Form.Label>Full name</Form.Label>
-                <Form.Control type="email" placeholder="Enter your Name" onChange={(event) => this.inputChangeHandler(event,"name")}/>
+          let ele =  <div className={marg.join(' ')}>
+          <div className={classes.container}>
+            <p className={classes.heading}>FILL YOUR ADDRESS</p>
+            <Form>
+              <Form.Row>
+                <Form.Group as={Col}>
+                  <Form.Label>Full name</Form.Label>
+                  <Form.Control type="email" placeholder="Enter your Name" onChange={(event) => this.inputChangeHandler(event,"name")}/>
+                </Form.Group>
+  
+                <Form.Group as={Col} controlId="formGridPassword">
+                  <Form.Label>Phone</Form.Label>
+                  <Form.Control type="password" placeholder="Enter number" onChange={(event) => this.inputChangeHandler(event,"mob")}/>
+                </Form.Group>
+              </Form.Row>
+  
+              <Form.Group controlId="formGridAddress1">
+                <Form.Label>Address</Form.Label>
+                <Form.Control placeholder="1234 Main St" onChange={(event) => this.inputChangeHandler(event,"add1")}/>
               </Form.Group>
-
-              <Form.Group as={Col} controlId="formGridPassword">
-                <Form.Label>Phone</Form.Label>
-                <Form.Control type="password" placeholder="Enter number" onChange={(event) => this.inputChangeHandler(event,"mob")}/>
+  
+              <Form.Group controlId="formGridAddress2">
+                <Form.Label>Address 2</Form.Label>
+                <Form.Control placeholder="Apartment, studio, or floor" onChange={(event) => this.inputChangeHandler(event,"add2")}/>
               </Form.Group>
-            </Form.Row>
-
-            <Form.Group controlId="formGridAddress1">
-              <Form.Label>Address</Form.Label>
-              <Form.Control placeholder="1234 Main St" onChange={(event) => this.inputChangeHandler(event,"add1")}/>
-            </Form.Group>
-
-            <Form.Group controlId="formGridAddress2">
-              <Form.Label>Address 2</Form.Label>
-              <Form.Control placeholder="Apartment, studio, or floor" onChange={(event) => this.inputChangeHandler(event,"add2")}/>
-            </Form.Group>
-
-            <Form.Row>
-              <Form.Group as={Col} controlId="formGridCity">
-                <Form.Label>City</Form.Label>
-                <Form.Control onChange={(event) => this.inputChangeHandler(event,"city")}/>
+  
+              <Form.Row>
+                <Form.Group as={Col} controlId="formGridCity">
+                  <Form.Label>City</Form.Label>
+                  <Form.Control onChange={(event) => this.inputChangeHandler(event,"city")}/>
+                </Form.Group>
+  
+                <Form.Group as={Col} controlId="formGridState">
+                  <Form.Label>State</Form.Label>
+                  <Form.Control onChange={(event) => this.inputChangeHandler(event,"state")}/>
+                </Form.Group>
+  
+                <Form.Group as={Col} controlId="formGridZip">
+                  <Form.Label>Zip</Form.Label>
+                  <Form.Control onChange={(event) => this.inputChangeHandler(event,"pin")}/>
+                </Form.Group>
+              </Form.Row>
+  
+              <Form.Group id="formGridCheckbox">
+                <Form.Check type="checkbox" label="Check me out" />
               </Form.Group>
-
-              <Form.Group as={Col} controlId="formGridState">
-                <Form.Label>State</Form.Label>
-                <Form.Control onChange={(event) => this.inputChangeHandler(event,"state")}/>
-              </Form.Group>
-
-              <Form.Group as={Col} controlId="formGridZip">
-                <Form.Label>Zip</Form.Label>
-                <Form.Control onChange={(event) => this.inputChangeHandler(event,"pin")}/>
-              </Form.Group>
-            </Form.Row>
-
-            <Form.Group id="formGridCheckbox">
-              <Form.Check type="checkbox" label="Check me out" />
-            </Form.Group>
-
-            <Button variant="primary"  onClick={this.showToggle}>
-              Save Address
-            </Button>
-          </Form>
-          {this.state.showPay ? paym : null}
+  
+              <Button variant="primary"  onClick={this.showToggle}>
+                Save Address
+              </Button>
+            </Form>
+            {this.state.showPay ? paym : null}
+          </div>
         </div>
-      </div>
+          if(this.props.status){
+            ele = <Redirect to="/MyOrder" />
+          }
+    return (
+            <>
+            {ele}
+            </>
     );
+  }
+}
+const mapStateToProps = (state) =>{
+  return {
+    
+    status: state.Login.orderSuccess
   }
 }
 const mapDispatchToprops = (dispatch) => {
   return {
     authCheckout: () => dispatch(actions.authCheckState()),
+    placeOrder: (name,
+      mobileNo,
+      addressLine1,
+      addressLine2,
+      landmark,
+      city,
+      state,
+      pincode,
+      paymentMethod) => dispatch(actions.order(name,mobileNo,addressLine1,addressLine2,landmark,city,state,pincode,paymentMethod))
   };
 };
-export default connect(null,mapDispatchToprops)(Checkout);
+export default connect(mapStateToProps,mapDispatchToprops)(Checkout);

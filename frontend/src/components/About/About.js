@@ -19,9 +19,6 @@ import { connect } from "react-redux";
 import * as actions from "../../Store/Action/index";
 
 class About extends Component {
-  componentDidMount(){
-    this.props.authCheckout()
-  }
   render() {
     let img = ["card-img-top", classes.img];
     // let cardbody = ["text-center", classes.cardbody];

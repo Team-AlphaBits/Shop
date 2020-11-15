@@ -115,9 +115,10 @@
 }
 .addBtn {
   margin-right: 20%;
+  border: none;
   width: 100px;
   border-radius: 5px;
-  background-color: rgb(173, 255, 79);
+  background-color: rgb(234, 235, 232);
 }
 .proceed {
   width: 30%;

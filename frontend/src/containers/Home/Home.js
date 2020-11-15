@@ -12,7 +12,6 @@ import classes from "./Home.module.css";
 class Home extends Component {
   componentDidMount() {
     this.props.onFetchData();
-    this.props.authCheckout();
   }
  AddedtoCart = (id) =>{
    if(this.props.isAuthenticated){

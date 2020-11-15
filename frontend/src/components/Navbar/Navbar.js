@@ -38,7 +38,8 @@ class NavbarPage extends Component {
     });
   };
   componentDidMount(){
-    this.props.getCartData()
+      this.props.authCheckout()
+      this.props.getCartData()
   }
   //onSubmit={() => this.props.getResult(this.state.Input)}
   render() {
@@ -92,7 +93,7 @@ class NavbarPage extends Component {
           />
         ) : null}
         <MDBNavbarNav className={classes.set1}>
-          <h3 style={{ color: "white" }}>Hello User</h3>
+        <h3 style={{ color: "white" }}>Hello "{this.props.name}"</h3>
           <MDBCol md="6" className={classes.set2}>
             <form onSubmit={this.searchResult}>
               <input
@@ -113,7 +114,7 @@ class NavbarPage extends Component {
               {window.innerWidth >770 ? 
               <Badges 
               cart ={this.props.data ? this.props.data.cartData.cart.cartlist : null}
-              cartLogin = {this.props.login}/>: null}
+              cartLogin = {this.props.login ? this.props.login.cart.cartlist : null}/>: null}
             </MDBNavLink>
           </MDBNavItem>
         </MDBNavbarNav>
@@ -175,6 +176,11 @@ class NavbarPage extends Component {
               <MDBNavLink to="/cart">Cart</MDBNavLink>
             </MDBNavItem> :
             null}
+            {this.props.isAuthenticated ?  
+            <MDBNavItem active={activeCart}>
+              <MDBNavLink to="/MyOrder">My Order</MDBNavLink>
+            </MDBNavItem> :
+            null}
             <MDBNavItem active={activeHome}>
               <MDBNavLink to="/about">About</MDBNavLink>
             </MDBNavItem>
@@ -182,9 +188,6 @@ class NavbarPage extends Component {
               {this.props.isAuthenticated ? 
               <MDBNavLink onClick = {() => this.props.Logout()} to="/">Logout</MDBNavLink> : 
               <MDBNavLink to="/login">Login/Signup</MDBNavLink>}
-            </MDBNavItem>
-            <MDBNavItem active={activeLogin}>
-              <MDBNavLink to="/MyOrder">My Order</MDBNavLink>
             </MDBNavItem>
           </MDBNavbarNav>
         </MDBCollapse>
@@ -206,7 +209,8 @@ const mapStateToProps = (state) => {
     opt: state.Login.desArr,
     isAuthenticated: state.Login.TokenId !== null,
     data: state.Login.Cart,
-    login: state.Login.loginData
+    login: state.Login.loginData,
+    name: state.Login.name
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -218,6 +222,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(actions.logOut())
     },
     getCartData : () =>{ dispatch(actions.getCart())},
+    authCheckout: () => dispatch(actions.authCheckState()),
+    userDetails: () => dispatch(actions.userDetails())
   };
 };
 export default connect(
