@@ -10,3 +10,4 @@ npm install redux
 npm install react-redux
 npm i @react-native-async-storage/async-storage
 npm i react-currency-format
+npm install --save react-native-webview

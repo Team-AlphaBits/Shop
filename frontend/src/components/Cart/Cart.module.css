@@ -13,10 +13,14 @@
 .carousel_ctrl {
   width: 30%;
   margin-left: 2%;
+  height: 400px;
 }
 .img {
-  width: 230px;
-  height: 400px;
+  max-width: 100%;
+  max-height: 400px;
+}
+.img:hover{
+  cursor: pointer;
 }
 .disc {
   width: 50%;
@@ -64,6 +68,9 @@
   color: rgb(6, 6, 105);
   margin-right: 10%;
 }
+.heading:hover{
+  cursor: pointer;
+}
 .oldprc {
   font-weight: bold;
   font-size: 23px;
@@ -92,6 +99,7 @@
     margin-top: 00px;
     margin-bottom: 40px;
     margin-right: 0px;
+    /* max-height: 400px; */
   }
   .disc {
     width: 100%;
@@ -109,7 +117,7 @@
   color: blue;
   background-color: #fff;
   border: 5px;
-  box-shadow: 5px 5px 10px grey;
+  box-shadow: 0px 0px 5px grey;
   margin-right: 10px;
   border-radius: 5px;
 }

@@ -93,7 +93,7 @@ class NavbarPage extends Component {
           />
         ) : null}
         <MDBNavbarNav className={classes.set1}>
-        <h3 style={{ color: "white" }}>Hello "{this.props.name}"</h3>
+        <h3 style={{ color: "white" }}>Hello, {this.props.name}</h3>
           <MDBCol md="6" className={classes.set2}>
             <form onSubmit={this.searchResult}>
               <input

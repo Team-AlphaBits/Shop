@@ -9,6 +9,7 @@ import BabyProducts from "../../Cards/BabyProducts/BabyProducts";
 import StaticCards from "../../Cards/StaticCards/StaticCards";
 import Carousel from "../../components/carousel/carousel";
 import classes from "./Home.module.css";
+import Spinner from '../../components/spinner/spinner'
 class Home extends Component {
   componentDidMount() {
     this.props.onFetchData();
@@ -31,29 +32,31 @@ class Home extends Component {
     });
   };
   render() {
+    let page = <Spinner />
+    if(this.props.Data){
+      page = <div style={{ backgroundColor: "#eeeef0" }}>
+      <Header />
+      <MDBContainer className="mt-5">
+        <MDBRow>
+          <MDBCol lg="19" md="14" className="mb-4">
+            <Carousel />
+          </MDBCol>
+        </MDBRow>
+      </MDBContainer>
+      <p className={classes.headcloth}>
+        Great Deals on Clothings up-to 30-40% off :
+      </p>
+      <Clothes data={this.props.Data} change={this.changeUrl} cartAdd = {this.AddedtoCart}/>
+      <p className={classes.headcloth}>Special Offers on Gaming Devices</p>
+      <BabyProducts data={this.props.Data} change={this.changeUrl} />
+      <p className={classes.headcloth}>Crazy Deals on Books :</p>
+      <StaticCards data={this.props.Data} change={this.changeUrl} />
+      </div> 
+    }
     return (
-      <div style={{ backgroundColor: "#eeeef0" }}>
-        <Header />
-        {/* <MDBView src={FrontImage} >
-            <MDBMask overlay="black-light" className="flex-center flex-column text-white text-center">
-            </MDBMask>
-          </MDBView> */}
-        <MDBContainer className="mt-5">
-          <MDBRow>
-            <MDBCol lg="19" md="14" className="mb-4">
-              <Carousel />
-            </MDBCol>
-          </MDBRow>
-        </MDBContainer>
-        <p className={classes.headcloth}>
-          Great Deals on Clothings up-to 30-40% off :
-        </p>
-        <Clothes data={this.props.Data} change={this.changeUrl} cartAdd = {this.AddedtoCart}/>
-        <p className={classes.headcloth}>Special Offers on Gaming Devices</p>
-        <BabyProducts data={this.props.Data} change={this.changeUrl} />
-        <p className={classes.headcloth}>Crazy Deals on Books :</p>
-        <StaticCards data={this.props.Data} change={this.changeUrl} />
-      </div>
+      <>
+        {page}
+      </>
     );
   }
 }

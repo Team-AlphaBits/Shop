@@ -3,6 +3,7 @@ import classes from "./MyOrder.module.css";
 import { connect } from "react-redux";
 import * as actions from "../../Store/Action/index";
 import {withRouter} from 'react-router-dom'
+import Spinner from '../spinner/spinner'
 
 class MyOrder extends Component {
   componentDidMount(){
@@ -20,33 +21,38 @@ class MyOrder extends Component {
     let cards = [];
     if(this.props.myOrders){
       let items = this.props.myOrders;
-      for(let j=0; j<items.length; j++){
-      cards.push(<p className={classes.Heading}>Order #{j+1} :</p>)
-      for (let i = 0; i < items[j].productDetails.length; i++) {
-        let item = items[j].productDetails[i];
-        cards.push(
-          <div>
-            <div className={classes.container}>
-            <img
-            alt="some"
-              src={item.image}
-              className={classes.img}
-            />
-            <div className={classes.disc}>
-              <p className={classes.name} onClick={() => this.changeUrl(item.product_id)}>
-                {item.short_desc}
-              </p>
-                <p className={classes.price}>₹ {parseFloat(item.price.replace( /[^\d.]*/g,'')).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}</p>
-            </div>
-          </div>
-          </div>
-        );
+      if(items.length === 0){
+        cards.push(<h1>No Previous Orders...!</h1>)
       }
+      else{
+        for(let j=0; j<items.length; j++){
+          cards.push(<p className={classes.Heading}>Order #{j+1} :</p>)
+          for (let i = 0; i < items[j].productDetails.length; i++) {
+            let item = items[j].productDetails[i];
+            cards.push(
+              <div>
+                <div className={classes.container}>
+                <img
+                alt="some"
+                  src={item.image}
+                  className={classes.img}
+                />
+                <div className={classes.disc}>
+                  <p className={classes.name} onClick={() => this.changeUrl(item.product_id)}>
+                    {item.short_desc}
+                  </p>
+                    <p className={classes.price}>₹ {parseFloat(item.price.replace( /[^\d.]*/g,'')).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}</p>
+                </div>
+              </div>
+              </div>
+            );
+          }
+          }
       }
     }
     return (
       <div className={classes.Maincontainer}>
-        {cards}
+        {cards.length === 0 ? <Spinner /> : cards}
       </div>
     );
   }

@@ -4,6 +4,7 @@ import classes from "./Cart.module.css";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../../Store/Action/index";
+import Spinner from '../spinner/spinner'
 class Details extends Component {
   check = () => {
     return <Redirect to="/Checkout" />;
@@ -35,7 +36,9 @@ class Details extends Component {
       options.push(<option value={i}>{i}</option>)
     }
     let cards = [];
-    let subTotal = null;
+    let subTotal = <>
+    <Spinner />
+    </> 
     if(this.props.data){
       let prods = this.props.data.cartData.cart.cartlist;
       if(prods.length){
@@ -89,6 +92,7 @@ class Details extends Component {
       }
       else{
         cards.push(<h1>No Products....!</h1>)
+        subTotal=null;
       }
     }
     return (
