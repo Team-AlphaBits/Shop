@@ -2,7 +2,7 @@ import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
 import React, {Component} from 'react';
 import {View, SafeAreaView, StyleSheet, Pressable} from 'react-native';
 
-import {Avatar, Text, Title, Drawer} from 'react-native-paper';
+import {Avatar, Title, Drawer} from 'react-native-paper';
 import color from '../colors/colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import LinearGradient from 'react-native-linear-gradient';
@@ -142,12 +142,6 @@ class DrawerContent extends Component {
                   labelStyle={{fontWeight: 'bold', color: color.darkblue}}
                   onPress={() => {
                     this.props.navigation.navigate('About');
-                  }}
-                />
-                <DrawerItem
-                  label="Order"
-                  onPress={() => {
-                    this.props.navigation.navigate('Order');
                   }}
                 />
               </Drawer.Section>
