@@ -30,10 +30,11 @@ export const addTocartSuccess =() =>{
         type: actionTypes.ADDTOCART
     }
 }
-export const cartData = (data) =>{
+export const cartData = (data,name) =>{
     return{
         type: actionTypes.CART_DATA,
-        data: data
+        data: data,
+        name: name
     }
 }
 export const deleteProd = (id) =>{
@@ -45,6 +46,74 @@ export const deleteProd = (id) =>{
      })
         .then(res =>{
             dispatch(getCart())
+        })
+        .catch(err => console.log(err))
+    }
+}
+export const orderSuccess = () =>{
+    return{
+        type: actionTypes.ORDER_SUCCESS,
+    }
+}
+export const order = (name,mobileNo,addressLine1,addressLine2,landmark,city,state,pincode,paymentMethod) =>{
+    return dispatch =>{
+         Axios.post("https://calm-garden-34154.herokuapp.com/api/placeorder",{
+            name: name,
+            mobileNo: mobileNo,
+            addressLine1: addressLine1,
+            addressLine2: addressLine2,
+            landmark: landmark,
+            city: city,
+            state: state,
+            pincode: pincode,
+            paymentMethod: paymentMethod
+         },{
+            headers:{
+                jwt: localStorage.getItem('jwt')
+            }
+         })
+         .then(res =>{
+             console.log(res)
+             dispatch(getCart())
+             dispatch(orderSuccess())
+         })
+         .catch(err => console.log(err))
+    }
+}
+export const myOrders = (data) =>{
+    return{
+        type: actionTypes.PREV_ORDER,
+        data: data
+    }
+}
+export const prevOrders = () =>{
+    return dispatch =>{
+        Axios.get("https://calm-garden-34154.herokuapp.com/api/prevOrder",{
+            headers:{
+                jwt: localStorage.getItem('jwt')
+            }
+        }).then(res =>{
+            dispatch(myOrders(res.data))
+        })
+        .catch(err => console.log(err))
+    }
+}
+export const userData = (data) =>{
+    return{
+        type: actionTypes.USER_DATA,
+        name: data
+    }
+}
+export const userDetails = () =>{
+    return dispatch =>{
+        Axios.get("https://calm-garden-34154.herokuapp.com/api/userDetails",{
+            headers:{
+                jwt: localStorage.getItem('jwt')
+            }
+        })
+        .then(res => {
+            console.log(res.data)
+            dispatch(userData(res.data.userData.user_name))
         })
         .catch(err => console.log(err))
     }
@@ -84,7 +153,8 @@ export const getCart = () =>{
             }
         })
             .then(data =>{
-                dispatch(cartData(data.data))
+                console.log(data.data)
+                dispatch(cartData(data.data,data.data.cartData.user_name))
             })
             .catch(err => console.log(err))
     }
@@ -182,7 +252,7 @@ export const Login = (email,password) =>{
                  console.log(res)
                  localStorage.setItem('jwt',res.data.token)
                  localStorage.setItem('expirationDate',expirationDate)
-                 dispatch(authSuccess(res.data.token,res.data.userData.cart.cartlist))
+                 dispatch(authSuccess(res.data.token,res.data.userData))
                  dispatch(checkAuthTimeout(7200))
              })
              .catch(err => console.log(err))

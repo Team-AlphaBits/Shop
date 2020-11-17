@@ -1,32 +1,70 @@
 import React, { Component } from "react";
 import classes from "./MyOrder.module.css";
+import { connect } from "react-redux";
+import * as actions from "../../Store/Action/index";
+import {withRouter} from 'react-router-dom'
+import Spinner from '../spinner/spinner'
 
-export default class MyOrder extends Component {
+class MyOrder extends Component {
+  componentDidMount(){
+    this.props.getOrder()
+  }
+  changeUrl = (id) =>{
+    this.props.history.push({
+      pathname: "/details",
+      hash: "#items",
+      search: "?" + id,
+    });
+  };
   render() {
+    console.log(this.props.myOrders)  
     let cards = [];
-    for (let i = 0; i < 8; i++) {
-      cards.push(
-        <div className={classes.container}>
-          <img
-          alt="some"
-            src="https://m.media-amazon.com/images/I/714qRVfu2vL._AC_UY327_QL65_.jpg"
-            className={classes.img}
-          />
-          <div className={classes.disc}>
-            <a className={classes.name} href="/">
-              Samsung Galaxy Tab A7 (10.4 inch, RAM 3 GB, ROM 32 GB,
-              Wi-Fi-only), Gold
-            </a>
-            <p className={classes.price}>₹ 20,999.00</p>
-          </div>
-        </div>
-      );
+    if(this.props.myOrders){
+      let items = this.props.myOrders;
+      if(items.length === 0){
+        cards.push(<h1>No Previous Orders...!</h1>)
+      }
+      else{
+        for(let j=0; j<items.length; j++){
+          cards.push(<p className={classes.Heading}>Order #{j+1} :</p>)
+          for (let i = 0; i < items[j].productDetails.length; i++) {
+            let item = items[j].productDetails[i];
+            cards.push(
+              <div>
+                <div className={classes.container}>
+                <img
+                alt="some"
+                  src={item.image}
+                  className={classes.img}
+                />
+                <div className={classes.disc}>
+                  <p className={classes.name} onClick={() => this.changeUrl(item.product_id)}>
+                    {item.short_desc}
+                  </p>
+                    <p className={classes.price}>₹ {parseFloat(item.price.replace( /[^\d.]*/g,'')).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}</p>
+                </div>
+              </div>
+              </div>
+            );
+          }
+          }
+      }
     }
     return (
       <div className={classes.Maincontainer}>
-        <p className={classes.Heading}>Your previous orders are :</p>
-        {cards}
+        {cards.length === 0 ? <Spinner /> : cards}
       </div>
     );
   }
 }
+const mapDispatchToProps = (dispatch) =>{
+  return{
+    getOrder : () => dispatch(actions.prevOrders())
+  }
+}
+const mapStateToProps = (state) =>{
+  return{
+    myOrders: state.Login.Orders,
+  }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(withRouter(MyOrder))

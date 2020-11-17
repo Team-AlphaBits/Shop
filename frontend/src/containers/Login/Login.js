@@ -4,6 +4,7 @@ import Form from "../../components/Form/Signupform";
 import { connect } from "react-redux";
 import {Redirect} from 'react-router'
 import * as actions from "../../Store/Action/index";
+import Spinner from '../../components/spinner/spinner'
 
 class Login extends Component {
   state = {
@@ -12,6 +13,7 @@ class Login extends Component {
     emailValue: "",
     passwordValue: "",
     confirmpasswordValue: "",
+    showSpinner: false
   };
   toggle = () => {
     this.setState((prev) => {
@@ -47,6 +49,7 @@ class Login extends Component {
     emailValue: "",
     passwordValue: "",
     confirmpasswordValue: "",
+    showSpinner: true
     })
   };
   onChangeHandler = (event, field) => {
@@ -83,9 +86,6 @@ class Login extends Component {
         clicked={this.callLogin}
       />
     );
-    if(this.props.isAuthenticated){
-      form= <Redirect to="/" />
-    }
     if (!this.state.login) {
       form = (
         <Form
@@ -105,6 +105,12 @@ class Login extends Component {
           clicked={this.callFunction}
         />
       );
+    }
+    if(this.state.showSpinner){
+      form = <Spinner />
+    }
+    if(this.props.isAuthenticated){
+      form= <Redirect to="/" />
     }
     return <div>{form}</div>;
   }

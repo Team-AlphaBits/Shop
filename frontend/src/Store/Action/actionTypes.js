@@ -10,3 +10,6 @@ export const AUTH_LOGOUT = 'AUTH_LOGOUT';
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
 export const AUTH_FAIL = 'AUTH_FAIL';
 export const CART_DATA = 'CART_DATA';
+export const USER_DATA = 'USER_DATA';
+export const PREV_ORDER = 'PREV_ORDER';
+export const ORDER_SUCCESS = 'ORDER_SUCCESS'

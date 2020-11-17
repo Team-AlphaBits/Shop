@@ -11,5 +11,8 @@ logOut,
 authCheckState,
 addToCart,
 changeValue,
-deleteProd
+deleteProd,
+order,
+userDetails,
+prevOrders
 }from './Action'

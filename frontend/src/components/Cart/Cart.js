@@ -4,14 +4,11 @@ import classes from "./Cart.module.css";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../../Store/Action/index";
+import Spinner from '../spinner/spinner'
 class Details extends Component {
   check = () => {
     return <Redirect to="/Checkout" />;
   };
-  componentDidMount(){
-    this.props.authCheckout();
-    this.props.getCartData();
-  }
   quantChange = (id,event) =>{
     this.setState({prodValue: event.target.value})
     this.props.changeQuantity(id,event.target.value)
@@ -28,6 +25,9 @@ class Details extends Component {
       pathname: "/checkout"
     });
   };
+  componentDidMount(){
+    this.props.getCartData()
+  }
   render() {
     // let cls = ["z-depth-1", classes.car];
     // let img = ["d-block w-100", classes.car];
@@ -36,13 +36,15 @@ class Details extends Component {
       options.push(<option value={i}>{i}</option>)
     }
     let cards = [];
-    let subTotal = null;
+    let subTotal = <>
+    <Spinner />
+    </> 
     if(this.props.data){
       let prods = this.props.data.cartData.cart.cartlist;
       if(prods.length){
         subTotal = <>
         <hr className={classes.hr} />
-        <p className={classes.totalprice}>Subtotal : ₹ {this.props.data.cartData.cart.total_price}</p>
+        <p className={classes.totalprice}>Subtotal : ₹ {parseFloat(this.props.data.cartData.cart.total_price.toString().replace( /[^\d.]*/g,'')).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}</p>
         <button className={classes.totalbtn} onClick={this.checkOut}> Checkout all Product</button>
         </>
         for (let i = 0; i < prods.length; i++) {
@@ -90,6 +92,7 @@ class Details extends Component {
       }
       else{
         cards.push(<h1>No Products....!</h1>)
+        subTotal=null;
       }
     }
     return (

@@ -5,15 +5,17 @@
   background: #1fa2ff; /* fallback for old browsers */
   background: -webkit-linear-gradient(
     to right,
-    #a6ffcb,
-    #12d8fa,
-    #1fa2ff
+    #08d4c4,
+    #08d4c3e3,
+    #01ab9d
   ); /* Chrome 10-25, Safari 5.1-6 */
+  /* MintyGreenLight: '#08d4c4',
+  MintyGreenMedium: '#01ab9d', */
   background: linear-gradient(
     to right,
-    #a6ffcb,
-    #12d8fa,
-    #1fa2ff
+    #08d4c4,
+    #08d4c3e3,
+    #01ab9d
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   margin-top: 50px;
   z-index: 200;
@@ -21,14 +23,14 @@
 }
 .sidelink1 {
   margin-top: 10px;
-  border-bottom: 2px black solid;
+  border-bottom: 2px whitesmoke solid;
   padding-bottom: 10px;
   border-top: 4px white solid;
   padding-top: 20px;
 }
 .sidelink {
   margin-top: 10px;
-  border-bottom: 2px black solid;
+  border-bottom: 2px whitesmoke solid;
   padding-bottom: 10px;
 }
 .log {
@@ -44,12 +46,19 @@
   list-style: none;
   margin-top: 40px;
 }
-.list li {
+.list li a{
   font-size: 20px;
+  color: darkblue;
+}
+.list li a.active{
+  color: white;
 }
 @media (max-width: 770px) {
   .list {
-    margin-top: 100px;
+    margin-top: 60px;
+  }
+  .list li a{
+    font-size: 16px;
   }
   .body {
     width: 300px;

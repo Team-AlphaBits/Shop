@@ -4,11 +4,11 @@ import Carousel from "react-elastic-carousel";
 import { connect } from "react-redux";
 import classes from "./Deal.module.css";
 import * as actions from "../../Store/Action/index";
+import Spinner from '../../components/spinner/spinner'
 
 class Deals extends Component{
   componentDidMount(){
     this.props.onFetchData();
-    this.props.authCheckout();
   }
   discount= (price,arg,dis) =>{
     let modifiedPrice = parseFloat(price.replace( /[^\d.]*/g,''));
@@ -38,7 +38,7 @@ AddedtoCart = (id) =>{
   }
 }
   render() {
-
+    let page = <Spinner />
     let smartPhone = [],ph=0;
     let Electronic = [],el=0;
     let Decor = [],de=0;
@@ -113,43 +113,44 @@ AddedtoCart = (id) =>{
       );
   }
     }
+    page = <div className={classes.maincontainer}>
+    <div className={classes.container}>
+      <h1 className={classes.title}>Exclusive offers on Smartphones :</h1>
+      <hr className={classes.line} />
+      <div className={classes.App}>
+        <Carousel breakPoints={breakPoints}>{smartPhone}</Carousel>
+      </div>
+      <p className={classes.offer}>
+        <a href="/ProductList/Mobiles/true">See All Offers ...</a>
+      </p>
+    </div>
+    <div className={classes.container}>
+      <h1 className={classes.title2}>
+        Blockbuster Deals on Electronic Products :
+      </h1>
+      <hr className={classes.line} />
+      <div className={classes.App}>
+        <Carousel breakPoints={breakPoints}>{Electronic}</Carousel>
+      </div>
+      <p className={classes.offer}>
+        <a href="/ProductList/Electronics/true">See All Offers ...</a>
+      </p>
+    </div>
+    <div className={classes.container}>
+      <h1 className={classes.title2}>Best Deals ever on Home Decors :</h1>
+      <hr className={classes.line} />
+
+      <div className={classes.App}>
+        <Carousel breakPoints={breakPoints}>{Decor}</Carousel>
+      </div>
+      <p className={classes.offer}>
+        <a href="/ProductList/Decoration/true">See All Offers ...</a>
+      </p>
+    </div>
+  </div>
   }
     return (
-      <div className={classes.maincontainer}>
-        <div className={classes.container}>
-          <h1 className={classes.title}>Exclusive offers on Smartphones :</h1>
-          <hr className={classes.line} />
-          <div className={classes.App}>
-            <Carousel breakPoints={breakPoints}>{smartPhone}</Carousel>
-          </div>
-          <p className={classes.offer}>
-            <a href="/ProductList/Mobiles/true">See All Offers ...</a>
-          </p>
-        </div>
-        <div className={classes.container}>
-          <h1 className={classes.title2}>
-            Blockbuster Deals on Electronic Products :
-          </h1>
-          <hr className={classes.line} />
-          <div className={classes.App}>
-            <Carousel breakPoints={breakPoints}>{Electronic}</Carousel>
-          </div>
-          <p className={classes.offer}>
-            <a href="/ProductList/Electronics/true">See All Offers ...</a>
-          </p>
-        </div>
-        <div className={classes.container}>
-          <h1 className={classes.title2}>Best Deals ever on Home Decors :</h1>
-          <hr className={classes.line} />
-  
-          <div className={classes.App}>
-            <Carousel breakPoints={breakPoints}>{Decor}</Carousel>
-          </div>
-          <p className={classes.offer}>
-            <a href="/ProductList/Decoration/true">See All Offers ...</a>
-          </p>
-        </div>
-      </div>
+      <>{page}</>
     );
   }
 }

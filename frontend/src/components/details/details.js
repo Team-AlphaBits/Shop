@@ -3,10 +3,9 @@ import classes from "./details.module.css";
 import { connect } from "react-redux";
 import * as actions from "../../Store/Action/index";
 import Carousel from "react-elastic-carousel";
-
+import Spinner from '../spinner/spinner'
 class Details extends Component {
   componentDidMount() {
-    this.props.authCheckout();
     this.props.getProduct(this.props.location.search.split("?")[1]);
   }
   discount= (price,arg,dis) =>{
@@ -39,10 +38,10 @@ AddedtoCart = (id,stat) =>{
   }
   }
   render() {
-    
+     console.log(this.props.DetailData)
     let img = ["d-block w-100", classes.carimg];
     let dis = Math.floor(Math.random() * (50)) + 1;
-    let show = null;
+    let show = <Spinner />;
     if (this.props.DetailData) {
       let des = this.props.DetailData.productData.description.split(".");
       let details = [];
