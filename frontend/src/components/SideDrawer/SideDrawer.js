@@ -13,7 +13,6 @@ import { connect } from "react-redux";
 import Badges from "../Badge/Badges";
 
 class SideDrawer extends Component {
-
   render() {
     let sideClass = [classes.body, classes.Close];
     let backdrop = null;
@@ -29,7 +28,7 @@ class SideDrawer extends Component {
             className="white-text"
             style={{ fontFamily: "italic", fontSize: "28px", color: "red" }}
           >
-            $-"AlphaBits"
+            $-"SHOP"
           </strong>
         </li>
         <li className={classes.sidelink1}>
@@ -41,10 +40,14 @@ class SideDrawer extends Component {
           />
         </li>
         <li className={classes.sidelink}>
-          <NavLink to="/" activeClassName={classes.active} exact>Home</NavLink>
+          <NavLink to="/" activeClassName={classes.active} exact>
+            Home
+          </NavLink>
         </li>
         <li className={classes.sidelink}>
-          <NavLink to="/deal" activeClassName={classes.active} exact>Today's Deals</NavLink>
+          <NavLink to="/deal" activeClassName={classes.active} exact>
+            Today's Deals
+          </NavLink>
         </li>
         <li>
           <MDBDropdown className={classes.sidelink}>
@@ -81,23 +84,44 @@ class SideDrawer extends Component {
         </li>
         {this.props.isAuthenticated ? (
           <li className={classes.sidelink}>
-            <NavLink to="/cart" activeClassName={classes.active} exact>Cart</NavLink>
+            <NavLink to="/cart" activeClassName={classes.active} exact>
+              Cart
+            </NavLink>
           </li>
         ) : null}
         <li className={classes.sidelink}>
-          <NavLink to="/about" activeClassName={classes.active} exact>About</NavLink>
+          <NavLink to="/about" activeClassName={classes.active} exact>
+            About
+          </NavLink>
         </li>
-        {this.props.isAuthenticated ?  
-              <li className={classes.sidelink}><NavLink to="/MyOrder" exact activeClassName={classes.active} onClick={this.props.Toggle}>My Order</NavLink></li> : null}
         {this.props.isAuthenticated ? (
           <li className={classes.sidelink}>
-            <NavLink onClick={() => this.props.Logout()} to="/" exact activeClassName={classes.active}>
+            <NavLink
+              to="/MyOrder"
+              exact
+              activeClassName={classes.active}
+              onClick={this.props.Toggle}
+            >
+              My Order
+            </NavLink>
+          </li>
+        ) : null}
+        {this.props.isAuthenticated ? (
+          <li className={classes.sidelink}>
+            <NavLink
+              onClick={() => this.props.Logout()}
+              to="/"
+              exact
+              activeClassName={classes.active}
+            >
               Logout
             </NavLink>
           </li>
         ) : (
           <li className={classes.log}>
-            <NavLink to="/login" activeClassName={classes.active} exact>Login/Signup</NavLink>
+            <NavLink to="/login" activeClassName={classes.active} exact>
+              Login/Signup
+            </NavLink>
           </li>
         )}
       </ul>

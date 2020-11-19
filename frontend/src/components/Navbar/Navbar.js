@@ -37,9 +37,9 @@ class NavbarPage extends Component {
       pathname: "/ProductList/RelatedItems/false",
     });
   };
-  componentDidMount(){
-      this.props.authCheckout()
-      this.props.getCartData()
+  componentDidMount() {
+    this.props.authCheckout();
+    this.props.getCartData();
   }
   //onSubmit={() => this.props.getResult(this.state.Input)}
   render() {
@@ -70,7 +70,7 @@ class NavbarPage extends Component {
       activeDeal = true;
     } else if (this.props.history.location.pathname === "/gifts") {
       activeGift = true;
-    }else if (this.props.history.location.pathname === "/cart") {
+    } else if (this.props.history.location.pathname === "/cart") {
       activeCart = true;
     }
     let fixed = null;
@@ -93,7 +93,7 @@ class NavbarPage extends Component {
           />
         ) : null}
         <MDBNavbarNav className={classes.set1}>
-        <h3 style={{ color: "white" }}>Hello, {this.props.name}</h3>
+          <h3 style={{ color: "white" }}>Hello, {this.props.name}</h3>
           <MDBCol md="6" className={classes.set2}>
             <form onSubmit={this.searchResult}>
               <input
@@ -110,11 +110,22 @@ class NavbarPage extends Component {
             </form>
           </MDBCol>
           <MDBNavItem active={activeLogin}>
-            <MDBNavLink to={this.props.isAuthenticated ? "/cart" : "/login"}className={classes.icon}>
-              {window.innerWidth >770 ? 
-              <Badges 
-              cart ={this.props.data ? this.props.data.cartData.cart.cartlist : null}
-              cartLogin = {this.props.login ? this.props.login.cart.cartlist : null}/>: null}
+            <MDBNavLink
+              to={this.props.isAuthenticated ? "/cart" : "/login"}
+              className={classes.icon}
+            >
+              {window.innerWidth > 770 ? (
+                <Badges
+                  cart={
+                    this.props.data
+                      ? this.props.data.cartData.cart.cartlist
+                      : null
+                  }
+                  cartLogin={
+                    this.props.login ? this.props.login.cart.cartlist : null
+                  }
+                />
+              ) : null}
             </MDBNavLink>
           </MDBNavItem>
         </MDBNavbarNav>
@@ -125,9 +136,9 @@ class NavbarPage extends Component {
         <MDBNavbarBrand>
           <strong
             className="white-text"
-            style={{ fontFamily: "italic", color: "red" }}
+            style={{ fontFamily: "italic", color: "red", fontWeight: "600" }}
           >
-            $-"AlphaBits"
+            $-"SHOP"
           </strong>
         </MDBNavbarBrand>
         <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
@@ -171,23 +182,27 @@ class NavbarPage extends Component {
                 </MDBDropdownMenu>
               </MDBDropdown>
             </MDBNavItem>
-            {this.props.isAuthenticated ?  
-            <MDBNavItem active={activeCart}>
-              <MDBNavLink to="/cart">Cart</MDBNavLink>
-            </MDBNavItem> :
-            null}
-            {this.props.isAuthenticated ?  
-            <MDBNavItem active={activeCart}>
-              <MDBNavLink to="/MyOrder">My Order</MDBNavLink>
-            </MDBNavItem> :
-            null}
+            {this.props.isAuthenticated ? (
+              <MDBNavItem active={activeCart}>
+                <MDBNavLink to="/cart">Cart</MDBNavLink>
+              </MDBNavItem>
+            ) : null}
+            {this.props.isAuthenticated ? (
+              <MDBNavItem active={activeCart}>
+                <MDBNavLink to="/MyOrder">My Order</MDBNavLink>
+              </MDBNavItem>
+            ) : null}
             <MDBNavItem active={activeHome}>
               <MDBNavLink to="/about">About</MDBNavLink>
             </MDBNavItem>
             <MDBNavItem active={activeLogin}>
-              {this.props.isAuthenticated ? 
-              <MDBNavLink onClick = {() => this.props.Logout()} to="/">Logout</MDBNavLink> : 
-              <MDBNavLink to="/login">Login/Signup</MDBNavLink>}
+              {this.props.isAuthenticated ? (
+                <MDBNavLink onClick={() => this.props.Logout()} to="/">
+                  Logout
+                </MDBNavLink>
+              ) : (
+                <MDBNavLink to="/login">Login/Signup</MDBNavLink>
+              )}
             </MDBNavItem>
           </MDBNavbarNav>
         </MDBCollapse>
@@ -210,7 +225,7 @@ const mapStateToProps = (state) => {
     isAuthenticated: state.Login.TokenId !== null,
     data: state.Login.Cart,
     login: state.Login.loginData,
-    name: state.Login.name
+    name: state.Login.name,
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -219,11 +234,13 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(actions.getSearch(des));
     },
     Logout: () => {
-      dispatch(actions.logOut())
+      dispatch(actions.logOut());
     },
-    getCartData : () =>{ dispatch(actions.getCart())},
+    getCartData: () => {
+      dispatch(actions.getCart());
+    },
     authCheckout: () => dispatch(actions.authCheckState()),
-    userDetails: () => dispatch(actions.userDetails())
+    userDetails: () => dispatch(actions.userDetails()),
   };
 };
 export default connect(
