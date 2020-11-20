@@ -6,7 +6,7 @@
   margin-top: 100px;
   display: flex;
   flex-flow: row;
-  border: 2px solid blue;
+  border: 2px solid rgb(6, 6, 105);
   padding: 50px 0px 50px 0px;
   border-radius: 5px;
 }
@@ -55,6 +55,7 @@
   font-size: 25px;
   font-weight: bold;
   margin-top: 20px;
+  color: rgb(69, 163, 140);
   /* margin-left: 60%; */
   text-align: justify; /* For Edge */
 }
@@ -74,7 +75,7 @@
 .oldprc {
   font-weight: bold;
   font-size: 23px;
-  color: blue;
+  color: rgb(73, 167, 255);
 }
 @media (max-width: 800px) {
   .img {
@@ -117,7 +118,7 @@
   color: blue;
   background-color: #fff;
   border: 5px;
-  box-shadow: 0px 0px 5px grey;
+  box-shadow: 2px 2px 5px grey;
   margin-right: 10px;
   border-radius: 5px;
 }

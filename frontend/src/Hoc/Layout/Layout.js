@@ -32,6 +32,7 @@ class Layout extends Component{
           return <div className={classes.Layout}>
               <SideDrawer show={this.state.showDrawer} Toggle={this.drawerToggle}/>
               <Navbar 
+              show={this.state.showDrawer}
               Toggle={this.drawerToggle} 
               fixed={this.state.fixed}
               width={this.state.width}/>

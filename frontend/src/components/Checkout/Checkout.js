@@ -93,7 +93,7 @@ class Checkout extends Component {
                 type="radio"
                 name="inlineRadioOptions"
                 id="inlineRadio1"
-                value="option1"
+                value="COD"
                 onChange={(event) => this.inputChangeHandler(event,"pay")}
               />
               <label className={text.join(" ")} for="inlineRadio1">
@@ -106,7 +106,7 @@ class Checkout extends Component {
                 type="radio"
                 name="inlineRadioOptions"
                 id="inlineRadio2"
-                value="option2"
+                value="Internet banking"
                 onChange={(event) => this.inputChangeHandler(event,"pay")}
               />
               <label className={text.join(" ")} for="inlineRadio2">
@@ -119,7 +119,7 @@ class Checkout extends Component {
                 type="radio"
                 name="inlineRadioOptions"
                 id="inlineRadio2"
-                value="option2"
+                value="UPI"
                 onChange={(event) => this.inputChangeHandler(event,"pay")}
               />
               <label className={text.join(" ")} for="inlineRadio2">

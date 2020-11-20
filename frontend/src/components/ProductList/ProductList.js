@@ -65,6 +65,14 @@ class ProductList extends Component {
                   >
                     {this.props.Data.productData[i].short_desc}
                   </p>
+                  <strike className={classes.prc}>
+                      ₹{" "}
+                      {this.discount(
+                        this.props.Data.productData[i].price,
+                        "oldprice",
+                        des
+                      )}
+                    </strike>
                   <div className={classes.pricing}>
                     {" "}
                     <p className={classes.oldprc}>
@@ -75,14 +83,6 @@ class ProductList extends Component {
                         des
                       )}
                     </p>
-                    <strike className={classes.prc}>
-                      ₹{" "}
-                      {this.discount(
-                        this.props.Data.productData[i].price,
-                        "oldprice",
-                        des
-                      )}
-                    </strike>
                     <p className={classes.price}>
                       Save: ₹
                       {this.discount(
@@ -94,7 +94,7 @@ class ProductList extends Component {
                     </p>
                   </div>
                   <p className={classes.amount}>
-                    FREE Delivery by <b>SHOP</b>{" "}
+                    FREE Delivery by <b style={{color: "#01ab9d",fontSize: "20px"}}>SHOP</b>{" "}
                   </p>
                 </div>
               </div>

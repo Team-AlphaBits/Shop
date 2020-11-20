@@ -65,7 +65,6 @@ class Details extends Component {
                   </p>
           <p className={classes.oldprc}>₹ {parseFloat(prods[i].price.replace( /[^\d.]*/g,'')).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}</p>
                   <p className={classes.avl}>In stock.</p>
-                  <p className={classes.amount}>Eligible for FREE Shipping </p>
                   <div className={classes.quantity}>
                     {/* <button className={classes.addBtn}>Qty:{prods[i].quantity}</button> */}
                     <select 

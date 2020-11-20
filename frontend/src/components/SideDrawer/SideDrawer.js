@@ -13,8 +13,11 @@ import { connect } from "react-redux";
 import Badges from "../Badge/Badges";
 
 class SideDrawer extends Component {
-
+    //  componentDidMount(){
+    //   this.props.getCartData()
+    //  }
   render() {
+    console.log(this.props.data,this.props.login)
     let sideClass = [classes.body, classes.Close];
     let backdrop = null;
     if (this.props.show) {
@@ -33,12 +36,9 @@ class SideDrawer extends Component {
           </strong>
         </li>
         <li className={classes.sidelink1}>
-          <Badges
-            cart={
-              this.props.data ? this.props.data.cartData.cart.cartlist : null
-            }
-            cartLogin={this.props.login}
-          />
+        <Badges 
+              cart ={this.props.data ? this.props.data.cartData.cart.cartlist : null}
+              cartLogin = {this.props.login ? this.props.login.cart.cartlist : null}/>
         </li>
         <li className={classes.sidelink}>
           <NavLink to="/" activeClassName={classes.active} exact>Home</NavLink>
@@ -122,6 +122,7 @@ const mapDispatchToProps = (dispatch) => {
     Logout: () => {
       dispatch(actions.logOut());
     },
+    getCartData : () =>{ dispatch(actions.getCart())},
   };
 };
 export default connect(
