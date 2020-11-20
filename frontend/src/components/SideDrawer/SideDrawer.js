@@ -17,7 +17,6 @@ class SideDrawer extends Component {
     //   this.props.getCartData()
     //  }
   render() {
-    console.log(this.props.data,this.props.login)
     let sideClass = [classes.body, classes.Close];
     let backdrop = null;
     if (this.props.show) {
@@ -41,10 +40,14 @@ class SideDrawer extends Component {
               cartLogin = {this.props.login ? this.props.login.cart.cartlist : null}/>
         </li>
         <li className={classes.sidelink}>
-          <NavLink to="/" activeClassName={classes.active} exact>Home</NavLink>
+          <NavLink to="/" activeClassName={classes.active} exact>
+            Home
+          </NavLink>
         </li>
         <li className={classes.sidelink}>
-          <NavLink to="/deal" activeClassName={classes.active} exact>Today's Deals</NavLink>
+          <NavLink to="/deal" activeClassName={classes.active} exact>
+            Today's Deals
+          </NavLink>
         </li>
         <li>
           <MDBDropdown className={classes.sidelink}>
@@ -81,23 +84,44 @@ class SideDrawer extends Component {
         </li>
         {this.props.isAuthenticated ? (
           <li className={classes.sidelink}>
-            <NavLink to="/cart" activeClassName={classes.active} exact>Cart</NavLink>
+            <NavLink to="/cart" activeClassName={classes.active} exact>
+              Cart
+            </NavLink>
           </li>
         ) : null}
         <li className={classes.sidelink}>
-          <NavLink to="/about" activeClassName={classes.active} exact>About</NavLink>
+          <NavLink to="/about" activeClassName={classes.active} exact>
+            About
+          </NavLink>
         </li>
-        {this.props.isAuthenticated ?  
-              <li className={classes.sidelink}><NavLink to="/MyOrder" exact activeClassName={classes.active} onClick={this.props.Toggle}>My Order</NavLink></li> : null}
         {this.props.isAuthenticated ? (
           <li className={classes.sidelink}>
-            <NavLink onClick={() => this.props.Logout()} to="/" exact activeClassName={classes.active}>
+            <NavLink
+              to="/MyOrder"
+              exact
+              activeClassName={classes.active}
+              onClick={this.props.Toggle}
+            >
+              My Order
+            </NavLink>
+          </li>
+        ) : null}
+        {this.props.isAuthenticated ? (
+          <li className={classes.sidelink}>
+            <NavLink
+              onClick={() => this.props.Logout()}
+              to="/"
+              exact
+              activeClassName={classes.active}
+            >
               Logout
             </NavLink>
           </li>
         ) : (
           <li className={classes.log}>
-            <NavLink to="/login" activeClassName={classes.active} exact>Login/Signup</NavLink>
+            <NavLink to="/login" activeClassName={classes.active} exact>
+              Login/Signup
+            </NavLink>
           </li>
         )}
       </ul>
@@ -115,6 +139,7 @@ const mapStateToProps = (state) => {
     isAuthenticated: state.Login.TokenId !== null,
     data: state.Login.Cart,
     login: state.Login.loginData,
+    error: state.Login.error,
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -123,6 +148,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(actions.logOut());
     },
     getCartData : () =>{ dispatch(actions.getCart())},
+    errorNull: () => dispatch(actions.nullError())
   };
 };
 export default connect(

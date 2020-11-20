@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import * as actions from "../../Store/Action/index";
 import classes from "./ProductList.module.css";
 import Spinner from '../spinner/spinner'
+import Modal from '../Modal/Modal'
 class ProductList extends Component {
   componentDidMount() {
     if(this.props.history.location.pathname.split("/")[3] === "true"){
@@ -37,7 +38,6 @@ class ProductList extends Component {
     }
   };
   render() {
-    console.log(this.props.Data);
     let cards = [];
     if (this.props.history.location.pathname.split("/")[3] === "true") {
       if (this.props.Data) {
@@ -105,7 +105,6 @@ class ProductList extends Component {
       }
     } else {
       if (this.props.search) {
-        console.log(this.props.search);
         if(this.props.search.data.result.length === 0){
             cards.push(<h1>No Products Found...!</h1>)
         }
@@ -174,6 +173,9 @@ class ProductList extends Component {
         }
       }
     }
+    if(this.props.error){
+      cards.push(<Modal modalclosed={() => this.props.errorNull()}>Some Error Occured...!</Modal>)
+    }
     return <div className={classes.maincontainer}>
       {cards.length === 0 ? <Spinner /> : cards}
       </div>;
@@ -183,6 +185,7 @@ const mapStatetoProps = (state) => {
   return {
     Data: state.Login.catData,
     search: state.Login.resultData,
+    error: state.Login.error,
   };
 };
 const mapDispatchToprops = (dispatch) => {
@@ -191,6 +194,7 @@ const mapDispatchToprops = (dispatch) => {
       dispatch(actions.getBycatId(id));
     },
     authCheckout: () => dispatch(actions.authCheckState()),
+    errorNull: () => dispatch(actions.nullError())
   };
 };
 export default connect(mapStatetoProps, mapDispatchToprops)(ProductList);

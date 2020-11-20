@@ -138,6 +138,7 @@ export default class Order extends Component {
                   style={styles.text}></TextInput>
                 <TextInput
                   label="Mobile number"
+                  keyboardType='number-pad'
                   mode="outlined"
                   theme={{
                     colors: {text: color.black, primary: color.MintyGreenDark},
@@ -146,6 +147,7 @@ export default class Order extends Component {
                   style={styles.text}></TextInput>
                 <TextInput
                   label="PIN code"
+                  keyboardType='number-pad'
                   mode="outlined"
                   theme={{
                     colors: {text: color.black, primary: color.MintyGreenDark},

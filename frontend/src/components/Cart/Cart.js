@@ -5,6 +5,8 @@ import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../../Store/Action/index";
 import Spinner from '../spinner/spinner'
+import Modal from '../Modal/Modal'
+
 class Details extends Component {
   check = () => {
     return <Redirect to="/Checkout" />;
@@ -94,6 +96,9 @@ class Details extends Component {
         subTotal=null;
       }
     }
+    if(this.props.error){
+      cards.push(<Modal modalclosed={() => this.props.errorNull()}>Some Error Occured...!</Modal>)
+    }
     return (
       <div className={classes.maincontainer}>
         {cards}
@@ -105,7 +110,8 @@ class Details extends Component {
 const mapStateToProps = (state) =>{
   return{
     isAuthenticated: state.Login.TokenId !== null,
-    data: state.Login.Cart
+    data: state.Login.Cart,
+    error: state.Login.error,
   }
 }
 const mapDispatchToProps=(dispatch) =>{
@@ -113,7 +119,8 @@ const mapDispatchToProps=(dispatch) =>{
    getCartData : () =>{ dispatch(actions.getCart())},
    authCheckout: () => dispatch(actions.authCheckState()),
    changeQuantity: (id,val) => dispatch(actions.changeValue(id,val)),
-   removeProd: (id) => dispatch(actions.deleteProd(id))
+   removeProd: (id) => dispatch(actions.deleteProd(id)),
+   errorNull: () => dispatch(actions.nullError())
   }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Details);

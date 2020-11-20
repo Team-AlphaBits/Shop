@@ -13,10 +13,10 @@ import Khem from "../../Assets/images/pic3.jpeg";
 import Rahul from "../../Assets/images/rahul1.jpg";
 import awek from "../../Assets/images/awek1.jpg";
 import fazil from "../../Assets/images/fazil1.jpg";
-import about from "../../Assets/images/about_img.jpg";
 import cook from "../../Assets/images/cook2.jpg";
 import { connect } from "react-redux";
 import * as actions from "../../Store/Action/index";
+import mainImage from '../../Assets/images/detailsImage-1.jpg'
 
 class About extends Component {
   render() {
@@ -94,7 +94,7 @@ class About extends Component {
     return (
       <div className={classes.maincontainer}>
         <div className={classes.container}>
-          <img alt="img" src={about} className={classes.mainImg} />
+          <img alt="img" src={mainImage} className={classes.mainImg} />
 
           <div className={classes.disc}>
             <p className={classes.header}>About us</p>

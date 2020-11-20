@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import classes from "./Deal.module.css";
 import * as actions from "../../Store/Action/index";
 import Spinner from '../../components/spinner/spinner'
+import Modal from '../../components/Modal/Modal'
 
 class Deals extends Component{
   componentDidMount(){
@@ -149,6 +150,9 @@ AddedtoCart = (id) =>{
     </div>
   </div>
   }
+  if(this.props.error){
+    page = <Modal modalclosed={() => this.props.errorNull()}>Some Error Occured...!</Modal>
+  }
     return (
       <>{page}</>
     );
@@ -160,13 +164,15 @@ const mapStateToProps = (state) => {
     Data: state.Login.Data,
     isAuthenticated: state.Login.TokenId !== null,
     success: state.Login.FetchSuccess,
+    error: state.Login.error,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
     onFetchData: () => dispatch(actions.getData()),
     authCheckout: () => dispatch(actions.authCheckState()),
-    addTocart: (id) => dispatch(actions.addToCart(id))
+    addTocart: (id) => dispatch(actions.addToCart(id)),
+    errorNull: () => dispatch(actions.nullError())
   };
 };
 export default connect(mapStateToProps,mapDispatchToProps)(Deals);

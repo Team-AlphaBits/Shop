@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import * as actions from "../../Store/Action/index";
 import {withRouter} from 'react-router-dom'
 import Spinner from '../spinner/spinner'
+import Modal from '../Modal/Modal'
 
 class MyOrder extends Component {
   componentDidMount(){
@@ -16,8 +17,7 @@ class MyOrder extends Component {
       search: "?" + id,
     });
   };
-  render() {
-    console.log(this.props.myOrders)  
+  render() { 
     let cards = [];
     if(this.props.myOrders){
       let items = this.props.myOrders;
@@ -50,6 +50,9 @@ class MyOrder extends Component {
           }
       }
     }
+    if(this.props.error){
+      cards.push(<Modal modalclosed={() => this.props.errorNull()}>Order is not Placed...!</Modal>)
+    }
     return (
       <div className={classes.Maincontainer}>
         {cards.length === 0 ? <Spinner /> : cards}
@@ -59,12 +62,14 @@ class MyOrder extends Component {
 }
 const mapDispatchToProps = (dispatch) =>{
   return{
-    getOrder : () => dispatch(actions.prevOrders())
+    getOrder : () => dispatch(actions.prevOrders()),
+    errorNull: () => dispatch(actions.nullError())
   }
 }
 const mapStateToProps = (state) =>{
   return{
     myOrders: state.Login.Orders,
+    error: state.Login.error,
   }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(withRouter(MyOrder))

@@ -17,7 +17,7 @@ margin-top: 6px;
 }
 @media(max-width: 770px){
     .headers{
-        margin-top: 70px;
+        margin-top: 5px;
     }
 }
 @media(max-width: 700px){
@@ -25,7 +25,7 @@ margin-top: 6px;
         display: none;
     }
     .headers{
-        margin-top: 96px;
+        margin-top: 48px;
     }
     .mail{
     margin-left: 80%;
@@ -33,7 +33,7 @@ margin-top: 6px;
 }
 @media(max-width: 400px){
     .headers{
-        margin-top: 99px;
+        margin-top: 48px;
         height: 100px;
     }
     .mail{
