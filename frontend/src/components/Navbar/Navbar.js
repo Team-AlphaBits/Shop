@@ -208,6 +208,9 @@ class NavbarPage extends Component {
     // if(this.props.width < 770){
     //   nav2 = null
     // }
+    if (this.props.fixed || this.props.width < 770 || this.props.show) {
+     nav2 = null
+    }
     return (
       <>
         {nav2}
