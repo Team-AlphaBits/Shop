@@ -10,6 +10,7 @@ import StaticCards from "../../Cards/StaticCards/StaticCards";
 import Carousel from "../../components/carousel/carousel";
 import classes from "./Home.module.css";
 import Spinner from '../../components/spinner/spinner'
+import Modal from '../../components/Modal/Modal'
 class Home extends Component {
   componentDidMount() {
     this.props.onFetchData();
@@ -53,6 +54,9 @@ class Home extends Component {
       <StaticCards data={this.props.Data} change={this.changeUrl} />
       </div> 
     }
+    if(this.props.error){
+      page = <Modal modalclosed={() => this.props.errorNull()}>Some Error Occured...!</Modal>
+    }
     return (
       <>
         {page}
@@ -65,14 +69,17 @@ const mapStateToProps = (state) => {
     signedUp: state.Login.signuped,
     Data: state.Login.Data,
     success: state.Login.FetchSuccess,
-    isAuthenticated: state.Login.TokenId !== null
+    isAuthenticated: state.Login.TokenId !== null,
+    error: state.Login.error,
+    
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
     onFetchData: () => dispatch(actions.getData()),
     authCheckout: () => dispatch(actions.authCheckState()),
-    addTocart: (id) => dispatch(actions.addToCart(id))
+    addTocart: (id) => dispatch(actions.addToCart(id)),
+    errorNull: () => dispatch(actions.nullError())
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

@@ -5,8 +5,6 @@ import {
   MDBCol,
   MDBInput,
   MDBBtn,
-  MDBModalBody,
-  MDBModal,
   MDBCard,
   MDBCardBody,
 } from "mdbreact";
@@ -16,26 +14,10 @@ class Login extends Component {
     modal: false,
   };
 
-  toggle = () => {
-    this.setState({
-      modal: !this.state.modal,
-    });
-  };
   render() {
-    let ShowAlert = null;
-    if (this.state.modal) {
-      ShowAlert = (
-        <MDBContainer className={classes.modal}>
-          <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
-            <MDBModalBody>Logged in successfully !...</MDBModalBody>
-          </MDBModal>
-        </MDBContainer>
-      );
-    }
     return (
       <div className={classes.up}>
         <div className={classes.uperContainer}>
-          {ShowAlert}
           <MDBContainer className={classes.login}>
             <MDBRow>
               <MDBCol md="6">

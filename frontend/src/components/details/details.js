@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import * as actions from "../../Store/Action/index";
 import Carousel from "react-elastic-carousel";
 import Spinner from '../spinner/spinner'
+import Modal from '../Modal/Modal'
+
 class Details extends Component {
   componentDidMount() {
     this.props.getProduct(this.props.location.search.split("?")[1]);
@@ -38,7 +40,6 @@ AddedtoCart = (id,stat) =>{
   }
   }
   render() {
-     console.log(this.props.DetailData)
     let img = ["d-block w-100", classes.carimg];
     let dis = Math.floor(Math.random() * (50)) + 1;
     let show = <Spinner />;
@@ -114,6 +115,9 @@ AddedtoCart = (id,stat) =>{
         </div>
       );
     }
+    if(this.props.error){
+      show= <Modal modalclosed={() => this.props.errorNull()}>Some Error Occured...!</Modal>
+    }
     return <>{show}</>;
   }
 }
@@ -121,6 +125,7 @@ const mapStatetoProps = (state) => {
   return {
     isAuthenticated: state.Login.TokenId !== null,
     DetailData: state.Login.detail,
+    error: state.Login.error,
   };
 };
 const mapDispatchToprops = (dispatch) => {
@@ -130,6 +135,7 @@ const mapDispatchToprops = (dispatch) => {
     },
     addTocart: (id) => dispatch(actions.addToCart(id)),
     authCheckout: () => dispatch(actions.authCheckState()),
+    errorNull: () => dispatch(actions.nullError())
   };
 };
 export default connect(mapStatetoProps, mapDispatchToprops)(Details);

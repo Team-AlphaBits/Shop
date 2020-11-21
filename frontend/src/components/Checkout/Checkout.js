@@ -4,12 +4,11 @@ import classes from "./Checkout.module.css";
 import { Button, Form, Col } from "react-bootstrap";
 import { connect } from "react-redux";
 import * as actions from "../../Store/Action/index";
-import {Redirect} from 'react-router-dom'
+import {Redirect} from 'react-router-dom';
+import Modal from '../Modal/Modal'
+import Spinner from '../spinner/spinner'
 
 class Checkout extends Component {
-  state = {
-    modal: false,
-  };
 
   toggle = () => {
     this.setState({
@@ -26,8 +25,8 @@ class Checkout extends Component {
     state: '',
     pincode: '',
     paymentMethod: '',
-    showPay: false
-
+    showPay: false,
+    showSpinner: false
   }
   inputChangeHandler = (event,arg) =>{
    if(arg === "name"){
@@ -76,6 +75,14 @@ class Checkout extends Component {
     this.state.pincode,
     this.state.paymentMethod
     )
+    this.setState({showSpinner: true})
+  }
+  errorHandler = () =>{
+    this.setState({showSpinner: false})
+    this.props.errorNull();
+    this.props.history.push({
+      pathname: "/cart"
+    });
   }
   render() {
     let cls = ["form-check form-check-inline", classes.radio];
@@ -93,7 +100,7 @@ class Checkout extends Component {
                 type="radio"
                 name="inlineRadioOptions"
                 id="inlineRadio1"
-                value="option1"
+                value="COD"
                 onChange={(event) => this.inputChangeHandler(event,"pay")}
               />
               <label className={text.join(" ")} for="inlineRadio1">
@@ -106,7 +113,7 @@ class Checkout extends Component {
                 type="radio"
                 name="inlineRadioOptions"
                 id="inlineRadio2"
-                value="option2"
+                value="Internet banking"
                 onChange={(event) => this.inputChangeHandler(event,"pay")}
               />
               <label className={text.join(" ")} for="inlineRadio2">
@@ -119,7 +126,7 @@ class Checkout extends Component {
                 type="radio"
                 name="inlineRadioOptions"
                 id="inlineRadio2"
-                value="option2"
+                value="UPI"
                 onChange={(event) => this.inputChangeHandler(event,"pay")}
               />
               <label className={text.join(" ")} for="inlineRadio2">
@@ -184,8 +191,14 @@ class Checkout extends Component {
             {this.state.showPay ? paym : null}
           </div>
         </div>
+        if(this.state.showSpinner){
+          ele = <Spinner />
+        }
           if(this.props.status){
             ele = <Redirect to="/MyOrder" />
+          }
+          if(this.props.error){
+            ele = <Modal modalclosed={this.errorHandler}>Some Error Occured...!</Modal>
           }
     return (
             <>
@@ -197,7 +210,8 @@ class Checkout extends Component {
 const mapStateToProps = (state) =>{
   return {
     
-    status: state.Login.orderSuccess
+    status: state.Login.orderSuccess,
+    error: state.Login.error,
   }
 }
 const mapDispatchToprops = (dispatch) => {
@@ -211,7 +225,8 @@ const mapDispatchToprops = (dispatch) => {
       city,
       state,
       pincode,
-      paymentMethod) => dispatch(actions.order(name,mobileNo,addressLine1,addressLine2,landmark,city,state,pincode,paymentMethod))
+      paymentMethod) => dispatch(actions.order(name,mobileNo,addressLine1,addressLine2,landmark,city,state,pincode,paymentMethod)),
+      errorNull: () => dispatch(actions.nullError())
   };
 };
 export default connect(mapStateToProps,mapDispatchToprops)(Checkout);

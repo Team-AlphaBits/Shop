@@ -6,10 +6,14 @@ export const signupSuccess = () =>{
         type: actionTypes.SIGNUPSUCCESS,
     }
 }
-export const signupFailed = (error) =>{
+export const displayError = () =>{
     return{
-        type: actionTypes.SIGNUPFAILED,
-        error: error
+        type: actionTypes.ERROR
+    }
+}
+export const nullError = () =>{
+    return{
+        type: actionTypes.ERRORNULL
     }
 }
 export const dataFetched = (data,desArr) =>{
@@ -47,7 +51,7 @@ export const deleteProd = (id) =>{
         .then(res =>{
             dispatch(getCart())
         })
-        .catch(err => console.log(err))
+        .catch(err => dispatch(displayError()))
     }
 }
 export const orderSuccess = () =>{
@@ -73,11 +77,10 @@ export const order = (name,mobileNo,addressLine1,addressLine2,landmark,city,stat
             }
          })
          .then(res =>{
-             console.log(res)
              dispatch(getCart())
              dispatch(orderSuccess())
          })
-         .catch(err => console.log(err))
+         .catch(err => dispatch(displayError()))
     }
 }
 export const myOrders = (data) =>{
@@ -95,7 +98,7 @@ export const prevOrders = () =>{
         }).then(res =>{
             dispatch(myOrders(res.data))
         })
-        .catch(err => console.log(err))
+        .catch(err => dispatch(displayError()))
     }
 }
 export const userData = (data) =>{
@@ -112,10 +115,9 @@ export const userDetails = () =>{
             }
         })
         .then(res => {
-            console.log(res.data)
             dispatch(userData(res.data.userData.user_name))
         })
-        .catch(err => console.log(err))
+        .catch(err => err)
     }
 }
 export const addToCart = (id) =>{
@@ -128,7 +130,7 @@ export const addToCart = (id) =>{
          .then(res =>{
              dispatch(getCart())
          })
-         .catch(err => console.log(err))
+         .catch(err => dispatch(displayError()))
     }
 }
 export const changeValue = (id,val) =>{
@@ -139,10 +141,9 @@ export const changeValue = (id,val) =>{
     }
   })
     .then(res =>{
-        console.log(res)
         dispatch(getCart())
     })
-    .catch(err => console.log(err))
+    .catch(err => dispatch(displayError()))
     }
 }
 export const getCart = () =>{
@@ -153,10 +154,9 @@ export const getCart = () =>{
             }
         })
             .then(data =>{
-                console.log(data.data)
                 dispatch(cartData(data.data,data.data.cartData.user_name))
             })
-            .catch(err => console.log(err))
+            .catch(err => err)
     }
 }
 export const afterSearch = (data) =>{
@@ -172,7 +172,7 @@ export const getSearch =(des) =>{
              .then(res =>{
                 dispatch(afterSearch(res))
              })
-             .catch(err => console.log(err))
+             .catch(err => dispatch(displayError()))
     }
 }
 export const catData = (data) =>{
@@ -191,7 +191,7 @@ export const getData = () =>{
                  })
                  dispatch(dataFetched(data.data,desArr))
              })
-             .catch(err => console.log(err));
+             .catch(err => dispatch(displayError()));
     }
 }
 export const getById = (id) =>{
@@ -200,7 +200,7 @@ export const getById = (id) =>{
              .then(data =>{
                  dispatch(detailData(data.data))
              })
-             .catch(err => console.log(err))
+             .catch(err => dispatch(displayError()))
     }
 }
 export const getBycatId = (id) =>{
@@ -210,7 +210,7 @@ export const getBycatId = (id) =>{
                  dispatch(getData())
                  dispatch(catData(data.data))
              })
-             .catch(err => console.log(err))
+             .catch(err => dispatch(displayError()))
     }
 }
 export const authSuccess = (TokenID,cart) => {
@@ -249,13 +249,12 @@ export const Login = (email,password) =>{
         Axios.post("https://cors-anywhere.herokuapp.com/https://calm-garden-34154.herokuapp.com/api/login",userInfo)
              .then(res =>{
                  let expirationDate = new Date(new Date().getTime() + 7200*1000)
-                 console.log(res)
                  localStorage.setItem('jwt',res.data.token)
                  localStorage.setItem('expirationDate',expirationDate)
                  dispatch(authSuccess(res.data.token,res.data.userData))
                  dispatch(checkAuthTimeout(7200))
              })
-             .catch(err => console.log(err))
+             .catch(err => dispatch(displayError()))
     }
 }
 export const Signup = (username, email, password) =>{
@@ -265,14 +264,12 @@ export const Signup = (username, email, password) =>{
             email: email,
             password: password
         }
-        console.log(userData)
         Axios.post("https://cors-anywhere.herokuapp.com/https://calm-garden-34154.herokuapp.com/api/register",userData)
              .then(res =>{
-                 console.log(res);
                  dispatch(signupSuccess())
              })
              .catch(err =>{
-                 dispatch(signupFailed(err))
+                 dispatch(displayError())
              })
     }
 }
