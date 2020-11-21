@@ -35,9 +35,21 @@ class SideDrawer extends Component {
           </strong>
         </li>
         <li className={classes.sidelink1}>
+<<<<<<< HEAD
+          <NavLink to="/cart">
+            {" "}
+            <Badges
+              cart={
+                this.props.data ? this.props.data.cartData.cart.cartlist : null
+              }
+              cartLogin={this.props.login}
+            />
+          </NavLink>
+=======
         <Badges 
               cart ={this.props.data ? this.props.data.cartData.cart.cartlist : null}
               cartLogin = {this.props.login ? this.props.login.cart.cartlist : null}/>
+>>>>>>> 45f716ecd65165210c5967046b58f232f760c72f
         </li>
         <li className={classes.sidelink}>
           <NavLink to="/" activeClassName={classes.active} exact>

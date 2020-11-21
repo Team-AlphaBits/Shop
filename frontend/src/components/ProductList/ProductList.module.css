@@ -15,6 +15,7 @@
 .carousel_ctrl {
   width: 40%;
   margin-left: 2%;
+  height: 400px;
 }
 .img {
   max-width: 100%;
@@ -86,6 +87,7 @@
     margin-top: 40px;
     margin-bottom: 40px;
     margin-right: 0px;
+    max-height: 300px;
   }
   .disc {
     width: 100%;
@@ -96,7 +98,8 @@
     height: 400px;
   }
   .img {
-    width: 230px;
+    max-width: 40%;
+    max-height: 300px;
   }
 }
 .pricing {

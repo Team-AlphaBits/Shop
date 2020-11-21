@@ -108,4 +108,7 @@
   .car {
     height: 400px;
   }
+  .carimg {
+    max-height: 300px;
+  }
 } ;
