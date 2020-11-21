@@ -17,9 +17,9 @@
 }
 .img {
   max-width: 100%;
-  max-height: 400px;
+  max-height: 300px;
 }
-.img:hover{
+.img:hover {
   cursor: pointer;
 }
 .disc {
@@ -68,7 +68,7 @@
   color: rgb(6, 6, 105);
   margin-right: 10%;
 }
-.heading:hover{
+.heading:hover {
   cursor: pointer;
 }
 .oldprc {
@@ -107,6 +107,10 @@
   }
   .car {
     height: 400px;
+  }
+  .img {
+    max-height: 300px;
+    max-width: 70%;
   }
 }
 .quantity {
