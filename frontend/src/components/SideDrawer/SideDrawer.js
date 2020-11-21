@@ -13,9 +13,9 @@ import { connect } from "react-redux";
 import Badges from "../Badge/Badges";
 
 class SideDrawer extends Component {
-    //  componentDidMount(){
-    //   this.props.getCartData()
-    //  }
+  //  componentDidMount(){
+  //   this.props.getCartData()
+  //  }
   render() {
     let sideClass = [classes.body, classes.Close];
     let backdrop = null;
@@ -35,21 +35,16 @@ class SideDrawer extends Component {
           </strong>
         </li>
         <li className={classes.sidelink1}>
-<<<<<<< HEAD
           <NavLink to="/cart">
-            {" "}
             <Badges
               cart={
                 this.props.data ? this.props.data.cartData.cart.cartlist : null
               }
-              cartLogin={this.props.login}
+              cartLogin={
+                this.props.login ? this.props.login.cart.cartlist : null
+              }
             />
           </NavLink>
-=======
-        <Badges 
-              cart ={this.props.data ? this.props.data.cartData.cart.cartlist : null}
-              cartLogin = {this.props.login ? this.props.login.cart.cartlist : null}/>
->>>>>>> 45f716ecd65165210c5967046b58f232f760c72f
         </li>
         <li className={classes.sidelink}>
           <NavLink to="/" activeClassName={classes.active} exact>
@@ -159,8 +154,10 @@ const mapDispatchToProps = (dispatch) => {
     Logout: () => {
       dispatch(actions.logOut());
     },
-    getCartData : () =>{ dispatch(actions.getCart())},
-    errorNull: () => dispatch(actions.nullError())
+    getCartData: () => {
+      dispatch(actions.getCart());
+    },
+    errorNull: () => dispatch(actions.nullError()),
   };
 };
 export default connect(
