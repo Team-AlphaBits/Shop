@@ -23,6 +23,7 @@ class StaticCards extends Component {
                 onClick={() =>
                   this.props.change(this.props.data.productData[i]._id)
                 }
+                key={i}
               >
                 <img
                   src={this.props.data.productData[i].home_image}

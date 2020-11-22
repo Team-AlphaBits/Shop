@@ -53,7 +53,7 @@ class NavbarPage extends Component {
           .includes(this.state.Input.toLowerCase().replace(/\s+/g, ""));
       });
       for (let i = 0; i < 5 && i < filterArr.length; i++) {
-        options.push(<option value={filterArr[i]}></option>);
+        options.push(<option value={filterArr[i]} key={i}></option>);
       }
     }
     let activeHome = false,
@@ -81,7 +81,6 @@ class NavbarPage extends Component {
       <MDBNavbar
         dark
         expand="md"
-        scrollingNavbarOffset
         fixed={fixed}
         className={classes.nav1}
       >
@@ -93,7 +92,7 @@ class NavbarPage extends Component {
           />
         ) : null}
         <MDBNavbarNav className={classes.set1}>
-          <h3 style={{ color: "white" }}>Hello, {this.props.name}</h3>
+          <h3 style={{ color: "white",fontWeight: "400" }}>Hello, {this.props.name}</h3>
           <MDBCol md="6" className={classes.set2}>
             <form onSubmit={this.searchResult}>
               <input

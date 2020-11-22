@@ -16,6 +16,7 @@ function Clothes(props) {
         <div
           className={classes.manualcard}
           onClick={() => props.change(props.data.productData[i]._id)}
+          key={i}
         >
           <img
             src={props.data.productData[i].home_image}
