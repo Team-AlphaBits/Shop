@@ -13,9 +13,9 @@ import { connect } from "react-redux";
 import Badges from "../Badge/Badges";
 
 class SideDrawer extends Component {
-    //  componentDidMount(){
-    //   this.props.getCartData()
-    //  }
+  //  componentDidMount(){
+  //   this.props.getCartData()
+  //  }
   render() {
     let sideClass = [classes.body, classes.Close];
     let backdrop = null;
@@ -36,7 +36,6 @@ class SideDrawer extends Component {
         </li>
         <li className={classes.sidelink1}>
           <NavLink to="/cart">
-            {" "}
             <Badges
               cart={
                 this.props.data ? this.props.data.cartData.cart.cartlist : null
@@ -155,8 +154,10 @@ const mapDispatchToProps = (dispatch) => {
     Logout: () => {
       dispatch(actions.logOut());
     },
-    getCartData : () =>{ dispatch(actions.getCart())},
-    errorNull: () => dispatch(actions.nullError())
+    getCartData: () => {
+      dispatch(actions.getCart());
+    },
+    errorNull: () => dispatch(actions.nullError()),
   };
 };
 export default connect(

@@ -258,8 +258,9 @@ class Details extends Component {
                       displayType={'text'}
                       thousandSeparator={true}
                       thousandSpacing="2s"
+                      decimalScale={0}
                       renderText={(value) => (
-                        <Text style={styles.Discountprice}>{'₹ ' + value}</Text>
+                        <Text style={styles.Discountprice}>{'₹ ' + value+'.00'}</Text>
                       )}
                     />
                     <Text
