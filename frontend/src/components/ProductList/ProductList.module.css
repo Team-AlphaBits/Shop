@@ -15,6 +15,7 @@
 .carousel_ctrl {
   width: 40%;
   margin-left: 2%;
+  height: 400px;
 }
 .img {
   max-width: 100%;
@@ -25,7 +26,7 @@
 }
 .prc {
   margin-left: 10px;
-  font-size: 18px;
+  font-size: 23px;
   font-weight: 500;
   color: rgb(141, 8, 8);
   margin-top: 15px;
@@ -39,7 +40,8 @@
 .price {
   margin-left: 10px;
   margin-top: 15px;
-  font-weight: 400;
+  font-weight: 900;
+  color: rgb(115, 176, 200);
 }
 .amount {
   font-size: 18px;
@@ -85,6 +87,7 @@
     margin-top: 40px;
     margin-bottom: 40px;
     margin-right: 0px;
+    max-height: 300px;
   }
   .disc {
     width: 100%;
@@ -95,7 +98,8 @@
     height: 400px;
   }
   .img {
-    width: 230px;
+    max-width: 40%;
+    max-height: 300px;
   }
 }
 .pricing {

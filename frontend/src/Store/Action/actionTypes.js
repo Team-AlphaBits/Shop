@@ -1,5 +1,5 @@
 export const SIGNUPSUCCESS = 'SIGNUPSUCCESS';
-export const SIGNUPFAILED = 'SIGNUPFAILED';
+export const ERROR = 'ERROR';
 export const GETDATA = 'GETDATA';
 export const DATASUCCESS = 'DATASUCCESS';
 export const GETBYID = 'GETBYID';
@@ -12,4 +12,5 @@ export const AUTH_FAIL = 'AUTH_FAIL';
 export const CART_DATA = 'CART_DATA';
 export const USER_DATA = 'USER_DATA';
 export const PREV_ORDER = 'PREV_ORDER';
-export const ORDER_SUCCESS = 'ORDER_SUCCESS'
+export const ORDER_SUCCESS = 'ORDER_SUCCESS';
+export const ERRORNULL = 'ERRORNULL'

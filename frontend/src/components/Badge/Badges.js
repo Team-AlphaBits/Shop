@@ -28,8 +28,8 @@ let content = '0';
 
   return (
     <IconButton aria-label="cart" className={classes.icon}>
-      <StyledBadge badgeContent={content} color="secondary">
-        <ShoppingCartIcon />
+      <StyledBadge badgeContent={content} color="secondary" style={{color: "white"}}>
+        <ShoppingCartIcon/>
       </StyledBadge>
     </IconButton>
   );

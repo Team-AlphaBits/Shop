@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import {Redirect} from 'react-router'
 import * as actions from "../../Store/Action/index";
 import Spinner from '../../components/spinner/spinner'
+import Modal from '../../components/Modal/Modal'
 
 class Login extends Component {
   state = {
@@ -13,7 +14,8 @@ class Login extends Component {
     emailValue: "",
     passwordValue: "",
     confirmpasswordValue: "",
-    showSpinner: false
+    showSpinner: false,
+    passMatch: true
   };
   toggle = () => {
     this.setState((prev) => {
@@ -22,20 +24,23 @@ class Login extends Component {
   };
   callFunction = (event) => {
     event.preventDefault();
-    this.props.forSignup(
-      this.state.usernameValue,
-      this.state.emailValue,
-      this.state.passwordValue
-    );
-    this.setState({
-      usernameValue: "",
-    emailValue: "",
-    passwordValue: "",
-    confirmpasswordValue: "",
-    })
-    this.setState((prev) => {
-      return { login: !prev.login };
-    });
+    if(this.state.passwordValue === this.state.confirmpasswordValue){
+      this.props.forSignup(
+        this.state.usernameValue,
+        this.state.emailValue,
+        this.state.passwordValue
+      );
+      this.setState({
+        usernameValue: "",
+      emailValue: "",
+      passwordValue: "",
+      confirmpasswordValue: "",
+      showSpinner: true
+      })
+    }
+    else{
+      this.setState({passMatch: false})
+    }
   };
   callLogin = (event) => {
     event.preventDefault();
@@ -71,7 +76,10 @@ class Login extends Component {
       });
     }
   };
-
+errorHandler = () =>{
+  this.setState({showSpinner: false, passMatch: true})
+  this.props.errorNull();
+}
   render() {
     // if(this.props.signedUp){
     //   return this.toggle
@@ -112,12 +120,26 @@ class Login extends Component {
     if(this.props.isAuthenticated){
       form= <Redirect to="/" />
     }
-    return <div>{form}</div>;
+    if(this.props.error || !this.state.passMatch){
+      if(this.state.login){
+        form = <Modal modalclosed={this.errorHandler}>INVALID E-mail or Password</Modal>
+      }
+      else{
+        form = <Modal modalclosed={this.errorHandler}>{!this.state.passMatch ? "Passwords does not match" : "E-mail is already Present"}</Modal>
+      }
+    }
+    if(this.props.RegisterSuccessfully){
+      window.location.reload();
+    }
+    return <div>
+      {form}</div>;
   }
 }
 const mapStateToProps = (state) => {
   return {
-    isAuthenticated: state.Login.TokenId !== null
+    isAuthenticated: state.Login.TokenId !== null,
+    error: state.Login.error,
+    RegisterSuccessfully: state.Login.signuped
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -128,6 +150,7 @@ const mapDispatchToProps = (dispatch) => {
     forLogin: (email, password, cookies) => {
       dispatch(actions.Login(email, password, cookies));
     },
+    errorNull: () => dispatch(actions.nullError())
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

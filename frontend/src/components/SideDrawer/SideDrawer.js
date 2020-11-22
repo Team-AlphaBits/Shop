@@ -13,7 +13,9 @@ import { connect } from "react-redux";
 import Badges from "../Badge/Badges";
 
 class SideDrawer extends Component {
-
+  //  componentDidMount(){
+  //   this.props.getCartData()
+  //  }
   render() {
     let sideClass = [classes.body, classes.Close];
     let backdrop = null;
@@ -33,18 +35,26 @@ class SideDrawer extends Component {
           </strong>
         </li>
         <li className={classes.sidelink1}>
-          <Badges
-            cart={
-              this.props.data ? this.props.data.cartData.cart.cartlist : null
-            }
-            cartLogin={this.props.login}
-          />
+          <NavLink to="/cart">
+            <Badges
+              cart={
+                this.props.data ? this.props.data.cartData.cart.cartlist : null
+              }
+              cartLogin={
+                this.props.login ? this.props.login.cart.cartlist : null
+              }
+            />
+          </NavLink>
         </li>
         <li className={classes.sidelink}>
-          <NavLink to="/" activeClassName={classes.active} exact>Home</NavLink>
+          <NavLink to="/" activeClassName={classes.active} exact>
+            Home
+          </NavLink>
         </li>
         <li className={classes.sidelink}>
-          <NavLink to="/deal" activeClassName={classes.active} exact>Today's Deals</NavLink>
+          <NavLink to="/deal" activeClassName={classes.active} exact>
+            Today's Deals
+          </NavLink>
         </li>
         <li>
           <MDBDropdown className={classes.sidelink}>
@@ -81,23 +91,44 @@ class SideDrawer extends Component {
         </li>
         {this.props.isAuthenticated ? (
           <li className={classes.sidelink}>
-            <NavLink to="/cart" activeClassName={classes.active} exact>Cart</NavLink>
+            <NavLink to="/cart" activeClassName={classes.active} exact>
+              Cart
+            </NavLink>
           </li>
         ) : null}
         <li className={classes.sidelink}>
-          <NavLink to="/about" activeClassName={classes.active} exact>About</NavLink>
+          <NavLink to="/about" activeClassName={classes.active} exact>
+            About
+          </NavLink>
         </li>
-        {this.props.isAuthenticated ?  
-              <li className={classes.sidelink}><NavLink to="/MyOrder" exact activeClassName={classes.active} onClick={this.props.Toggle}>My Order</NavLink></li> : null}
         {this.props.isAuthenticated ? (
           <li className={classes.sidelink}>
-            <NavLink onClick={() => this.props.Logout()} to="/" exact activeClassName={classes.active}>
+            <NavLink
+              to="/MyOrder"
+              exact
+              activeClassName={classes.active}
+              onClick={this.props.Toggle}
+            >
+              My Order
+            </NavLink>
+          </li>
+        ) : null}
+        {this.props.isAuthenticated ? (
+          <li className={classes.sidelink}>
+            <NavLink
+              onClick={() => this.props.Logout()}
+              to="/"
+              exact
+              activeClassName={classes.active}
+            >
               Logout
             </NavLink>
           </li>
         ) : (
           <li className={classes.log}>
-            <NavLink to="/login" activeClassName={classes.active} exact>Login/Signup</NavLink>
+            <NavLink to="/login" activeClassName={classes.active} exact>
+              Login/Signup
+            </NavLink>
           </li>
         )}
       </ul>
@@ -115,6 +146,7 @@ const mapStateToProps = (state) => {
     isAuthenticated: state.Login.TokenId !== null,
     data: state.Login.Cart,
     login: state.Login.loginData,
+    error: state.Login.error,
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -122,6 +154,10 @@ const mapDispatchToProps = (dispatch) => {
     Logout: () => {
       dispatch(actions.logOut());
     },
+    getCartData: () => {
+      dispatch(actions.getCart());
+    },
+    errorNull: () => dispatch(actions.nullError()),
   };
 };
 export default connect(

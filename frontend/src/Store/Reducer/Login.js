@@ -1,7 +1,7 @@
 import * as actionTypes from '../Action/actionTypes';
 
 const InitialState = {
-    error: null,
+    error: false,
     signuped: false,
     Data: null,
     FetchSuccess: false,
@@ -26,7 +26,13 @@ const signupFailed = (state,action) =>{
     return{
         ...state,
         signuped: false,
-        error: action.error
+        error: true
+    }
+}
+const errorNil = (state,action) =>{
+    return{
+        ...state,
+        error: false
     }
 }
 const dataFetched = (state,action) =>{
@@ -111,7 +117,7 @@ const reducer = (state = InitialState, action) =>{
     switch(action.type){
          
         case(actionTypes.SIGNUPSUCCESS):  return signupSuccess(state,action);
-        case(actionTypes.SIGNUPFAILED): return signupFailed(state,action);
+        case(actionTypes.ERROR): return signupFailed(state,action);
         case(actionTypes.DATASUCCESS): return dataFetched(state,action);
         case(actionTypes.GETBYID): return getBYid(state,action);
         case(actionTypes.GETBYCATID): return getBYcatId(state,action);
@@ -122,6 +128,7 @@ const reducer = (state = InitialState, action) =>{
         case(actionTypes.USER_DATA): return userDetail(state,action);
         case(actionTypes.PREV_ORDER): return prevOrders(state,action);
         case(actionTypes.ORDER_SUCCESS): return orderSuccesfull(state,action);
+        case(actionTypes.ERRORNULL): return errorNil(state,action);
         default: return state;
     }
 }

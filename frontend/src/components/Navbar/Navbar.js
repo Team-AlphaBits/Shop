@@ -37,9 +37,9 @@ class NavbarPage extends Component {
       pathname: "/ProductList/RelatedItems/false",
     });
   };
-  componentDidMount(){
-      this.props.authCheckout()
-      this.props.getCartData()
+  componentDidMount() {
+    this.props.authCheckout();
+    this.props.getCartData();
   }
   //onSubmit={() => this.props.getResult(this.state.Input)}
   render() {
@@ -70,11 +70,11 @@ class NavbarPage extends Component {
       activeDeal = true;
     } else if (this.props.history.location.pathname === "/gifts") {
       activeGift = true;
-    }else if (this.props.history.location.pathname === "/cart") {
+    } else if (this.props.history.location.pathname === "/cart") {
       activeCart = true;
     }
     let fixed = null;
-    if (this.props.fixed || this.props.width < 770) {
+    if (this.props.fixed || this.props.width < 770 || this.props.show) {
       fixed = "top";
     }
     const nav1 = (
@@ -85,7 +85,7 @@ class NavbarPage extends Component {
         fixed={fixed}
         className={classes.nav1}
       >
-        {this.props.fixed || this.props.width < 770 ? (
+        {this.props.fixed || this.props.width < 770 || this.props.show? (
           <MDBHamburgerToggler
             color="white"
             id="hamburger1"
@@ -93,7 +93,7 @@ class NavbarPage extends Component {
           />
         ) : null}
         <MDBNavbarNav className={classes.set1}>
-        <h3 style={{ color: "white" }}>Hello, {this.props.name}</h3>
+          <h3 style={{ color: "white" }}>Hello, {this.props.name}</h3>
           <MDBCol md="6" className={classes.set2}>
             <form onSubmit={this.searchResult}>
               <input
@@ -110,11 +110,22 @@ class NavbarPage extends Component {
             </form>
           </MDBCol>
           <MDBNavItem active={activeLogin}>
-            <MDBNavLink to={this.props.isAuthenticated ? "/cart" : "/login"}className={classes.icon}>
-              {window.innerWidth >770 ? 
-              <Badges 
-              cart ={this.props.data ? this.props.data.cartData.cart.cartlist : null}
-              cartLogin = {this.props.login ? this.props.login.cart.cartlist : null}/>: null}
+            <MDBNavLink
+              to={this.props.isAuthenticated ? "/cart" : "/login"}
+              className={classes.icon}
+            >
+              {window.innerWidth > 770 ? (
+                <Badges
+                  cart={
+                    this.props.data
+                      ? this.props.data.cartData.cart.cartlist
+                      : null
+                  }
+                  cartLogin={
+                    this.props.login ? this.props.login.cart.cartlist : null
+                  }
+                />
+              ) : null}
             </MDBNavLink>
           </MDBNavItem>
         </MDBNavbarNav>
@@ -125,7 +136,8 @@ class NavbarPage extends Component {
         <MDBNavbarBrand>
           <strong
             className="white-text"
-            style={{ fontFamily: "italic", color: "red" }}
+            style={{ fontFamily: "italic", color: "red",fontSize: "26px",fontWeight: "bold" }}
+            // style={{ fontFamily: "italic", color: "red", fontWeight: "600" }}
           >
             $-"AlphaBits"
           </strong>
@@ -133,15 +145,15 @@ class NavbarPage extends Component {
         <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
           <MDBNavbarNav left>
             <MDBNavItem active={activeHome}>
-              <MDBNavLink to="/">Home</MDBNavLink>
+              <MDBNavLink to="/" style={{fontWeight: "500",fontSize: "18px"}}>Home</MDBNavLink>
             </MDBNavItem>
             <MDBNavItem active={activeDeal}>
-              <MDBNavLink to="/deal">Today's Deals</MDBNavLink>
+              <MDBNavLink to="/deal" style={{fontWeight: "500",fontSize: "18px"}}>Today's Deals</MDBNavLink>
             </MDBNavItem>
             <MDBNavItem active={activeGift}>
               <MDBDropdown>
                 <MDBDropdownToggle nav caret>
-                  <span className="mr-2">Categories</span>
+                  <span className="mr-2" style={{fontWeight: "500",fontSize: "18px"}}>Categories</span>
                 </MDBDropdownToggle>
                 <MDBDropdownMenu>
                   <MDBDropdownItem href="/ProductList/Electronics/true">
@@ -173,21 +185,21 @@ class NavbarPage extends Component {
             </MDBNavItem>
             {this.props.isAuthenticated ?  
             <MDBNavItem active={activeCart}>
-              <MDBNavLink to="/cart">Cart</MDBNavLink>
+              <MDBNavLink to="/cart" style={{fontWeight: "500",fontSize: "18px"}}>Cart</MDBNavLink>
             </MDBNavItem> :
             null}
             {this.props.isAuthenticated ?  
             <MDBNavItem active={activeCart}>
-              <MDBNavLink to="/MyOrder">My Order</MDBNavLink>
+              <MDBNavLink to="/MyOrder" style={{fontWeight: "500",fontSize: "18px"}}>My Order</MDBNavLink>
             </MDBNavItem> :
             null}
             <MDBNavItem active={activeHome}>
-              <MDBNavLink to="/about">About</MDBNavLink>
+              <MDBNavLink to="/about" style={{fontWeight: "500",fontSize: "18px"}}>About</MDBNavLink>
             </MDBNavItem>
             <MDBNavItem active={activeLogin}>
               {this.props.isAuthenticated ? 
-              <MDBNavLink onClick = {() => this.props.Logout()} to="/">Logout</MDBNavLink> : 
-              <MDBNavLink to="/login">Login/Signup</MDBNavLink>}
+              <MDBNavLink onClick = {() => this.props.Logout()} to="/" style={{fontWeight: "500",fontSize: "18px"}}>Logout</MDBNavLink> : 
+              <MDBNavLink to="/login" style={{fontWeight: "500",fontSize: "18px"}}>Login/Signup</MDBNavLink>}
             </MDBNavItem>
           </MDBNavbarNav>
         </MDBCollapse>
@@ -210,7 +222,7 @@ const mapStateToProps = (state) => {
     isAuthenticated: state.Login.TokenId !== null,
     data: state.Login.Cart,
     login: state.Login.loginData,
-    name: state.Login.name
+    name: state.Login.name,
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -219,11 +231,13 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(actions.getSearch(des));
     },
     Logout: () => {
-      dispatch(actions.logOut())
+      dispatch(actions.logOut());
     },
-    getCartData : () =>{ dispatch(actions.getCart())},
+    getCartData: () => {
+      dispatch(actions.getCart());
+    },
     authCheckout: () => dispatch(actions.authCheckState()),
-    userDetails: () => dispatch(actions.userDetails())
+    userDetails: () => dispatch(actions.userDetails()),
   };
 };
 export default connect(
