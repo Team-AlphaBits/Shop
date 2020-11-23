@@ -15,7 +15,7 @@ class about extends Component {
           />
           <Appbar.Content title={'About'} />
         </Appbar.Header>
-        <Webview uri={'https://infinite.red'} />
+        <Webview uri={'https://alphashop-1f940.web.app/about'} />
       </SafeAreaView>
     );
   }

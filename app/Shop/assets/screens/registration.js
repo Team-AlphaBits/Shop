@@ -14,9 +14,9 @@ class registration extends Component {
               this.props.navigation.navigate('Home');
             }}
           />
-          <Appbar.Content title={'https://calm-garden-34154.herokuapp.com/'} />
+          <Appbar.Content title={'https://alphashop-1f940.web.app/login'} />
         </Appbar.Header>
-        <Webview uri={'https://calm-garden-34154.herokuapp.com/'} />
+        <Webview uri={'https://alphashop-1f940.web.app/login'} />
       </SafeAreaView>
     );
   }
