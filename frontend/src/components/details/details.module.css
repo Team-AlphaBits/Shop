@@ -91,6 +91,7 @@
     width: 50%;
   }
 }
+
 @media (max-width: 600px) {
   .container {
     flex-flow: column;
@@ -110,5 +111,6 @@
   }
   .carimg {
     max-height: 300px;
+    object-fit: contain;
   }
 } ;
