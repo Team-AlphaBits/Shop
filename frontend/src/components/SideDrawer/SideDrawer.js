@@ -107,7 +107,6 @@ class SideDrawer extends Component {
               to="/MyOrder"
               exact
               activeClassName={classes.active}
-              onClick={this.props.Toggle}
             >
               My Order
             </NavLink>

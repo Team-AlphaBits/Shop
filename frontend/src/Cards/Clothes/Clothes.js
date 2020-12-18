@@ -28,7 +28,8 @@ function Clothes(props) {
         if (cnt < 8) {
           cards.push(
             <div
-              className={classes.manualcard}>
+              className={classes.manualcard}
+              key={i}>
               <img
                 src={props.data.productData[i].home_image}
                 alt="pic"

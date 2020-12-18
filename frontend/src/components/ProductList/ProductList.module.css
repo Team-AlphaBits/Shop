@@ -99,9 +99,14 @@
     height: 400px;
   }
   .img {
+<<<<<<< HEAD
     width: 100%;
     height: 100%;
     object-fit: contain;
+=======
+    max-width: 70%;
+    max-height: 300px;
+>>>>>>> 34a810bb3a1470873a6d4bf5679fb6f0a8cb2453
   }
 }
 .pricing {

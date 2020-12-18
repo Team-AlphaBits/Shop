@@ -14,7 +14,7 @@ class Layout extends Component{
         })
     }
     listenScrollEvent = e => {
-        if (window.scrollY > 70) {
+        if (window.scrollY > 25) {
           this.setState({fixed: true})
         } else {
           this.setState({fixed: false})
