@@ -11,7 +11,7 @@
 ###  • Products category page
 ###  • Cart view page
 
-## ★  Technologies used Node.js mongodb
+## ★  Technologies used : 
 ### ❯ Website : 
 #### • React.js
 #### • Redux.js
