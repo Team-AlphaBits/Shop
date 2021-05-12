@@ -1,12 +1,14 @@
 # Shop
+## Links :
+### • Website : [alphaShop](https://alphashop-1f940.web.app/)
 ## Shopping website with various features such as : 
-###   • Product upload page
-###   • Product details page
-###   • Buying page
-###   • Selling page
-###   • Homepage with offers on various products
-###   • Products category page
-###   • Cart view page
+###  • Product upload page
+###  • Product details page
+###  • Buying page
+###  • Selling page
+###  • Homepage with offers on various products
+###  • Products category page
+###  • Cart view page
 
 ## Technologies used Node.js mongodb
 ### Website : 
