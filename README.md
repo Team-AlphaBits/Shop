@@ -12,17 +12,17 @@
 ###  • Cart view page
 
 ## ★  Technologies used Node.js mongodb
-### Website : 
+### ❯ Website : 
 #### • React.js
 #### • Redux.js
 #### • Bootstrap
 
-### Backend : 
+### ❯ Backend : 
 #### • Node.js
 #### • MongoDB
 #### • REST Api
 
-### Android App : 
+### ❯ Android App : 
 #### • ReactNative
 #### • Redux
 #### • ReactNative Paper
