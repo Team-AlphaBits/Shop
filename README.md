@@ -1,6 +1,7 @@
 # Shop
 ## Links :
 ### • Website : [alphaShop](https://alphashop-1f940.web.app/)
+### • App : [alphaShop](https://github.com/Team-AlphaBits/Shop/raw/master/app/Shop/assets/app-release.apk)
 ## Shopping website with various features such as : 
 ###  • Product upload page
 ###  • Product details page
