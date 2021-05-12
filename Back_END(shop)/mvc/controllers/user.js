@@ -62,25 +62,22 @@ const loginUser =  function (req, res) {
     } 
     if (user) {
       const token = user.getJwt();
-      res.cookie('jwt', token, { maxAge: 900000, httpOnly: true })
+      res.cookie('jwt', token, { maxAge: 7200000, httpOnly: true })
       // res.setHeader('jwt', token);
      // console.log(token);
      try{
      userData = await User.findById(user._id,'user_name email cart');
      }
      catch{
-      res.status(401).send("Error in retrieving User info!!"); 
+      res.status(401).json("Error in retrieving User info!!"); 
      }
-      res.status(201).json({mssg: "Logged In!!",userData});
+      res.status(201).json({mssg: "Logged In!!",userData,token});
     } else {
-      res.status(401).json(info);               //error mssg send back
+      res.status(401).json("Incorrect Email or Password!");               //error mssg send back
     }
   })(req, res);
 };
 
-<<<<<<< HEAD
-
-=======
 const logoutUser = function(req, res){
   if(!req.user){
     res.status(401).send("Login First !!");
@@ -91,16 +88,11 @@ const logoutUser = function(req, res){
   res.clearCookie('jwt');
   res.send("DONE Logged Out!!");
 }
->>>>>>> origin/master
 
 
 
 module.exports = {
   registerUser,
   loginUser,
-<<<<<<< HEAD
- 
-=======
   logoutUser,
->>>>>>> origin/master
 };

@@ -1,6 +1,7 @@
 require('dotenv').config();
 const createError = require('http-errors');
 const express = require('express');
+const cors = require('cors');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
@@ -17,6 +18,7 @@ const app = express();
 app.set('views', path.join(__dirname, 'mvc','views'));
 app.set('view engine', 'ejs');
 
+app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -27,10 +29,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());     
 
 app.use("/", (req, res, next) =>{
-  res.header('Access-Control-Allow-Origin','*');
+  res.header('Access-Control-Allow-Origin','http://localhost:3000','https://alphashop-1f940.web.app','https://alphashop.herokuapp.com','*');
   res.setHeader('Access-Control-Allow-Methods','GET,PUT,POST,PATCH,DELETE');
   res.setHeader('Access-Control-Allow-Methods','Content-Type,Authorization');
- 
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.set('Access-Control-Allow-Credentials', 'true');
+  
   next();
 });
 

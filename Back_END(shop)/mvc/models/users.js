@@ -1,57 +1,12 @@
 const mongoose = require("mongoose");
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
-//const { stringify } = require("querystring");
 
-// console.log("=================");
-// console.log("=================");
-// console.log("CHECKING");
 
-// console.log("=================");
-// console.log("=================");
-const productDataSchema = new mongoose.Schema(
-  {  
-    
-    title:{
-      type: String,
-      required: true,
-    },
-    home_image: {
-      type: String,
-      required: true,
-    },
-    images: {
-      type: Array,
-      default: null,
-    },
-    description: {
-      type: String,
-      required: true,
-    },
-    price: {
-      type: String,
-      required: true,
-    },
-    quantity: {
-      type: String,
-      required: true,
-    },
-    short_desc: {
-      type: String,
-      required: true,
-    },
-    cat_id: {
-      type: String,
-      required: true,
-    },
-    seller_name: {
-      type: String,
-      required:true,
-    },
-  
-  });
 
-const cartProductlist = new mongoose.Schema(
+
+
+const cartProductList = new mongoose.Schema(
 {
   product_id:{
     type: String,
@@ -74,7 +29,7 @@ const cartProductlist = new mongoose.Schema(
     default: 1,
   },
 
-});
+  });
 
 const userSchema = new mongoose.Schema(
   {
@@ -90,7 +45,7 @@ const userSchema = new mongoose.Schema(
   password: String,
   salt: String,
   cart:{
-  cartlist: [cartProductlist],
+  cartlist: [cartProductList],
   total_product: {
     type: Number,
     default: 0,
@@ -100,15 +55,9 @@ const userSchema = new mongoose.Schema(
     default: 0,
   },
   },
-});
+  });
 
-const carousalDataSchema = new mongoose.Schema({
-  carousal_images: { 
-    type: String,
-    required: true,
-   
-  }
-});
+
 
 
 
@@ -142,5 +91,6 @@ userSchema.methods.getJwt = function () {
 
 
 mongoose.model("User", userSchema);
-mongoose.model("Product", productDataSchema);
-mongoose.model("Carousal", carousalDataSchema);
+mongoose.model("cartProduct", cartProductList);
+
+

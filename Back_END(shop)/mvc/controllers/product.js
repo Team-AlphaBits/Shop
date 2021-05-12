@@ -1,16 +1,11 @@
 const { resolveInclude } = require("ejs");
 const mongoose = require("mongoose");
-<<<<<<< HEAD
-mongoose.set('useNewUrlParser', true);
-mongoose.set('useFindAndModify', false);
-mongoose.set('useCreateIndex', true);
-=======
 const passport = require("passport");
 
->>>>>>> origin/master
 const User = mongoose.model("User");
 const Product = mongoose.model("Product");
 const Carousal = mongoose.model("Carousal");
+const Order = mongoose.model("Order");
 let default_prod_data = require("../models/Product_data");
 let productDatas = default_prod_data.Products;  
 
@@ -21,7 +16,7 @@ const getSearchResults = function({query}, res) {
         return res.json({ err: "Missing a query.!" });
     }
     let searchingFor = escapeRegex(query.query);
-    Product.find({$or:[{title: { $regex: searchingFor, $options : "i"} },{ cat_id: { $regex: searchingFor, $options : "i"} }]}, 'title home_image short_desc cat_id price ', (err, results) => {
+    Product.find({$or:[{title: { $regex: searchingFor, $options : "i"} },{ cat_id: { $regex: searchingFor, $options : "i"} },{ short_desc: { $regex: searchingFor, $options : "i"} }]}, 'title home_image short_desc cat_id price ', (err, results) => {
     if(err){
     return res.json({err: err});
     }
@@ -76,7 +71,7 @@ const reset = function(req,  res){
     });
 
 }
-//INSERTING ALL PRODUCTS IN DB
+
 //FOR SELLER PURPOSE TO ADD PRODUCT
 const uploadProductsForm = function({body}, res){
     let img = [];
@@ -84,23 +79,6 @@ const uploadProductsForm = function({body}, res){
    body.image2 && img.push(body.image2);
    body.image3 && img.push(body.image3);
    body.image4 && img.push(body.image4);
-<<<<<<< HEAD
-const product_details = {
-    title: body.title,
-    home_image: body.home_image,
-    description: body.description,
-    price: body.price,
-    quantity: body.quantity,
-    short_desc: body.short_desc,
-    cat_id: body.cat_id,
-    seller_name: body.seller_name,
-    
-    images: img
-}
-console.log("_____________");
-console.log(product_details);
-console.log("_____________");
-=======
     const product_details = {
         title: body.title,
         home_image: body.home_image,
@@ -116,7 +94,6 @@ console.log("_____________");
     console.log("_____________");
     console.log(product_details);
     console.log("_____________");
->>>>>>> origin/master
 
     body.origin && ( product_details.origin = body.origin)
 
@@ -128,10 +105,6 @@ Product.create(product_details, (err , new_product) => {
 });
 }
 
-<<<<<<< HEAD
-const sendProductData = function(req, res, next) {
-Product.find({},'title home_image short_desc cat_id price ', function(err, Prod_data){
-=======
 const sendProductData = async function(req, res) {
     let productData,carousalData,userData;
     try{
@@ -147,7 +120,6 @@ const sendProductData = async function(req, res) {
     }
     let p1 = new Promise(function(resolve, reject) {
         Product.find({},'title home_image short_desc cat_id price ', function(err, data){
->>>>>>> origin/master
     if(err){
         reject("ERROR!!");
         res.status(500).send("ERROR IN SENDING ProdData!!");
@@ -173,19 +145,6 @@ const sendProductData = async function(req, res) {
 });
 }
 
-<<<<<<< HEAD
-const getProductByID = function(req, res){
-    product_id = req.params.id;
-    Product.findById(product_id, function(err, Prod_data){
-        if(err){
-            res.send("ERROR IN SENDING DATA!!");
-            }
-            res.json(Prod_data);
-    });
-}
-
-const getUserByID = function(req, res){
-=======
 const getProductByID = async function(req, res){
     try{
     let userData = null;
@@ -203,40 +162,27 @@ catch(err){
 }
 }
 
-const getUserByID =  function(req, res){
->>>>>>> origin/master
-    user_id = req.params.userid;
-    User.findById(user_id, function(err, User_data){
-        if(err){
-            res.send("ERROR IN SENDING DATA!!");
-            }
-<<<<<<< HEAD
-            res.json(User_data);
-    });
-}
-
-const addToCart = function(req, res){
-    //testing
-   
-    var user_id = req.body.user_id;                 // NEED USER INFO FROM CLIENT
-    var prod_id = req.params.prodid;
-    var cart_data;
+const getUserByID =  async function(req, res){
+    try{
+    let userId = req.user,userData = null;
+    if(userId){
+        userData = await User.findById(userId,'user_name email cart');
+        }
+    res.status(200).json({userData});
+    }catch(err){
+        res.status(400).send("ERROR IN FETCHING USER DATA!!");
+    }
     
-    let p1 = new Promise(function(resolve, reject) {
-=======
-            res.status(200).json(User_data);
-    });
 }
 
 const addToCart =  function(req, res){
     //testing
    try{
     var user_id = req.user;                 // NEED USER INFO FROM CLIENT
-    var prod_id = req.params.prodid;
+    var prod_id = req.params.prodId;
     var cart_data;
     
     new Promise(function(resolve, reject) {
->>>>>>> origin/master
 
         User.find({"_id":user_id},function(err ,User_data) {
 
@@ -246,28 +192,11 @@ const addToCart =  function(req, res){
             }
            console.log("SUCCESSFULL ON RETREIVING USER_DATA");
              cart_data =  User_data;
-<<<<<<< HEAD
-    resolve("USER INFO FETCHED");
-        //  console.log(cart_data);
-    });
-});
-
-
-
-Promise.all([p1]).then(()=>{
-    
-
-//http://localhost:8080/api/add-to-cart/5f984e6563dfba42c45a8291/5f97381a2d9c4010ec3c9303
-    //
-   // var cart = req.cart;
-    
-=======
             //   console.log(cart_data);
     resolve("USER INFO FETCHED");
     });
 }).then(()=>{
 
->>>>>>> origin/master
    // PROBLEM NEED FIXING
     var found =false;
     new Promise(function(resolve, reject){
@@ -276,7 +205,7 @@ Promise.all([p1]).then(()=>{
         //     resolve();
         // }
        
-        User.find({"cart.cartlist.product_id" : prod_id}, function (err,result){
+        User.find({"_id":user_id,"cart.cartlist.product_id" : prod_id}, function (err,result){
         if(err){
             reject("ERROR!!");
             res.send("ERROR IN FINDING PRODUCT IN CART");
@@ -291,32 +220,20 @@ Promise.all([p1]).then(()=>{
         resolve("FOUND..!! PRODUCT EXIST ALREADY..!!");
     });
 }).then(()=>{
-<<<<<<< HEAD
-    if(found){
-=======
 
     if(found){
         new Promise((resolve, reject)=> {
->>>>>>> origin/master
-        User.findOneAndUpdate({"cart.cartlist.product_id":prod_id}, 
+        User.findOneAndUpdate({"_id":user_id,"cart.cartlist.product_id":prod_id}, 
                 { $inc: { [`cart.cartlist.$.quantity`]: 1 } }, {new: true}
             ,function(err,suc){
                 if(err){
                     console.log(err);
-<<<<<<< HEAD
-=======
                     reject("ERROR!!");
->>>>>>> origin/master
                 }else{
                     console.log(suc);
                     console.log("************************");
                     console.log("____IM HERE YOO HOO .. SUCCESS IN INC QUANTITY____");
                     console.log("***********************");
-<<<<<<< HEAD
-                }
-            }
-        );
-=======
                     resolve("done"); 
                 }
             }
@@ -333,7 +250,6 @@ Promise.all([p1]).then(()=>{
             res.status(200).send({message: "ADD TO CART SUCCESSFULL" ,userData});
         }).catch(err => console.log(err));
         }).catch(err => console.log(err));
->>>>>>> origin/master
     }else{
         // PROBLEM NEED TO INCLUDE PROMISE HERE TOO.
         var tmp_data;
@@ -364,8 +280,6 @@ Promise.all([p1]).then(()=>{
         console.log(new_cart_item);
         // console.log(convert_price(new_cart_item.price));
         console.log("**********************");
-<<<<<<< HEAD
-=======
         new Promise((resolve, reject)=> {
         User.findOneAndUpdate(
             { _id: user_id }, 
@@ -396,68 +310,7 @@ Promise.all([p1]).then(()=>{
             }).catch(err => console.log(err));
     
         }
->>>>>>> origin/master
-    //    User.findOne({ '_id': user_id }, function(err, user_data) {
-    //        if(err){
-    //             return res.send({ error : err});
-    //        }
-    //        if(!user_data){
-    //            return res.status(404).send({message: "USER DATA NOT FOUND.!!"});
-    //        }
-           
-    //         user_data.cart.cartlist.push(new_cart_item);
-    //         console.log("**********************");
-    //         console.log("**UPDATED CART INFO**");
-    //         console.log(user_data);
-    //         console.log("**********************");
-    //         user_data.save(function(err, updated_user_data){
-    //             if(err){
-    //                 console.log("ERRRRRRRRRRRRRRRRRRRRRR");
-    //                 return res.send({error: err});
-    //             }
-    //            // res.send(updated_user_data);
-    //         });
-           
-    //    }) 
-<<<<<<< HEAD
-  
-    User.findOneAndUpdate(
-        { _id: user_id }, 
-        { $push: { "cart.cartlist": new_cart_item  } },
-       function (err, suc) {
-             if (err) {
-                 console.log(err);
-                 
-             } 
-         });
-
-
-    });
-
-    }
-    User.findById(user_id , 'cart', function (err, user_data){
-        if(err){
-            res.send("ERROR IN SENDING DATA!!");
-            next();
-            }
-            console.log(user_data);
-           // res.json({message: "ADD TO CART SUCCESSFULL",user_data});
-    });
-   res.json({message: "ADD TO CART SUCCESSFULL" });
-}).catch(err => console.log(err));
-});
-=======
-    // User.findById(user_id , 'cart', function (err, user_data){
-    //     if(err){
-    //         res.send("ERROR IN SENDING DATA!!");
-    //         next();
-    //         }
-    //         console.log("||||||||||||||FINAL RESULT AFTER ADD_TO_CART OPERATION|||||||||||||||||||");
-    //         console.log(user_data);
-    //         console.log("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
-    //        // res.json({message: "ADD TO CART SUCCESSFULL",user_data});
-    // });
-   
+    
 
 }).catch(err => console.log(err));
 }).catch(err => console.log(err));
@@ -466,29 +319,13 @@ Promise.all([p1]).then(()=>{
     res.status(500).send(err);
 }
 
->>>>>>> origin/master
 }
 
 
-<<<<<<< HEAD
-const viewCart = function(req, res){
-<<<<<<< HEAD
-    var userid = req.params.userid;
-=======
-    var userid = req.user;
->>>>>>> origin/master
-    User.findById(userid , 'cart', function (err, cart_data){
-        if(err){
-            res.send("ERROR IN SENDING DATA!!");
-            next();
-            }
-            res.json(cart_data);
-    });
-=======
 const viewCart = async function(req, res){
     try{
     var userid = req.user;
-    cartData = await User.findById(userid , 'cart');
+    cartData = await User.findById(userid , 'user_name cart');
     
     res.status(200).json({message: "Cart Data fetched successfully" , cartData});
 }
@@ -496,11 +333,8 @@ catch(err){
     res.status(400).send(err);
 }
     
->>>>>>> origin/master
 }
 
-<<<<<<< HEAD
-=======
 const getProductByCategory = async function(req, res){
     try{
     let category = req.params.category_name;
@@ -509,10 +343,10 @@ const getProductByCategory = async function(req, res){
     userData = await User.findById(userId,'user_name email cart');
     }
     console.log("________CATEGORY Filter___________");
-    console.log(category);
-    console.log("__________________________________");
+    // console.log(category);
+    // console.log("__________________________________");
     let productData = await Product.find({"cat_id": category },'title home_image short_desc cat_id price ');
-    res.status(201).json({userData, productData});
+    res.status(200).json({userData, productData});
 }
 catch{
     res.status(400).send("ERROR IN CATEGORY FILTER");
@@ -534,7 +368,6 @@ const uploadCarousalForm =  function({body}, res){
     })
 }
 
->>>>>>> origin/master
 /////////////////////////////////////////////////////////////////////
 ///////////////-regex for converting price-/////////////////////////
 ///////////////////////////////////////////////////////////////////
@@ -543,14 +376,9 @@ function convert_price(text){
     return (parseFloat(text.replace( /[^\d\.]*/g, '')));
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
 function escapeRegex(text) {
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 };
->>>>>>> origin/master
 /////////////////////////////////////////////////////////////////////
 ///////////////-CALCULATING PRICES AFTER UPDATE-////////////////////
 ///////////////////////////////////////////////////////////////////
@@ -560,24 +388,27 @@ async function update_price(user_id){
         let tmp;
     console.log("Calculating TOTAL PRICE");
     
-    User.findById(user_id ,'user_name email cart' , function (err, user_data){
+    User.findById(user_id ,'user_name email cart', function (err, user_data){
         if(err){
-            res.send("ERROR IN SENDING DATA!!");
-            next();
+            res.json("ERROR IN SENDING DATA!!");
+            reject(err);
             }
             
             tmp =user_data;
             // console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
             // console.log(tmp.cart);                                              //WHATS INSIDE CART HERE IT IS..
-            tot_price = 0;
-            
+            let tot_price = 0;
+            let tot_product = 0;
+            console.log("*");
             for(var i=0;i<tmp.cart.cartlist.length;i++){
-                    let q = convert_price(tmp.cart.cartlist[i].price);
-                    tot_price += tmp.cart.cartlist[i].quantity * q;
+                let q = convert_price(tmp.cart.cartlist[i].price);
+                tot_price += tmp.cart.cartlist[i].quantity * q;
+                // tot_product += tmp.cart.cartlist[i].quantity;
             }
-            console.log(tot_price);
+            // console.log(tot_price);
             tmp.cart.total_price = tot_price;
             tmp.cart.total_product = tmp.cart.cartlist.length;
+            console.log("*");
             // console.log("^^^^^^^^^^^^^^^^^^^^^CART^^^^^^^^^^^^^^^^^^^^^^^^");
             // console.log(tmp)
             //     console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
@@ -585,13 +416,14 @@ async function update_price(user_id){
            tmp.save(function(err , suc) {
                if(err){
                    console.log("ERROR IN SAVING CART ADDITIONAL INFO");
+                   reject(err);
                }
-            //    console.log("SAVING DONE");
+               console.log("SAVING DONE");
             //    console.log(suc);                         //CHECKING IF IS WORKING OR NOT
-            resolve(tmp);
+                resolve(user_data);
            });
-           
-    });
+        });
+        // reject("did't do user ops!");
 // }
 // ).then(()=>{
 //     console.log("===============FINAL  DATA AFTER CALCULATION=====================");
@@ -599,12 +431,45 @@ async function update_price(user_id){
 //     return tmp;
 });
 }
-
+const increaseQuantityByValue = async function(req, res){
+    let userID = req.user;
+    let prodID = req.params.prodId;
+    let value = req.params.value;
+    if(value>10){
+        value = 10;
+    }
+    try{
+    await User.findOneAndUpdate({"cart.cartlist.product_id":prodID,"_id": userID}, 
+                {'cart.cartlist.$.quantity': value },function(err,suc){
+                if(err){
+                    console.log(err);
+                }
+                if(!suc){        
+                    console.log("PRODUCT DATA NOT FOUND ERRORR!!!!!!!!!!!!");
+                     return res.json({message : "ERROR GETTING NULL DATA"});
+                }
+                    console.log("++++++++++++++++++++++++++++++++");
+                    console.log(suc);
+                    console.log("++++++++++++++++++++++++++++++++");     
+            }
+        );
+    }
+    catch(err){
+         return res.status(500).send("Error while increasing product quatity by value");
+    }
+    try{
+        let userData = await update_price(userID);
+         res.status(200).json({message: "Quantity increased..!!!!",userData});
+    }
+    catch(err){
+        return res.status(500).send("Error after increasing product quatity by value while updating userData!!");
+    }
+}
 
 const increaseQuantity = function(req, res){
     try{
     let user_id = req.user;                 // NEED USER INFO FROM CLIENT
-    let prod_id = req.params.prodid;
+    let prod_id = req.params.prodId;
 
     new Promise(function(resolve, reject) {
 
@@ -618,7 +483,7 @@ const increaseQuantity = function(req, res){
                 if(!suc){                         // ERRRO HANDLING FOR NULL DATA
 
                     console.log("PRODUCT DATA NOT FOUND ERRORR!!!!!!!!!!!!");
-                    res.json({message : "ERROR GETING NULL DATA"});
+                    return res.status(202).json({message : "ERROR GETING NULL DATA"});
                     reject();
                 }
                     console.log("++++++++++++++++++++++++++++++++");
@@ -647,7 +512,7 @@ const increaseQuantity = function(req, res){
 }).catch(err => console.log(err));
     }
     catch(err){
-        res.status(500).send(err);
+       return res.status(500).send(err);
     }
 }
 
@@ -655,7 +520,7 @@ const increaseQuantity = function(req, res){
 const decreaseQuantity = function(req, res){
     try{
     let user_id = req.user;                 // NEED USER INFO FROM CLIENT
-    let prod_id = req.params.prodid;
+    let prod_id = req.params.prodId;
     let curr_qnt;
     
         
@@ -669,7 +534,7 @@ const decreaseQuantity = function(req, res){
             if(!user_data){                         // ERRRO HANDLING FOR NULL DATA
 
                 console.log("PRODUCT DATA NOT FOUND ERRORR!!!!!!!!!!!!");
-                res.json({message : "ERROR GETING NULL DATA"});
+                return res.status(202).json({message : "ERROR GETING NULL DATA"});
                 reject();
             }
             curr_qnt = user_data.cart.cartlist[0].quantity;
@@ -696,8 +561,6 @@ const decreaseQuantity = function(req, res){
         );
     }).then(()=> {
 
-
-        
         update_price(user_id).then((tmp) =>{
             userData = tmp
         
@@ -752,23 +615,117 @@ const decreaseQuantity = function(req, res){
 }).catch(err => console.log(err));
     }
     catch(err){
-        res.status(500).send(err);
+        return res.status(500).send(err);
     }
 }
 
->>>>>>> origin/master
+const removeProduct = async function(req, res) {
+    let prodID = req.params.prodId;
+    let userID = req.user;
+    console.log("Removing product with id:" + prodID);
+    try{
+    await User.updateOne(
+        { "_id": userID}, 
+        { "$pull": { "cart.cartlist": {"product_id": prodID} }});
+    userData = await update_price(userID);
+    res.status(200).json(userData);
+    }
+    catch(err){
+       return  res.status(500).send(err);
+    }
+};
+
+
+
+const placeOrder = async function(req, res){
+    try {
+        let userId = req.user;  
+        console.log(userId);
+        let userData = await User.findById(userId,'user_name email cart');
+        
+        // console.log(req.body);
+        // console.log(userData);
+        
+        const orderDetails = {
+            userId : userData._id,
+            userName: req.body.name,
+            email: userData.email,
+            productDetails: userData.cart.cartlist,
+            totalProducts: userData.cart.total_product,
+            totalPrice: userData.cart.total_price,
+            mobileNo: req.body.mobileNo,
+            address: req.body.addressLine1 +','+ req.body.addressLine2 +','+ req.body.landmark +','+
+                    req.body.city +','+ req.body.state+','+ req.body.pincode ,
+            paymentMethod: req.body.paymentMethod,
+            paymentSuccessful: true,
+        }
+        if(orderDetails.totalProducts == 0){
+            return res.status(201).json("Product list is null!!");
+        }
+        console.log("***************ORDER DETAILS***************");
+        console.log(orderDetails);
+        // body.origin && ( orderDetails.origin = body.origin)
+        await Order.create(orderDetails,async (err,done) =>{
+            if(err){
+                return res.status(500).json("Can't Place Order into Database!!");
+            }
+            console.log("***Order in database feeding***");
+            console.log(done);
+            console.log("*******************************");
+            // res.status(200).json({message: "Order Placed!!"});
+            await User.findOneAndUpdate({"_id":userId},{"cart.cartlist" : []},async (err,suc)=>{
+                if(err){
+                    console.log("************************erere******************");
+                    console.log(err);
+                    return res.status(500).json("Can't Find User Details!!");
+                }
+                console.log("Deleting user products!!");
+                await update_price(userId);
+                return res.status(201).json("Order Placed!!");
+            });
+
+        });
+        console.log("************************22222******************");
+        // res.status(202).json("Something went wrong!!");
+        // {
+        //     "name":"Dezx",
+        //     "mobileNo": 45421,
+        //     "addressLine1": "H. No 1",
+        //     "addressLine2": "near hospital",
+        //     "landmark": "infront og water tank",
+        //     "city": "balrampur",
+        //     "state": "CG",
+        //     "pincode": "492015",
+        //     "paymentMethod": "COD"
+        // }
+
+       
+    }
+    catch(err){
+        console.log("catcherror");
+        console.log(err);
+        return res.status(500).json({error: err});
+    }
+}
+
+
+const previousOrder = async function(req, res){
+    try{
+    let userID = req.user;  
+    orderDetails = await Order.find({"userId":userID});
+    res.status(200).send(orderDetails);
+    
+}catch(err){
+    res.status(500).send("ERROR IN GETTING PREVOUS ORDERS DETAILS!!");
+}
+
+}
+
 
 module.exports = {
     reset,              //development purpose only
     getSearchResults,
     uploadProductsForm,
-<<<<<<< HEAD
-    sendProductData,
-    getProductByID,
-    getUserByID,
-    addToCart,
-    viewCart,
-=======
     uploadCarousalForm,
     sendProductData,
     getProductByID,
@@ -776,8 +733,11 @@ module.exports = {
     getUserByID,
     addToCart,
     viewCart,
+    removeProduct,  
     increaseQuantity,
     decreaseQuantity,
->>>>>>> origin/master
     convert_price,
+    placeOrder,
+    increaseQuantityByValue,
+    previousOrder,
 };

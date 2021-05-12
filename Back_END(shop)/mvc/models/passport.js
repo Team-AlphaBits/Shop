@@ -4,16 +4,22 @@ const localStrategy = require("passport-local").Strategy;
 const mongoose = require("mongoose");
 const User = mongoose.model("User");
 const jwt = require('jsonwebtoken');
-const JwtStrategy = require('passport-jwt').Strategy,
-    ExtractJwt = require('passport-jwt').ExtractJwt;
+const JwtStrategy = require('passport-jwt').Strategy;
 
 var opts = {}
 opts.jwtFromRequest = function(req) { // tell passport to read JWT from cookies
   var token = null;
   if (req && req.cookies){
-    token = req.cookies['jwt']
+    token = req.cookies['jwt']?req.cookies['jwt']:null;
   }
-  // console.log("Extracting COOKIES!!",token); 
+  if ( !token && req && req.headers)
+        {   
+            token = req.headers['jwt'] ? req.headers['jwt'] : null;
+            
+        }
+
+  console.log("Extracting COOKIES!!",token); 
+  // console.log("Extracting COOKIES!!",req.headers); 
     return token;
 }
 opts.secretOrKey = process.env.JWT_TOKEN;

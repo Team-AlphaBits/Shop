@@ -9,9 +9,9 @@ const Product_data = require('../models/Product_data');
 
 
 
-///////////////////////////////////////////////////////////////
-/////////////////////USER ROUTES//////////////////////////////
-/////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+////////////////////////////////USER ROUTES//////////////////////////////
+////////////////////////////////////////////////////////////////////////
 
 router.post("/register",usersCtrl.registerUser);
 
@@ -19,9 +19,9 @@ router.post("/login",usersCtrl.loginUser);
 
 router.get("/logout", middleware.authorize,usersCtrl.logoutUser);
 
-///////////////////////////////////////////////////////////////
-/////////////////////PRODUCTS ROUTES//////////////////////////
-/////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+//////////////////////////////PRODUCTS ROUTES//////////////////////////
+//////////////////////////////////////////////////////////////////////
 
 router.get("/getSearchResults",middleware.authorize, productsCtrl.getSearchResults);
 
@@ -33,50 +33,30 @@ router.post("/upload-carousal", productsCtrl.uploadCarousalForm);
 
 router.get("/home",middleware.authorize, productsCtrl.sendProductData);
 
-            
-
 router.get("/product/:id",middleware.authorize, productsCtrl.getProductByID);
-
+            
 router.get("/category/:category_name",middleware.authorize, productsCtrl.getProductByCategory);
 
+router.get("/userDetails",middleware.authorize, productsCtrl.getUserByID);
 
-///////////////////////////////////////////////////////////////////////////////
-/////////////////////////PROTECTED ROUTES/////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////PROTECTED ROUTES/////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
 
-router.put("/add-to-cart/:prodid",passport.authenticate('jwt', { session: false }), productsCtrl.addToCart);       //id fetched from client cookie  
+router.put("/add-to-cart/:prodId",passport.authenticate('jwt', { session: false }), productsCtrl.addToCart);       //id fetched from client cookie  
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-///////////////////////////////////////////////////////////////
-/////////////////////PRODUCTS ROUTES//////////////////////////
-/////////////////////////////////////////////////////////////
-
-router.get("/getSearchResults", productsCtrl.getSearchResults);
-
-router.get("/reset", productsCtrl.reset);       //ONLY FOR DEVELOPMENT PURPOSE
-
-router.post("/upload-products", productsCtrl.uploadProductsForm);
-=======
-router.get("/view-Cart/",passport.authenticate('jwt', { session: false }), productsCtrl.viewCart);  //user_id from client side
-=======
 router.get("/view-Cart/",passport.authenticate('jwt', { session: false }), productsCtrl.viewCart);  //id fetched from client cookie  
->>>>>>> origin/master
 
-router.put("/incProd/:prodid",passport.authenticate('jwt', { session: false }), productsCtrl.increaseQuantity);         //id fetched from client cookie  
+router.put("/incProd/:prodId",passport.authenticate('jwt', { session: false }), productsCtrl.increaseQuantity);         //id fetched from client cookie  
 
-<<<<<<< HEAD
-router.put("/decProd/:prodid",passport.authenticate('jwt', { session: false }), productsCtrl.decreaseQuantity);          //user_id needed from client
->>>>>>> origin/master
+router.put("/decProd/:prodId",passport.authenticate('jwt', { session: false }), productsCtrl.decreaseQuantity);          //id fetched from client cookie  
 
+router.put("/removeProd/:prodId",passport.authenticate('jwt', { session: false }), productsCtrl.removeProduct);          //id fetched from client cookie  
 
-router.put("/add-to-cart/:prodid", productsCtrl.addToCart);
+router.post("/placeorder",passport.authenticate('jwt', { session: false }), productsCtrl.placeOrder);          //id fetched from client cookie  
 
-router.get("/view-cart/:userid", productsCtrl.viewCart);
-=======
-router.put("/decProd/:prodid",passport.authenticate('jwt', { session: false }), productsCtrl.decreaseQuantity);          //id fetched from client cookie  
->>>>>>> origin/master
+router.post("/incByVal/:prodId/:value",passport.authenticate('jwt', { session: false }), productsCtrl.increaseQuantityByValue);          //id fetched from client cookie  
 
-router.get("/product/:id", productsCtrl.getProductByID);
+router.get("/prevOrder",passport.authenticate('jwt', { session: false }), productsCtrl.previousOrder);          //id fetched from client cookie  
 
 module.exports = router;

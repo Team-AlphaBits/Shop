@@ -54,4 +54,5 @@ process.on("SIGTERM", () => {
 });
 
 require("./users");
+require("./products");
 require("./passport");

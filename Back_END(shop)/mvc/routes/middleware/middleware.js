@@ -9,12 +9,24 @@ const jwt = require('jsonwebtoken');
 const authorize = function(req, res, next){
         var token = null;
         req.user = null;
+        // console.log("__________________________");
+        // console.log(req);
+        // console.log("__________________________");
+        // console.log(req.headers);
+        // console.log("__________________________");
         if (req && req.cookies)
-        {
+        {   
             token = req.cookies['jwt'] ? req.cookies['jwt'] : null;
             // console.log("^^^^^^^^^^^^^^^^^^^^^");
             // console.log(token);
             // console.log("^^^^^^^^^^^^^^^^^^^^^");
+        }
+        if ( !token && req && req.headers)
+        {   
+            token = req.headers['jwt'] ? req.headers['jwt'] : null;
+            // console.log("^^^^^^^^^^^^^asdas^^^^^^^^");
+            // console.log(token);
+            // console.log("^^^^^^^^^^^^asdas^^^^^^^^^");
         }
         if(!token){
             // console.log("helloo!");
