@@ -20,6 +20,7 @@
 ### Backend : 
 #### • Node.js
 #### • MongoDB
+#### • REST Api
 
 ### Android App : 
 #### • ReactNative
