@@ -18,7 +18,7 @@ const composeEnhancers = process.env.NODE_ENV==='development' ? window.__REDUX_D
 const rootReducer = combineReducers({
   Login: LoginReducer,
 });
-const Store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
+const Store = createStore(rootReducer, applyMiddleware(thunk));
 
 ReactDOM.render(
     <Provider store={Store}>
